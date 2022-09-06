@@ -6,7 +6,9 @@ function Main() {
 
   return (
     <div>
+      <hr />
       <Banner/>
+      <hr />
       <Polaroids/>
     </div>
   );
