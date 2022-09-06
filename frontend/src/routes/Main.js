@@ -1,10 +1,13 @@
 // import {useEffect, useState} from 'react'
+import Banner from "../components/Banner";
+import Polaroids from "../components/Polaroids";
 
 function Main() {
 
   return (
     <div>
-      <h1>Main Page</h1>
+      <Banner/>
+      <Polaroids/>
     </div>
   );
 }

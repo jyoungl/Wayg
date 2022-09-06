@@ -1,12 +1,12 @@
 // import {useEffect, useState} from 'react'
 
-function Login() {
+function Feed() {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Feed Page</h1>
     </div>
   );
 }
 
-export default Login;
+export default Feed;
