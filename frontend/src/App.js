@@ -5,6 +5,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom"
+import Login from "./routes/Login"
 import Main from "./routes/Main"
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
   <Router>
     <Routes/>
     <Routes>
-      <Route path="/" element={<Main />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/main" element={<Main />} />
     </Routes>
   </Router>
   );
