@@ -1,9 +1,7 @@
-// import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-function Polaroid() {
+function Recommendation() {
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src="holder.js/100px180" />
@@ -19,4 +17,5 @@ function Polaroid() {
   );
 }
 
-export default Polaroid;
+export default Recommendation;
+
