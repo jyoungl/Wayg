@@ -9,9 +9,10 @@ function Main() {
   // const 
 
   return (
-    <div className="d-flex" style={{width: "100vw"}}>
+    <div className="d-flex" style={{width: "100vw", height: "100vh"}}>
       <ChatBot/>
-      <div className="d-flex-row">
+      <div className="d-flex-row justify-content-center">
+        <br />
         <Feeds/>
         <Recommendations/>
       </div>
