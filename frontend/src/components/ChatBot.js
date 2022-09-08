@@ -1,7 +1,16 @@
+import styles from "./ChatBot.module.css";
+import {useState, useEffect} from "react";
+
 function ChatBot() {
+  const [createFeed, setCreateFeed] = useState(false)
+  const makeFeed = () => {
+    setCreateFeed((current) => !current)
+    console.log("create Feed")
+  }
   return (
-    <div style={{backgroundColor: "#92b4ec", height: "100vh", width: "390px"}}>
+    <div className={styles.chatbot}>
       <h2>ChatBot</h2>
+      <button onClick={makeFeed}>피드작성하기</button>
     </div>
   );
 }

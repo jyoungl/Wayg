@@ -5,7 +5,7 @@ function Feed() {
   return (
     // for map 사용
     <div className='d-flex'>
-      <Card style={{ width: '20px', height: '20px' }}>
+      <Card style={{ width: '300px', height: '300px' }}>
         <Card.Img  className='w-80 h-80' variant="top" src="https://adventure.lotteworld.com/image/2022/9/202209051000073780.jpg" />
         <Card.Body>
           <Card.Title>롯데월드</Card.Title>
@@ -16,7 +16,7 @@ function Feed() {
         </Card.Body>
       </Card>
     </div>
-  );
+  )
 }
 
 export default Feed;

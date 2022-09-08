@@ -24,8 +24,10 @@ function Feeds() {
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={() => console.log('slide change')}
     >
-      <SwiperSlide><Feed /></SwiperSlide>
-      <SwiperSlide><Feed /></SwiperSlide>
+      <SwiperSlide><Feed/></SwiperSlide>
+      <SwiperSlide><Feed/></SwiperSlide>
+      <SwiperSlide><Feed/></SwiperSlide>
+      <SwiperSlide><Feed/></SwiperSlide>
       ...
     </Swiper>
   );

@@ -13,13 +13,16 @@ function Main() {
       <ChatBot/>
       <div className="d-flex-row justify-content-center">
         <br />
-        <Feeds/>
+        <div style={{width: '900px', height: '300px'}}>
+          <Feeds/>
+        </div>
+        <br />
         <Recommendations/>
       </div>
       
-      <div>
+      {/* <div>
         <CreateFeed></CreateFeed>
-      </div>
+      </div> */}
     </div>
   );
 }
