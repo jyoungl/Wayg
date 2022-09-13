@@ -1,10 +1,15 @@
 import Recommendation from "./Recommendation";
+import styles from "./Recommendations.module.css"
 
 function Recommendations() {
   return (
-    <div>
+    <div className={styles.container}>
       <h2>[팀명]이 추천해주는 여행지</h2>
-      <Recommendation/>
+      <div className={styles.recommendations}>
+        <Recommendation/>
+        <Recommendation/>
+        <Recommendation/>
+      </div>
     </div>
   );
 }
