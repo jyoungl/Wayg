@@ -1,13 +1,24 @@
 // import {useEffect, useState} from 'react'
-import Banner from "../components/Banner";
-import Polaroids from "../components/Polaroids";
+import ChatBot from "../components/ChatBot";
+import Feeds from "../components/Feeds";
+import Recommendations from "../components/Recommendations";
+import CreateFeed from "../components/CreateFeed";
 
 function Main() {
+  // const [AddFeed, setAddFeed] = useState(false)
+  // const 
 
   return (
-    <div>
-      <Banner/>
-      <Polaroids/>
+    <div className="d-flex" style={{width: "100vw"}}>
+      <ChatBot/>
+      <div className="d-flex-row">
+        <Feeds/>
+        <Recommendations/>
+      </div>
+      
+      <div>
+        <CreateFeed></CreateFeed>
+      </div>
     </div>
   );
 }

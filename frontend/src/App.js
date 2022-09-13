@@ -5,22 +5,16 @@ import {
   Routes,
   Route,
 } from "react-router-dom"
-import Main from "./routes/Main"
 import Login from "./routes/Login"
-import Feed from "./routes/Feed"
-import Course from "./routes/Course"
-import Navigation from "./components/Navigation"
-
+import Main from "./routes/Main"
 
 function App() {
   return (
   <Router>
-    <Navigation/>
+    <Routes/>
     <Routes>
-      <Route path="/" element={<Main />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/feed" element={<Feed />} />
-      <Route path="/course" element={<Course />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/main" element={<Main />} />
     </Routes>
   </Router>
   );
