@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * A DTO for the {@link com.ssafy.wayg.entity.Feed} entity
@@ -24,8 +25,12 @@ public class FeedDto implements Serializable {
     private String feedContent;
 	@ApiModelProperty(value = "닉네임")
     private String feedNickname;
-	@ApiModelProperty(value = "좋아요 개수")
-    private Integer feedLike;
 	@ApiModelProperty(value = "작성자 번호")
     private UserDto userNo;
+	@ApiModelProperty(value = "첨부 사진")
+	private List<FeedfileDto> feedFile;
+	@ApiModelProperty(value = "좋아요 개수")
+    private long feedLikeCnt;
+	@ApiModelProperty(value = "좋아요 여부")
+	private boolean feedLike;
 }

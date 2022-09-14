@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.wayg.dto.FeedDto;
+import com.ssafy.wayg.dto.LikeDto;
 import com.ssafy.wayg.service.FeedService;
 
 import io.swagger.annotations.ApiOperation;
@@ -90,7 +91,7 @@ public class FeedController {
 	}
 	
 	@ApiOperation(value = "내 피드 목록", notes = "성공여부와 내 피드 정보를 반환한다. ", response = Map.class)
-	@GetMapping
+	@GetMapping("/myFeed")
 	public ResponseEntity<Map<String,Object>> retrieveMyFeed(@ApiParam(value="현재 페이지", required=true) int page,
 															@RequestParam(value="size", defaultValue = "3") @ApiParam(value="페이지 당 글 개수") int size,
 															@RequestParam(value = "sort", defaultValue = "feedNo,desc") @ApiParam("정렬기준 컬럼명,정렬방식. 기본값은 feedNo,desc 다.") String sort,
@@ -106,5 +107,29 @@ public class FeedController {
 			resultMap.put("message",FAIL);
 		}
 		return new ResponseEntity<>(resultMap, httpStatus);
+	}
+	
+	@ApiOperation(value = "좋아요 추가", notes = "피드에 좋아요를 추가한다. 그리고 DB 입력 성공여부 메세지, 등록한 객체를 반환한다.", response = Map.class)
+	@PostMapping("/like")
+	public ResponseEntity<Map<String,Object>> plusLike(@RequestBody LikeDto like) {
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			resultMap.put("like",feedService.insertLike(like));
+			resultMap.put("message",SUCCESS);
+		} catch (Exception e) {
+			resultMap.put("message",e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "좋아요 삭제", notes = "피드 번호에 해당하는 피드의 정보를 삭제한다. 그리고 DB 삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@DeleteMapping("/like/{likeNo}")
+	public ResponseEntity<String> deleteLike(@PathVariable int likeNo) {
+		try {
+			feedService.deleteFeed(likeNo);
+			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(FAIL, HttpStatus.ACCEPTED);
+		}
 	}
 }

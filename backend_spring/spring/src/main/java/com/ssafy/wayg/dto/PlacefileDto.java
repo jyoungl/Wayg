@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ApiModel(value = "", description = "")
 public class PlacefileDto implements Serializable {
-    private Integer id;
+    private Integer placefileNo;
     private String placefileSavefolder;
     private String placefileOriginfile;
     private String placefileSavefile;

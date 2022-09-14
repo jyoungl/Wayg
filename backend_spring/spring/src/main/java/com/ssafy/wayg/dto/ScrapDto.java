@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ApiModel(value = "", description = "")
 public class ScrapDto implements Serializable {
-    private Integer id;
+    private Integer scrapNo;
     private UserDto userNo;
     private PlaceDto placeNo;
 }

@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ApiModel(value = "", description = "")
 public class LikeDto implements Serializable {
-    private Integer id;
+    private Integer likeNo;
     private UserDto userNo;
     private FeedDto feedNo;
 }

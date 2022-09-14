@@ -49,5 +49,23 @@ public class DEConverter {
 	public Feed toFeedEntity(FeedDto feedDto) {
 		return modelMapper.map(feedDto, Feed.class);
 	}
+	
+	/* 좋아요 부분 변환 */
+	
+	public List<LikeDto> toLikeDtoList(List<Like> list) {
+		return mapList(list, LikeDto.class);
+	}
+
+	public Page<LikeDto> toLikeDtoList(Page<Like> likeList){
+		return likeList.map(m->modelMapper.map(m,LikeDto.class));
+	}
+
+	public LikeDto toLikeDto(Like like) {
+		return modelMapper.map(like, LikeDto.class);
+	}
+
+	public Like toLikeEntity(LikeDto likeDto) {
+		return modelMapper.map(likeDto, Like.class);
+	}
 
 }

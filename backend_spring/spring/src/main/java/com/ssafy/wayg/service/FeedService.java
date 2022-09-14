@@ -21,6 +21,10 @@ public interface FeedService {
 
 	Page<FeedDto> retrieveMyFeed(int userNo, Pageable pageable) throws Exception;
 
+	LikeDto insertLike(LikeDto like) throws Exception;
+
+	void deleteLike(int likeNo) throws Exception;
+
 //	long getTotalCount() throws Exception;
 
 }

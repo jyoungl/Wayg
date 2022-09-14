@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ApiModel(value = "", description = "")
 public class FeedfileDto implements Serializable {
-    private Integer id;
+    private Integer feedfileNo;
     private String feedfileSavefolder;
     private String feedfileOriginfile;
     private String feedfileSavefile;

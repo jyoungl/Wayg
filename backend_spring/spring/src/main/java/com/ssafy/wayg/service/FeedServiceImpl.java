@@ -6,6 +6,7 @@ import com.ssafy.wayg.dto.FeedfileDto;
 import com.ssafy.wayg.dto.LikeDto;
 import com.ssafy.wayg.entity.Feed;
 import com.ssafy.wayg.repository.FeedRepository;
+import com.ssafy.wayg.repository.LikeRepository;
 import com.ssafy.wayg.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import java.util.List;
 public class FeedServiceImpl implements FeedService {
 
 	private FeedRepository feedRepository;
+	private LikeRepository likeRepository;
 	private DEConverter converter;
 
 	@Autowired
@@ -51,15 +53,26 @@ public class FeedServiceImpl implements FeedService {
 		feedRepository.delete(feedRepository.getReferenceById(feedNo));
 	}
 
-//	@Override
-//	public long getTotalCount() throws Exception {
-//		return feedRepository.count();
-//	}
+	@Override
+	public long getTotalCount() throws Exception {
+		return feedRepository.count();
+	}
 	
 	@Override
 	public Page<FeedDto> retrieveMyFeed(int userNo, Pageable pageable) throws Exception {
 		Page<FeedDto> feedDtoPage = converter.toFeedDtoList(feedRepository.findAllByUserUserNo(userNo,pageable));
 		return feedDtoPage;
+	}
+
+	@Override
+	public LikeDto insertLike(LikeDto likeDto) throws Exception {
+		return converter.toLikeDto(likeRepository.save(converter.toLikeEntity(likeDto)));
+	}
+	
+	@Override
+	@Transactional
+	public void deleteLike(int likeNo) throws Exception {
+		likeRepository.delete(likeRepository.getReferenceById(likeNo));
 	}
 
 }
