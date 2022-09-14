@@ -25,6 +25,6 @@ public interface FeedService {
 
 	void deleteLike(int likeNo) throws Exception;
 
-//	long getTotalCount() throws Exception;
+	long getTotalCount() throws Exception;
 
 }
