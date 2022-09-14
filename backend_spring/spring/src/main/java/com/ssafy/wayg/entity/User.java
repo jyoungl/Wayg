@@ -1,15 +1,18 @@
 package com.ssafy.wayg.entity;
 
+import com.ssafy.wayg.role.Role;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "user")
+@NoArgsConstructor
+@Getter
 public class User {
     @Id
     @Column(name = "user_no", nullable = false)
@@ -27,4 +30,25 @@ public class User {
     @Column(name = "user_age")
     private Integer userAge;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+    @Builder
+    public User(String userName, String userEmail, Integer userGender, Integer userAge, Role role){
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userGender = userGender;
+        this.userAge = userAge;
+        this.role = role;
+    }
+
+    public User update(String userName){
+        this.userName = userName;
+        return this;
+    }
+
+    public String getRoleKey(){
+        return this.role.getKey();
+    }
 }
