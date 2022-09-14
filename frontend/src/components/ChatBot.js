@@ -1,16 +1,14 @@
 import styles from "./ChatBot.module.css";
 import {useState, useEffect} from "react";
 
-function ChatBot() {
-  const [createFeed, setCreateFeed] = useState(false)
-  const makeFeed = () => {
-    setCreateFeed((current) => !current)
-    console.log("create Feed")
-  }
+function ChatBot({parentFunction, addFeed}) {
+
   return (
     <div className={styles.chatbot}>
       <h2>ChatBot</h2>
-      <button onClick={makeFeed}>피드작성하기</button>
+      {addFeed ? <button onClick={parentFunction}>되돌아가기</button>:<button onClick={parentFunction}>피드작성하기</button>}
+
+
     </div>
   );
 }
