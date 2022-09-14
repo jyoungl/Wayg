@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* 피드 swiper */
+.swiper-button-prev{
+  background: rgba(0, 0, 0, 0.5);
+  color: white !important;
+}
+
+.swiper-button-next {
+  background: rgba(0, 0, 0, 0.5);
+  color: white !important;
+}

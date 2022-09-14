@@ -5,12 +5,12 @@ function Feed() {
   return (
     // for map 사용
     <div className='d-flex'>
-      <Card style={{ width: '300px', height: '300px' }}>
-        <Card.Img  className='w-80 h-80' variant="top" src="https://adventure.lotteworld.com/image/2022/9/202209051000073780.jpg" />
+      <Card style={{ width: '200px', height: '200px' }}>
+        <Card.Img  className='w-100 h-100' variant="top" src="https://adventure.lotteworld.com/image/2022/9/202209051000073780.jpg" />
         <Card.Body>
-          <Card.Title>롯데월드</Card.Title>
+          <Card.Title>피드제목</Card.Title>
           <Card.Text>
-            aaa
+            피드 내용
           </Card.Text>
           <Button variant="primary">공유하기</Button>
         </Card.Body>
