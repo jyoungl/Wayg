@@ -36,7 +36,7 @@ function Recommendations() {
 
   return (
     <div className="spot-list">
-      <h2>[팀명]이 추천해주는 여행지</h2>
+      <h2>WAYG가 추천해주는 여행지</h2>
       <ul>
         {items.map((item,idx) => (
           <Recommendation {...item} key={idx}/>

@@ -1,4 +1,47 @@
 .chatbot {
     background-color: #92b4ec; 
     height: 100vh; 
-    min-width: 390px}
+    min-width: 390px
+}
+
+.penguin {
+    width:50px;
+    height:50px;
+
+}
+
+.receivedMessage {
+    border-radius: 5px;
+    background-color:aliceblue;
+    height: auto;
+    margin-left: 5%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.sendInput {
+    font-size: 12px;
+    border: none;
+}
+.chatting{
+    position: fixed;
+    bottom:0;
+}
+.chatBtn {
+    background-color:yellow;
+    border:none;
+}
+
+.sentMessage {
+    display:block;
+    border-radius:5px;
+    padding-left:5px;
+    padding-right:5px;
+    margin-top:20px;
+    background-color: yellow;
+    text-align:right;
+}
+
+/* .item{
+    text-align:left;
+} */
