@@ -10,9 +10,7 @@ function Main() {
       <ChatBot/>
       <div className="d-flex-row justify-content-center">
         <br />
-        <div style={{width: '900px', height: '300px'}}>
-          <Feeds/>
-        </div>
+        <Feeds/>
         <br />
         <Recommendations/>
       </div>
