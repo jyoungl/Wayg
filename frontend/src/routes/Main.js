@@ -5,9 +5,6 @@ import Recommendations from "../components/Recommendations";
 import CreateFeed from "../components/CreateFeed";
 
 function Main() {
-  // const [AddFeed, setAddFeed] = useState(false)
-  // const 
-
   return (
     <div className="d-flex" style={{width: "100vw", height: "100vh"}}>
       <ChatBot/>

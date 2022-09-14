@@ -1,5 +1,6 @@
 import styles from "./ChatBot.module.css";
 import {useState, useEffect} from "react";
+import store from "../store"
 
 function ChatBot() {
   const [createFeed, setCreateFeed] = useState(false)
