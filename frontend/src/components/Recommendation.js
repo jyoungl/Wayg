@@ -5,13 +5,15 @@ import styles from './Recommendation.module.css'
 function Recommendation({img_src, title, content }) {
   return (
     <div className={styles.recommendation}>
-      <img className={styles.recommendation_img} src={img_src} alt='img' />
       <div>
-        <h2 className={styles.recommendation__title}>
-          {title}
-        </h2>
-        <h3>2022</h3>
-        <p>{content}</p>
+        <img className={styles.recommendation_img} src={img_src} alt='img' />
+        <div>
+          <h2 className={styles.recommendation__title}>
+            {title}
+          </h2>
+          <h3>2022</h3>
+          <p>{content}</p>
+        </div>
       </div>
       <Button>공유하기</Button>
     </div>
