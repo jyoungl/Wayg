@@ -3,6 +3,7 @@ import ChatBot from "../components/ChatBot";
 import Feeds from "../components/Feeds";
 import Recommendations from "../components/Recommendations";
 import CreateFeed from "../components/CreateFeed";
+import styles from "./Main.module.css"
 
 function Main() {
 
@@ -12,13 +13,17 @@ function Main() {
   }
   return (
     <div className="d-flex" style={{width: "100vw", height: "100vh"}}>
-      <ChatBot addFeed={addFeed} parentFunction={parentFunction}/>
-      {addFeed ?  <CreateFeed></CreateFeed>:<div className="d-flex-row justify-content-center">
-        <br />
-        <Feeds/>
-        <br />
-        <Recommendations/>
-      </div>}
+      <div className={styles.ChatBot}>
+        <ChatBot addFeed={addFeed} parentFunction={parentFunction}/>
+      </div>
+      <div className={styles.detail}>
+        {addFeed ?  <CreateFeed></CreateFeed>:<div className="d-flex-row justify-content-center">
+          <br />
+          <Feeds/>
+          <br />
+          <Recommendations/>
+        </div>}
+      </div>
     </div>
   );
 }

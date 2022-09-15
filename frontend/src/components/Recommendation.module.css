@@ -1,16 +1,17 @@
 .recommendation {
-    background-color: white;
-    width: 200px;
-    margin-bottom: 70px;
-    font-weight: 300;
-    padding: 20px;
-    border-radius: 5px;
-    color: #111;
-    display: flex;
-    text-decoration: none;
-    box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
-      0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
-  }
+  margin: 10px;
+  background-color: white;
+  width: 200px;
+  margin-bottom: 70px;
+  font-weight: 300;
+  padding: 20px;
+  border-radius: 5px;
+  color: #111;
+  display: flex;
+  text-decoration: none;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+}
   
   .recommendation__img {
     top: -50px;

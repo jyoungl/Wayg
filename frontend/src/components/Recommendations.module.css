@@ -1,9 +1,14 @@
 .recommedations {
   display: flex;
-  flex-wrap: true;
+  flex-wrap: wrap;
   padding: 50px;
   width: 80%;
   padding-top: 70px;
+}
+
+.recommendations_list {
+  display: flex;
+  flex-wrap: wrap;
 }
   
 @media screen and (max-width: 1090px) {
