@@ -1,7 +1,18 @@
+.main{
+    font-family: 'Jalnan';
+    display: flex;
+    width: "100vw";
+    height: "100vh"
+}
+
 .ChatBot {
     position: fixed;
 }
 
 .detail {
     margin-left: 400px;
+}
+
+.font-apply{
+    font-family: 'Jalnan';
 }

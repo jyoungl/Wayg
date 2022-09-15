@@ -12,7 +12,7 @@ function Main() {
     setAddFeed((current)=> !current)
   }
   return (
-    <div className="d-flex" style={{width: "100vw", height: "100vh"}}>
+    <div className={styles.main}>
       <div className={styles.ChatBot}>
         <ChatBot addFeed={addFeed} parentFunction={parentFunction}/>
       </div>

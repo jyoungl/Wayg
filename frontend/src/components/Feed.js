@@ -1,20 +1,26 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import styles from './Feed.module.css';
 
-function Feed() {
+function Feed({img_src, title, content }) {
   return (
     // for map 사용
-    <div className='d-flex'>
-      <Card style={{ width: '200px', height: '200px' }}>
-        <Card.Img  className='w-100 h-100' variant="top" src="https://adventure.lotteworld.com/image/2022/9/202209051000073780.jpg" />
-        <Card.Body>
-          <Card.Title>피드제목</Card.Title>
-          <Card.Text>
-            피드 내용
-          </Card.Text>
-          <Button variant="primary">공유하기</Button>
-        </Card.Body>
-      </Card>
+    <div className={styles.feed}>
+      <div>
+        <img className={styles.feed_img} src={img_src} alt='img' />
+        <div>
+          <div className={styles.feed_box}>
+            <h2 className={styles.feed__title}>
+              {title}
+            </h2>
+            <h3>2022</h3>
+          </div>
+          <div className={styles.feed_box}>
+            <p>{content}</p>
+            <input className={styles.feed_btn} type="button" value="공유하기"/>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
