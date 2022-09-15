@@ -25,7 +25,6 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-@EnableTransactionManagement
 public class JpaConfig {
 	@Value("${spring.datasource.driver-class-name}")
     private String driveClassName;
@@ -60,7 +59,7 @@ public class JpaConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 	   LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 	   em.setDataSource(dataSource());
-	   em.setPackagesToScan(new String[] {"com.ssafy.webterview.entity"});
+	   em.setPackagesToScan(new String[] {"com.ssafy.wayg.entity"});
 	   JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 	   em.setJpaVendorAdapter(vendorAdapter);
 	   em.setJpaProperties(additionalProperties());

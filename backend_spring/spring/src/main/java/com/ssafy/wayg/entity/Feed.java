@@ -1,15 +1,18 @@
 package com.ssafy.wayg.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "feed")
 public class Feed {
     @Id
     @Column(name = "feed_no", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer feedNo;
 
     @Column(name = "feed_title", nullable = false, length = 45)
@@ -21,8 +24,8 @@ public class Feed {
     @Column(name = "feed_nickname", nullable = false, length = 10)
     private String feedNickname;
 
-//    @Column(name = "feed_like")
-//    private Integer feedLike;
+    @Column(name = "feed_like")
+    private Integer feedLike;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_no", nullable = false)

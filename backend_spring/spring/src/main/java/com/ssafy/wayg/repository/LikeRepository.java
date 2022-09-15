@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Integer> {
 
-	Page<Like> findAllByOrderByFeedLike(Pageable pageable);
+//	Page<Like> findAllByOrderByFeedLike(Pageable pageable);
 
-	Page<Like> findAllByUserUserNo(int userNo, Pageable pageable);
+//	Page<Like> findAllByUserUserNo(int userNo, Pageable pageable);
 }
