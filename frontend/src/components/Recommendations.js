@@ -5,7 +5,7 @@ import styles from "./Recommendations.module.css"
 import axios from "axios"
 
 function Recommendations() {
-  const [items, setItems] = useState([{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" }])
+  const [items, setItems] = useState([{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" }, {"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" }])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
 
@@ -37,11 +37,11 @@ function Recommendations() {
   return (
     <div className="spot-list">
       <h2>WAYG가 추천해주는 여행지</h2>
-      <ul>
+      <div className={styles.recommendations_list}>
         {items.map((item,idx) => (
           <Recommendation {...item} key={idx}/>
         ))}
-      </ul>
+      </div>
       
 
       {/* <div className={styles.recommendations}>

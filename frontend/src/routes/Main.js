@@ -12,16 +12,19 @@ function Main() {
     setAddFeed((current)=> !current)
   }
   return (
-    <div className="d-flex" style={{width: "100vw", height: "100vh"}}>
+
+    <div className={styles.main}>
       <div className={styles.ChatBot}>
         <ChatBot addFeed={addFeed} parentFunction={parentFunction}/>
       </div>
-      {addFeed ?  <CreateFeed></CreateFeed>:<div className="d-flex-row justify-content-center">
-        <br />
-        <Feeds/>
-        <br />
-        <Recommendations/>
-      </div>}
+      <div className={styles.detail}>
+        {addFeed ?  <CreateFeed></CreateFeed>:<div className="d-flex-row justify-content-center">
+          <br />
+          <Feeds/>
+          <br />
+          <Recommendations/>
+        </div>}
+      </div>
     </div>
   );
 }
