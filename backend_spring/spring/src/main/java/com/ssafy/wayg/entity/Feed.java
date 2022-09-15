@@ -17,9 +17,12 @@ public class Feed {
 
     @Column(name = "feed_content", nullable = false, length = 100)
     private String feedContent;
+    
+    @Column(name = "feed_nickname", nullable = false, length = 10)
+    private String feedNickname;
 
-    @Column(name = "feed_like")
-    private Integer feedLike;
+//    @Column(name = "feed_like")
+//    private Integer feedLike;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_no", nullable = false)

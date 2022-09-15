@@ -1,6 +1,5 @@
 HELP.md
 target/
-!target/**/**.jar
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -13,7 +12,6 @@ target/
 .settings
 .springBeans
 .sts4-cache
-.metadata
 
 ### IntelliJ IDEA ###
 .idea
@@ -33,4 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-

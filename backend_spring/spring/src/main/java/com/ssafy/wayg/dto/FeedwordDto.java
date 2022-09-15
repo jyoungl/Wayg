@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ApiModel(value = "", description = "")
 public class FeedwordDto implements Serializable {
-    private Integer id;
+    private Integer feedwordNo;
     private String feedwordWord;
     private FeedDto feedNo;
 }

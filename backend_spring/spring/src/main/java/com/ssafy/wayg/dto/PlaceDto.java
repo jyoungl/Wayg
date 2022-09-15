@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ApiModel(value = "", description = "")
 public class PlaceDto implements Serializable {
-    private Integer id;
+    private Integer placeNo;
     private String placeName;
     private String placeAddress;
     private String placeInfo;
