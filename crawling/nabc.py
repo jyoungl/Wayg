@@ -100,7 +100,11 @@ def travel(word) :
         driver.get(i)
         time.sleep(1)
         #블로그 안 본문이 있는 iframe에 접근하기
-        driver.switch_to.frame("mainFrame")
+        try :
+            driver.switch_to.frame("mainFrame")
+        except :
+            contents.append(" ")
+            continue
         #본문 내용 크롤링하기
         #본문 내용 크롤링하기
         try:
