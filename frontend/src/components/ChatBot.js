@@ -2,6 +2,9 @@ import styles from "./ChatBot.module.css";
 import {useState, useEffect} from "react";
 import store from "../store"
 import logo from '../images/penguin.png'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+
 
 
 
@@ -28,20 +31,29 @@ function ChatBot({parentFunction, addFeed}) {
   },[])
   return (
     <div className={styles.chatbot}>
-      <h2>ChatBot</h2>
-      {greeting ? <div><img className={styles.penguin} src={logo} alt="penguin" /><span className={styles.receivedMessage}>안녕? 추천받고 싶은 여행지가 있니?</span></div>: null}
-      <form className={styles.chatting} onSubmit={onSubmit}>
-        <input className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
-        <button className={styles.chatBtn}>보내기</button>
-      </form>
+      <div className={styles.chatbot_title}>
+        <div>wayg</div>
+      </div>
+      <br />
+      {greeting ? (
+        <div>
+          <img className={styles.penguin} src={logo} alt="penguin" />
+          <span className={styles.receivedMessage}>안녕? 추천받고 싶은 여행지가 있니?</span>
+        </div> ) : null}
+
+      <div className={styles.chatting}> 
+        <FontAwesomeIcon icon={faBars} />
+        <form onSubmit={onSubmit}>
+          <input className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
+          <button className={styles.chatBtn}>보내기</button>
+        </form>
+      </div>
+      
       <ul>
-        {sends.map((item, index) => (
-
-            <div className={styles.sentMessage} key={index}>
-              {item}
+        {sends.map((send, idx) => (
+            <div className={styles.sendMessage} key={idx}>
+              {send}
             </div>
-
-
         ))}
       </ul>
 

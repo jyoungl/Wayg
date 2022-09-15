@@ -4,6 +4,14 @@
     min-width: 390px
 }
 
+.chatbot_title {
+    height: 5vh;
+    color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .penguin {
     width:50px;
     height:50px;
@@ -26,13 +34,15 @@
 .chatting{
     position: fixed;
     bottom:0;
+    display: flex;
+    width: inherit;
 }
 .chatBtn {
     background-color:yellow;
     border:none;
 }
 
-.sentMessage {
+.sendMessage {
     display:block;
     border-radius:5px;
     padding-left:5px;
