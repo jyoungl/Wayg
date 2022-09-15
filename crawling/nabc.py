@@ -8,6 +8,7 @@ import os
 import sys
 import urllib.request
 import time
+
 # from multiprocessing import Pool 
 # import multiprocessing
 
@@ -21,7 +22,7 @@ def travel(word) :
 
 
     quote = word  #검색어
-    display_num = "10"     #최대갯수
+    display_num = "2"     #최대갯수
 
     encText = urllib.parse.quote(quote)
     url = "https://openapi.naver.com/v1/search/blog?query=" + encText +"&display=" + display_num # json 결과
@@ -116,12 +117,14 @@ def travel(word) :
 
 
     #제목, 블로그링크, 본문내용 Dataframe으로 만들기
-    df = pd.DataFrame({'제목':titles, '링크':blog_links,'내용':contents})
+    df = pd.DataFrame({'관광지':quote, '제목':titles, '링크':blog_links,'내용':contents})
 
     #df 저장
     df.to_csv('{}_블로그.csv'.format(quote),encoding='utf-8-sig',index=False)
     # print("<< 저장완료 >>")
 
     # print("time :", time.time() - start)
+    
+    
 
     
