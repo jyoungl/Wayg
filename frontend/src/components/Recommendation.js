@@ -8,14 +8,18 @@ function Recommendation({img_src, title, content }) {
       <div>
         <img className={styles.recommendation_img} src={img_src} alt='img' />
         <div>
-          <h2 className={styles.recommendation__title}>
-            {title}
-          </h2>
-          <h3>2022</h3>
-          <p>{content}</p>
+          <div className={styles.recommendation_box}>
+            <h2 className={styles.recommendation__title}>
+              {title}
+            </h2>
+            <h3>2022</h3>
+          </div>
+          <div className={styles.recommendation_box}>
+            <p>{content}</p>
+            <input className={styles.recommendation_btn} type="button" value="공유하기"/>
+          </div>
         </div>
       </div>
-      <Button>공유하기</Button>
     </div>
   );
 }

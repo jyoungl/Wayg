@@ -36,6 +36,7 @@ function Login({toDos, addToDo}) {
         <h1 className={styles.pjt_name}>우리어디가?</h1>
         <br />
         <button onClick={() => navigate('/main')} className={styles.main_button}>카카오톡으로 로그인하기</button>
+        <a href="/oauth2/authorization/kakao" class="btn btn-third active" role="button">Kakao Login</a>
         <p onClick={() => navigate('/main')} className={styles.sub_button}>로그인없이 사용하기</p>
       </div>
     </div>

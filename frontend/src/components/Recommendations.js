@@ -5,7 +5,7 @@ import styles from "./Recommendations.module.css"
 import axios from "axios"
 
 function Recommendations() {
-  const [items, setItems] = useState([{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" }])
+  const [items, setItems] = useState([{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" }, {"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" }])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
 
