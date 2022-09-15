@@ -1,31 +1,31 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import {useDropzone} from 'react-dropzone'
 import React from 'react';
-
-
-
+import {useState } from "react"
+import styles from "./CreateFeed.Module.css"
 function CreateFeed(props) {
-  const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
-  const files = acceptedFiles.map(file => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
+  const [imageSrc, setImageSrc] = useState('');
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc(reader.result)
+        resolve()
+      }
+    })
+  };
   return (
-    <div>
-      This is CreateFeed
+    
+    <main className="container">
+      <h2>이미지 미리보기</h2>
       <Card style={{ width: '18rem' }}>
-      <section className="container">
-      <div {...getRootProps({className: 'dropzone'})}>
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
+      <input id= "imgFile" type="file" style={{display: "none"}} onChange={(e) => {encodeFileToBase64(e.target.files[0])}} />
+      <label for="imgFile">Select picture</label>
+      <div>
+        {imageSrc && <img src={imageSrc} className={styles.previewImg} width="100%" height="50%" art="preview-img" />
+        }
       </div>
-      <aside>
-        <h4>Files</h4>
-        <ul>{files}</ul>
-      </aside>
-    </section>
       <Card.Body>
         <Card.Title>
           <input type="text" placeholder="여행지 이름을 작성하세요"/>
@@ -36,8 +36,8 @@ function CreateFeed(props) {
         <Button variant="primary">피드박제</Button>
       </Card.Body>
     </Card>
-    </div>
+    </main>
   )
 }
 
-export default CreateFeed
+export default CreateFeed;
