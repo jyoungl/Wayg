@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import wayg from '../images/wayg.png'
+import wayg from '../images/wayg2.png'
 import styles from "./Login.module.css";
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
