@@ -30,17 +30,28 @@
 .sendInput {
     font-size: 12px;
     border: none;
+    width: 300px;
+    height: 30px;
+    vertical-align: middle;
+    outline:none;
 }
 .chatting{
+    background-color:white;
     position: fixed;
     bottom:0;
     display: flex;
     text-align: end;
     width: inherit;
+    min-width: 390px
 }
 .chatBtn {
+    position:absolute;
+    right:0;
+    height: 32px;
     background-color:yellow;
     border:none;
+    
+    
 }
 
 .sendMessage {
@@ -51,8 +62,24 @@
     margin-top:20px;
     background-color: yellow;
     text-align:right;
+    
+}
+.anotherFunction {
+    position: absolute;
+    bottom: 0;
+    list-style: none;
+    margin-bottom:12%;
+    min-width: 390px;
+    border-radius: 5px;
+    background-color:rgb(227, 217, 217);
 }
 
-/* .item{
-    text-align:left;
-} */
+.anotherFunction li {
+    
+    margin-bottom:5px;
+    cursor: pointer;
+}
+
+.anotherFunction li :hover{
+    background-color:beige;
+}
