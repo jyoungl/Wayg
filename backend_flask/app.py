@@ -23,15 +23,15 @@ class Morpheme(Resource):
         # nouns = okt.nouns(text) # 명사만 추출
         return list(set(pos))
 
-    def post(self):
-        '''텍스트 정규화를 거친 후 형태소로 분리해 반환한다. 중복은 제외한다.  '''
-        # text = request.get_json()['text'] # json으로 받을때
-        text = request.form.get('text') # form으로 받을 때
-        # text = text.encode("utf-8")
-        text = okt.normalize(text)  # 정규화
-        pos = okt.pos(text)  # 형태소+품사태그 추출
-        # nouns = okt.nouns(text) # 명사만 추출
-        return list(set(pos))
+    # def post(self):
+    #     '''텍스트 정규화를 거친 후 형태소로 분리해 반환한다. 중복은 제외한다.  '''
+    #     # text = request.get_json()['text'] # json으로 받을때
+    #     text = request.form.get('text') # form으로 받을 때
+    #     # text = text.encode("utf-8")
+    #     text = okt.normalize(text)  # 정규화
+    #     pos = okt.pos(text)  # 형태소+품사태그 추출
+    #     # nouns = okt.nouns(text) # 명사만 추출
+    #     return list(set(pos))
 
 
 if __name__ == "__main__":
