@@ -75,6 +75,7 @@ def travel(word) :
         a = i.replace('\\','')
         b = a.replace('?Redirect=Log&logNo=','/')
         if "https://blog.naver.com/" not in b:
+            blog_links.append("https://blog.naver.com/")
             continue
         blog_links.append(b)
 
