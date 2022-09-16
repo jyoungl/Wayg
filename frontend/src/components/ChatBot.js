@@ -1,7 +1,7 @@
 import styles from "./ChatBot.module.css";
 import {useState, useEffect} from "react";
 import store from "../store"
-import logo from '../images/penguin.png'
+import wayg from '../images/wayg.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
@@ -34,12 +34,27 @@ function ChatBot({parentFunction, addFeed}) {
       <div className={styles.chatbot_title}>
         <div>wayg</div>
       </div>
+      
       <br />
-      {greeting ? (
-        <div>
-          <img className={styles.penguin} src={logo} alt="penguin" />
-          <span className={styles.receivedMessage}>안녕? 추천받고 싶은 여행지가 있니?</span>
-        </div> ) : null}
+
+      <div className={styles.chat_main}>
+        {greeting ? (
+          <div>
+            <img className={styles.chatbot_wayg} src={wayg} alt="wayg" />
+            <span className={styles.receivedMessage}>안녕? 추천받고 싶은 여행지가 있니?</span>
+          </div> ) : null}
+
+        <ul>
+          {sends.map((send, idx) => (
+              <div className={styles.sendMessage} key={idx}>
+                {send}
+              </div>
+          ))}
+        </ul>
+
+      </div>
+
+      {addFeed ? <button onClick={parentFunction}>되돌아가기</button>:<button onClick={parentFunction}>피드작성하기</button>}
 
       <div className={styles.chatting}> 
         <FontAwesomeIcon icon={faBars} />
@@ -48,17 +63,6 @@ function ChatBot({parentFunction, addFeed}) {
           <button className={styles.chatBtn}>보내기</button>
         </form>
       </div>
-      
-      <ul>
-        {sends.map((send, idx) => (
-            <div className={styles.sendMessage} key={idx}>
-              {send}
-            </div>
-        ))}
-      </ul>
-
-
-      {addFeed ? <button onClick={parentFunction}>되돌아가기</button>:<button onClick={parentFunction}>피드작성하기</button>}
 
 
     </div>
