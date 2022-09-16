@@ -12,7 +12,10 @@ function ChatBot({parentFunction, addFeed}) {
   const [greeting,setGreeting] = useState(false)
   const [send, setSend] = useState("")
   const [sends, setSends] = useState([])
+  const [upfunc, setUpFunc] = useState(false)
 
+
+  console.log(upfunc)
   const onChange = (event) => setSend(event.target.value)
   const onSubmit = (event) => {
     event.preventDefault();
@@ -23,6 +26,14 @@ function ChatBot({parentFunction, addFeed}) {
     setSend("")
   }
   console.log(sends)
+  const upAnotherFunction = () => {
+    setUpFunc(current => !current)
+  }
+    
+
+  // useEffect(() => {
+
+  // },[upfunc])
   
 
   useEffect(() => {
@@ -40,9 +51,18 @@ function ChatBot({parentFunction, addFeed}) {
           <img className={styles.penguin} src={logo} alt="penguin" />
           <span className={styles.receivedMessage}>안녕? 추천받고 싶은 여행지가 있니?</span>
         </div> ) : null}
+      
+        {upfunc ? <ul className={styles.anotherFunction}>
+        <li>대화 새로 시작하기</li>
+        <li>이번달 인기피드 보러가기</li>
+        <li>내가 좋아요 누른 피드 보러가기</li>
+        <li>내가 즐겨찾기한 관광지 보러가기</li>
+        <li>내가 올린 피드보기</li>
+        {addFeed ? <li style={{marginBottom:"5px"}} onClick={parentFunction}>되돌아가기</li>:<li onClick={parentFunction}>피드작성하기</li>}
+      </ul>: null}
 
       <div className={styles.chatting}> 
-        <FontAwesomeIcon icon={faBars} />
+        <FontAwesomeIcon className="additionalBtn fa-2xl" onClick={upAnotherFunction} icon={faBars} />
         <form onSubmit={onSubmit}>
           <input className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
           <button className={styles.chatBtn}>보내기</button>
@@ -56,10 +76,7 @@ function ChatBot({parentFunction, addFeed}) {
             </div>
         ))}
       </ul>
-
-
-      {addFeed ? <button onClick={parentFunction}>되돌아가기</button>:<button onClick={parentFunction}>피드작성하기</button>}
-
+      
 
     </div>
   );
