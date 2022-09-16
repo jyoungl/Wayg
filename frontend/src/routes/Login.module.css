@@ -19,8 +19,29 @@
   }
 
   .login_wayg {
+    position: absolute;
+    left: 50vw;
     width: 250px;
     height: 250px;
+  }
+
+  .login_bus {
+    animation-duration: 5s;
+    animation-name: doodoodoongjang;
+    width: 250px;
+    height: 250px;
+  }
+
+  @keyframes doodoodoongjang {
+    from {
+      margin-left: 300%;
+      
+    }
+
+    to {
+      margin-left: -300%;
+      
+    }
   }
   
   .pjt_name{

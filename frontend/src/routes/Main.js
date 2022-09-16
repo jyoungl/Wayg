@@ -34,7 +34,12 @@ function Main() {
       </div>
       <div className={styles.detail}>
         {loadingScreen ? 
-        <Loading/>
+        <div className="d-flex-row justify-content-center">
+          <br />
+          <Feeds/>
+          <br />
+          <Recommendations/>
+        </div>
            : null}
 
         {addFeed ?  <CreateFeed/>: null }
@@ -43,14 +48,7 @@ function Main() {
           <Shows/>
         </div> : null}
       </div>
-      <div> a </div>
-      <div className="d-flex-row justify-content-center">
-            <br />
-            <Feeds/>
-            <br />
-            <Recommendations/>
-          </div>
-      </div>
+    </div>
   );
 }
 

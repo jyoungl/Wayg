@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import wayg from '../images/wayg2.png'
+import bus from '../images/bus.png'
 import styles from "./Login.module.css";
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +27,7 @@ function Login({toDos, addToDo}) {
       <div className={styles.login_items}>
         <h1 className={styles.pjt_name}>우리어디가?</h1>
         <img className={styles.login_wayg} src={wayg} alt="wayg"/>
+        <img className={styles.login_bus} src={bus} alt="bus"/>
         <br />
         <br />
         <br />
