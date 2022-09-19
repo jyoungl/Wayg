@@ -1,3 +1,14 @@
 .previewImg {
   object-fit: contain;
 }
+
+.container {
+  text-align: center;
+  align-items: center;
+}
+
+.Card {
+
+  position:relative;
+  width: 50%;
+}

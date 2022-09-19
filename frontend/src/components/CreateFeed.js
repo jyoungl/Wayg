@@ -19,7 +19,7 @@ function CreateFeed(props) {
     
     <main className="container">
       <h2>이미지 미리보기</h2>
-      <Card style={{ width: '18rem' }}>
+      <Card className={styles.Card}>
       <input id= "imgFile" type="file" style={{display: "none"}} onChange={(e) => {encodeFileToBase64(e.target.files[0])}} />
       <label for="imgFile">Select picture</label>
       <div>
@@ -28,10 +28,14 @@ function CreateFeed(props) {
       </div>
       <Card.Body>
         <Card.Title>
-          <input type="text" placeholder="여행지 이름을 작성하세요"/>
+          <div>
+            <input style={{objectFit:"cover"}} type="text" placeholder="여행지를 작성하세요"/>
+          </div>
         </Card.Title>
         <Card.Text>
-          <input type="text" placeholder="내용을 작성하세요"/>
+          <div>
+            <input type="text" placeholder="내용을 작성하세요"/>
+          </div>
         </Card.Text>
         <Button variant="primary">피드박제</Button>
       </Card.Body>
