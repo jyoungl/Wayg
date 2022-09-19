@@ -23,14 +23,14 @@ public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
 
-    @Bean
-    public WebSecurityCustomizer configure() {
-        return (web) -> web.ignoring().mvcMatchers(
-                "/v3/api-docs/**",
-                "/swagger-ui/**",
-                "/api/v1/login" // 임시
-        );
-    }
+//    @Bean
+//    public WebSecurityCustomizer configure() {
+//        return (web) -> web.ignoring().mvcMatchers(
+//                "/v3/api-docs/**",
+//                "/swagger-ui/**",
+//                "/api/v1/login" // 임시
+//        );
+//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
