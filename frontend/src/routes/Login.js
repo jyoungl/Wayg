@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import wayg from '../images/wayg2.png'
+import woori from '../images/wayg2.png'
 import bus from '../images/bus.png'
 import styles from "./Login.module.css";
 // import { Link } from "react-router-dom";
@@ -26,14 +26,22 @@ function Login({toDos, addToDo}) {
     <div className={styles.login}>
       <div className={styles.login_items}>
         <h1 className={styles.pjt_name}>우리어디가?</h1>
-        <img className={styles.login_wayg} src={wayg} alt="wayg"/>
-        <img className={styles.login_bus} src={bus} alt="bus"/>
-        <br />
-        <br />
-        <br />
-        <button onClick={() => navigate('/main')} className={styles.main_button}>카카오톡으로 로그인하기</button>
-        <a onClick={clickLogin} class="btn btn-third active" role="button">Kakao Login</a>
-        <p onClick={() => navigate('/main')} className={styles.sub_button}>로그인없이 사용하기</p>
+        <div className={styles.container}>
+          <div className={styles.box}>
+          <div className={styles.login_woori}>
+              <img style={{width: "125px", height: "125px"}} src={woori} alt="woori"/>
+            </div>
+            <div className={styles.login_bus}>
+              <img style={{width: "250px", height: "250px"}} src={bus} alt="bus"/>
+            </div>
+            
+          </div>
+        </div>
+        <div className={styles.button}>
+          <button onClick={() => navigate('/main')} className={styles.main_button}>카카오톡으로 로그인하기</button>
+          <a onClick={clickLogin} class="btn btn-third active" role="button">Kakao Login</a>
+          <p onClick={() => navigate('/main')} className={styles.sub_button}>로그인없이 사용하기</p>
+        </div>
       </div>
     </div>
   );
