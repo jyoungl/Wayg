@@ -132,15 +132,27 @@
       opacity: 1;
     }
   }
+
+  .kakao_btn {
+    background-image: url("/src/images/kakao_login_large_narrow.png");
+    background-repeat: no-repeat;
+    background-size : auto;
+    margin: 10px auto;
+    /* padding: -10px; */
+    color: transparent;
+    width: 340px;
+    height: 90px; 
+  }
   
   .main_button {
-    margin-bottom: 5px;
-    font-size: 24px;
-    color: #556677;
-    text-decoration: none;
-    border-radius: 25px;
-    background-color: 	#fef01b;
-    border-style: none;
+    background-image: url("/src/images/kakao_login_large.png");
+    background-repeat: no-repeat;
+    background-size : cover;
+    margin: 10px auto;
+    /* padding: -10px; */
+    color: transparent;
+    width: 500px;
+    height: 90px; 
   }
 
   .sub_button {

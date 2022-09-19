@@ -10,6 +10,7 @@ import axios from 'axios';
 
 function Login({toDos, addToDo}) {
   const navigate = useNavigate();
+  const KAKAO_AUTH_URL = "";
 
   const Login = async () => {
     axios.get( 'http://localhost:8080/api/oauth2/authorization/kakao', 
@@ -39,7 +40,13 @@ function Login({toDos, addToDo}) {
         </div>
         <div className={styles.button}>
           <button onClick={() => navigate('/main')} className={styles.main_button}>카카오톡으로 로그인하기</button>
-          <a onClick={clickLogin} class="btn btn-third active" role="button">Kakao Login</a>
+          <a onClick={clickLogin} className={styles.kakao_btn} role="button">Kakao Login</a>
+          {/* <a href={KAKAO_AUTH_URL}>
+            <div 
+                className={styles.kakao_btn} 
+                >
+            </div>
+          </a> */}
           <p onClick={() => navigate('/main')} className={styles.sub_button}>로그인없이 사용하기</p>
         </div>
       </div>
