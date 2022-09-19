@@ -1,4 +1,4 @@
-package com.ssafy.wayg.auth;
+package com.ssafy.wayg.config.auth;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

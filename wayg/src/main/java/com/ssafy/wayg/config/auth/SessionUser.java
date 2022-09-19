@@ -1,4 +1,4 @@
-package com.ssafy.wayg.auth;
+package com.ssafy.wayg.config.auth;
 
 import com.ssafy.wayg.entity.User;
 import lombok.Getter;

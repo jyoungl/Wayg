@@ -1,17 +1,11 @@
 package com.ssafy.wayg.controller;
 
-import com.ssafy.wayg.auth.LoginUser;
-import com.ssafy.wayg.auth.SessionUser;
+import com.ssafy.wayg.config.auth.LoginUser;
+import com.ssafy.wayg.config.auth.SessionUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ssafy.wayg.dto.UserDto;
-import com.ssafy.wayg.entity.User;
 
 import javax.servlet.http.HttpSession;
 
