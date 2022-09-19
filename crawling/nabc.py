@@ -107,7 +107,7 @@ def travel(word) :
             contents.append(" ")
             continue
         #본문 내용 크롤링하기
-        #본문 내용 크롤링하기
+        
         try:
             a = driver.find_element(By.CSS_SELECTOR,'div.se-main-container').text
             contents.append(a)
