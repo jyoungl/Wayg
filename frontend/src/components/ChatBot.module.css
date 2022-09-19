@@ -72,12 +72,19 @@
     position: absolute;
     bottom: 0;
     list-style: none;
-    margin-bottom:12%;
+    margin-bottom:3%;
     min-width: 390px;
     border-radius: 10px;
     background-color:aliceblue;
     padding-top:10px;
+    animation: upmove 1s forwards;
 }
+
+@keyframes upmove {
+    from {bottom: -20px;}
+    to {bottom: 20px;}
+}
+
 
 .anotherFunction li {
     
@@ -88,4 +95,8 @@
 .anotherFunction li:hover{
     background-color:rgb(234, 233, 245);
     border-radius:5px;
+}
+
+.anotherFunction {
+
 }

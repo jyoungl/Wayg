@@ -26,7 +26,7 @@ function Main() {
         <ChatBot addFeed={addFeed} parentFunction={parentFunction}/>
       </div>
       <div className={styles.detail}>
-        {addFeed ? <div className="d-flex-row justify-content-center">
+        {addFeed ? <div className={styles.right}>
           <CreateFeed/>
         </div>:<div className="d-flex-row justify-content-center">
           <br />

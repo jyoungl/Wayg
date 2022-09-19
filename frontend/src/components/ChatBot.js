@@ -59,7 +59,7 @@ function ChatBot({parentFunction, addFeed}) {
         <li>내가 좋아요 누른 피드 보러가기</li>
         <li>내가 즐겨찾기한 관광지 보러가기</li>
         <li>내가 올린 피드보기</li>
-        {addFeed ? <li style={{marginBottom:"5px"}} onClick={parentFunction}>되돌아가기</li>:<li onClick={parentFunction}>피드작성하기</li>}
+        {addFeed ? <li onClick={parentFunction}>되돌아가기</li>:<li onClick={parentFunction}>피드작성하기</li>}
       </ul>: null}
 
       <div className={styles.chatting}> 

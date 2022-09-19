@@ -19,11 +19,12 @@ function CreateFeed(props) {
     
     <main className="container">
       <h2>이미지 미리보기</h2>
-      <Card className={styles.Card}>
+      <Card style={{width:"100%", height:"100%"}} className={styles.Card}>
       <input id= "imgFile" type="file" style={{display: "none"}} onChange={(e) => {encodeFileToBase64(e.target.files[0])}} />
+      
       <label for="imgFile">Select picture</label>
-      <div>
-        {imageSrc && <img src={imageSrc} className={styles.previewImg} width="100%" height="50%" art="preview-img" />
+      <div style={{width:"100%", height:"100%"}} className={styles.selectLabel}>
+        {imageSrc && <img src={imageSrc} className={styles.previewImg} width="100%" height="100%" art="preview-img" />
         }
       </div>
       <Card.Body>
