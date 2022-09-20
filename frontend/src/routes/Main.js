@@ -6,20 +6,10 @@ import CreateFeed from "../components/CreateFeed";
 import Shows from "../components/Shows"
 import Loading from "../components/Loading"
 import styles from "./Main.module.css"
-import axios from 'axios';
+
 
 function Main() {
-  const ACCESS_TOKEN = 'a';
-
-  const kakaoLogout = () => {
-    axios.post(`https://kapi.kakao.com?&`, {
-        headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`
-        } 
-      }).then((res) => {
-      console.log(res)
-    })
-  }
+  
   // 기본 화면(로딩화면?)으로 돌아가기
   const [loadingScreen, setLoadingScreen] = useState(true)
   const goLoadingScreen = () => {
@@ -61,6 +51,7 @@ function Main() {
           <Shows/>
         </div> : null}
       </div>
+
     </div>
   );
 }
