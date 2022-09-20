@@ -1,10 +1,13 @@
 package com.ssafy.wayg.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.ssafy.wayg.role.Role;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -13,6 +16,8 @@ import javax.persistence.*;
 @Table(name = "`user`")
 @NoArgsConstructor
 @Getter
+@DynamicInsert
+@DynamicUpdate
 public class User {
     @Id
     @Column(name = "user_no", nullable = false)
