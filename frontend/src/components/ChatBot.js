@@ -4,42 +4,92 @@ import store from "../store"
 import wayg from '../images/wayg.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 
 
 
 function ChatBot({parentFunction, addFeed}) {
+  // 데이터전송 axios를 위한 useState()
+  const [receives, setReceives] = useState([]);
+  const [receive, setReceive] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const [greeting,setGreeting] = useState(false)
   const [send, setSend] = useState("")
   const [sends, setSends] = useState([])
   const [upfunc, setUpFunc] = useState(false)
+  const [story, setStory] = useState([])
 
-
-  console.log(upfunc)
   const onChange = (event) => setSend(event.target.value)
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     if (send ==="") {
       return
     }
     setSends((currentArray) => [...currentArray,send])
+    setStory(story.concat(
+      <div>
+        <div className={styles.sendMessage}>{send}</div>
+      </div>
+    ))
+
     setSend("")
   }
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        setError(null);
+        // setUsers(null)
+        setReceive('');
+        setReceives([]);
+        setLoading(true);
+        const response = await axios.get(
+          `http://localhost:5000/morph?text=${sends[sends.length-1]}`
+        );
+        console.log(response.data)
+        setReceive(() => setReceive(JSON.stringify(response.data)))
+        setReceives((currentArray) => [...currentArray,receive])
+         if (Boolean(receive)===true) {
+          console.log('a')
+        setStory(story.concat(
+          <div>
+            <div className={styles.receivedMessage}>{receive}</div>
+          </div>
+        ))
+         }
+    
+        // setUsers(JSON.stringify(response.data))
+      } catch (e) {
+        setError(e);
+      }
+      setLoading(false)
+    }
+
+    fetchUsers();
+
+  }, [sends])
+
+
+
+
+
   console.log(sends)
   const upAnotherFunction = () => {
     setUpFunc(current => !current)
   }
     
 
-  // useEffect(() => {
-
-  // },[upfunc])
-  
 
   useEffect(() => {
     console.log("penguin")
     setGreeting((current) => !current)
   },[])
+
+
+  if (loading) return <div>로딩중..</div>
+  if (error) return <div>에러가 발생 하였습니다.</div>
   return (
     <div className={styles.chatbot}>
       <div className={styles.chatbot_title}>
@@ -69,16 +119,35 @@ function ChatBot({parentFunction, addFeed}) {
           <button className={styles.chatBtn}>보내기</button>
         </form>
       </div>
-      
+      {/* 여기는 채팅 내용 ui */}
       <ul>
-        {sends.map((send, idx) => (
-            <div className={styles.sendMessage} key={idx}>
-              {send}
-            </div>
-        ))}
+        <div>
+          {story}
+        </div>
       </ul>
 
+
+
+
+      {/* <ul>
+        {sends.map((send, idx) => (
+            <div>
+              <div className={styles.sendMessage} key={idx}>
+              {send}
+            </div>
+            </div>
+        ))}
+
+        {receives.map((receive, idx) => (
+          <div className={styles.receivedMessage} key={idx}>
+            {receive}
+            </div>
+        ))}
+
+      </ul> */}
+
     </div>
+    
   );
 }
 
