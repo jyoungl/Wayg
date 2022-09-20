@@ -6,19 +6,18 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "scrap")
-public class Scrap {
+@Table(name = "feedlike")
+public class Feedlike {
     @Id
-    @Column(name = "scrap_no", nullable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer scrapNo;
+    @Column(name = "like_no", nullable = false)
+    private Integer likeNo;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_no", nullable = false)
     private User userNo;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "place_no", nullable = false)
-    private Place placeNo;
+    @JoinColumn(name = "feed_no", nullable = false)
+    private Feed feedNo;
 
 }

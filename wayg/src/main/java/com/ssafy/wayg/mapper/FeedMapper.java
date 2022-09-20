@@ -1,7 +1,7 @@
 package com.ssafy.wayg.mapper;
 
 import com.ssafy.wayg.entity.Feed;
-import com.ssafy.wayg.entity.Like;
+import com.ssafy.wayg.entity.Feedlike;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -19,7 +19,7 @@ public interface FeedMapper {
 
 //	public int getTotalCount() throws SQLException;
 	
-	public int insertLike(Like like) throws SQLException;
+	public int insertLike(Feedlike like) throws SQLException;
 	
 	public int deleteLike(int likeNo) throws SQLException;
 }

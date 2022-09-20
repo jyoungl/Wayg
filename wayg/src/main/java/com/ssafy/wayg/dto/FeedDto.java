@@ -28,9 +28,10 @@ public class FeedDto implements Serializable {
 	@ApiModelProperty(value = "작성자 번호")
     private UserDto userNo;
 	@ApiModelProperty(value = "첨부 사진")
-	private List<FeedfileDto> feedFile;
+	private List<FeedfileDto> feedFiles;
 	@ApiModelProperty(value = "좋아요 개수")
     private long feedLikeCnt;
 	@ApiModelProperty(value = "좋아요 여부")
 	private boolean feedLike;
+
 }

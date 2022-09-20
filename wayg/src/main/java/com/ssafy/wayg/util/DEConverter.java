@@ -52,20 +52,33 @@ public class DEConverter {
 	
 	/* 좋아요 부분 변환 */
 	
-	public List<LikeDto> toLikeDtoList(List<Like> list) {
-		return mapList(list, LikeDto.class);
+	public List<FeedlikeDto> toLikeDtoList(List<Feedlike> list) {
+		return mapList(list, FeedlikeDto.class);
 	}
 
-	public Page<LikeDto> toLikeDtoList(Page<Like> likeList){
-		return likeList.map(m->modelMapper.map(m,LikeDto.class));
+	public Page<FeedlikeDto> toLikeDtoList(Page<Feedlike> likeList){
+		return likeList.map(m->modelMapper.map(m,FeedlikeDto.class));
 	}
 
-	public LikeDto toLikeDto(Like like) {
-		return modelMapper.map(like, LikeDto.class);
+	public FeedlikeDto toLikeDto(Feedlike like) {
+		return modelMapper.map(like, FeedlikeDto.class);
 	}
 
-	public Like toLikeEntity(LikeDto likeDto) {
-		return modelMapper.map(likeDto, Like.class);
+	public Feedlike toLikeEntity(FeedlikeDto likeDto) {
+		return modelMapper.map(likeDto, Feedlike.class);
+	}
+	
+	/* 피드 파일 부분 변환 */
+
+	public List<FeedfileDto> toFeedfileDtoList(List<Feedfile> list) {
+		return mapList(list, FeedfileDto.class);
+	}
+	
+	public FeedfileDto toFeedfileDto(Feedfile feedfile) {
+		return modelMapper.map(feedfile, FeedfileDto.class);
 	}
 
+	public Feedfile toFeedfileEntity(FeedfileDto feedfileDto) {
+		return modelMapper.map(feedfileDto, Feedfile.class);
+	}
 }
