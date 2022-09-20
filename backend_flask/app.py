@@ -1,10 +1,12 @@
 from flask import Flask, render_template, jsonify, request, make_response
 from flask_restx import Api, Resource  # Api 구현을 위한 Api 객체 import
+from flask_cors import CORS
 from konlpy.tag import Okt
 import json
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
+CORS(app, resources={r'*': {'origins': ['http://localhost:3000']}})
 api = Api(app, version='1.0', title='API 문서', description='Swagger 문서', doc="/api-docs")  # Flask 객체에 Api 객체 등록
 
 
