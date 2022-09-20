@@ -20,17 +20,17 @@ public class SwaggerConfig {
 	@Bean
 	public Docket postsApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("Webterview")
+				.groupName("wayg")
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.ssafy.webterview.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.ssafy.wayg.controller"))
 				.paths(regex("/.*"))
 				.build();
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Webterview REST API")
-				.description("Webterview Project API")
+		return new ApiInfoBuilder().title("Wayg REST API")
+				.description("Wayg Project API")
 				.termsOfServiceUrl("https://edu.ssafy.com")
 				.license("SSAFY License")
 				.licenseUrl("ssafy@ssafy.com").version("1.0").build();
