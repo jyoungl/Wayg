@@ -1,6 +1,8 @@
 package com.ssafy.wayg.dto;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,13 +18,16 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "", description = "")
+@ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 public class UserDto implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(value = "회원 번호")
     private Integer userNo;
+    @ApiModelProperty(value = "회원 이름")
     private String userName;
+    @ApiModelProperty(value = "회원 이메일")
     private String userEmail;
+    @ApiModelProperty(value = "회원 성별")
     private Integer userGender;
+    @ApiModelProperty(value = "회원 나이")
     private Integer userAge;
 }
