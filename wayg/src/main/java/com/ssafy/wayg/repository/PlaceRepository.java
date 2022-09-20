@@ -13,9 +13,8 @@ import java.util.List;
 public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
 	Page<Place> findAllByOrderByPlaceScrap(Pageable pageable);
-	Page<Place> findByUserNoUserNo(int userNo, Pageable pageable);
 	
-	@Query("Select f FROM Place f WHERE f.id IN (?1)")
+	@Query("Select p FROM Place p WHERE p.id IN (?1)")
 	Page<Place> findByPlaceNo(List<Integer> placeNoList, Pageable pageable);
 
 }

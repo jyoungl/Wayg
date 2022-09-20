@@ -12,6 +12,7 @@ import javax.persistence.*;
 public class Placescrap {
     @Id
     @Column(name = "scrap_no", nullable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer scrapNo;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

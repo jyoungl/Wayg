@@ -14,7 +14,7 @@ public interface PlacescrapRepository extends JpaRepository<Placescrap, Integer>
 	
 	int countByPlaceNoPlaceNo(int placeNo);
 	
-	@Query("select place_no from placescrap where user_no = ?1")
+	@Query("select placeNo from Placescrap where userNo IN (?1)")
 	List<Integer> findByUserNo(int userNo);
-	
+
 }
