@@ -33,7 +33,7 @@ public class DEConverter {
 				.collect(Collectors.toList());
 	}
 
-	/* 게시판 부분 변환 */
+	/* 피드 부분 변환 */
 	public List<FeedDto> toFeedDtoList(List<Feed> list) {
 		return mapList(list, FeedDto.class);
 	}
@@ -73,7 +73,7 @@ public class DEConverter {
 	public List<FeedfileDto> toFeedfileDtoList(List<Feedfile> list) {
 		return mapList(list, FeedfileDto.class);
 	}
-	
+
 	public FeedfileDto toFeedfileDto(Feedfile feedfile) {
 		return modelMapper.map(feedfile, FeedfileDto.class);
 	}
@@ -81,4 +81,54 @@ public class DEConverter {
 	public Feedfile toFeedfileEntity(FeedfileDto feedfileDto) {
 		return modelMapper.map(feedfileDto, Feedfile.class);
 	}
+
+	/* 관광지 부분 변환 */
+	public List<PlaceDto> toPlaceDtoList(List<Place> list) {
+		return mapList(list, PlaceDto.class);
+	}
+
+	public Page<PlaceDto> toPlaceDtoList(Page<Place> placeList){
+		return placeList.map(m->modelMapper.map(m,PlaceDto.class));
+	}
+
+	public PlaceDto toPlaceDto(Place place) {
+		return modelMapper.map(place, PlaceDto.class);
+	}
+
+	public Place toPlaceEntity(PlaceDto placeDto) {
+		return modelMapper.map(placeDto, Place.class);
+	}
+
+	/* 스크랩 부분 변환 */
+
+	public List<PlacescrapDto> toScrapDtoList(List<Placescrap> list) {
+		return mapList(list, PlacescrapDto.class);
+	}
+
+	public Page<PlacescrapDto> toScrapDtoList(Page<Placescrap> scrapList){
+		return scrapList.map(m->modelMapper.map(m,PlacescrapDto.class));
+	}
+
+	public PlacescrapDto toScrapDto(Placescrap scrap) {
+		return modelMapper.map(scrap, PlacescrapDto.class);
+	}
+
+	public Placescrap toScrapEntity(PlacescrapDto scrapDto) {
+		return modelMapper.map(scrapDto, Placescrap.class);
+	}
+
+	/* 관광지 파일 부분 변환 */
+
+	public List<PlacefileDto> toPlacefileDtoList(List<Placefile> list) {
+		return mapList(list, PlacefileDto.class);
+	}
+
+	public PlacefileDto toPlacefileDto(Placefile placefile) {
+		return modelMapper.map(placefile, PlacefileDto.class);
+	}
+
+	public Placefile toPlacefileEntity(PlacefileDto placefileDto) {
+		return modelMapper.map(placefileDto, Placefile.class);
+	}
+
 }
