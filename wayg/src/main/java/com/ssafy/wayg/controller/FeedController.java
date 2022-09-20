@@ -21,8 +21,6 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/feed")
 public class FeedController {
-	
-//	private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
 	private static final String SUCCESS = "succeess";
 	private static final String FAIL = "fail";
 	
@@ -122,11 +120,11 @@ public class FeedController {
 		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "좋아요 삭제", notes = "피드 번호에 해당하는 피드의 정보를 삭제한다. 그리고 DB 삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-	@DeleteMapping("/like/{likeNo}")
-	public ResponseEntity<String> deleteLike(@PathVariable int likeNo) {
+	@ApiOperation(value = "좋아요 삭제", notes = "피드 번호에 해당하는 피드의 좋아요 정보를 삭제한다. 그리고 DB 삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@DeleteMapping("/like/{feedNo}")
+	public ResponseEntity<String> deleteLike(@RequestParam int userNo, @RequestParam int feedNo) {
 		try {
-			feedService.deleteFeed(likeNo);
+			feedService.deleteLike(userNo, feedNo);
 			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(FAIL, HttpStatus.ACCEPTED);

@@ -79,8 +79,8 @@ public class FeedServiceImpl implements FeedService {
 	
 	@Override
 	@Transactional
-	public void deleteLike(int likeNo) throws Exception {
-		likeRepository.delete(likeRepository.getOne(likeNo));
+	public void deleteLike(int userNo, int feedNo) throws Exception {
+		likeRepository.delete(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(userNo, feedNo));
 	}
 	
 	@Override

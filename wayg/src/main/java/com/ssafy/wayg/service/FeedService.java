@@ -21,7 +21,7 @@ public interface FeedService {
 
 	FeedlikeDto insertLike(FeedlikeDto like) throws Exception;
 
-	void deleteLike(int likeNo) throws Exception;
+	void deleteLike(int userNo, int feedNo) throws Exception;
 
 	Page<FeedDto> retrieveLikeList(int userNo, Pageable pageable) throws Exception;
 
