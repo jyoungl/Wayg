@@ -1,13 +1,20 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, make_response
 from flask_restx import Api, Resource  # Api 구현을 위한 Api 객체 import
 from konlpy.tag import Okt
+import json
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 api = Api(app, version='1.0', title='API 문서', description='Swagger 문서', doc="/api-docs")  # Flask 객체에 Api 객체 등록
+
 
 # morph_api = api.namespace('/', description='형태소 분리 API')
 
 okt = Okt()
+
+
+def encode(data):
+    return make_response(json.dumps(data, ensure_ascii=False))
 
 
 @api.route("/morph")
@@ -21,7 +28,7 @@ class Morpheme(Resource):
         text = okt.normalize(text)  # 정규화
         pos = okt.pos(text) # 형태소+품사태그 추출
         # nouns = okt.nouns(text) # 명사만 추출
-        return list(set(pos))
+        return encode(list(set(pos)))
 
     # def post(self):
     #     '''텍스트 정규화를 거친 후 형태소로 분리해 반환한다. 중복은 제외한다.  '''
