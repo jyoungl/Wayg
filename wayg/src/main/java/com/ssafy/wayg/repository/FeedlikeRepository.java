@@ -18,7 +18,7 @@ public interface FeedlikeRepository extends JpaRepository<Feedlike, Integer> {
 	
 	int countByFeedNoFeedNo(int feedNo);
 	
-	@Query("select feed_no from feedlike where user_no = ?1")
+	@Query("select feedNo from Feedlike where userNo IN (?1)")
 	List<Integer> findByUserNo(int userNo);
 
 }
