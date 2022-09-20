@@ -2,6 +2,7 @@ package com.ssafy.wayg.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -24,7 +25,8 @@ public class Feed {
     @Column(name = "feed_nickname", nullable = false, length = 10)
     private String feedNickname;
 
-    @Column(name = "feed_like")
+    @Column(name = "feed_like", nullable = false)
+    @ColumnDefault("0")
     private Integer feedLike;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
