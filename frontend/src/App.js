@@ -7,7 +7,7 @@ import {
 } from "react-router-dom"
 import Login from "./routes/Login"
 import Main from "./routes/Main"
-import Detail from "./routes/Detail";
+import KakaoRedirectHandler from "./routes/KakaoRedirectHandler";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/main" element={<Main />} />
-      <Route path="/:id" element={<Detail />} />
+      <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler />} />
     </Routes>
   </Router>
   );
