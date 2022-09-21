@@ -63,11 +63,7 @@ public class DEConverter {
 	}
 
 	public FeedlikeDto toLikeDto(Feedlike like) {
-		System.out.println("변환 전 값: " + like);
-		FeedlikeDto f = modelMapper.map(like, FeedlikeDto.class);
-		f.setUserNo(f.getUserNo());
-		System.out.println("변환값: " + f);
-		return f;
+		return modelMapper.map(like, FeedlikeDto.class);
 	}
 
 	public Feedlike toLikeEntity(FeedlikeDto likeDto) {

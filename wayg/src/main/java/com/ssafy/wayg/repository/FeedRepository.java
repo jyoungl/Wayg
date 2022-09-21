@@ -21,4 +21,6 @@ public interface FeedRepository extends JpaRepository<Feed, Integer> {
 	@Query("Select f FROM Feed f WHERE f.id IN (?1)")
 	Page<Feed> findByFeedNo(List<Integer> feedNoList, Pageable pageable);
 
+	@Query(value = "select user_no from feed where feed_no = ?1", nativeQuery = true)
+    int findByFeedNo(int feedNo);
 }
