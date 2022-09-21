@@ -4,9 +4,18 @@ import Feeds from "../components/Feeds";
 import Recommendations from "../components/Recommendations";
 import CreateFeed from "../components/CreateFeed";
 import Shows from "../components/Shows"
+import Loading from "../components/Loading"
 import styles from "./Main.module.css"
 
+
 function Main() {
+  
+  // 기본 화면(로딩화면?)으로 돌아가기
+  const [loadingScreen, setLoadingScreen] = useState(true)
+  const goLoadingScreen = () => {
+    setLoadingScreen((current)=> !current)
+  }
+
   // 피드 작성하기
   const [addFeed, setAddFeed] = useState(false)
   const parentFunction = () => {
@@ -23,19 +32,27 @@ function Main() {
 
     <div className={styles.main}>
       <div className={styles.ChatBot}>
-        <ChatBot addFeed={addFeed} parentFunction={parentFunction}/>
+        <ChatBot addFeed={addFeed} parentFunction={parentFunction} goLikeFeed={goLikeFeed} goLoadingScreen={goLoadingScreen}/>
       </div>
       <div className={styles.detail}>
-        {addFeed ?  <CreateFeed/>:<div className="d-flex-row justify-content-center">
+        {/* <button className={styles.logout_button} onclick={kakaoLogout()}>로그아웃</button> */}
+        {loadingScreen ? 
+          // <Loading />
+        <div className="d-flex-row justify-content-center">
           <br />
           <Feeds/>
           <br />
           <Recommendations/>
-        </div>}
-        {/* <div>
+        </div>
+           : null}
+
+        {addFeed ?  <CreateFeed/>: null }
+        {likeFeed ? 
+        <div>
           <Shows/>
-        </div> */}
+        </div> : null}
       </div>
+
     </div>
   );
 }

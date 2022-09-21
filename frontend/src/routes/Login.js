@@ -1,6 +1,9 @@
-import {useState} from 'react'
-import wayg from '../images/wayg.png'
+import {useState, useEffect} from 'react'
+import woori from '../images/wayg2.png'
+import bus from '../images/bus.png'
+import kakaoBtn from "../images/kakao_login_large_narrow.png"
 import styles from "./Login.module.css";
+
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -9,29 +12,68 @@ import axios from 'axios';
 
 function Login({toDos, addToDo}) {
   const navigate = useNavigate();
+  
+  const REST_API_KEY = "f97c174637b7c5eb1ed49c135dcc8b7a"
+  const REDIRECT_URI = "http://localhost:3000/oauth/callback/kakao"
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&prompt=login`;
+  
+  // const LOGOUT_REDIRECT_URI = "http://localhost:3000"
+  // const JS_KEY = 'f33b6403dcd4f32d57b46564676b0596'
+  // window.Kakao.init(JS_KEY)
 
-  const Login = async () => {
-    axios.get( 'http://localhost:8080/api/oauth2/authorization/kakao', 
-    ) 
-      .then((response) => { console.log(response.data); }) 
-      .catch((error) => { console.log(error) });
-  };
+  // const kakaoLogin = () => {
+  //   window.Kakao.Auth.login({
+  //     scope: 'profile_nickname, profile_image, account_email, gender, age_range',
+  //     success: (authObj) => {
+  //       console.log(authObj);
+  //       window.Kakao.API.request({
+  //         url: '/v2/user/me',
+  //         success: res => {
+  //           const kakao_account = res.kakao_account;
+  //           console.log(res);
+  //           console.log(kakao_account.email)
+  //           navigate('/main');
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
 
-  const clickLogin = () => {
-    Login();
-  }
+  // const clickLogin = () => {
+  //   kakaoLogin();
+  // }
 
   return (
     <div className={styles.login}>
       <div className={styles.login_items}>
         <h1 className={styles.pjt_name}>우리어디가?</h1>
-        <img className={styles.login_wayg} src={wayg} alt="wayg"/>
-        <br />
-        <br />
-        <br />
-        <button onClick={() => navigate('/main')} className={styles.main_button}>카카오톡으로 로그인하기</button>
-        <a onClick={clickLogin} class="btn btn-third active" role="button">Kakao Login</a>
-        <p onClick={() => navigate('/main')} className={styles.sub_button}>로그인없이 사용하기</p>
+        <div className={styles.container}>
+          <div className={styles.box}>
+          <div className={styles.login_woori}>
+              <img style={{width: "200px", height: "200px"}} src={woori} alt="woori"/>
+            </div>
+            <div className={styles.login_bus}>
+              <img style={{width: "300px", height: "300px"}} src={bus} alt="bus"/>
+            </div>
+            
+          </div>
+        </div>
+        <div className={styles.button}>
+          <a href={KAKAO_AUTH_URL}>
+            <img
+              src={kakaoBtn}
+              className={styles.kakao_btn}
+              alt="카카오 로그인 버튼"
+            />
+          </a>
+          {/* <a href={KAKAO_AUTH_URL}>
+            <div 
+                className={styles.kakao_btn} 
+                >
+            </div>
+          </a> */}
+          <p onClick={() => navigate('/main')} className={styles.sub_button}>로그인없이 사용하기</p>
+        </div>
       </div>
     </div>
   );
