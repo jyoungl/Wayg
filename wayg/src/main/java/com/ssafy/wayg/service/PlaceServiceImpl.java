@@ -41,7 +41,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 		for (int i = 0; i < placeDtoPage.getContent().size(); i++) {
 			PlaceDto placeDto = placeDtoPage.getContent().get(i);
-//			placeDto.setPlaceScrap(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeDto.getPlaceNo()) != null);
+			placeDto.setPlaceScrap(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeDto.getPlaceNo()) != null);
 			placeDto.setPlaceScrapCnt(scrapRepository.countByPlaceNoPlaceNo(placeDto.getPlaceNo()));
 		}
 
