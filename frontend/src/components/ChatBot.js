@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen}) {
+function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed}) {
   // 데이터전송 axios를 위한 useState()
   const [receives, setReceives] = useState([]);
   const [receive, setReceive] = useState('');
@@ -114,11 +114,11 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen}) {
       
         {upfunc ? <ul className={styles.anotherFunction}>
         <li>대화 새로 시작하기</li>
-        <li>이번달 인기피드 보러가기</li>
-        <li onClick={() => {goLikeFeed(); goLoadingScreen();}}>내가 좋아요 누른 피드 보러가기</li>
+        <li onClick={() => {goLoadingScreen()}}>이번달 인기피드 보러가기</li>
+        <li onClick={() => {goLikeFeed();}}>내가 좋아요 누른 피드 보러가기</li>
         <li>내가 즐겨찾기한 관광지 보러가기</li>
-        <li>내가 올린 피드보기</li>
-        {addFeed ? <li style={{marginBottom:"5px"}} onClick={() => {parentFunction(); goLoadingScreen();}}>되돌아가기</li>:<li onClick={() => {parentFunction(); goLoadingScreen();}}>피드작성하기</li>}
+        <li onClick={() => {goMyFeed();}}>내가 올린 피드보기</li>
+        <li onClick={() => {parentFunction();}}>피드작성하기</li>
 
       </ul>: null}
 
