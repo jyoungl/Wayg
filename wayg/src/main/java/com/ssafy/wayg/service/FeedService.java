@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface FeedService {
 
-	Page<FeedDto> retrieveFeed(Pageable pageable) throws Exception;
+	Page<FeedDto> retrieveFeed(int userNo, Pageable pageable) throws Exception;
 
 	FeedDto detailFeed(int userNo, int feedNo) throws Exception;
 

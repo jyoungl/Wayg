@@ -33,11 +33,12 @@ public class PlaceController {
 	public ResponseEntity<Map<String,Object>> retrievePlace(@ApiParam(value="현재 페이지", required=true) int page,
 															@RequestParam(value="size", defaultValue = "3") @ApiParam(value="페이지 당 글 개수") int size,
 															@RequestParam(value = "sort", defaultValue = "placeScrap,desc") @ApiParam("정렬기준 컬럼명,정렬방식. 기본값은 placeScrap,desc 다.") String sort,
-															@ApiParam(value="Pageable 객체. 자동생성된다.") Pageable pageable) {
+															@ApiParam(value="Pageable 객체. 자동생성된다.") Pageable pageable,
+															@ApiParam(value="회원 번호", required = true) int userNo) {
 		Map<String,Object> resultMap = new HashMap<>();
 		HttpStatus httpStatus = HttpStatus.ACCEPTED;
 		try {
-			resultMap.put("placeList",placeService.retrievePlace(pageable));
+			resultMap.put("placeList",placeService.retrievePlace(userNo, pageable));
 			resultMap.put("message",SUCCESS);
 			httpStatus = HttpStatus.OK;
 		} catch (Exception e) {

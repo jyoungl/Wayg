@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface PlaceService {
 
-	Page<PlaceDto> retrievePlace(Pageable pageable) throws Exception;
+	Page<PlaceDto> retrievePlace(int userNo, Pageable pageable) throws Exception;
 
 	PlaceDto detailPlace(int userNo, int placeNo) throws Exception;
 

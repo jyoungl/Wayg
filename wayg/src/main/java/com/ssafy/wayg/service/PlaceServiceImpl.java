@@ -2,6 +2,8 @@ package com.ssafy.wayg.service;
 
 import com.ssafy.wayg.dto.PlaceDto;
 import com.ssafy.wayg.dto.PlacescrapDto;
+import com.ssafy.wayg.entity.Feed;
+import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.repository.PlaceRepository;
 import com.ssafy.wayg.repository.PlacefileRepository;
 import com.ssafy.wayg.repository.PlacescrapRepository;
@@ -34,8 +36,15 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	public Page<PlaceDto> retrievePlace(Pageable pageable) throws Exception {
-		Page<PlaceDto> placeDtoPage = converter.toPlaceDtoList(placeRepository.findAllByOrderByPlaceScrap(pageable));
+	public Page<PlaceDto> retrievePlace(int userNo, Pageable pageable) throws Exception {
+		Page<PlaceDto> placeDtoPage = converter.toPlaceDtoList(placeRepository.findAllByOrderByPlaceScrapDesc(pageable));
+
+		for (int i = 0; i < placeDtoPage.getContent().size(); i++) {
+			PlaceDto placeDto = placeDtoPage.getContent().get(i);
+//			placeDto.setPlaceScrap(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeDto.getPlaceNo()) != null);
+			placeDto.setPlaceScrapCnt(scrapRepository.countByPlaceNoPlaceNo(placeDto.getPlaceNo()));
+		}
+
 		return placeDtoPage;
 	}
 
@@ -53,12 +62,22 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public PlacescrapDto insertScrap(PlacescrapDto scrapDto) throws Exception {
+
+		Place place = placeRepository.getOne(scrapDto.getPlaceNo());
+		place.setPlaceScrap(place.getPlaceScrap()+1);
+
 		return converter.toScrapDto(scrapRepository.save(converter.toScrapEntity(scrapDto)));
 	}
 	
 	@Override
 	@Transactional
 	public void deleteScrap(int userNo, int placeNo) throws Exception {
+
+		if(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeNo) != null) {
+			Place place = placeRepository.getOne(placeNo);
+			place.setPlaceScrap(place.getPlaceScrap()+1);
+		}
+
 		scrapRepository.delete(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeNo));
 	}
 	
@@ -68,6 +87,11 @@ public class PlaceServiceImpl implements PlaceService {
 		List<Integer> scrapList = scrapRepository.findByUserNo(userNo);
 		
 		Page<PlaceDto> placeDtoPage = converter.toPlaceDtoList(placeRepository.findByPlaceNo(scrapList,pageable));
+
+		for (int i = 0; i < placeDtoPage.getContent().size(); i++) {
+			placeDtoPage.getContent().get(i).setPlaceScrap(true);
+		}
+
 		return placeDtoPage;
 	}
 
