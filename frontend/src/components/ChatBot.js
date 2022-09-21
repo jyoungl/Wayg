@@ -21,71 +21,83 @@ function ChatBot({parentFunction, addFeed}) {
   const [sends, setSends] = useState([])
   const [upfunc, setUpFunc] = useState(false)
   const [story, setStory] = useState([])
+  const [returnMessage, setReturnMessage] = useState(false)
 
   const onChange = (event) => setSend(event.target.value)
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (send ==="") {
-      return
-    }
-    setSends((currentArray) => [...currentArray,send])
-    setStory(story.concat(
+    // if (send ==="") {
+    //   return
+    // }
+    await setSends((currentArray) => [...currentArray,send])
+    await setStory(story.concat(
       <div>
         <div className={styles.sendMessage}>{send}</div>
       </div>
     ))
-
     setSend("")
+    await setReturnMessage((event) => (!event))
   }
+  
+  useEffect(() => {
+    console.log("penguin")
+    setGreeting((current) => !current)
+  },[])
+/////////////////////////////////
   useEffect(() => {
     const fetchUsers = async () => {
+      console.log(sends)
+      if (greeting ===true) {
+
+      
       try {
         setError(null);
         // setUsers(null)
         setReceive('');
         setReceives([]);
-        setLoading(true);
+        setLoading(false);
+  
         const response = await axios.get(
           `http://localhost:5000/morph?text=${sends[sends.length-1]}`
         );
         console.log(response.data)
+        // if (response.data[0][0]==='undefined') {
+        //   return
+        //     // response.data.pop()
+        // }
         setReceive(() => setReceive(JSON.stringify(response.data)))
         setReceives((currentArray) => [...currentArray,receive])
-         if (Boolean(receive)===true) {
-          console.log('a')
-        setStory(story.concat(
-          <div>
-            <div className={styles.receivedMessage}>{receive}</div>
-          </div>
-        ))
-         }
+        console.log(receive)
+        console.log(receives)
+        ///
+        if (response.data[0][0] !=="undefined") {
+          setStory(story.concat(
+            <div>
     
-        // setUsers(JSON.stringify(response.data))
+              <div className={styles.receivedMessage}>{response.data}</div>
+            </div>
+          ))
+        }
       } catch (e) {
         setError(e);
       }
       setLoading(false)
-    }
+    } 
+  }
 
     fetchUsers();
 
-  }, [sends])
+  }, [greeting, returnMessage])
 
 
 
 
-
-  console.log(sends)
   const upAnotherFunction = () => {
     setUpFunc(current => !current)
   }
     
 
 
-  useEffect(() => {
-    console.log("penguin")
-    setGreeting((current) => !current)
-  },[])
 
 
   if (loading) return <div>로딩중..</div>
