@@ -17,5 +17,5 @@ import java.io.Serializable;
 public class PlacewordDto implements Serializable {
     private Integer placewordNo;
     private String placewordWord;
-    private PlaceDto placeNo;
+    private Integer placeNo;
 }

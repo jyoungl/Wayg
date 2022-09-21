@@ -4,6 +4,7 @@ import com.ssafy.wayg.dto.FeedDto;
 import com.ssafy.wayg.dto.FeedlikeDto;
 import com.ssafy.wayg.entity.Feed;
 import com.ssafy.wayg.entity.Feedlike;
+import com.ssafy.wayg.entity.User;
 import com.ssafy.wayg.repository.FeedRepository;
 import com.ssafy.wayg.repository.FeedfileRepository;
 import com.ssafy.wayg.repository.FeedlikeRepository;
@@ -45,6 +46,7 @@ public class FeedServiceImpl implements FeedService {
 
 	@Override
 	public FeedDto insertFeed(FeedDto feedDto) throws Exception {
+
 		return converter.toFeedDto(feedRepository.save(converter.toFeedEntity(feedDto)));
 	}
 
@@ -74,7 +76,10 @@ public class FeedServiceImpl implements FeedService {
 
 	@Override
 	public FeedlikeDto insertLike(FeedlikeDto likeDto) throws Exception {
-		return converter.toLikeDto(likeRepository.save(converter.toLikeEntity(likeDto)));
+		System.out.println(likeDto.getFeedNo());
+		Feedlike feedlike = converter.toLikeEntity(likeDto);
+		feedlike.setUserNo(userRepository.getOne(likeDto.getUserNo()));
+		return converter.toLikeDto(likeRepository.save(feedlike));
 	}
 	
 	@Override

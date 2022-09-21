@@ -1,7 +1,9 @@
 package com.ssafy.wayg.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @DynamicInsert

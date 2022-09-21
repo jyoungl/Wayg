@@ -4,6 +4,7 @@ import com.ssafy.wayg.dto.*;
 import com.ssafy.wayg.entity.*;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ public class DEConverter {
 		this.modelMapper = modelMapper;
 //        this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         this.modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+		this.modelMapper.getConfiguration().setAmbiguityIgnored(true);
     }
 
 	private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
@@ -61,7 +63,11 @@ public class DEConverter {
 	}
 
 	public FeedlikeDto toLikeDto(Feedlike like) {
-		return modelMapper.map(like, FeedlikeDto.class);
+		System.out.println("변환 전 값: " + like);
+		FeedlikeDto f = modelMapper.map(like, FeedlikeDto.class);
+		f.setUserNo(f.getUserNo());
+		System.out.println("변환값: " + f);
+		return f;
 	}
 
 	public Feedlike toLikeEntity(FeedlikeDto likeDto) {

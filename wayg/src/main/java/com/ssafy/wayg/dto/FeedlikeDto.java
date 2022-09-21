@@ -1,9 +1,7 @@
 package com.ssafy.wayg.dto;
 
 import io.swagger.annotations.ApiModel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -11,11 +9,13 @@ import java.io.Serializable;
  * A DTO for the {@link com.ssafy.wayg.entity.Feedlike} entity
  */
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "", description = "")
 public class FeedlikeDto implements Serializable {
     private Integer likeNo;
-    private UserDto userNo;
-    private FeedDto feedNo;
+    private Integer userNo;
+    private Integer feedNo;
 }

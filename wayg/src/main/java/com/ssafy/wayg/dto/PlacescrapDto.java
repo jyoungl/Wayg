@@ -16,6 +16,6 @@ import java.io.Serializable;
 @ApiModel(value = "", description = "")
 public class PlacescrapDto implements Serializable {
     private Integer scrapNo;
-    private UserDto userNo;
-    private PlaceDto placeNo;
+    private Integer userNo;
+    private Integer placeNo;
 }

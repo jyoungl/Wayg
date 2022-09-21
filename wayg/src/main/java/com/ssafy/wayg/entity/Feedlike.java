@@ -1,13 +1,17 @@
 package com.ssafy.wayg.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
 @Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @Table(name = "feedlike")
