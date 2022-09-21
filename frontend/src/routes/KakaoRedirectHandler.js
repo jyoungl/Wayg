@@ -13,9 +13,9 @@ const KakaoRedirectHandler = () => {
     let params = new URL(document.location.toString()).searchParams;
     let code = params.get("code"); // 인가코드 받는 부분
     let grant_type = "authorization_code";
-    let client_id = "f97c174637b7c5eb1ed49c135dcc8b7a";
+    let client_id = "bbe27fdfd6962e9fa7c41c8b3c99fb13";
     let REDIRECT_URI = "http://localhost:3000/oauth/callback/kakao";
-    let client_secret = 'VaCa6ODUTqQetoam3pifNb0Ac3zsPiVK';
+    let client_secret = 'GVivIOJu8TfT4wvHekhGorCmk8xfxqaf';
 
     axios.post(`https://kauth.kakao.com/oauth/token?&grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${REDIRECT_URI}&code=${code}&client_secret=${client_secret}`, {
         headers: {
@@ -25,7 +25,9 @@ const KakaoRedirectHandler = () => {
       console.log(res)
       console.log(res.data['access_token'])
       // res에 포함된 토큰 받아서 원하는 로직을 하면된다.
-      setTimeout(() => {navigate('/main')}, 2000)
+      setTimeout(() => {
+        window.location.href = 'http://localhost:8080/api/oauth2/authorization/kakao';
+      }, 2000)
   })
     // setTimeout(() => {navigate('/main')}, 6000)
   }, [])
@@ -46,3 +48,15 @@ const KakaoRedirectHandler = () => {
 };
 
 export default KakaoRedirectHandler;
+
+// function mapStateToProps(state){
+//   return { toDos: state}
+// }
+
+// function mapDispatchToProps(dispatch){
+//   return {
+//     addToDo: (text) => dispatch(actionCreators.addToDo(text))
+//   }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps) (Login);
