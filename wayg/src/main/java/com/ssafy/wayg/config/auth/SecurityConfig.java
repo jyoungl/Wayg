@@ -21,7 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name()) //USER 권한 가진 사람만 가능 -> 로그인 후 기능 url 넣어야함
-                .anyRequest().authenticated() //설정값 이외의 url은 인증 완료한 사용자만이 사용가능함
+                .antMatchers("/oauth2/authorization/kakao").authenticated()
+                //.anyRequest().authenticated() //설정값 이외의 url은 인증 완료한 사용자만이 사용가능함
                 .and()
                 .logout()
                 .logoutSuccessUrl("/") // 로그아웃 성공시 /로 이동

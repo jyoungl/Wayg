@@ -7,7 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,12 +17,13 @@ public class MainController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model, @LoginUser SessionUser user){
+    public void index(Model model, @LoginUser SessionUser user, HttpServletResponse response) throws IOException {
 
         if(user != null)
             model.addAttribute("userName", user.getName());
 
-        return "index";
+        response.sendRedirect("http://localhost:3000/main");
+
     }
 //    @Autowired
 //    private UserDto userDto;
