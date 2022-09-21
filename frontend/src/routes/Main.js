@@ -4,6 +4,7 @@ import Feeds from "../components/Feeds";
 import Recommendations from "../components/Recommendations";
 import CreateFeed from "../components/CreateFeed";
 import Shows from "../components/Shows"
+import LikeShows from "../components/LikeShows"
 import Loading from "../components/Loading"
 import styles from "./Main.module.css"
 
@@ -13,26 +14,43 @@ function Main() {
   // 기본 화면(로딩화면?)으로 돌아가기
   const [loadingScreen, setLoadingScreen] = useState(true)
   const goLoadingScreen = () => {
-    setLoadingScreen((current)=> !current)
+    setLoadingScreen((current)=> true)
+    setLikeFeed(false)
+    setMyFeed(false)
+    setAddFeed(false)
+
   }
 
   // 피드 작성하기
   const [addFeed, setAddFeed] = useState(false)
   const parentFunction = () => {
-    setAddFeed((current)=> !current)
+    setAddFeed((current)=> true)
+    setLikeFeed(false)
+    setMyFeed(false)
+    setLoadingScreen(false)
   }
 
   // 좋아요 누른 피드 보러가기
   const [likeFeed, setLikeFeed] = useState(false)
   const goLikeFeed = () => {
-    setLikeFeed((current)=> !current)
+    setLikeFeed((current)=> true)
+    setAddFeed(false)
+    setMyFeed(false)
+    setLoadingScreen(false)
   }
-
+  //내가 작성한 피드 보러가기
+  const [myFeed, setMyFeed] = useState(false)
+  const goMyFeed = () => {
+    setMyFeed((current) => true)
+    setLikeFeed(false)
+    setAddFeed(false)
+    setLoadingScreen(false)
+  }
   return (
 
     <div className={styles.main}>
       <div className={styles.ChatBot}>
-        <ChatBot addFeed={addFeed} parentFunction={parentFunction} goLikeFeed={goLikeFeed} goLoadingScreen={goLoadingScreen}/>
+        <ChatBot addFeed={addFeed} parentFunction={parentFunction} goLikeFeed={goLikeFeed} goLoadingScreen={goLoadingScreen} goMyFeed={goMyFeed}/>
       </div>
       <div className={styles.detail}>
         {loadingScreen ? 
@@ -49,8 +67,12 @@ function Main() {
         {addFeed ?  <CreateFeed/>: null }
         {likeFeed ? 
         <div>
-          <Shows/>
+          <Shows likeFeed={likeFeed} myFeed={myFeed}/>
         </div> : null}
+        {myFeed ?
+        <div><Shows myFeed={myFeed} likeFeed={likeFeed} />
+        </div> : null 
+        }
       </div>
 
     </div>
