@@ -50,16 +50,15 @@ function Login({toDos, addToDo}) {
         <div className={styles.container}>
           <div className={styles.box}>
           <div className={styles.login_woori}>
-              <img style={{width: "125px", height: "125px"}} src={woori} alt="woori"/>
+              <img style={{width: "200px", height: "200px"}} src={woori} alt="woori"/>
             </div>
             <div className={styles.login_bus}>
-              <img style={{width: "250px", height: "250px"}} src={bus} alt="bus"/>
+              <img style={{width: "300px", height: "300px"}} src={bus} alt="bus"/>
             </div>
             
           </div>
         </div>
         <div className={styles.button}>
-          <button onClick={() => navigate('/main')} className={styles.main_button}>카카오톡으로 로그인하기</button>
           <a href={KAKAO_AUTH_URL}>
             <img
               src={kakaoBtn}
