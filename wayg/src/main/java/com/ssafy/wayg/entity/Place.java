@@ -1,6 +1,7 @@
 package com.ssafy.wayg.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -43,7 +44,8 @@ public class Place {
     @Column(name = "place_more", length = 1000)
     private String placeMore;
 
-//    @Column(name = "place_scrap", nullable = false)
-//    private Integer placeScrap;
+    @Column(name = "place_scrap", nullable = false)
+    @ColumnDefault("0")
+    private Integer placeScrap;
 
 }

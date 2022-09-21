@@ -19,5 +19,5 @@ public class FeedfileDto implements Serializable {
     private String feedfileSavefolder;
     private String feedfileOriginfile;
     private String feedfileSavefile;
-    private FeedDto feedNo;
+    private Integer feedNo;
 }

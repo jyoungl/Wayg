@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * A DTO for the {@link com.ssafy.wayg.entity.Place} entity
@@ -26,5 +27,7 @@ public class PlaceDto implements Serializable {
     private String placePark;
     private String placeAnimal;
     private String placeMore;
-    private Integer placeScrap;
+    private boolean placeScrap;
+    private long placeScrapCnt;
+    private List<PlacefileDto> placeFiles;
 }

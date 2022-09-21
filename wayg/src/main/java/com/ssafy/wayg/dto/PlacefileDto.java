@@ -19,5 +19,5 @@ public class PlacefileDto implements Serializable {
     private String placefileSavefolder;
     private String placefileOriginfile;
     private String placefileSavefile;
-    private PlaceDto placeNo;
+    private Integer placeNo;
 }
