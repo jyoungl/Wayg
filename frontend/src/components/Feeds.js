@@ -1,6 +1,7 @@
 import Feed from "./Feed";
+import axios from "axios";
 import styles from "./Feeds.module.css"
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 // import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
@@ -14,6 +15,17 @@ import 'swiper/css/scrollbar';
 
 function Feeds() {
   const [feeds, setFeeds] = useState([{"img_src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpq7vtt_uu0b5iTOg_hSkAt-2CxW9uKnkjXQ&usqp=CAU", "title": "jeju", "content": "설명설명" }, {"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" },{"img_src": "https://lh5.googleusercontent.com/p/AF1QipMiqovtbGuYagdRZbcP-4bKaCIpUimHjLXI5q5F=w143-h143-n-k-no", "title": "jeju", "content": "설명설명" }])
+  
+  useEffect(()=> {
+    axios.post(`http://localhost:8080/api/feed`, {
+        page: 0,
+        size: 10
+      }).then((res) => {
+      console.log(res)
+  })
+    // setTimeout(() => {navigate('/main')}, 6000)
+  }, [])
+  
   return (
     <div className="" style={{width: "70vw", height: "40vh"}}>
       <h2>사용자들이 올린 피드</h2>
