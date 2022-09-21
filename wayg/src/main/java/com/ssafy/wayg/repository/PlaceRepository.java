@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
-	Page<Place> findAllByOrderByPlaceScrap(Pageable pageable);
+	Page<Place> findAllByOrderByPlaceScrapDesc(Pageable pageable);
 	
 	@Query("Select p FROM Place p WHERE p.id IN (?1)")
 	Page<Place> findByPlaceNo(List<Integer> placeNoList, Pageable pageable);
