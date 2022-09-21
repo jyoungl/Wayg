@@ -9,6 +9,7 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.Instant;
 
 @Data
 @Getter
@@ -36,6 +37,9 @@ public class Feed {
     @Column(name = "feed_like")
     @ColumnDefault("0")
     private Integer feedLike;
+
+    @Column(name = "feed_regdate")
+    private Instant feedRegdate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

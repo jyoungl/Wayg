@@ -2,6 +2,7 @@ package com.ssafy.wayg.service;
 
 import com.ssafy.wayg.dto.FeedDto;
 import com.ssafy.wayg.dto.FeedlikeDto;
+import com.ssafy.wayg.dto.PlaceDto;
 import com.ssafy.wayg.entity.Feed;
 import com.ssafy.wayg.entity.Feedlike;
 import com.ssafy.wayg.entity.User;
@@ -39,14 +40,22 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	@Override
-	public Page<FeedDto> retrieveFeed(Pageable pageable) throws Exception {
-		Page<FeedDto> feedDtoPage = converter.toFeedDtoList(feedRepository.findAllByOrderByFeedLike(pageable));
+	public Page<FeedDto> retrieveFeed(int userNo, Pageable pageable) throws Exception {
+		Page<FeedDto> feedDtoPage = converter.toFeedDtoList(feedRepository.findAllByOrderByFeedLikeDesc(pageable));
+
+		for (int i = 0; i < feedDtoPage.getContent().size(); i++) {
+			FeedDto feedDto = feedDtoPage.getContent().get(i);
+			feedDtoPage.getContent().get(i).setFeedLike(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(userNo, feedDto.getFeedNo()) != null);
+			feedDtoPage.getContent().get(i).setFeedLikeCnt(likeRepository.countByFeedNoFeedNo(feedDto.getFeedNo()));
+			System.out.println(feedDto);
+		}
+
 		return feedDtoPage;
 	}
 
 	@Override
 	public FeedDto insertFeed(FeedDto feedDto) throws Exception {
-
+		feedDto.setFeedRegdate(Instant.now());
 		return converter.toFeedDto(feedRepository.save(converter.toFeedEntity(feedDto)));
 	}
 
@@ -75,16 +84,26 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	@Override
+	@Transactional
 	public FeedlikeDto insertLike(FeedlikeDto likeDto) throws Exception {
-		System.out.println(likeDto.getFeedNo());
 		Feedlike feedlike = converter.toLikeEntity(likeDto);
 		feedlike.setUserNo(userRepository.getOne(likeDto.getUserNo()));
+
+		Feed feed = feedRepository.getOne(likeDto.getFeedNo());
+		feed.setFeedLike(feed.getFeedLike()+1);
+
 		return converter.toLikeDto(likeRepository.save(feedlike));
 	}
 	
 	@Override
 	@Transactional
 	public void deleteLike(int userNo, int feedNo) throws Exception {
+
+		if(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(userNo, feedNo) != null) {
+			Feed feed = feedRepository.getOne(feedNo);
+			feed.setFeedLike(feed.getFeedLike()-1);
+		}
+
 		likeRepository.delete(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(userNo, feedNo));
 	}
 	
@@ -92,8 +111,13 @@ public class FeedServiceImpl implements FeedService {
 	public Page<FeedDto> retrieveLikeList(int userNo, Pageable pageable) throws Exception {
 		
 		List<Integer> likeList = likeRepository.findByUserNo(userNo);
-		
+
 		Page<FeedDto> feedDtoPage = converter.toFeedDtoList(feedRepository.findByFeedNo(likeList,pageable));
+
+		for (int i = 0; i < feedDtoPage.getContent().size(); i++) {
+			feedDtoPage.getContent().get(i).setFeedLike(true);
+		}
+
 		return feedDtoPage;
 	}
 

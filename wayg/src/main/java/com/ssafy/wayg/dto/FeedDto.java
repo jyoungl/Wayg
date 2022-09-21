@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -25,6 +26,8 @@ public class FeedDto implements Serializable {
     private String feedContent;
 	@ApiModelProperty(value = "닉네임")
     private String feedNickname;
+	@ApiModelProperty(value = "작성일")
+	private Instant feedRegdate;
 	@ApiModelProperty(value = "작성자 번호")
     private int userNo;
 	@ApiModelProperty(value = "첨부 사진")

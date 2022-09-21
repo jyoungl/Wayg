@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface FeedRepository extends JpaRepository<Feed, Integer> {
 
-	Page<Feed> findAllByOrderByFeedLike(Pageable pageable);
+	Page<Feed> findAllByOrderByFeedLikeDesc(Pageable pageable);
 	Page<Feed> findByUserNoUserNo(int userNo, Pageable pageable);
 	
 	@Query("Select f FROM Feed f WHERE f.id IN (?1)")
