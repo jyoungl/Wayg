@@ -4,11 +4,12 @@ import styles from './Show.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
-function show({img_src, title, content }) {
+function show({feedFiles, feedTitle, feedContent, feedLike, feedLikeCnt, feedNickname   }) {
   return (
+    
     <div className={styles.show}>
-      <div>
-        <img className={styles.show_img} src={img_src} alt='img' />
+      <div>{feedFiles}
+        <img className={styles.show_img} src={feedFiles} alt='img' />
         <div>
           <div className={styles.show_box}>
             <div>
@@ -20,8 +21,10 @@ function show({img_src, title, content }) {
           </div>
           <p className={styles.show_writer}>작성자</p>
           <div className={styles.show_box}>
-            <p className={styles.show_title}>{title}</p>
-            <p className={styles.show_content}>{content}</p>
+            <p>{feedNickname}</p>
+            <p className={styles.show_title}>{feedTitle}</p>
+            <p className={styles.show_content}>{feedContent}</p>
+            <p>{feedLikeCnt}</p>
           </div>
         </div>
       </div>
