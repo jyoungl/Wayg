@@ -35,10 +35,10 @@ function Main() {
         <ChatBot addFeed={addFeed} parentFunction={parentFunction} goLikeFeed={goLikeFeed} goLoadingScreen={goLoadingScreen}/>
       </div>
       <div className={styles.detail}>
-        {/* <button className={styles.logout_button} onclick={kakaoLogout()}>로그아웃</button> */}
         {loadingScreen ? 
           // <Loading />
         <div className="d-flex-row justify-content-center">
+
           <br />
           <Feeds/>
           <br />

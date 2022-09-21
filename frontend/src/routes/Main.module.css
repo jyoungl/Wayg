@@ -10,7 +10,7 @@
 }
 
 .detail {
-    margin-left: 400px;
+    margin-left: 450px;
 }
 
 .logout_button {
@@ -25,4 +25,9 @@
 
 .font-apply{
     font-family: 'Jalnan';
+}
+
+.right {
+    width: 100vh;
+    height: 100vh;
 }

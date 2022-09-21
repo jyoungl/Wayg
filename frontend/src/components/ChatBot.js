@@ -4,42 +4,101 @@ import store from "../store"
 import wayg from '../images/wayg.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-
-
-
+import axios from "axios";
 
 function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen}) {
+  // 데이터전송 axios를 위한 useState()
+  const [receives, setReceives] = useState([]);
+  const [receive, setReceive] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const [greeting,setGreeting] = useState(false)
   const [send, setSend] = useState("")
   const [sends, setSends] = useState([])
   const [upfunc, setUpFunc] = useState(false)
+  const [story, setStory] = useState([])
+  const [returnMessage, setReturnMessage] = useState(false)
 
-
-  console.log(upfunc)
   const onChange = (event) => setSend(event.target.value)
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    if (send ==="") {
-      return
-    }
-    setSends((currentArray) => [...currentArray,send])
+    // if (send ==="") {
+    //   return
+    // }
+    await setSends((currentArray) => [...currentArray,send])
+    await setStory(story.concat(
+      <div>
+        <div className={styles.sendMessage}>{send}</div>
+      </div>
+    ))
     setSend("")
+    await setReturnMessage((event) => (!event))
   }
-  console.log(sends)
+  
+  useEffect(() => {
+    console.log("penguin")
+    setGreeting((current) => !current)
+  },[])
+/////////////////////////////////
+  useEffect(() => {
+    const fetchUsers = async () => {
+      console.log(sends)
+      if (greeting ===true) {
+
+      
+      try {
+        setError(null);
+        // setUsers(null)
+        setReceive('');
+        setReceives([]);
+        setLoading(false);
+  
+        const response = await axios.get(
+          `http://localhost:5000/morph?text=${sends[sends.length-1]}`
+        );
+        console.log(response.data)
+        // if (response.data[0][0]==='undefined') {
+        //   return
+        //     // response.data.pop()
+        // }
+        setReceive(() => setReceive(JSON.stringify(response.data)))
+        setReceives((currentArray) => [...currentArray,receive])
+        console.log(receive)
+        console.log(receives)
+        ///
+        if (response.data[0][0] !=="undefined") {
+          setStory(story.concat(
+            <div>
+    
+              <div className={styles.receivedMessage}>{response.data}</div>
+            </div>
+          ))
+        }
+      } catch (e) {
+        setError(e);
+      }
+      setLoading(false)
+    } 
+  }
+
+    fetchUsers();
+
+  }, [greeting, returnMessage])
+
+
+
+
   const upAnotherFunction = () => {
     setUpFunc(current => !current)
   }
     
 
-  // useEffect(() => {
 
-  // },[upfunc])
-  
 
-  useEffect(() => {
-    console.log("penguin")
-    setGreeting((current) => !current)
-  },[])
+
+  if (loading) return <div>로딩중..</div>
+  if (error) return <div>에러가 발생 하였습니다.</div>
   return (
     <div className={styles.chatbot}>
       <div className={styles.chatbot_title}>
@@ -60,6 +119,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen}) {
         <li>내가 즐겨찾기한 관광지 보러가기</li>
         <li>내가 올린 피드보기</li>
         {addFeed ? <li style={{marginBottom:"5px"}} onClick={() => {parentFunction(); goLoadingScreen();}}>되돌아가기</li>:<li onClick={() => {parentFunction(); goLoadingScreen();}}>피드작성하기</li>}
+
       </ul>: null}
 
       <div className={styles.chatting}> 
@@ -69,16 +129,35 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen}) {
           <button className={styles.chatBtn}>보내기</button>
         </form>
       </div>
-      
+      {/* 여기는 채팅 내용 ui */}
       <ul>
-        {sends.map((send, idx) => (
-            <div className={styles.sendMessage} key={idx}>
-              {send}
-            </div>
-        ))}
+        <div>
+          {story}
+        </div>
       </ul>
 
+
+
+
+      {/* <ul>
+        {sends.map((send, idx) => (
+            <div>
+              <div className={styles.sendMessage} key={idx}>
+              {send}
+            </div>
+            </div>
+        ))}
+
+        {receives.map((receive, idx) => (
+          <div className={styles.receivedMessage} key={idx}>
+            {receive}
+            </div>
+        ))}
+
+      </ul> */}
+
     </div>
+    
   );
 }
 

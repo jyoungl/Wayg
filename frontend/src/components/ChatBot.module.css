@@ -25,6 +25,8 @@
     margin-left: 5%;
     padding-left: 3%;
     padding-right: 3%;
+    padding-top:1%;
+    padding-bottom:1%;
 }
 
 .sendInput {
@@ -36,6 +38,7 @@
     outline:none;
 }
 .chatting{
+    border-radius: 5px;
     background-color:white;
     position: fixed;
     bottom:0;
@@ -45,6 +48,7 @@
     min-width: 390px
 }
 .chatBtn {
+    border-radius: 5px;
     position:absolute;
     right:0;
     height: 32px;
@@ -68,11 +72,19 @@
     position: absolute;
     bottom: 0;
     list-style: none;
-    margin-bottom:12%;
+    margin-bottom:3%;
     min-width: 390px;
-    border-radius: 5px;
-    background-color:rgb(227, 217, 217);
+    border-radius: 10px;
+    background-color:aliceblue;
+    padding-top:10px;
+    animation: upmove 1s forwards;
 }
+
+@keyframes upmove {
+    from {bottom: -20px;}
+    to {bottom: 20px;}
+}
+
 
 .anotherFunction li {
     
@@ -80,6 +92,11 @@
     cursor: pointer;
 }
 
-.anotherFunction li :hover{
-    background-color:beige;
+.anotherFunction li:hover{
+    background-color:rgb(234, 233, 245);
+    border-radius:5px;
+}
+
+.anotherFunction {
+
 }
