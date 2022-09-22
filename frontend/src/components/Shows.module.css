@@ -1,0 +1,19 @@
+.shows {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px;
+    width: 80%;
+    padding-top: 70px;
+  }
+  
+  .shows_list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+    
+  @media screen and (max-width: 1090px) {
+    .shows {
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+  }

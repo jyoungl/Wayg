@@ -1,0 +1,33 @@
+.main{
+    font-family: 'Jalnan';
+    display: flex;
+    width: "100vw";
+    height: "100vh"
+}
+
+.ChatBot {
+    position: fixed;
+}
+
+.detail {
+    margin-left: 450px;
+}
+
+.logout_button {
+    background-color: #ffeb00;
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    height: 49px;
+    line-height: 49px;
+    min-width: 222px;
+}
+
+.font-apply{
+    font-family: 'Jalnan';
+}
+
+.right {
+    width: 100vh;
+    height: 100vh;
+}
