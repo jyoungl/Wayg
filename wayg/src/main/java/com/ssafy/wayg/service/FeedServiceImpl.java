@@ -45,6 +45,7 @@ public class FeedServiceImpl implements FeedService {
 
 		for (int i = 0; i < feedDtoPage.getContent().size(); i++) {
 			FeedDto feedDto = feedDtoPage.getContent().get(i);
+			feedDto.setUserNo(feedRepository.findByFeedNo(feedDto.getFeedNo()));
 			feedDtoPage.getContent().get(i).setFeedLikeYn(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(userNo, feedDto.getFeedNo()) != null);
 			System.out.println(feedDto);
 		}
@@ -61,7 +62,8 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	public FeedDto detailFeed(int userNo, int feedNo) throws Exception {
 		FeedDto feedDto = converter.toFeedDto(feedRepository.getOne(feedNo));
-		
+
+		feedDto.setUserNo(feedRepository.findByFeedNo(feedNo));
 		feedDto.setFeedLikeYn(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(userNo, feedNo) != null);
 
 		feedDto.setFeedFiles(converter.toFeedfileDtoList(fileRepository.findByFeedNoFeedNo(feedNo)));
