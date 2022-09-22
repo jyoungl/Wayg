@@ -6,12 +6,11 @@ import json
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
-app.config["APPLICATION_ROOT"] = "/flask"
-CORS(app, resources={r'*': {'origins': ['http://localhost:3000']}})
+CORS(app, resources={r'*': {'origins': ['http://localhost:3000','https://j7c202.p.ssafy.io']}})
 api = Api(app, version='1.0', title='API 문서', description='Swagger 문서', doc="/api-docs")  # Flask 객체에 Api 객체 등록
 
 
-# morph_api = api.namespace('/', description='형태소 분리 API')
+flask_api = api.namespace('/flask', description='형태소 분리 API')
 
 okt = Okt()
 
@@ -20,7 +19,7 @@ def encode(data):
     return make_response(json.dumps(data, ensure_ascii=False))
 
 
-@api.route("/morph")
+@flask_api.route("/morph")
 class Morpheme(Resource):
     @api.doc(params={'text': {'description': '형태소 분리할 문장들', 'type': 'String'}})
     def get(self):
