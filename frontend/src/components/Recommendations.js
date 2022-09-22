@@ -15,7 +15,7 @@ function Recommendations() {
             params: {
               page: 0,
               size: 10,
-              userNo: 1,
+              userNo: 2,
             }
           });
           console.log(response.data)

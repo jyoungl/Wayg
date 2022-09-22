@@ -74,7 +74,6 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
                 <span> </span>
                 <FontAwesomeIcon icon={faPaperPlane} />
             </div>
-            <FontAwesomeIcon icon={faBookmark} />
           </div>
           <p className={styles.feed_writer}>{feed.feedNickname} {feed.userNo}</p>
           <div className={styles.feed_box}>
