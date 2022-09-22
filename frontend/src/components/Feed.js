@@ -8,8 +8,16 @@ import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, feedLike, feedLikeYn}) {
-
-  const [isLike, setIsLike] = useState({feedLikeYn}.feedLikeYn);
+  const [feed, setFeed] = useState({
+    feedNo: {feedNo}.feedNo,
+    feedTitle: {feedTitle}.feedTitle,
+    feedContent: {feedContent}.feedContent,
+    feedNickname: {feedNickname}.feedNickname, 
+    userNo: {userNo}.userNo, 
+    feedFiles: {feedFiles}.feedFiles, 
+    feedLike: {feedLike}.feedLike, 
+    feedLikeYn: {feedLikeYn}.feedLikeYn,
+  })
 
   const plusLike = async () => {
     try {
@@ -18,6 +26,12 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
           feedNo: {feedNo}.feedNo
         });
         console.log(response.data)
+        if (response.data.message === 'success'){
+          feed.feedLikeYn = true;
+          setFeed(feed)
+          console.log('aaaaa')
+          
+        }
       } catch (e) {
         
       }
@@ -33,9 +47,11 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
           }
         });
         console.log(response.data)
-        if (response.data === 'success'){
-          console.log('rerender')
-          setIsLike(true)
+        if (response.data.message === 'success'){
+          feed.feedLikeYn = false;
+          setFeed(feed)
+          console.log('ww')
+          
         }
       } catch (e) {
         
@@ -48,11 +64,11 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
 
     <div className={styles.feed}>
       <div>
-        <img className={styles.feed_img} src={feedFiles} alt='img' />
+        <img className={styles.feed_img} src={feed.feedFiles} alt='img' />
         <div>
           <div className={styles.feed_box}>
             <div>
-                {isLike ? 
+                {feed.feedLikeYn ? 
                   <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
                   : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />} 
                 <span> </span>
@@ -60,12 +76,12 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
             </div>
             <FontAwesomeIcon icon={faBookmark} />
           </div>
-          <p className={styles.feed_writer}>{feedNickname} {userNo}</p>
+          <p className={styles.feed_writer}>{feed.feedNickname} {feed.userNo}</p>
           <div className={styles.feed_box}>
-            <p className={styles.feed_title}>{feedNo} {feedTitle}</p>
-            <p className={styles.feed_content}>{feedContent}</p>
+            <p className={styles.feed_title}>{feed.feedNo} {feed.feedTitle}</p>
+            <p className={styles.feed_content}>{feed.feedContent}</p>
           </div>
-          <p>{feedLike}</p>
+          <p>{feed.feedLike}</p>
         </div>
       </div>
     </div>
