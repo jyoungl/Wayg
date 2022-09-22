@@ -6,6 +6,7 @@ import json
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
+app.config["APPLICATION_ROOT"] = "/flask"
 CORS(app, resources={r'*': {'origins': ['http://localhost:3000']}})
 api = Api(app, version='1.0', title='API 문서', description='Swagger 문서', doc="/api-docs")  # Flask 객체에 Api 객체 등록
 
