@@ -27,7 +27,7 @@ public class PlaceDto implements Serializable {
     private String placePark;
     private String placeAnimal;
     private String placeMore;
-    private boolean placeScrap;
-    private long placeScrapCnt;
+    private boolean placeScrapYn;
+    private long placeScrap;
     private List<PlacefileDto> placeFiles;
 }
