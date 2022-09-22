@@ -73,7 +73,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 		if(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeNo) != null) {
 			Place place = placeRepository.getOne(placeNo);
-			place.setPlaceScrap(place.getPlaceScrap()+1);
+			place.setPlaceScrap(place.getPlaceScrap()-1);
 		}
 
 		scrapRepository.delete(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeNo));
