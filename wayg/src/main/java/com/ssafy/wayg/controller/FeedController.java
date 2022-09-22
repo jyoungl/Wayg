@@ -113,7 +113,6 @@ public class FeedController {
 	public ResponseEntity<Map<String,Object>> plusLike(@RequestBody FeedlikeDto like) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			resultMap.put("like",feedService.insertLike(like));
 			resultMap.put("message",SUCCESS);
 		} catch (Exception e) {
 			resultMap.put("message",e.getMessage());

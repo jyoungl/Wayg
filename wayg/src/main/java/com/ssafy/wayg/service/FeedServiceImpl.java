@@ -86,13 +86,15 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	@Transactional
 	public FeedlikeDto insertLike(FeedlikeDto likeDto) throws Exception {
-		Feedlike feedlike = converter.toLikeEntity(likeDto);
-		feedlike.setUserNo(userRepository.getOne(likeDto.getUserNo()));
 
-		Feed feed = feedRepository.getOne(likeDto.getFeedNo());
-		feed.setFeedLike(feed.getFeedLike()+1);
+		if(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(likeDto.getUserNo(), likeDto.getFeedNo()) == null) {
+			Feed feed = feedRepository.getOne(likeDto.getFeedNo());
+			feed.setFeedLike(feed.getFeedLike()+1);
+			return converter.toLikeDto(likeRepository.save(converter.toLikeEntity(likeDto)));
+		}
 
-		return converter.toLikeDto(likeRepository.save(feedlike));
+		throw new Exception("fail");
+
 	}
 	
 	@Override
