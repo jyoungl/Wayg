@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import {useState } from "react"
 import styles from "./CreateFeed.Module.css"
 import axios from "axios";
+
 function CreateFeed(props) {
   const [imageSrc, setImageSrc] = useState('');
   const [makeFeedBtn, setMakeFeedBtn] = useState(false);
@@ -90,7 +91,7 @@ function CreateFeed(props) {
       <Card style={{width:"100%", height:"100%"}} className={styles.Card}>
       <input id= "imgFile" type="file" style={{display: "none"}} onChange={(e) => {encodeFileToBase64(e.target.files[0]);}} />
       
-      <label for="imgFile">Select picture</label>
+      <label htmlFor="imgFile">Select picture</label>
       <div style={{width:"100%", height:"100%"}} className={styles.selectLabel}>
         {imageSrc && <img src={imageSrc} className={styles.previewImg} width="100%" height="100%" art="preview-img" />
         }
@@ -98,17 +99,17 @@ function CreateFeed(props) {
       <Card.Body>
       <form onSubmit={onSubmit}>
         <Card.Title>
-          <div>
+          
             <input onChange={onChangeTitle} style={{objectFit:"cover"}} type="text" placeholder="여행지를 작성하세요"/>
-          </div>
+          
         </Card.Title>
         <Card.Text>
-          <div>
+          
             <input onChange={onChangeContent} type="text" placeholder="내용을 작성하세요"/>
-          </div>
-          <div>
+            <br/>
+          
             <input onChange={onChangeNickname} type="text" placeholder="기제할 닉네임을 작성하세요" />
-          </div>
+          
         </Card.Text>
           <button>aa</button>
           <Button variant="primary">피드박제</Button>
