@@ -68,4 +68,5 @@ public class DEConverter {
 		return modelMapper.map(likeDto, Like.class);
 	}
 
+	public UserDto toUserDto(User user) { return modelMapper.map(user, UserDto.class); }
 }
