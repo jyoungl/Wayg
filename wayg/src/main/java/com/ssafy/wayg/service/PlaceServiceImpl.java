@@ -41,8 +41,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 		for (int i = 0; i < placeDtoPage.getContent().size(); i++) {
 			PlaceDto placeDto = placeDtoPage.getContent().get(i);
-//			placeDto.setPlaceScrap(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeDto.getPlaceNo()) != null);
-			placeDto.setPlaceScrapCnt(scrapRepository.countByPlaceNoPlaceNo(placeDto.getPlaceNo()));
+			placeDto.setPlaceScrapYn(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeDto.getPlaceNo()) != null);
 		}
 
 		return placeDtoPage;
@@ -52,9 +51,8 @@ public class PlaceServiceImpl implements PlaceService {
 	public PlaceDto detailPlace(int userNo, int placeNo) throws Exception {
 		PlaceDto placeDto = converter.toPlaceDto(placeRepository.getOne(placeNo));
 		
-		placeDto.setPlaceScrap(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeNo) != null);
-		placeDto.setPlaceScrapCnt(scrapRepository.countByPlaceNoPlaceNo(placeNo));
-		
+		placeDto.setPlaceScrapYn(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeNo) != null);
+
 		placeDto.setPlaceFiles(converter.toPlacefileDtoList(fileRepository.findByPlaceNoPlaceNo(placeNo)));
 		
 		return placeDto;
@@ -89,7 +87,7 @@ public class PlaceServiceImpl implements PlaceService {
 		Page<PlaceDto> placeDtoPage = converter.toPlaceDtoList(placeRepository.findByPlaceNo(scrapList,pageable));
 
 		for (int i = 0; i < placeDtoPage.getContent().size(); i++) {
-			placeDtoPage.getContent().get(i).setPlaceScrap(true);
+			placeDtoPage.getContent().get(i).setPlaceScrapYn(true);
 		}
 
 		return placeDtoPage;
