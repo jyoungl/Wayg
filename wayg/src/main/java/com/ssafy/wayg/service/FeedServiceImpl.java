@@ -79,7 +79,7 @@ public class FeedServiceImpl implements FeedService {
 	
 	@Override
 	public Page<FeedDto> retrieveMyFeed(int userNo, Pageable pageable) throws Exception {
-		Page<FeedDto> feedDtoPage = converter.toFeedDtoList(feedRepository.findByUserNoUserNo(userNo,pageable));
+		Page<FeedDto> feedDtoPage = converter.toFeedDtoList(feedRepository.findByUserNoUserNoOrderByFeedNoDesc(userNo,pageable));
 		return feedDtoPage;
 	}
 
