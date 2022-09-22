@@ -12,8 +12,6 @@ api = Api(app, version='1.0', title='API 문서', description='Swagger 문서', 
 
 
 flask_api = api.namespace('/flask', description='형태소 분리 API')
-jpype.attachThreadToJVM()
-okt = Okt()
 
 
 def encode(data):
@@ -25,6 +23,8 @@ class Morpheme(Resource):
     @api.doc(params={'text': {'description': '형태소 분리할 문장들', 'type': 'String'}})
     def get(self):
         ''' 텍스트 정규화를 거친 후 형태소로 분리해 반환한다. 중복은 제외한다. '''
+        jpype.attachThreadToJVM()
+        okt = Okt()
         text = request.args.get('text')
         # morphs = okt.morphs(text)  # 형태소 추출
         # okt.sentences(text)  # 문장 분리
