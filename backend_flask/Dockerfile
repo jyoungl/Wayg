@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN apt-get install default-jdk -y
+RUN apt-get install openjdk-8-jdk -y
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
