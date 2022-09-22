@@ -1,6 +1,6 @@
 # java and python
 FROM openjdk:slim
-COPY --from=python:3.6 / /
+COPY --from=python:3.7 / /
 
 
 WORKDIR /usr/src/app
