@@ -3,6 +3,7 @@ from flask_restx import Api, Resource  # Api 구현을 위한 Api 객체 import
 from flask_cors import CORS
 from konlpy.tag import Okt
 import json
+import jpype
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -23,6 +24,7 @@ def encode(data):
 class Morpheme(Resource):
     @api.doc(params={'text': {'description': '형태소 분리할 문장들', 'type': 'String'}})
     def get(self):
+        jpype.attachThreadToJVM()
         ''' 텍스트 정규화를 거친 후 형태소로 분리해 반환한다. 중복은 제외한다. '''
         text = request.args.get('text')
         # morphs = okt.morphs(text)  # 형태소 추출
