@@ -67,7 +67,6 @@ public class PlaceController {
 	public ResponseEntity<Map<String,Object>> plusScrap(@RequestBody PlacescrapDto scrap) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			resultMap.put("scrap",placeService.insertScrap(scrap));
 			resultMap.put("message",SUCCESS);
 		} catch (Exception e) {
 			resultMap.put("message",e.getMessage());
