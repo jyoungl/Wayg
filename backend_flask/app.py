@@ -11,14 +11,14 @@ CORS(app, resources={r'*': {'origins': ['http://localhost:3000','https://j7c202.
 api = Api(app, version='1.0', title='API 문서', description='Swagger 문서', doc="/api-docs")  # Flask 객체에 Api 객체 등록
 
 
-flask_api = api.namespace('/flask', description='형태소 분리 API')
+#flask_api = api.namespace('/flask', description='형태소 분리 API')
 
 
 def encode(data):
     return make_response(json.dumps(data, ensure_ascii=False))
 
 
-@flask_api.route("/morph")
+@api.route("/morph")
 class Morpheme(Resource):
     @api.doc(params={'text': {'description': '형태소 분리할 문장들', 'type': 'String'}})
     def get(self):
