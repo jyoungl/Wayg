@@ -1,5 +1,10 @@
-FROM python:3.8-slim
-COPY . /app
-RUN  pip install -r requirements.txt
+# Image Download
+FROM python:3.8.5
 WORKDIR /app
-CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
+
+COPY . .
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+CMD ["python", "./app.py", "0.0.0.0:5000"]
