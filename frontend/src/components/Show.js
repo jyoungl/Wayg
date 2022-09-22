@@ -4,7 +4,7 @@ import styles from './Show.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
-function show({feedFiles, feedTitle, feedContent, feedLike, feedLikeCnt, feedNickname   }) {
+function show({feedFiles, feedTitle, feedContent, feedLike, feedLikeCnt, feedNickname}) {
   return (
     
     <div className={styles.show}>
