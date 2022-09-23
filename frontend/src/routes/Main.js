@@ -9,6 +9,8 @@ import Loading from "../components/Loading"
 import styles from "./Main.module.css"
 
 
+
+
 function Main() {
   
   // 기본 화면(로딩화면?)으로 돌아가기
