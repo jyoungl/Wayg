@@ -28,7 +28,7 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
   const plusScrap = async () => {
     try {
         const response = await axios.post(`http://localhost:8080/api/place/scrap`,{
-          userNo: 2,
+          userNo: 1,
           placeNo: {placeNo}.placeNo
         });
         console.log(response.data)
@@ -48,7 +48,7 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
     try {
         const response = await axios.delete(`http://localhost:8080/api/place/scrap/1`,{
           params: {
-            userNo: 2,
+            userNo: 1,
             placeNo: {placeNo}.placeNo,
           }
         });
@@ -72,7 +72,7 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
           <div className={styles.recommendation_box}>
             <div>
                 {recommendation.placeScrapYn ? 
-                  <FontAwesomeIcon onClick={deleteScrap} className={styles.likeY} icon={solidMark} /> 
+                  <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
                   : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />} 
                 <span> </span>
                 <FontAwesomeIcon icon={faPaperPlane} />

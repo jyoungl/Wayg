@@ -22,7 +22,8 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
   const plusLike = async () => {
     try {
         const response = await axios.post(`http://localhost:8080/api/feed/like`,{
-          userNo: {userNo}.userNo,
+          // userNo: {userNo}.userNo,
+          userNo: 1,
           feedNo: {feedNo}.feedNo
         });
         console.log(response.data)
@@ -42,7 +43,7 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
     try {
         const response = await axios.delete(`http://localhost:8080/api/feed/like/1`,{
           params: {
-            userNo: {userNo}.userNo,
+            userNo: 1,
             feedNo: {feedNo}.feedNo,
           }
         });
@@ -57,7 +58,28 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
         
       }
     };
+
+  const shareKakaoLink = () => {
+    // @ts-ignore
+    // window.Kakao.Link.createCustomButton({
+    //   container: "#kakao-link-btn",
+    //   templateId: 83280,
+    //   templateArgs: {
+    //     userId: `1`,
+    //   },
+    // });
+    window.Kakao.Share.sendCustom({
+      templateId: 83280,
+      templateArgs: {
+        title: '제목 영역입니다.',
+        description: '설명 영역입니다.',
+      },
+    });
+  };
   
+  const onShareKakaoClick = () => {
+    shareKakaoLink();
+  };
 
   return (
     // for map 사용
@@ -72,7 +94,7 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
                   <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
                   : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />} 
                 <span> </span>
-                <FontAwesomeIcon icon={faPaperPlane} />
+                <FontAwesomeIcon onClick={onShareKakaoClick} icon={faPaperPlane} />
             </div>
           </div>
           <p className={styles.feed_writer}>{feed.feedNickname} {feed.userNo}</p>
