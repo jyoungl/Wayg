@@ -13,11 +13,11 @@ public class OAuthAttributes {
     private String nameAttributeKey;
     private String name;
     private String email;
-    private Integer gender;
-    private Integer age;
+    private String gender;
+    private String age;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, int gender, int age) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String gender, String age) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
@@ -30,7 +30,7 @@ public class OAuthAttributes {
     // 여기서 registrationId는 OAuth2 로그인을 처리한 서비스 명("google","kakao","naver"..)이 되고,
     // userNameAttributeName은 해당 서비스의 map의 키값이 되는 값이됩니다. {google="sub", kakao="id", naver="response"}
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
-        return ofKakao(userNameAttributeName, attributes);
+        return ofKakao("id", attributes);
     }
 
     private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
@@ -40,6 +40,8 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) profile.get("nickname"))
                 .email((String) kakao_account.get("email"))
+                .age((String) kakao_account.get("age_range"))
+                .gender((String) kakao_account.get("gender"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();

@@ -24,10 +24,12 @@ public class UserDto implements Serializable {
     private Integer userNo;
     @ApiModelProperty(value = "회원 이름")
     private String userName;
+    @ApiModelProperty(value = "회원 역할")
+    private String Role;
     @ApiModelProperty(value = "회원 이메일")
     private String userEmail;
     @ApiModelProperty(value = "회원 성별")
-    private Integer userGender;
+    private String userGender;
     @ApiModelProperty(value = "회원 나이")
-    private Integer userAge;
+    private String userAge;
 }

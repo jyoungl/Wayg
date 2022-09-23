@@ -61,7 +61,7 @@ public class FeedServiceImpl implements FeedService {
 
 	@Override
 	public FeedDto detailFeed(int userNo, int feedNo) throws Exception {
-		FeedDto feedDto = converter.toFeedDto(feedRepository.getOne(feedNo));
+		FeedDto feedDto = converter.toFeedDto(feedRepository.getReferenceById(feedNo));
 
 		feedDto.setUserNo(feedRepository.findByFeedNo(feedNo));
 		feedDto.setFeedLikeYn(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(userNo, feedNo) != null);
@@ -74,7 +74,7 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	@Transactional
 	public void deleteFeed(int feedNo) throws Exception {
-		feedRepository.delete(feedRepository.getOne(feedNo));
+		feedRepository.delete(feedRepository.getReferenceById(feedNo));
 	}
 	
 	@Override
@@ -86,9 +86,10 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	@Transactional
 	public FeedlikeDto insertLike(FeedlikeDto likeDto) throws Exception {
-
+		System.out.println(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(likeDto.getUserNo(), likeDto.getFeedNo()));
+		System.out.println(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(likeDto.getUserNo(), likeDto.getFeedNo()) == null);
 		if(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(likeDto.getUserNo(), likeDto.getFeedNo()) == null) {
-			Feed feed = feedRepository.getOne(likeDto.getFeedNo());
+			Feed feed = feedRepository.getReferenceById(likeDto.getFeedNo());
 			feed.setFeedLike(feed.getFeedLike()+1);
 			return converter.toLikeDto(likeRepository.save(converter.toLikeEntity(likeDto)));
 		}
@@ -102,7 +103,7 @@ public class FeedServiceImpl implements FeedService {
 	public void deleteLike(int userNo, int feedNo) throws Exception {
 
 		if(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(userNo, feedNo) != null) {
-			Feed feed = feedRepository.getOne(feedNo);
+			Feed feed = feedRepository.getReferenceById(feedNo);
 			feed.setFeedLike(feed.getFeedLike()-1);
 		}
 
