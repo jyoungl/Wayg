@@ -113,8 +113,13 @@ public class FeedServiceImpl implements FeedService {
 	public Page<FeedDto> retrieveLikeList(int userNo, Pageable pageable) throws Exception {
 		
 		List<Integer> likeList = likeRepository.findByUserNo(userNo);
+		Page<FeedDto> feedDtoPage = null;
 
-		Page<FeedDto> feedDtoPage = converter.toFeedDtoList(feedRepository.findByFeedNo(likeList,pageable));
+		if(likeList.isEmpty()) {
+			likeList.add(0);
+		}
+
+		feedDtoPage = converter.toFeedDtoList(feedRepository.findByFeedNo(likeList, pageable));
 
 		for (int i = 0; i < feedDtoPage.getContent().size(); i++) {
 			FeedDto feedDto = feedDtoPage.getContent().get(i);
@@ -122,6 +127,7 @@ public class FeedServiceImpl implements FeedService {
 		}
 
 		return feedDtoPage;
+
 	}
 
 }
