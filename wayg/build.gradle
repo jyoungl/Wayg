@@ -42,7 +42,7 @@ dependencies {
 }
 
 bootJar {
-    mainClassName = 'com.ssafy.wayg.Main'
+    mainClass = 'com.ssafy.wayg.Main'
 }
 
 bootRun {
