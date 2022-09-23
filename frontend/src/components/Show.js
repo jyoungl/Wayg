@@ -48,9 +48,9 @@ function Show({feedFiles, feedTitle, feedContent, feedLike, feedLikeCnt, feedNic
   
   return (
     <>
-    <div onClick={handleShow} className={styles.show}>
+    <div className={styles.show}>
       <div>{feedFiles}
-        <img className={styles.show_img} src={feedFiles} alt='img' />
+        <img onClick={handleShow} className={styles.show_img} src={feedFiles} alt='img' />
         <div>
           <div className={styles.show_box}>
             <div>

@@ -132,9 +132,9 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
   return (
     // for map 사용
     <>
-    <div onClick={onClickFeed} className={styles.feed}>
+    <div className={styles.feed}>
       <div>
-        <img className={styles.feed_img} src={feed.feedFiles} alt='img' />
+        <img onClick={onClickFeed} className={styles.feed_img} src={feed.feedFiles} alt='img' />
         <div>
           <div className={styles.feed_box}>
             {feed.feedLikeYn ? 
