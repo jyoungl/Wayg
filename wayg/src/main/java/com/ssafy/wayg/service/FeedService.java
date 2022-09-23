@@ -1,9 +1,7 @@
 package com.ssafy.wayg.service;
 
 import com.ssafy.wayg.dto.FeedDto;
-import com.ssafy.wayg.dto.FeedwordDto;
-import com.ssafy.wayg.dto.FeedfileDto;
-import com.ssafy.wayg.dto.LikeDto;
+import com.ssafy.wayg.dto.FeedlikeDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,9 +9,9 @@ import java.util.List;
 
 public interface FeedService {
 
-	Page<FeedDto> retrieveFeed(Pageable pageable) throws Exception;
+	Page<FeedDto> retrieveFeed(int userNo, Pageable pageable) throws Exception;
 
-	FeedDto detailFeed(int id) throws Exception;
+	FeedDto detailFeed(int userNo, int feedNo) throws Exception;
 
 	FeedDto insertFeed(FeedDto feedDto) throws Exception;
 
@@ -21,10 +19,12 @@ public interface FeedService {
 
 	Page<FeedDto> retrieveMyFeed(int userNo, Pageable pageable) throws Exception;
 
-	LikeDto insertLike(LikeDto like) throws Exception;
+	FeedlikeDto insertLike(FeedlikeDto like) throws Exception;
 
-	void deleteLike(int likeNo) throws Exception;
+	void deleteLike(int userNo, int feedNo) throws Exception;
 
-	long getTotalCount() throws Exception;
+	Page<FeedDto> retrieveLikeList(int userNo, Pageable pageable) throws Exception;
+
+//	long getTotalCount() throws Exception;
 
 }

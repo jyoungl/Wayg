@@ -1,13 +1,23 @@
 package com.ssafy.wayg.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.time.Instant;
 
 @Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "feed")
 public class Feed {
     @Id
@@ -25,9 +35,14 @@ public class Feed {
     private String feedNickname;
 
     @Column(name = "feed_like")
+    @ColumnDefault("0")
     private Integer feedLike;
 
+    @Column(name = "feed_regdate")
+    private Instant feedRegdate;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_no", nullable = false)
     private User userNo;
 

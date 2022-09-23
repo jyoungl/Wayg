@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * A DTO for the {@link com.ssafy.wayg.entity.Like} entity
+ * A DTO for the {@link com.ssafy.wayg.entity.Placescrap} entity
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "", description = "")
-public class LikeDto implements Serializable {
-    private Integer likeNo;
-    private UserDto userNo;
-    private FeedDto feedNo;
+public class PlacescrapDto implements Serializable {
+    private Integer scrapNo;
+    private Integer userNo;
+    private Integer placeNo;
 }

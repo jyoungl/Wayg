@@ -1,6 +1,6 @@
 package com.ssafy.wayg.repository;
 
-import com.ssafy.wayg.entity.Like;
+import com.ssafy.wayg.entity.Feedfile;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,9 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LikeRepository extends JpaRepository<Like, Integer> {
+public interface FeedfileRepository extends JpaRepository<Feedfile, Integer> {
 
-//	Page<Like> findAllByOrderByFeedLike(Pageable pageable);
-
-//	Page<Like> findAllByUserUserNo(int userNo, Pageable pageable);
+	List<Feedfile> findByFeedNoFeedNo(int feedNo);
+	
 }
