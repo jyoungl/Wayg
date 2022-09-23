@@ -22,7 +22,8 @@ public class UserDto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userNo;
     private String userName;
+    private String Role;
     private String userEmail;
-    private Integer userGender;
-    private Integer userAge;
+    private String userGender;
+    private String userAge;
 }

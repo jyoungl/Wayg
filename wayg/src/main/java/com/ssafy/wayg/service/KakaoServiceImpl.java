@@ -3,6 +3,7 @@ package com.ssafy.wayg.service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.ssafy.wayg.dto.UserDto;
+import com.ssafy.wayg.entity.User;
 import com.ssafy.wayg.repository.UserRepository;
 import com.ssafy.wayg.util.DEConverter;
 import org.json.simple.parser.ParseException;
@@ -17,6 +18,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class KakaoServiceImpl implements KakaoService {
@@ -25,7 +27,8 @@ public class KakaoServiceImpl implements KakaoService {
     private UserRepository userRepository;
     @Autowired
     private DEConverter deConverter;
-
+    @Autowired
+    private UserService userService;
     @Override
     public HashMap<String, Object> getUserInfo(String access_Token){
         HashMap<String, Object> userInfo = new HashMap<>();
@@ -34,7 +37,7 @@ public class KakaoServiceImpl implements KakaoService {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-
+            conn.setRequestProperty("charset", "utf-8");
             conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 
             int responseCode = conn.getResponseCode();
@@ -59,21 +62,33 @@ public class KakaoServiceImpl implements KakaoService {
 
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String gender = "unknown";
+            String age = "unknown";
+
+            if(kakao_account.getAsJsonObject().get("has_age_range").getAsBoolean()){
+                gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+            }
+
+            if(kakao_account.getAsJsonObject().get("has_age_range").getAsBoolean()){
+                age = kakao_account.getAsJsonObject().get("age_range").getAsString();
+            }
 
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
+            userInfo.put("gender", gender);
+            userInfo.put("age", age);
+
         } catch (IOException e){
             e.printStackTrace();
         }
 
-        UserDto result = deConverter.toUserDto(userRepository.findByUserEmailAndUserName((String)userInfo.get("email"), (String)userInfo.get("nickname")));
-        if(result == null){
+        //UserDto result = deConverter.toUserDto(userRepository.findByUserEmailAndUserName((String)userInfo.get("email"), (String)userInfo.get("nickname")));
+        Optional<User> oUser = userRepository.findByUserEmail((String) userInfo.get("email"));
+        if(!oUser.isPresent()){
+            UserDto resUser = userService.register(userInfo);
             //DB에 데이터 저장
-            //return userRepository.finduser(userInfo);
-            return null;
-        } else{
-            return userInfo;
         }
+        return userInfo;
     }
 
     @Override
@@ -121,9 +136,11 @@ public class KakaoServiceImpl implements KakaoService {
             //    POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
+
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=bbe27fdfd6962e9fa7c41c8b3c99fb13");
-            sb.append("&redirect_uri=http://localhost:8080/login");
+            sb.append("&client_secret=GVivIOJu8TfT4wvHekhGorCmk8xfxqaf");
+            sb.append("&redirect_uri=http://localhost:8080/api/login");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();

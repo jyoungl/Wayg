@@ -26,17 +26,17 @@ public class User {
     private String userEmail;
 
     @Column(name = "user_gender")
-    private Integer userGender;
+    private String userGender;
 
     @Column(name = "user_age")
-    private Integer userAge;
+    private String userAge;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
     @Builder
-    public User(String userName, String userEmail, Integer userGender, Integer userAge, Role role){
+    public User(String userName, String userEmail, String userGender, String userAge, Role role){
         this.userName = userName;
         this.userEmail = userEmail;
         this.userGender = userGender;

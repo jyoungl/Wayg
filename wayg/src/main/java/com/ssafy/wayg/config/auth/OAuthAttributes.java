@@ -13,11 +13,11 @@ public class OAuthAttributes {
     private String nameAttributeKey;
     private String name;
     private String email;
-    private Integer gender;
-    private Integer age;
+    private String gender;
+    private String age;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, int gender, int age) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String gender, String age) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
@@ -40,6 +40,8 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) profile.get("nickname"))
                 .email((String) kakao_account.get("email"))
+                .age((String) kakao_account.get("age_range"))
+                .gender((String) kakao_account.get("gender"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();

@@ -2,7 +2,10 @@ package com.ssafy.wayg.controller;
 
 import com.ssafy.wayg.config.auth.LoginUser;
 import com.ssafy.wayg.config.auth.SessionUser;
+import com.ssafy.wayg.entity.User;
+import com.ssafy.wayg.repository.UserRepository;
 import com.ssafy.wayg.service.KakaoService;
+import com.ssafy.wayg.util.DEConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 public class MainController {
     private final HttpSession httpSession;
-    private KakaoService kakaoService;
+    private final KakaoService kakaoService;
+    private final DEConverter deConverter;
+    private final UserRepository userRepository;
 
     @GetMapping("/")
     public void index(Model model, @LoginUser SessionUser user, HttpServletResponse response) throws IOException {
@@ -31,7 +37,7 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam("code") String code){
+    public void login(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
         System.out.println("code: " + code);
 
         String access_token = kakaoService.getAccessToken(code);
@@ -44,8 +50,12 @@ public class MainController {
             httpSession.setAttribute("userId", userInfo.get("email"));
             httpSession.setAttribute("access_token", access_token);
         }
+        String url = "http://localhost:3000/main";
 
-        return "index";
+        User user = userRepository.findByUserEmail((String) userInfo.get("email")).get();
+        String id = String.valueOf(deConverter.toUserDto(user).getUserNo());
+
+        response.sendRedirect(url + "?access_token="+access_token+"&id="+id);
     }
 
     @GetMapping("/logout")
