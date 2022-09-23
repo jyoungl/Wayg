@@ -46,7 +46,7 @@ bootJar {
 }
 
 bootRun {
-    String activeProfile = System.properties['spring.profies.active']
-    systemProperty "spring.profies.active", activeProfile
+    String activeProfile = System.properties['spring.profiles.active']
+    systemProperty "spring.profiles.active", activeProfile
 }
 
