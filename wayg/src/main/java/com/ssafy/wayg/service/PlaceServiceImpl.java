@@ -48,7 +48,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public PlaceDto detailPlace(int userNo, int placeNo) throws Exception {
-		PlaceDto placeDto = converter.toPlaceDto(placeRepository.getOne(placeNo));
+		PlaceDto placeDto = converter.toPlaceDto(placeRepository.getReferenceById(placeNo));
 
 		placeDto.setPlaceScrapYn(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeNo) != null);
 
@@ -62,7 +62,7 @@ public class PlaceServiceImpl implements PlaceService {
 	public PlacescrapDto insertScrap(PlacescrapDto scrapDto) throws Exception {
 
 		if(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(scrapDto.getUserNo(), scrapDto.getPlaceNo()) == null) {
-			Place place = placeRepository.getOne(scrapDto.getPlaceNo());
+			Place place = placeRepository.getReferenceById(scrapDto.getPlaceNo());
 			place.setPlaceScrap(place.getPlaceScrap()+1);
 			return converter.toScrapDto(scrapRepository.save(converter.toScrapEntity(scrapDto)));
 		}
@@ -75,7 +75,7 @@ public class PlaceServiceImpl implements PlaceService {
 	public void deleteScrap(int userNo, int placeNo) throws Exception {
 
 		if(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeNo) != null) {
-			Place place = placeRepository.getOne(placeNo);
+			Place place = placeRepository.getReferenceById(placeNo);
 			place.setPlaceScrap(place.getPlaceScrap()-1);
 		}
 
