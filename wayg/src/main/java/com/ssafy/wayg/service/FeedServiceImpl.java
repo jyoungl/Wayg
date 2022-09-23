@@ -115,16 +115,15 @@ public class FeedServiceImpl implements FeedService {
 		List<Integer> likeList = likeRepository.findByUserNo(userNo);
 		Page<FeedDto> feedDtoPage = null;
 
-		if(!likeList.isEmpty()) {
-			feedDtoPage = converter.toFeedDtoList(feedRepository.findByFeedNo(likeList, pageable));
-
-			for (int i = 0; i < feedDtoPage.getContent().size(); i++) {
-				FeedDto feedDto = feedDtoPage.getContent().get(i);
-				feedDto.setFeedLikeYn(true);
-			}
-		} else {
+		if(likeList.isEmpty()) {
 			likeList.add(0);
-			feedDtoPage = converter.toFeedDtoList(feedRepository.findByFeedNo(likeList, pageable));
+		}
+
+		feedDtoPage = converter.toFeedDtoList(feedRepository.findByFeedNo(likeList, pageable));
+
+		for (int i = 0; i < feedDtoPage.getContent().size(); i++) {
+			FeedDto feedDto = feedDtoPage.getContent().get(i);
+			feedDto.setFeedLikeYn(true);
 		}
 
 		return feedDtoPage;
