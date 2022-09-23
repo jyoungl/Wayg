@@ -47,7 +47,7 @@ function CreateFeed(props) {
     const CreateFeed = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:8080/api/feed`,
+          process.env.REACT_APP_HOST+`feed`,
           {feedTitle:feedTitle,
            feedContent:feedContent, 
            feedNickname:feedNickname, 

@@ -11,7 +11,10 @@ function Recommendations() {
 
     const fetchFeeds = async () => {
       try {
-          const response = await axios.get(`http://localhost:8080/api/place`,{
+          const response = await axios.get(
+            process.env.REACT_APP_HOST+`place`
+            
+            ,{
             params: {
               page: 0,
               size: 10,

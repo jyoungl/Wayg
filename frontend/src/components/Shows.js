@@ -42,7 +42,10 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
     if (likeFeed) {
       const fetchLikeFeeds = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/feed/myLikeList?page=0&size=10&userNo=1`);
+            const response = await axios.get(
+              process.env.REACT_APP_HOST+`feed/myLikeList?page=0&size=10&userNo=1`
+              
+              );
             console.log(response.data)
             setItems(response.data.myLikeList.content)
           } catch (e) {
@@ -54,7 +57,11 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
     else if (myFeed) {
       const fetchMyFeeds = async () => {
         try {
-          const response = await axios.get(`http://localhost:8080/api/feed/myFeed?page=0&size=10&userNo=1`);
+          const response = await axios.get(
+            process.env.REACT_APP_HOST+`feed/myFeed?page=0&size=10&userNo=1`
+           
+            
+            );
           console.log(response.data)
           setItems(response.data.myFeedList.content)
         } catch (e) {
@@ -66,7 +73,11 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
     else if (scrapPlace) {
       const fetchMyPlaces = async () => {
         try {
-          const response = await axios.get(`http://localhost:8080/api/place/myScrapList?page=0&size=10&userNo=1`);
+          const response = await axios.get(
+            process.env.REACT_APP_HOST+`place/myScrapList?page=0&size=10&userNo=1`
+            
+          
+          );
           console.log(response.data)
           setItems(response.data.myScrapList.content)
         } catch (e) {

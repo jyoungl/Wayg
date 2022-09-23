@@ -20,7 +20,7 @@ function Show({feedFiles, feedTitle, feedContent, feedLike, feedLikeCnt, feedNic
   const handleShow = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/feed/view?userNo=${userNo}&feedNo=${feedNo}`
+        process.env.REACT_APP_HOST+`feed/view?userNo=${userNo}&feedNo=${feedNo}`
       )
       console.log(response.data.feed.feedContent)
       await setDetailContent(response.data.feed.feedContent)
@@ -34,7 +34,9 @@ function Show({feedFiles, feedTitle, feedContent, feedLike, feedLikeCnt, feedNic
   const deleteShow = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:8080/api/feed/${feedNo}`
+        process.env.REACT_APP_HOST+`feed/${feedNo}`
+        
+
       )
       console.log(response)
     }

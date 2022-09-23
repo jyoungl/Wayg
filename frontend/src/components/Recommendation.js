@@ -31,7 +31,10 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
 
   const plusScrap = async () => {
     try {
-        const response = await axios.post(`http://localhost:8080/api/place/scrap`,{
+        const response = await axios.post(
+          process.env.REACT_APP_HOST+`place/scrap`
+          
+          ,{
           userNo: 1,
           placeNo: {placeNo}.placeNo
         });
@@ -49,7 +52,10 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
   
   const deleteScrap = async () => {
     try {
-        const response = await axios.delete(`http://localhost:8080/api/place/scrap/1`,{
+        const response = await axios.delete(
+          process.env.REACT_APP_HOST+`place/scrap/1`
+          
+          ,{
           params: {
             userNo: 1,
             placeNo: {placeNo}.placeNo,
@@ -70,7 +76,8 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
   const onClickRecommendation = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/place/view?userNo=1&placeNo=${placeNo}`
+        process.env.REACT_APP_HOST+`place/view?userNo=1&placeNo=${placeNo}`
+        
       )
       await console.log(response.data.place)
       await setDetailContent(response.data.place.placeInfo)

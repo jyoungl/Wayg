@@ -41,50 +41,50 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
     setGreeting((current) => !current)
   },[])
 /////////////////////////////////
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     console.log(sends)
-  //     if (greeting ===true) {
+  useEffect(() => {
+    const fetchUsers = async () => {
+      console.log(sends)
+      if (greeting ===true) {
 
       
-  //     try {
-  //       setError(null);
-  //       // setUsers(null)
-  //       setReceive('');
-  //       setReceives([]);
-  //       setLoading(false);
+      try {
+        setError(null);
+        // setUsers(null)
+        setReceive('');
+        setReceives([]);
+        setLoading(false);
   
-  //       const response = await axios.get(
-  //         `http://localhost:5000/morph?text=${sends[sends.length-1]}`
-  //       );
-  //       console.log(response.data)
-  //       // if (response.data[0][0]==='undefined') {
-  //       //   return
-  //       //     // response.data.pop()
-  //       // }
-  //       setReceive(() => setReceive(JSON.stringify(response.data)))
-  //       setReceives((currentArray) => [...currentArray,receive])
-  //       console.log(receive)
-  //       console.log(receives)
-  //       ///
-  //       if (response.data[0][0] !=="undefined") {
-  //         setStory(story.concat(
-  //           <div>
+        const response = await axios.get(
+          process.env.REACT_APP_HOST_FLASK+`morph?text=${sends[sends.length-1]}`
+        );
+        console.log(response.data)
+        // if (response.data[0][0]==='undefined') {
+        //   return
+        //     // response.data.pop()
+        // }
+        setReceive(() => setReceive(JSON.stringify(response.data)))
+        setReceives((currentArray) => [...currentArray,receive])
+        console.log(receive)
+        console.log(receives)
+        ///
+        if (response.data[0][0] !=="undefined") {
+          setStory(story.concat(
+            <div>
     
-  //             <div className={styles.receivedMessage}>{response.data}</div>
-  //           </div>
-  //         ))
-  //       }
-  //     } catch (e) {
-  //       setError(e);
-  //     }
-  //     setLoading(false)
-  //   } 
-  // }
+              <div className={styles.receivedMessage}>{response.data}</div>
+            </div>
+          ))
+        }
+      } catch (e) {
+        setError(e);
+      }
+      setLoading(false)
+    } 
+  }
 
-  //   fetchUsers();
+    fetchUsers();
 
-  // }, [greeting, returnMessage])
+  }, [greeting, returnMessage])
 
 
 
@@ -98,7 +98,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
 
 
   if (loading) return <div>로딩중..</div>
-  if (error) return <div>에러가 발생 하였습니다.</div>
+  // if (error) return <div>에러가 발생 하였습니다.</div>
   return (
     <div className={styles.chatbot}>
       <div className={styles.chatbot_title}>

@@ -25,7 +25,9 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
 
   const plusLike = async () => {
     try {
-        const response = await axios.post(`http://localhost:8080/api/feed/like`,{
+        const response = await axios.post(
+          process.env.REACT_APP_HOST+`feed/like`
+          ,{
           // userNo: {userNo}.userNo,
           userNo: 1,
           feedNo: {feedNo}.feedNo
@@ -45,7 +47,11 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
 
   const deleteLike = async () => {
     try {
-        const response = await axios.delete(`http://localhost:8080/api/feed/like/1`,{
+        const response = await axios.delete(
+          process.env.REACT_APP_HOST+`feed/like/1`
+          
+          ,
+          {
           params: {
             userNo: 1,
             feedNo: {feedNo}.feedNo,
@@ -80,20 +86,25 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
       },
     });
   };
+
+  const share = () => {
+    shareKakaoLink()
+  }
   
-    const onClickFeed = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/api/feed/view?userNo=${userNo}&feedNo=${feedNo}`
-        )
-        console.log(response.data.feed.feedContent)
-        await setDetailContent(response.data.feed.feedContent)
-        await setHandle(true)
-      }catch (e) {
-        console.log(e)
-      }
-    } 
-  
+  const onClickFeed = async () => {
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_HOST+`feed/view?userNo=${userNo}&feedNo=${feedNo}`
+        
+        
+      )
+      console.log(response.data.feed.feedContent)
+      await setDetailContent(response.data.feed.feedContent)
+      await setHandle(true)
+    }catch (e) {
+      console.log(e)
+    }
+  } 
 
   return (
     // for map 사용
@@ -108,7 +119,7 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
                   <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
                   : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />} 
                 <span> </span>
-                <FontAwesomeIcon onClick={onShareKakaoClick} icon={faPaperPlane} />
+                <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
             </div>
           </div>
           <p className={styles.feed_writer}>{feed.feedNickname} {feed.userNo}</p>
