@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed}) {
+function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed, goScrapPlace}) {
   // 데이터전송 axios를 위한 useState()
   const [receives, setReceives] = useState([]);
   const [receive, setReceive] = useState('');
@@ -116,7 +116,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
         <li>대화 새로 시작하기</li>
         <li onClick={() => {goLoadingScreen()}}>이번달 인기피드 보러가기</li>
         <li onClick={() => {goLikeFeed();}}>내가 좋아요 누른 피드 보러가기</li>
-        <li>내가 즐겨찾기한 관광지 보러가기</li>
+        <li onClick={() => {goScrapPlace();}}>내가 스크랩한 관광지 보러가기</li>
         <li onClick={() => {goMyFeed();}}>내가 올린 피드보기</li>
         <li onClick={() => {parentFunction();}}>피드작성하기</li>
 

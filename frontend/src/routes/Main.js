@@ -18,7 +18,7 @@ function Main() {
     setLikeFeed(false)
     setMyFeed(false)
     setAddFeed(false)
-
+    setScrapPlace(false)
   }
 
   // 피드 작성하기
@@ -28,6 +28,7 @@ function Main() {
     setLikeFeed(false)
     setMyFeed(false)
     setLoadingScreen(false)
+    setScrapPlace(false)
   }
 
   // 좋아요 누른 피드 보러가기
@@ -37,6 +38,7 @@ function Main() {
     setAddFeed(false)
     setMyFeed(false)
     setLoadingScreen(false)
+    setScrapPlace(false)
   }
   //내가 작성한 피드 보러가기
   const [myFeed, setMyFeed] = useState(false)
@@ -45,12 +47,24 @@ function Main() {
     setLikeFeed(false)
     setAddFeed(false)
     setLoadingScreen(false)
+    setScrapPlace(false)
   }
+
+  //내가 스크랩한 여행지 보러가기
+  const [scrapPlace, setScrapPlace] = useState(false)
+  const goScrapPlace = () => {
+    setScrapPlace((current) => true)
+    setMyFeed(false)
+    setLikeFeed(false)
+    setAddFeed(false)
+    setLoadingScreen(false)
+  }
+
   return (
 
     <div className={styles.main}>
       <div className={styles.ChatBot}>
-        <ChatBot addFeed={addFeed} parentFunction={parentFunction} goLikeFeed={goLikeFeed} goLoadingScreen={goLoadingScreen} goMyFeed={goMyFeed}/>
+        <ChatBot addFeed={addFeed} parentFunction={parentFunction} goLikeFeed={goLikeFeed} goLoadingScreen={goLoadingScreen} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
       </div>
       <div className={styles.detail}>
         {loadingScreen ? 
@@ -67,12 +81,16 @@ function Main() {
         {addFeed ?  <CreateFeed/>: null }
         {likeFeed ? 
         <div>
-          <Shows likeFeed={likeFeed} myFeed={myFeed}/>
+          <Shows scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
         </div> : null}
         {myFeed ?
-        <div><Shows myFeed={myFeed} likeFeed={likeFeed} />
+        <div><Shows scrapPlace={scrapPlace} myFeed={myFeed} likeFeed={likeFeed} />
         </div> : null 
         }
+        {scrapPlace ? 
+        <div>
+          <Shows scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+        </div> : null}
       </div>
 
     </div>
