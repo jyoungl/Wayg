@@ -5,11 +5,6 @@ plugins {
     id 'eclipse'
 }
 
-repositories {
-    mavenCentral()
-}
-
-
 group 'com.ssafy.wayg'
 version '1.0.4-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = 1.8
