@@ -51,7 +51,7 @@ public class FeedController {
 	}
 
 	@ApiOperation(value = "피드 상세보기", notes = "성공여부와 피드 번호에 해당하는 피드의 정보를 반환한다.", response = Map.class)
-	@GetMapping("/{feedNo}")
+	@GetMapping("/view")
 	public ResponseEntity<Map<String,Object>> detailFeed(@RequestParam int userNo, @RequestParam int feedNo) {
 		Map<String,Object> resultMap = new HashMap<>();
 		try {
