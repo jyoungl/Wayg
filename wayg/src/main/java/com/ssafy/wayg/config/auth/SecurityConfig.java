@@ -2,18 +2,20 @@ package com.ssafy.wayg.config.auth;
 
 import com.ssafy.wayg.role.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.token.TokenService;
+import org.springframework.security.oauth2.jwt.Jwt;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    protected void configure(HttpSecurity http, Jwt jwt, TokenService tokenService) throws Exception {
         http
                 .csrf().disable()
                 .headers().frameOptions().disable()

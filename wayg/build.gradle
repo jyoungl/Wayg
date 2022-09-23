@@ -1,9 +1,20 @@
-plugins {
-    id 'org.springframework.boot' version '2.7.3'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'java'
-    id 'eclipse'
+buildscript {
+    ext {
+        springBootVersion = '2.7.3'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 group 'com.ssafy.wayg'
 version '1.0.4-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
@@ -30,10 +41,9 @@ dependencies {
     implementation('io.springfox:springfox-swagger2:2.9.2')
     implementation('io.springfox:springfox-swagger-ui:2.9.2')
     implementation('org.modelmapper:modelmapper:3.1.0')
-    testImplementation('org.springframework.security:spring-security-test')
     implementation('com.google.code.gson:gson:2.8.5')
     implementation('com.googlecode.json-simple:json-simple:1.1')
-//    compile ('commons-fileupload:commons-fileupload:1.4')
+    testImplementation('org.springframework.security:spring-security-test')
 }
 
 bootJar {
@@ -41,7 +51,6 @@ bootJar {
 }
 
 bootRun {
-    String activeProfile = System.properties['spring.profiles.active']
-    systemProperty "spring.profiles.active", activeProfile
+    String activeProfile = System.properties['spring.profies.active']
+    systemProperty "spring.profies.active", activeProfile
 }
-
