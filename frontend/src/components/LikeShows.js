@@ -11,7 +11,8 @@ function Shows(likeFeed, myFeed) {
     const fetchMyFeeds = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/feed/myFeed?page=0&size=10&userNo=1`
+          process.env.REACT_APP_HOST+`feed/myFeed?page=0&size=10&userNo=1`
+          
         );
         console.log(response.data.myFeedList.content)
         setItems(response.data.myFeedList.content)

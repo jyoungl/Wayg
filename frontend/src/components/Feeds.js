@@ -14,13 +14,21 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 function Feeds() {
+
   const [feeds, setFeeds] = useState([])
   
   useEffect(()=> {
 
     const fetchFeeds = async () => {
       try {
-          const response = await axios.get(`http://localhost:8080/api/feed?page=0&size=10&userNo=1`);
+          const response = await axios.get(process.env.REACT_APP_HOST+'feed'
+          ,{
+            params: {
+              page: 2,
+              size: 10,
+              userNo: 1,
+            }
+          });
           console.log(response.data)
           setFeeds(response.data.feedList.content)
         } catch (e) {
