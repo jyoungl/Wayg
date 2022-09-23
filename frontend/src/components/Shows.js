@@ -55,7 +55,7 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
       const fetchMyFeeds = async () => {
         try {
           const response = await axios.get(`http://localhost:8080/api/feed/myFeed?page=0&size=10&userNo=1`);
-          console.log(response.data.myFeedList.content)
+          console.log(response.data)
           setItems(response.data.myFeedList.content)
         } catch (e) {
   
@@ -66,8 +66,8 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
     else if (scrapPlace) {
       const fetchMyPlaces = async () => {
         try {
-          const response = await axios.get(`http://localhost:8080/api/place/myScrapList?page=0&size=10&userNo=2`);
-          console.log(response.data.myScrapList.content)
+          const response = await axios.get(`http://localhost:8080/api/place/myScrapList?page=0&size=10&userNo=1`);
+          console.log(response.data)
           setItems(response.data.myScrapList.content)
         } catch (e) {
   
