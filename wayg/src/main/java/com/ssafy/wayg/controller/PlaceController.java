@@ -48,7 +48,7 @@ public class PlaceController {
 	}
 
 	@ApiOperation(value = "관광지 상세보기", notes = "성공여부와 관광지 번호에 해당하는 관광지의 정보를 반환한다.", response = Map.class)
-	@GetMapping("/{placeNo}")
+	@GetMapping("/view")
 	public ResponseEntity<Map<String,Object>> detailPlace(@RequestParam int userNo, @RequestParam int placeNo) {
 		Map<String,Object> resultMap = new HashMap<>();
 		try {
