@@ -104,15 +104,12 @@ function CreateFeed(props) {
           
         </Card.Title>
         <Card.Text>
-          
             <input onChange={onChangeContent} type="text" placeholder="내용을 작성하세요"/>
             <br/>
-          
             <input onChange={onChangeNickname} type="text" placeholder="기제할 닉네임을 작성하세요" />
-          
         </Card.Text>
-          <button>aa</button>
-          <Button variant="primary">피드박제</Button>
+          <button variant="primary">피드박제</button>
+
       </form>
       </Card.Body>
     </Card>
