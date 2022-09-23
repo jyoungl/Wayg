@@ -5,8 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.token.TokenService;
-import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -15,7 +14,7 @@ public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
-    protected void configure(HttpSecurity http, Jwt jwt, TokenService tokenService) throws Exception {
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .headers().frameOptions().disable()
@@ -33,5 +32,7 @@ public class SecurityConfig {
                     .oauth2Login()
                     .userInfoEndpoint()
                     .userService(customOAuth2UserService); //로그인 성공 시 후속 조치 진행 구현체
+
+        return http.build();
     }
 }
