@@ -89,9 +89,9 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
   
   return (
     <>
-    <div onClick={onClickRecommendation} className={styles.recommendation}>
+    <div className={styles.recommendation}>
       <div>
-        <img className={styles.recommendation_img} src={recommendation.placeFiles} alt='img' />
+        <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFiles} alt='img' />
         <div className={styles.recommendation_description}>
           <div className={styles.recommendation_box}>
             {recommendation.placeScrapYn ? 
