@@ -72,7 +72,7 @@ function Show({feedFiles, feedTitle, feedContent, feedLike, feedLikeCnt, feedNic
     </div>
     {/* 모달 */}
     <Modal show={handle} onHide={handleClose}>
-    <div onClick={handleShow} className={styles.show}>
+    <div className={styles.show}>
       <div>{feedFiles}
         <img className={styles.show_img} src={feedFiles} alt='img' />
         <div>
