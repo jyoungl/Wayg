@@ -2,7 +2,6 @@ package com.ssafy.wayg.service;
 
 import com.ssafy.wayg.dto.PlaceDto;
 import com.ssafy.wayg.dto.PlacescrapDto;
-import com.ssafy.wayg.entity.Feed;
 import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.repository.PlaceRepository;
 import com.ssafy.wayg.repository.PlacefileRepository;
@@ -85,11 +84,14 @@ public class PlaceServiceImpl implements PlaceService {
 	
 	@Override
 	public Page<PlaceDto> retrieveScrapList(int userNo, Pageable pageable) throws Exception {
-		
-		List<Integer> scrapList = scrapRepository.findByUserNo(userNo);
-		
-		Page<PlaceDto> placeDtoPage = converter.toPlaceDtoList(placeRepository.findByPlaceNo(scrapList,pageable));
 
+		List<Integer> scrapList = scrapRepository.findByUserNo(userNo);
+
+		if(scrapList.isEmpty()) {
+			scrapList.add(0);
+		}
+
+		Page<PlaceDto> placeDtoPage = converter.toPlaceDtoList(placeRepository.findByPlaceNo(scrapList,pageable));
 		for (int i = 0; i < placeDtoPage.getContent().size(); i++) {
 			placeDtoPage.getContent().get(i).setPlaceScrapYn(true);
 		}
