@@ -5,6 +5,8 @@ import wayg from '../images/wayg.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import Modal from 'react-bootstrap/Modal';
+import CreateFeed from './CreateFeed'
 
 function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed, goScrapPlace}) {
   // 데이터전송 axios를 위한 useState()
@@ -12,14 +14,16 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
   const [receive, setReceive] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const [greeting,setGreeting] = useState(false)
   const [send, setSend] = useState("")
   const [sends, setSends] = useState([])
   const [upfunc, setUpFunc] = useState(false)
   const [story, setStory] = useState([])
   const [returnMessage, setReturnMessage] = useState(false)
+  const [handle, setHandle] = useState(false);
 
+  const createFeed = () => setHandle(true)
+  const handleClose = () => setHandle(false);
   const onChange = (event) => setSend(event.target.value)
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -100,6 +104,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
   if (loading) return <div>로딩중..</div>
   // if (error) return <div>에러가 발생 하였습니다.</div>
   return (
+    <>
     <div className={styles.chatbot}>
       <div className={styles.chatbot_title}>
         <div>wayg</div>
@@ -118,10 +123,10 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
         <li onClick={() => {goLikeFeed();}}>내가 좋아요 누른 피드 보러가기</li>
         <li onClick={() => {goScrapPlace();}}>내가 스크랩한 관광지 보러가기</li>
         <li onClick={() => {goMyFeed();}}>내가 올린 피드보기</li>
-        <li onClick={() => {parentFunction();}}>피드작성하기</li>
+        <li onClick={() => {createFeed(); }}>피드작성하기</li>
 
       </ul>: null}
-
+      
       <div className={styles.chatting}> 
         <FontAwesomeIcon className="additionalBtn fa-2xl" onClick={upAnotherFunction} icon={faBars} />
         <form onSubmit={onSubmit}>
@@ -135,29 +140,16 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
           {story}
         </div>
       </ul>
-
-
-
-
-      {/* <ul>
-        {sends.map((send, idx) => (
-            <div>
-              <div className={styles.sendMessage} key={idx}>
-              {send}
-            </div>
-            </div>
-        ))}
-
-        {receives.map((receive, idx) => (
-          <div className={styles.receivedMessage} key={idx}>
-            {receive}
-            </div>
-        ))}
-
-      </ul> */}
-
     </div>
     
+    {/* 모달 */}
+    <Modal show={handle} onHide={handleClose}>
+    <CreateFeed>a</CreateFeed>
+      </Modal>
+    
+
+
+    </>
   );
 }
 

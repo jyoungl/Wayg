@@ -92,21 +92,17 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
     <div onClick={onClickRecommendation} className={styles.recommendation}>
       <div>
         <img className={styles.recommendation_img} src={recommendation.placeFiles} alt='img' />
-        <div>
+        <div className={styles.recommendation_description}>
           <div className={styles.recommendation_box}>
-            <div>
-                {recommendation.placeScrapYn ? 
-                  <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
-                  : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />} 
-                <span> </span>
-                <FontAwesomeIcon icon={faPaperPlane} />
-            </div>
+            {recommendation.placeScrapYn ? 
+              <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
+              : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />} 
+            &nbsp;<small>{recommendation.placeScrap}</small>
+            &nbsp;&nbsp;
+            <FontAwesomeIcon icon={faPaperPlane} />
           </div>
-          <p className={styles.recommendation_writer}>{recommendation.placeName}</p>
-          <div className={styles.recommendation_box}>
-            <p className={styles.recommendation_title}>{recommendation.placeNo} {recommendation.placeAddress}</p>
-          </div>
-          <p>{recommendation.placeScrap}</p>
+          <p className={styles.recommendation_title}>{recommendation.placeName}</p>
+          <p className={styles.recommendation_writer}>{recommendation.placeNo} {recommendation.placeAddress}</p>
           <p>{recommendation.placeScrapYn}</p>
         </div>
       </div>

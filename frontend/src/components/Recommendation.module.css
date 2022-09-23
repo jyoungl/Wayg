@@ -2,7 +2,7 @@
   margin: 10px;
   background-color: white;
   width: 200px;
-  height: 200px;
+  height: 220px;
   margin-bottom: 70px;
   font-weight: 300;
   padding: 20px;
@@ -17,14 +17,20 @@
   .recommendation_img {
     top: -50px;
     max-width: 160px;
+    min-width: 100px;
+    min-height: 80px;
     width: 100%;
     height: auto;
     margin-right: 30px;
   }
 
+  .recommendation_description {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
   .recommendation_box {
     display: flex;
-    justify-content: space-between;
     align-items: center;
   }
 
@@ -55,5 +61,5 @@
     }
 
   .scrapY {
-    color: red;
+    color: #FFD24C;
   }
