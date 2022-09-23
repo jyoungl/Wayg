@@ -32,7 +32,7 @@ public class MainController {
         if(user != null)
             model.addAttribute("userName", user.getName());
 
-        response.sendRedirect("http://localhost:3000/main");
+        response.sendRedirect("https://j7c202.p.ssafy.io/main");
 
     }
 
@@ -50,7 +50,7 @@ public class MainController {
             httpSession.setAttribute("userId", userInfo.get("email"));
             httpSession.setAttribute("access_token", access_token);
         }
-        String url = "http://localhost:3000/main";
+        String url = "https://j7c202.p.ssafy.io/main";
 
         User user = userRepository.findByUserEmail((String) userInfo.get("email")).get();
         String id = String.valueOf(deConverter.toUserDto(user).getUserNo());
@@ -58,21 +58,21 @@ public class MainController {
         response.sendRedirect(url + "?access_token="+access_token+"&id="+id);
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session){
-       String access_token = (String)session.getAttribute("access_token");
-
-       if(access_token != null && !"".equals(access_token)){
-           kakaoService.kakaoLogout(access_token);
-           session.removeAttribute("access_token");
-           session.removeAttribute("userId");
-       }
-       else{
-           System.out.println("access_token is null");
-       }
-
-       return "redirect:/";
-    }
+//    @GetMapping("/logout")
+//    public String logout(HttpSession session){
+//       String access_token = (String)session.getAttribute("access_token");
+//
+//       if(access_token != null && !"".equals(access_token)){
+//           kakaoService.kakaoLogout(access_token);
+//           session.removeAttribute("access_token");
+//           session.removeAttribute("userId");
+//       }
+//       else{
+//           System.out.println("access_token is null");
+//       }
+//
+//       return "redirect:/";
+//    }
 //    @Autowired
 //    private UserDto userDto;
 //

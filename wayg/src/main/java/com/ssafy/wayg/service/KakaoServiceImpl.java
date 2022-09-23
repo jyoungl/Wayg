@@ -140,7 +140,7 @@ public class KakaoServiceImpl implements KakaoService {
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=bbe27fdfd6962e9fa7c41c8b3c99fb13");
             sb.append("&client_secret=GVivIOJu8TfT4wvHekhGorCmk8xfxqaf");
-            sb.append("&redirect_uri=http://localhost:8080/api/login");
+            sb.append("&redirect_uri=https://j7c202.p.ssafy.io/api/login");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
