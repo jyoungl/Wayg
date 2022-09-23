@@ -133,4 +133,6 @@ public class DEConverter {
 		return modelMapper.map(placefileDto, Placefile.class);
 	}
 
+	public UserDto toUserDto(User user) { return modelMapper.map(user, UserDto.class); }
+	public User toUserEntity(UserDto userDto) { return modelMapper.map(userDto, User.class); }
 }
