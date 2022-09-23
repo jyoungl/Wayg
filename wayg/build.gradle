@@ -50,11 +50,12 @@ bootJar {
     mainClass = 'com.ssafy.wayg.Main'
 }
 
+jar {
+    enabled = false
+}
+
 bootRun {
     String activeProfile = System.properties['spring.profiles.active']
     systemProperty "spring.profiles.active", activeProfile
 }
 
-jar {
-    enabled = false
-}
