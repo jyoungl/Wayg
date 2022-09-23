@@ -80,7 +80,7 @@ function Main() {
         </div>
            : null}
 
-        {addFeed ?  <CreateFeed/>: null }
+        {/* {addFeed ?  <CreateFeed/>: null } */}
         {likeFeed ? 
         <div>
           <Shows scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
