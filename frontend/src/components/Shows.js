@@ -65,7 +65,7 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
           <h2>내가 작성한 피드</h2>
           <div className={styles.shows_list}>
             {items.map((item,idx) => (
-              <Show {...item} key={idx}/>
+              <Feed {...item} key={idx}/>
             ))}
           </div>
         </> : null}
@@ -74,7 +74,7 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
           <h2>내가 좋아요 누른 피드</h2>
           <div className={styles.shows_list}>
             {items.map((item,idx) => (
-              <Show {...item} key={idx}/>
+              <Feed {...item} key={idx}/>
             ))}
           </div>
         </> : null}
