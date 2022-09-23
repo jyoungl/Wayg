@@ -1,5 +1,14 @@
-FROM python:3.8-slim
-COPY . /app
-RUN  pip install -r requirements.txt
-WORKDIR /app
-CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
+# java and python
+FROM openjdk:slim
+COPY --from=python:3.7 / /
+
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+CMD ["python", "./waitress_server.py"]

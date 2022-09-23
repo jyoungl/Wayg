@@ -38,4 +38,15 @@ dependencies {
     testImplementation('org.springframework.security:spring-security-test')
     implementation('com.google.code.gson:gson:2.8.5')
     implementation('com.googlecode.json-simple:json-simple:1.1')
+    compile ('commons-fileupload:commons-fileupload:1.4')
 }
+
+bootJar {
+    mainClassName = 'com.ssafy.wayg.Main'
+}
+
+bootRun {
+    String activeProfile = System.properties['spring.profies.active']
+    systemProperty "spring.profies.active", activeProfile
+}
+
