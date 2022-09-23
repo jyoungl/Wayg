@@ -26,4 +26,11 @@ public class UserServiceImpl implements UserService {
         userDto.setRole("USER");
         return deConverter.toUserDto(userRepository.save(deConverter.toUserEntity(userDto)));
     }
+
+    @Override
+    public UserDto userInfo(int userNo) throws Exception {
+        UserDto userDto = deConverter.toUserDto(userRepository.findByUserNo(userNo));
+
+        return userDto;
+    }
 }
