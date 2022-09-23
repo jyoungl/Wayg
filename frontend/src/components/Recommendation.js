@@ -1,23 +1,89 @@
 import Button from 'react-bootstrap/Button';
 // import Card from 'react-bootstrap/Card';
 import styles from './Recommendation.module.css'
+import {useState} from 'react'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
-function Recommendation({img_src, title, content }) {
+function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFiles }) {
+  
+  const [recommendation, setRecommendation] = useState({
+    placeNo: {placeNo}.placeNo,
+    placeName: {placeName}.placeName,
+    placeAddress: {placeAddress}.placeAddress,
+    placeInfo: {placeInfo}.placeInfo,
+    placeHoliday: {placeHoliday}.placeHoliday,
+    placeExperience: {placeExperience}.placeExperience,
+    placeTime: {placeTime}.placeTime,
+    placePark: {placePark}.placePark,
+    placeAnimal: {placeAnimal},
+    placeMore: {placeMore}.placeMore,
+    placeScrapYn: {placeScrapYn}.placeScrapYn,
+    placeScrap: {placeScrap}.placeScrap,
+    placeFiles: {placeFiles}.placeFiles,
+  })
+
+  const plusScrap = async () => {
+    try {
+        const response = await axios.post(`http://localhost:8080/api/place/scrap`,{
+          userNo: 2,
+          placeNo: {placeNo}.placeNo
+        });
+        console.log(response.data)
+        if (response.data.message === 'success'){
+          recommendation.placeScrapYn = true;
+          setRecommendation(recommendation)
+          console.log('aaaaa')
+          
+        }
+      } catch (e) {
+        
+      }
+  };
+  
+
+  const deleteScrap = async () => {
+    try {
+        const response = await axios.delete(`http://localhost:8080/api/place/scrap/1`,{
+          params: {
+            userNo: 2,
+            placeNo: {placeNo}.placeNo,
+          }
+        });
+        console.log(response.data)
+        if (response.data.message === 'success'){
+          recommendation.placeScrapYn = true;
+          setRecommendation(recommendation)
+          console.log('ww')
+          
+        }
+      } catch (e) {
+        
+      }
+    };
+  
   return (
     <div className={styles.recommendation}>
       <div>
-        <img className={styles.recommendation_img} src={img_src} alt='img' />
+        <img className={styles.recommendation_img} src={recommendation.placeFiles} alt='img' />
         <div>
           <div className={styles.recommendation_box}>
-            <h2 className={styles.recommendation__title}>
-              {title}
-            </h2>
-            <h3>2022</h3>
+            <div>
+                {recommendation.placeScrapYn ? 
+                  <FontAwesomeIcon onClick={deleteScrap} className={styles.likeY} icon={solidMark} /> 
+                  : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />} 
+                <span> </span>
+                <FontAwesomeIcon icon={faPaperPlane} />
+            </div>
           </div>
+          <p className={styles.recommendation_writer}>{recommendation.placeName}</p>
           <div className={styles.recommendation_box}>
-            <p>{content}</p>
-            <input className={styles.recommendation_btn} type="button" value="공유하기"/>
+            <p className={styles.recommendation_title}>{recommendation.placeNo} {recommendation.placeAddress}</p>
           </div>
+          <p>{recommendation.placeScrap}</p>
+          <p>{recommendation.placeScrapYn}</p>
         </div>
       </div>
     </div>

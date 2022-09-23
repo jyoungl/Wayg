@@ -20,7 +20,13 @@ function Feeds() {
 
     const fetchFeeds = async () => {
       try {
-          const response = await axios.get(`http://localhost:8080/api/feed?page=0&size=10&userNo=2`);
+          const response = await axios.get(`http://localhost:8080/api/feed`,{
+            params: {
+              page: 2,
+              size: 10,
+              userNo: 1,
+            }
+          });
           console.log(response.data)
           setFeeds(response.data.feedList.content)
         } catch (e) {
