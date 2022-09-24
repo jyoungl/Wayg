@@ -1,0 +1,44 @@
+.previewImg {
+  background-position: center;
+}
+
+.container {
+  text-align: center;
+  align-items: 80%;
+}
+
+.Card {
+  position:relative;
+  width: 50%;
+  width: 70%;
+  height:70%;
+  
+}
+.selectLabel {
+  background-color:black;
+  width:500px;
+  height:500px;
+}
+
+.picture {
+  background-color:rgb(171, 175, 198);
+  border-radius:5px;
+  cursor: pointer;
+  text-align: center;
+  padding-top:1%;
+  padding-bottom:1%;
+}
+
+.Title {
+  border-radius:5px;
+  border-color:rgb(171, 175, 198);
+  box-shadow: 5px;
+}
+
+.Content {
+
+}
+
+.Nickname {
+
+}
