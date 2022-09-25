@@ -1,5 +1,5 @@
 {
-  "proxy": "https://j7c202.p.ssafy.io",
+  "proxy": "https://localhost:3000",
   "homepage": ".",
   "name": "frontend",
   "version": "0.1.0",
