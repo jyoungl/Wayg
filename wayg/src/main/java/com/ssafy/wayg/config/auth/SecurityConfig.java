@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
-//                    .authorizeRequests()
+                    .authorizeRequests()
 //                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile", "/swagger-ui/**","/swagger-ui","/feed","/feed/**","/place","/place/**").permitAll()
 //                    .antMatchers("/api/v1/**").hasRole(Role.USER.name()) //USER 권한 가진 사람만 가능 -> 로그인 후 기능 url 넣어야함
 //                    .antMatchers("/oauth2/authorization/kakao").authenticated()
