@@ -1,0 +1,98 @@
+package org.apache.hadoop.examples;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
+import org.openkoreantext.processor.OpenKoreanTextProcessorJava;
+import org.openkoreantext.processor.phrase_extractor.KoreanPhraseExtractor;
+import org.openkoreantext.processor.tokenizer.KoreanTokenizer;
+import scala.collection.Iterator;
+import scala.collection.Seq;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.StringTokenizer;
+
+public class MorphCount {
+	public static void main(String[] args) throws Exception {
+		Configuration conf = new Configuration();
+		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
+		if (otherArgs.length != 2) {
+			System.err.println("Usage: morpheme <in> <out>");
+			System.exit(2);
+		}
+
+		FileSystem hdfs = FileSystem.get(conf);
+		Path output = new Path(otherArgs[1]);
+		if (hdfs.exists(output))
+			hdfs.delete(output, true);
+
+		Job job = new Job(conf, "morpheme count");
+		job.setJarByClass(MorphCount.class);
+		job.setMapperClass(MorphCount.TokenizerMapper.class);
+		job.setCombinerClass(MorphCount.IntSumReducer.class);
+		job.setReducerClass(MorphCount.IntSumReducer.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(IntWritable.class);
+		FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+		System.exit(job.waitForCompletion(true) ? 0 : 1);
+	}
+
+	public static class TokenizerMapper
+			extends Mapper<Object, Text, Text, IntWritable> {
+
+		private final static IntWritable one = new IntWritable(1);
+		private Text word = new Text();
+
+		public void map(Object key, Text value, Context context
+		) throws IOException, InterruptedException {
+
+			StringTokenizer itr = new StringTokenizer(value.toString(),",");
+			String name = "";
+			if(itr.countTokens() > 1) {
+				name = itr.nextToken().trim();
+				if(name.equals("관광지")) return;
+			}
+			while (itr.hasMoreTokens()) {
+				CharSequence normalized = OpenKoreanTextProcessorJava.normalize(itr.nextToken());
+				Seq<KoreanTokenizer.KoreanToken> tokens = OpenKoreanTextProcessorJava.tokenize(normalized);
+				List<KoreanPhraseExtractor.KoreanPhrase> phrases = OpenKoreanTextProcessorJava.extractPhrases(tokens, true, false);
+				for (KoreanPhraseExtractor.KoreanPhrase phrase : phrases) {
+					Iterator<KoreanTokenizer.KoreanToken> iter = phrase.tokens().iterator();
+					while (iter.hasNext()) {
+						String val = iter.next().text().trim();
+						if(val.length() < 2) continue;
+						word.set("("+name + "," + val+")");
+						context.write(word, one);
+					}
+				}
+			}
+
+		}
+	}
+
+	public static class IntSumReducer
+			extends Reducer<Text, IntWritable, Text, IntWritable> {
+		private IntWritable result = new IntWritable();
+
+		public void reduce(Text key, Iterable<IntWritable> values,
+						   Context context
+		) throws IOException, InterruptedException {
+			int sum = 0;
+			for (IntWritable val : values) {
+				sum += val.get();
+			}
+			result.set(sum);
+			context.write(key, result);
+		}
+	}
+}
