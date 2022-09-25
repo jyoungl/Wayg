@@ -1,4 +1,5 @@
 {
+  "proxy": "https://j7c202.p.ssafy.io",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
