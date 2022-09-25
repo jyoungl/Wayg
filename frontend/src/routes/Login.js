@@ -14,7 +14,7 @@ function Login({toDos, addToDo}) {
   const navigate = useNavigate();
   
   const REST_API_KEY = "bbe27fdfd6962e9fa7c41c8b3c99fb13"
-  const REDIRECT_URI = process.env.REACT_APP_HOST+ "api/login"
+  const REDIRECT_URI = process.env.REACT_APP_HOST+ "login"
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   // const KAKAO_AUTH_URL = `http://localhost:8080/api/oauth2/authorization/kakao`;
 
