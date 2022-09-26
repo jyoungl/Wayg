@@ -66,7 +66,7 @@ public class FeedController {
 	}
 
 	@ApiOperation(value = "피드 등록", notes = "새로운 피드 정보를 입력한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
-	@PostMapping
+	@PostMapping("/upload")
 	public ResponseEntity<Map<String,Object>> writeFeed(@RequestBody FeedDto feed) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
