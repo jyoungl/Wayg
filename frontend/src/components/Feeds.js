@@ -13,9 +13,14 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+import {useSelector} from 'react-redux';
+
 function Feeds() {
 
   const [feeds, setFeeds] = useState([])
+  const userNo = useSelector(state => {
+    return state.counter.value
+  })
   
   useEffect(()=> {
 
@@ -26,7 +31,7 @@ function Feeds() {
             params: {
               page: 2,
               size: 10,
-              userNo: 1,
+              userNo: userNo,
             }
           });
           console.log(response.data)

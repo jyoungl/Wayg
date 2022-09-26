@@ -4,9 +4,15 @@ import Recommendation from "./Recommendation";
 import styles from "./Recommendations.module.css"
 import axios from "axios"
 
+import {useSelector} from 'react-redux';
+
 function Recommendations() {
   const [recommendations, setRecommendations] = useState([])
-  
+  const userNo = useSelector(state => {
+    return state.counter.value
+  })
+
+
   useEffect(()=> {
 
     const fetchFeeds = async () => {
@@ -18,7 +24,7 @@ function Recommendations() {
             params: {
               page: 0,
               size: 10,
-              userNo: 1,
+              userNo: userNo,
             }
           });
           console.log(response.data)
