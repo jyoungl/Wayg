@@ -7,9 +7,9 @@ import Shows from "../components/Shows";
 import LikeShows from "../components/LikeShows";
 import Loading from "../components/Loading";
 import styles from "./Main.module.css";
-import store from '../store';
+// userNo
 import {up} from '../user';
-import {Provider,useSelector,useDispatch} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 
 
 
@@ -21,15 +21,12 @@ function Main() {
   })
 
   useEffect(()=> {
-    console.log(userNo)
     let params = new URL(document.location.toString()).searchParams;
     let access_token = params.get("access_token"); // 토큰 받는 부분
     let user_no = params.get("id"); // userNo 받는 부분
     console.log(access_token)
     console.log(user_no)
     dispatch(up(user_no))
-    console.log(userNo)
-    
   }, [])
   
   // 기본 화면(로딩화면?)으로 돌아가기
