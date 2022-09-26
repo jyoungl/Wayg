@@ -61,11 +61,15 @@ public class KakaoServiceImpl implements KakaoService {
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String email = "unknown";
             String gender = "unknown";
             String age = "unknown";
 
-            if(kakao_account.getAsJsonObject().get("has_age_range").getAsBoolean()){
+            if(kakao_account.getAsJsonObject().get("has_email").getAsBoolean()){
+                email = kakao_account.getAsJsonObject().get("email").getAsString();
+            }
+
+            if(kakao_account.getAsJsonObject().get("has_gender_range").getAsBoolean()){
                 gender = kakao_account.getAsJsonObject().get("gender").getAsString();
             }
 
