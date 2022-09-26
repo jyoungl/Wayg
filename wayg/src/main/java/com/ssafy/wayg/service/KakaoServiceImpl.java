@@ -65,7 +65,7 @@ public class KakaoServiceImpl implements KakaoService {
             String gender = "unknown";
             String age = "unknown";
 
-            if(kakao_account.getAsJsonObject().get("has_gender_range").getAsBoolean()){
+            if(kakao_account.getAsJsonObject().get("has_gender").getAsBoolean()){
                 gender = kakao_account.getAsJsonObject().get("gender").getAsString();
             }
 
