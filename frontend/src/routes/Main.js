@@ -27,6 +27,8 @@ function Main() {
     let user_no = params.get("id"); // userNo 받는 부분
     console.log(access_token)
     console.log(user_no)
+    dispatch(up(user_no))
+    console.log(userNo)
     
   }, [])
   
