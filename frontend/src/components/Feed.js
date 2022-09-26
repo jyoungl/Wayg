@@ -79,42 +79,46 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
   //   });
   // };
 
-  // const shareKakaoLink = () => {
-  //   window.Kakao.Share.sendDefault({
-  //     objectType: 'feed',
-  //     content: {
-  //       title: '여행지 이름',
-  //       description: '여행지 설명',
-  //       imageUrl:
-  //         'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
-  //       link: {
-  //         mobileWebUrl: 'https://developers.kakao.com',
-  //         webUrl: 'https://developers.kakao.com',
-  //       },
-  //     },
-  //     itemContent: {
-  //       // profileText: 'Kakao',
-  //       // profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-  //     },
-  //     social: {
-  //       likeCount: 10,
-  //     },
-  //     // buttons: [
-  //       // {
-  //       //   title: '웹으로 이동',
-  //       //   link: {
-  //       //     mobileWebUrl: 'https://developers.kakao.com',
-  //       //     webUrl: 'https://developers.kakao.com',
-  //       //   },
-  //       // },
-  //     // ],
-  //   });
-  // }
-
-  const share = () => {
-    // shareKakaoLink()
-    console.log('share')
+  const shareKakaoLink = () => {
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '여행지 이름',
+        description: '여행지 설명',
+        imageUrl:
+          'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
+        link: {
+          mobileWebUrl: 'https://developers.kakao.com',
+          webUrl: 'https://developers.kakao.com',
+        },
+      },
+      itemContent: {
+        // profileText: 'Kakao',
+        // profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+      },
+      social: {
+        likeCount: 10,
+      },
+      // buttons: [
+        // {
+        //   title: '웹으로 이동',
+        //   link: {
+        //     mobileWebUrl: 'https://developers.kakao.com',
+        //     webUrl: 'https://developers.kakao.com',
+        //   },
+        // },
+      // ],
+    });
   }
+
+  const share = async () => {
+    try {
+      console.log('share')
+      shareKakaoLink()
+      } catch (e) {
+        
+      }
+  };
   
   const onClickFeed = async () => {
     try {
@@ -142,7 +146,7 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
               : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />} 
             &nbsp;<small>{feed.feedLike}</small>
             &nbsp;&nbsp;
-            <FontAwesomeIcon onClick={share()} icon={faPaperPlane} />
+            <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
           </div>
           <div className={styles.feed_box}> 
           <p className={styles.feed_writer}>{feed.feedNickname}</p>&nbsp;&nbsp;

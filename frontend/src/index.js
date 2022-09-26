@@ -6,15 +6,62 @@ import 'bootstrap/dist/css/bootstrap.css';
 // import reportWebVitals from './reportWebVitals';
 // import styles from "./styles.css"
 import { Provider } from 'react-redux';
-import store from "./store";
+import { persistStore } from "redux-persist";
+import { combineReducers, legacy_createStore as createStore } from "redux";
+import { persistReducer } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import storage from "redux-persist/lib/storage";
+
+const SAVE = "SAVE";
+export const save = () => ({ type: SAVE });
+
+const init = () => ({
+    counter: {name: "initial", userNo: 0 }
+  });
+
+const counterReducer = (state = init(), action) => {
+    switch (action.type) {
+        case SAVE: {
+            console.log(action.payload)
+            return {
+                ...state,
+                counter: {
+                    name: state.counter.name,
+                    cnt: ++state.counter.cnt,
+                }
+            };
+        }
+
+        default: {
+            return state;
+        }
+    }
+};
+
+const counterPersistConfig = {
+    key: "counter",
+    storage: storage
+};
+
+const rootReducer = combineReducers({
+    counterReducer: persistReducer(counterPersistConfig, counterReducer)
+  });
+
+const store = createStore(
+    rootReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+const persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    // <React.StrictMode>
     <Provider store={store}>
-        <App />
+        <PersistGate loading={"Loading"} persistor={persistor}>
+            <App />
+        </PersistGate>
+        
     </Provider>
-    // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
