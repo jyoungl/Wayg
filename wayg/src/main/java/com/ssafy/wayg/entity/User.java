@@ -28,8 +28,7 @@ public class User {
     @Column(name = "user_name", nullable = false, length = 10)
     private String userName;
 
-    @Column(name = "user_email", length = 45)
-    @ColumnDefault("null")
+    @Column(name = "user_email", nullable = false, length = 45)
     private String userEmail;
 
     @Column(name = "user_gender")
