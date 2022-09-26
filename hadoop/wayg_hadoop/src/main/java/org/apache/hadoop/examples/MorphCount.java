@@ -71,7 +71,7 @@ public class MorphCount {
 					while (iter.hasNext()) {
 						String val = iter.next().text().trim();
 						if(val.length() < 2) continue;
-						word.set("("+name + "," + val+")");
+						word.set(name + "," + val+",");
 						context.write(word, one);
 					}
 				}
