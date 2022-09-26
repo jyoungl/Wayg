@@ -27,9 +27,6 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
   const onChange = (event) => setSend(event.target.value)
   const onSubmit = async (event) => {
     event.preventDefault();
-    // if (send ==="") {
-    //   return
-    // }
     await setSends((currentArray) => [...currentArray,send])
     await setStory(story.concat(
       <div>
@@ -48,6 +45,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
   useEffect(() => {
     const fetchUsers = async () => {
       console.log(sends)
+      console.log(typeof(sends))
       if (greeting ===true) {
 
       
@@ -62,15 +60,9 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
           process.env.REACT_APP_HOST_FLASK+`morph?text=${sends[sends.length-1]}`
         );
         console.log(response.data)
-        // if (response.data[0][0]==='undefined') {
-        //   return
-        //     // response.data.pop()
-        // }
         setReceive(() => setReceive(JSON.stringify(response.data)))
         setReceives((currentArray) => [...currentArray,receive])
-        console.log(receive)
-        console.log(receives)
-        ///
+
         if (response.data[0][0] !=="undefined") {
           setStory(story.concat(
             <div>

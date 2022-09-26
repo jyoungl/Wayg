@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-// import Card from 'react-bootstrap/Card';
+import Card from 'react-bootstrap/Card';
 import styles from './Recommendation.module.css'
 import {useState} from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +7,11 @@ import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg
 import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+// import Box from '@mui/material/Box';
+// import Paper from '@mui/material/Paper';
+// import Grid from '@mui/material/Grid';
+// import * as React from 'react';
+// import { styled } from '@mui/material/styles';
 
 function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFiles }) {
   
@@ -108,8 +113,34 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
       </div>
     </div>
     {/* 모달 */}
-    <Modal show={handle} onHide={handleClose}>
-        <div className={styles.recommendation}>
+    <Modal container className={styles.modal} size="lg" show={handle} onHide={handleClose}>
+      {/* <Card.Header className={styles.Header} as="h5">
+        <img  className={styles.cardImg} src={recommendation.placeFiles} alt='img' />
+      </Card.Header>
+      <Card.Body>
+      {recommendation.placeScrapYn ? 
+                      <FontAwesomeIcon onClick={deleteScrap} className={styles.likeY} icon={solidMark} /> 
+                      : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />} 
+                    <span> </span>
+                    <FontAwesomeIcon icon={faPaperPlane} />
+        &nbsp;&nbsp;
+        </Card.Body> */}
+        {/* <FontAwesomeIcon onClick={share()} icon={faPaperPlane} />
+        <Card.Text>
+          <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
+          <p className={styles.show_writer}>작성자</p>
+          <div style={{fontSize:"15px", fontWeight:"bold"}}>{feedNickname}</div>
+          <div style={{fontSize:'12px'}}>{feedContent}</div>
+        </Card.Text> */}
+{/* //////////////////////////////////////////////////////////////////////////// */}
+
+
+
+{/* //////////////////////////////////////////////////////////////////////////// */}
+      {/* <div style={{backgroundColor:"red", width:"30%", height:"auto"}}>
+        <img src={recommendation.placeFiles} alt='img' />
+      </div> */}
+        {/* <div className={styles.recommendation}>
           <div>
             <img className={styles.recommendation_img} src={recommendation.placeFiles} alt='img' />
             <div>
@@ -131,7 +162,7 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
               <p>{recommendation.placeScrapYn}</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </Modal>
     </>
     

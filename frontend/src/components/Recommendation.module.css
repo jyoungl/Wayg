@@ -63,3 +63,22 @@
   .scrapY {
     color: #FFD24C;
   }
+
+  .cardImg {
+    background-color:red;
+    width:30%;
+    float:left;
+    object-fit: contain;
+    
+  }
+  .Header {
+    align:left;
+  }
+
+
+
+  .modal {
+    min-width: auto;
+    min-height:30rem;
+
+  }
