@@ -1,16 +1,10 @@
-import {legacy_createStore as createStore} from 'redux'
-import {createAction, createReducer} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
+import user from './user';
 
-const saveToken = createAction("SAVE");
-
-const reducer = createReducer([],{
-  [saveToken]: (state, action) =>{
-    state = action.payload;
+const store = configureStore({
+  reducer: {
+    counter: user.reducer
   }
-})
+});
 
-const store = createStore(reducer)
-export const actionCreators = {
-  saveToken
-}
 export default store;
