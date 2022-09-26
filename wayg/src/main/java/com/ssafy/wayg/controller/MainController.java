@@ -50,7 +50,8 @@ public class MainController {
             httpSession.setAttribute("userId", userInfo.get("email"));
             httpSession.setAttribute("access_token", access_token);
         }
-        String url = "https://j7c202.p.ssafy.io/main";
+        String url = "https://j7c202.p.ssafy.io/loginhandler";
+        //        여기좀 바꿔줘 https://j7c202.p.ssafy.io/loginhandler
 
         User user = userRepository.findByUserEmail((String) userInfo.get("email")).get();
         String id = String.valueOf(deConverter.toUserDto(user).getUserNo());
