@@ -2,18 +2,13 @@ package com.ssafy.wayg.service;
 
 import com.ssafy.wayg.dto.FeedDto;
 import com.ssafy.wayg.dto.FeedlikeDto;
-import com.ssafy.wayg.dto.PlaceDto;
 import com.ssafy.wayg.entity.Feed;
-import com.ssafy.wayg.entity.Feedlike;
-import com.ssafy.wayg.entity.User;
 import com.ssafy.wayg.repository.FeedRepository;
-import com.ssafy.wayg.repository.FeedfileRepository;
 import com.ssafy.wayg.repository.FeedlikeRepository;
 import com.ssafy.wayg.repository.UserRepository;
 import com.ssafy.wayg.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,15 +22,13 @@ public class FeedServiceImpl implements FeedService {
 	private FeedRepository feedRepository;
 	private FeedlikeRepository likeRepository;
 	private UserRepository userRepository;
-	private FeedfileRepository fileRepository;
 	private DEConverter converter;
 
 	@Autowired
-	public FeedServiceImpl(FeedRepository feedRepository, FeedlikeRepository likeRepository, UserRepository userRepository, FeedfileRepository fileRepository, DEConverter converter) {
+	public FeedServiceImpl(FeedRepository feedRepository, FeedlikeRepository likeRepository, UserRepository userRepository, DEConverter converter) {
 		this.feedRepository = feedRepository;
 		this.likeRepository = likeRepository;
 		this.userRepository = userRepository;
-		this.fileRepository = fileRepository;
 		this.converter = converter;
 	}
 
@@ -65,8 +58,6 @@ public class FeedServiceImpl implements FeedService {
 
 		feedDto.setUserNo(feedRepository.findByFeedNo(feedNo));
 		feedDto.setFeedLikeYn(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(userNo, feedNo) != null);
-
-		feedDto.setFeedFiles(converter.toFeedfileDtoList(fileRepository.findByFeedNoFeedNo(feedNo)));
 		
 		return feedDto;
 	}

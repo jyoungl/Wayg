@@ -4,7 +4,6 @@ import com.ssafy.wayg.dto.PlaceDto;
 import com.ssafy.wayg.dto.PlacescrapDto;
 import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.repository.PlaceRepository;
-import com.ssafy.wayg.repository.PlacefileRepository;
 import com.ssafy.wayg.repository.PlacescrapRepository;
 import com.ssafy.wayg.repository.UserRepository;
 import com.ssafy.wayg.util.DEConverter;
@@ -22,15 +21,13 @@ public class PlaceServiceImpl implements PlaceService {
 	private PlaceRepository placeRepository;
 	private PlacescrapRepository scrapRepository;
 	private UserRepository userRepository;
-	private PlacefileRepository fileRepository;
 	private DEConverter converter;
 
 	@Autowired
-	public PlaceServiceImpl(PlaceRepository placeRepository, PlacescrapRepository scrapRepository, UserRepository userRepository, PlacefileRepository fileRepository, DEConverter converter) {
+	public PlaceServiceImpl(PlaceRepository placeRepository, PlacescrapRepository scrapRepository, UserRepository userRepository, DEConverter converter) {
 		this.placeRepository = placeRepository;
 		this.scrapRepository = scrapRepository;
 		this.userRepository = userRepository;
-		this.fileRepository = fileRepository;
 		this.converter = converter;
 	}
 
@@ -51,8 +48,6 @@ public class PlaceServiceImpl implements PlaceService {
 		PlaceDto placeDto = converter.toPlaceDto(placeRepository.getReferenceById(placeNo));
 
 		placeDto.setPlaceScrapYn(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeNo) != null);
-
-		placeDto.setPlaceFiles(converter.toPlacefileDtoList(fileRepository.findByPlaceNoPlaceNo(placeNo)));
 		
 		return placeDto;
 	}

@@ -69,20 +69,6 @@ public class DEConverter {
 	public Feedlike toLikeEntity(FeedlikeDto likeDto) {
 		return modelMapper.map(likeDto, Feedlike.class);
 	}
-	
-	/* 피드 파일 부분 변환 */
-
-	public List<FeedfileDto> toFeedfileDtoList(List<Feedfile> list) {
-		return mapList(list, FeedfileDto.class);
-	}
-
-	public FeedfileDto toFeedfileDto(Feedfile feedfile) {
-		return modelMapper.map(feedfile, FeedfileDto.class);
-	}
-
-	public Feedfile toFeedfileEntity(FeedfileDto feedfileDto) {
-		return modelMapper.map(feedfileDto, Feedfile.class);
-	}
 
 	/* 관광지 부분 변환 */
 	public List<PlaceDto> toPlaceDtoList(List<Place> list) {
@@ -119,20 +105,8 @@ public class DEConverter {
 		return modelMapper.map(scrapDto, Placescrap.class);
 	}
 
-	/* 관광지 파일 부분 변환 */
-
-	public List<PlacefileDto> toPlacefileDtoList(List<Placefile> list) {
-		return mapList(list, PlacefileDto.class);
-	}
-
-	public PlacefileDto toPlacefileDto(Placefile placefile) {
-		return modelMapper.map(placefile, PlacefileDto.class);
-	}
-
-	public Placefile toPlacefileEntity(PlacefileDto placefileDto) {
-		return modelMapper.map(placefileDto, Placefile.class);
-	}
-
+	/* 사용자 부분 변환 */
+	
 	public UserDto toUserDto(User user) { return modelMapper.map(user, UserDto.class); }
 	public User toUserEntity(UserDto userDto) { return modelMapper.map(userDto, User.class); }
 }
