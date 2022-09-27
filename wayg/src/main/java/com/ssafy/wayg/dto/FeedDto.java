@@ -34,5 +34,7 @@ public class FeedDto implements Serializable {
     private long feedLike;
 	@ApiModelProperty(value = "좋아요 여부")
 	private boolean feedLikeYn;
+	@ApiModelProperty(value = "장소 이름")
+	private String feedPlacename;
 
 }

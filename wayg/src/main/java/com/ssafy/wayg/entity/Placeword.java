@@ -1,6 +1,8 @@
 package com.ssafy.wayg.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -8,6 +10,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "placeword")
 public class Placeword {
     @Id

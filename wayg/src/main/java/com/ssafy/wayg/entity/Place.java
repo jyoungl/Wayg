@@ -1,17 +1,26 @@
 package com.ssafy.wayg.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "place")
 public class Place {
     @Id
     @Column(name = "place_no", nullable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer placeNo;
 
     @Column(name = "place_name", nullable = false, length = 45)
@@ -47,5 +56,10 @@ public class Place {
     @Column(name = "place_scrap", nullable = false)
     @ColumnDefault("0")
     private Integer placeScrap;
+
+    public Place(String placeName){
+        this.placeName = placeName;
+        this.placeScrap = 0;
+    }
 
 }
