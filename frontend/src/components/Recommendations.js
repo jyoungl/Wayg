@@ -3,15 +3,10 @@ import { useInView } from "react-intersection-observer"
 import Recommendation from "./Recommendation";
 import styles from "./Recommendations.module.css"
 import axios from "axios"
+import { connect } from "react-redux";
 
-import {useSelector} from 'react-redux';
-
-function Recommendations() {
+function Recommendations({counter}) {
   const [recommendations, setRecommendations] = useState([])
-  const userNo = useSelector(state => {
-    return state.counter.value
-  })
-
 
   useEffect(()=> {
 
@@ -24,7 +19,7 @@ function Recommendations() {
             params: {
               page: 0,
               size: 10,
-              userNo: userNo,
+              userNo: counter.userNo,
             }
           });
           console.log(response.data)
@@ -81,4 +76,10 @@ function Recommendations() {
   );
 }
 
-export default Recommendations;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Recommendations);

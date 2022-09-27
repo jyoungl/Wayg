@@ -7,27 +7,18 @@ import Shows from "../components/Shows";
 import LikeShows from "../components/LikeShows";
 import Loading from "../components/Loading";
 import styles from "./Main.module.css";
-// userNo
-import {up} from '../user';
-import {useSelector,useDispatch} from 'react-redux';
-
-
 
 
 function Main() {
-  const dispatch = useDispatch();
-  const userNo = useSelector(state => {
-    return state.counter.value
-  })
 
-  useEffect(()=> {
-    let params = new URL(document.location.toString()).searchParams;
-    let access_token = params.get("access_token"); // 토큰 받는 부분
-    let user_no = params.get("id"); // userNo 받는 부분
-    console.log(access_token)
-    console.log(user_no)
-    dispatch(up(user_no))
-  }, [])
+  // useEffect(()=> {
+  //   let params = new URL(document.location.toString()).searchParams;
+  //   let access_token = params.get("access_token"); // 토큰 받는 부분
+  //   let user_no = params.get("id"); // userNo 받는 부분
+  //   console.log(access_token)
+  //   console.log(user_no)
+
+  // }, [])
   
   // 기본 화면(로딩화면?)으로 돌아가기
   const [loadingScreen, setLoadingScreen] = useState(true)

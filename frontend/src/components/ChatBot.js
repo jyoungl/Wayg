@@ -1,6 +1,5 @@
 import styles from "./ChatBot.module.css";
 import {useState, useEffect} from "react";
-import store from "../store"
 import wayg from '../images/wayg.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
