@@ -7,8 +7,11 @@ import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg
 import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+// import { counter } from '@fortawesome/fontawesome-svg-core';
 
-function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFiles }) {
+import { connect } from "react-redux";
+
+function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFiles }) {
   
   const [recommendation, setRecommendation] = useState({
     placeNo: {placeNo}.placeNo,
@@ -35,7 +38,7 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
           process.env.REACT_APP_HOST+`place/scrap`
           
           ,{
-          userNo: 1,
+          userNo: counter.userNo,
           placeNo: {placeNo}.placeNo
         });
         console.log(response.data)
@@ -57,7 +60,7 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
           
           ,{
           params: {
-            userNo: 1,
+            userNo: counter.userNo,
             placeNo: {placeNo}.placeNo,
           }
         });
@@ -72,6 +75,47 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
         
       }
     };
+  
+  const shareKakaoLink = () => {
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: recommendation.placeName,
+        description: recommendation.placeInfo,
+        imageUrl:
+          'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
+        link: {
+          mobileWebUrl: 'https://j7c202.p.ssafy.io',
+          webUrl: 'https://j7c202.p.ssafy.io',
+        },
+      },
+      itemContent: {
+        // profileText: 'Kakao',
+        // profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+      },
+      social: {
+        likeCount: recommendation.placeScrap,
+      },
+      buttons: [
+        {
+          title: '웹으로 이동',
+          link: {
+            mobileWebUrl: 'https://j7c202.p.ssafy.io',
+            webUrl: 'https://j7c202.p.ssafy.io',
+          },
+        },
+      ],
+    });
+  }
+
+  const share = async () => {
+    try {
+      console.log('share')
+      shareKakaoLink()
+      } catch (e) {
+        
+      }
+  };
 
   const onClickRecommendation = async () => {
     try {
@@ -99,7 +143,7 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
               : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />} 
             &nbsp;<small>{recommendation.placeScrap}</small>
             &nbsp;&nbsp;
-            <FontAwesomeIcon icon={faPaperPlane} />
+            <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
           </div>
           <p className={styles.recommendation_title}>{recommendation.placeName}</p>
           <p className={styles.recommendation_writer}>{recommendation.placeNo} {recommendation.placeAddress}</p>
@@ -141,5 +185,11 @@ function Recommendation({placeNo,placeName,placeAddress,placeInfo,placeHoliday,p
   );
 }
 
-export default Recommendation;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Recommendation);
 
