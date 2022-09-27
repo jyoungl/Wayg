@@ -13,21 +13,24 @@ import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
 
 const SAVE = "SAVE";
-export const save = () => ({ type: SAVE });
+export const save = (token, userNo) => {
+    return { type: SAVE, token, userNo }
+};
 
 const init = () => ({
-    counter: {name: "initial", userNo: 0 }
+    counter: {token: "", userNo: 0 }
   });
 
 const counterReducer = (state = init(), action) => {
     switch (action.type) {
         case SAVE: {
-            console.log(action.payload)
+            console.log(action)
+            console.log(action.type)
             return {
                 ...state,
                 counter: {
-                    name: state.counter.name,
-                    cnt: ++state.counter.cnt,
+                    token: action.token,
+                    userNo: action.userNo,
                 }
             };
         }

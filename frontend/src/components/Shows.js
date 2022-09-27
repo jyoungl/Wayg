@@ -5,14 +5,11 @@ import Recommendation from "./Recommendation";
 import Feed from "./Feed"
 import styles from "./Shows.module.css"
 import axios from "axios"
+import { connect } from "react-redux";
 
-import {useSelector} from 'react-redux';
 
-function Shows({scrapPlace ,likeFeed, myFeed}) {
+function Shows({scrapPlace ,likeFeed, myFeed, counter}) {
   const [items, setItems] = useState([])
-  const userNo = useSelector(state => {
-    return state.counter.value
-  })
 
   useEffect(() => {
     if (likeFeed) {
@@ -23,7 +20,7 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
                 params: {
                   page: 0,
                   size: 10,
-                  userNo: userNo,
+                  userNo: counter.userNo,
                 }
               }
               
@@ -44,7 +41,7 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
               params: {
                 page: 0,
                 size: 10,
-                userNo: userNo,
+                userNo: counter.userNo,
               }
             }
            
@@ -66,7 +63,7 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
               params: {
                 page: 0,
                 size: 10,
-                userNo: userNo,
+                userNo: counter.userNo,
               }
             }
             
@@ -118,4 +115,10 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
   );
 }
 
-export default Shows;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Shows);

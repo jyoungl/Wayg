@@ -6,10 +6,12 @@ import woori from '../images/wayg2.png'
 import bus from '../images/bus.png'
 import { connect } from "react-redux";
 import { save } from "../index";
+import { useSearchParams } from 'react-router-dom';
 
 
 const KakaoRedirectHandler = ({counter, save}) => {
   const navigate = useNavigate();
+  const [searchParams,setSearchParams] = useSearchParams();
 
   useEffect(() => {
     let params = new URL(document.location.toString()).searchParams;
@@ -18,27 +20,25 @@ const KakaoRedirectHandler = ({counter, save}) => {
     console.log(access_token)
     console.log(user_no)
 
-    save(access_token)
-    console.log(counter)
-    
+    save(access_token, user_no)
 
-    // const param_token = searchParams.get('access_token')
-    // console.log(param_token)
-    // if (param_token) {
-    //   searchParams.delete('access_token');
-    //   setSearchParams(searchParams);
-    // }
+    const param_token = searchParams.get('access_token')
+    console.log(param_token)
+    if (param_token) {
+      searchParams.delete('access_token');
+      setSearchParams(searchParams);
+    }
 
-    // const param_userNo = searchParams.get('id')
-    // console.log(param_userNo)
-    // if (param_userNo) {
-    //   searchParams.delete('id');
-    //   setSearchParams(searchParams);
-    // }
+    const param_userNo = searchParams.get('id')
+    console.log(param_userNo)
+    if (param_userNo) {
+      searchParams.delete('id');
+      setSearchParams(searchParams);
+    }
 
-    // setTimeout(() => {
-    //   window.location.href = '/main';
-    // }, 2000)
+    setTimeout(() => {
+      window.location.href = '/main';
+    }, 2000)
 
   }, [])
 
@@ -87,7 +87,7 @@ const mapStateToProps = state => ({
   counter: state.counterReducer.counter
 });
 const mapDispatchToProps = dispatch => ({
-  save: () => dispatch(save())
+  save: (token, userNo) => dispatch(save(token, userNo))
 });
 export default connect(
   mapStateToProps,
