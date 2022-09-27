@@ -14,6 +14,7 @@ import org.apache.hadoop.util.GenericOptionsParser;
 import org.openkoreantext.processor.OpenKoreanTextProcessorJava;
 import org.openkoreantext.processor.phrase_extractor.KoreanPhraseExtractor;
 import org.openkoreantext.processor.tokenizer.KoreanTokenizer;
+import org.openkoreantext.processor.util.KoreanPos;
 import scala.collection.Iterator;
 import scala.collection.Seq;
 
@@ -51,16 +52,17 @@ public class MorphCount {
 			extends Mapper<Object, Text, Text, IntWritable> {
 
 		private final static IntWritable one = new IntWritable(1);
+		private final static String top = "관광지";
 		private Text word = new Text();
 
 		public void map(Object key, Text value, Context context
 		) throws IOException, InterruptedException {
 
-			StringTokenizer itr = new StringTokenizer(value.toString(),",");
+			StringTokenizer itr = new StringTokenizer(value.toString(), ",");
 			String name = "";
-			if(itr.countTokens() > 1) {
+			if (itr.countTokens() > 1) {
 				name = itr.nextToken().trim();
-				if(name.equals("관광지")) return;
+				if (name.equals(top)) return;
 			}
 			while (itr.hasMoreTokens()) {
 				CharSequence normalized = OpenKoreanTextProcessorJava.normalize(itr.nextToken());
@@ -69,10 +71,13 @@ public class MorphCount {
 				for (KoreanPhraseExtractor.KoreanPhrase phrase : phrases) {
 					Iterator<KoreanTokenizer.KoreanToken> iter = phrase.tokens().iterator();
 					while (iter.hasNext()) {
-						String val = iter.next().text().trim();
-						if(val.length() < 2) continue;
-						word.set(name + "," + val+",");
-						context.write(word, one);
+						KoreanTokenizer.KoreanToken token = iter.next();
+						if(token.pos() == KoreanPos.Noun()|| token.pos() == KoreanPos.Adjective() || token.pos() == KoreanPos.Verb()){
+							String val = token.text().trim();
+							if (val.length() < 2) continue;
+							word.set(name + "," + val + ",");
+							context.write(word, one);
+						}
 					}
 				}
 			}
