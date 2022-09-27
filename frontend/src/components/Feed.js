@@ -7,8 +7,11 @@ import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+// import { counter } from '@fortawesome/fontawesome-svg-core';
 
-function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, feedLike,feedLikeYn}) {
+import { connect } from "react-redux";
+
+function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, feedLike,feedLikeYn}) {
   const [feed, setFeed] = useState({
     feedNo: {feedNo}.feedNo,
     feedTitle: {feedTitle}.feedTitle,
@@ -29,7 +32,7 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
           process.env.REACT_APP_HOST+`feed/like`
           ,{
           // userNo: {userNo}.userNo,
-          userNo: 1,
+          userNo: counter.userNo,
           feedNo: {feedNo}.feedNo
         });
         console.log(response.data)
@@ -53,7 +56,7 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
           ,
           {
           params: {
-            userNo: 1,
+            userNo: counter.userNo,
             feedNo: {feedNo}.feedNo,
           }
         });
@@ -83,13 +86,13 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: '여행지 이름',
-        description: '여행지 설명',
+        title: feed.feedTitle,
+        description: feed.feedContent,
         imageUrl:
           'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
         link: {
-          mobileWebUrl: 'https://developers.kakao.com',
-          webUrl: 'https://developers.kakao.com',
+          mobileWebUrl: 'https://j7c202.p.ssafy.io',
+          webUrl: 'https://j7c202.p.ssafy.io',
         },
       },
       itemContent: {
@@ -97,17 +100,17 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
         // profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
       },
       social: {
-        likeCount: 10,
+        likeCount: feed.feedLike,
       },
-      // buttons: [
-        // {
-        //   title: '웹으로 이동',
-        //   link: {
-        //     mobileWebUrl: 'https://developers.kakao.com',
-        //     webUrl: 'https://developers.kakao.com',
-        //   },
-        // },
-      // ],
+      buttons: [
+        {
+          title: '웹으로 이동',
+          link: {
+            mobileWebUrl: 'https://j7c202.p.ssafy.io',
+            webUrl: 'https://j7c202.p.ssafy.io',
+          },
+        },
+      ],
     });
   }
 
@@ -185,4 +188,10 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
   )
 }
 
-export default Feed;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Feed);
