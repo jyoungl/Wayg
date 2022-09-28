@@ -36,13 +36,8 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public long totalSize(List<String> str){
-        long total = 0;
-        for(int i=0;i<str.size();i++){
-            total += placewordRepository.countByplacewordWord(str.get(i));
-        }
-
-        return total;
+    public long totalSize(){
+        return placeRepository.count();
     }
 
     @Override
