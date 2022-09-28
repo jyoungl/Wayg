@@ -171,7 +171,7 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
           <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
         : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />}
         &nbsp;&nbsp;
-        <FontAwesomeIcon onClick={share()} icon={faPaperPlane} />
+        <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
         <Card.Text>
           <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
           <p className={styles.show_writer}>작성자</p>
