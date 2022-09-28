@@ -18,4 +18,10 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	Page<Place> findByPlaceNo(List<Integer> placeNoList, Pageable pageable);
 
 	Place findByPlaceName(String placeName);
+
+	@Query(value = "SELECT place_name " +
+			"FROM place " +
+			"WHERE place_name >= ?1 and place_name <= ?2 " +
+			"ORDER BY place_name", nativeQuery = true)
+	List<String> searchByPlaceName(String placeName1, String placeName2);
 }

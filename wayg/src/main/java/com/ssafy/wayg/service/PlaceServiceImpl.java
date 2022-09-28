@@ -23,6 +23,9 @@ public class PlaceServiceImpl implements PlaceService {
 	private UserRepository userRepository;
 	private DEConverter converter;
 
+	private final char[] textArr = {'가','깋','낗','닣','딯','띻','맇','밓','빟','삫','싷','잏','짛','찧','칳','킿','팋','핗','힣'};
+	private final char[] jamoArr = {'ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'};
+
 	@Autowired
 	public PlaceServiceImpl(PlaceRepository placeRepository, PlacescrapRepository scrapRepository, UserRepository userRepository, DEConverter converter) {
 		this.placeRepository = placeRepository;
@@ -92,6 +95,31 @@ public class PlaceServiceImpl implements PlaceService {
 		}
 
 		return placeDtoPage;
+	}
+
+	@Override
+	public List<String> searchPlace(String keyword) throws Exception {
+		char targetChar = keyword.charAt(keyword.length() - 1);
+		char endChar = '0';
+		// 입력값의 끝 문자가 ㄱ...ㅎ 인 경우
+		if(targetChar <= 12622) {
+			for(int i = 0; i < jamoArr.length; i++) {
+				if(targetChar == jamoArr[i]) {
+					endChar = textArr[i + 1];
+				}
+			}
+		} else {
+			// 입력값의 끝 문자가 가...힣 인 경우
+			for(int i = 0; i < textArr.length; i++) {
+				if(targetChar >= textArr[i] && targetChar < textArr[i + 1]) {
+					endChar = textArr[i + 1];
+				}
+			}
+		}
+
+		String endKeyword = keyword.substring(0, keyword.length() - 1) + endChar;
+
+		return placeRepository.searchByPlaceName(keyword,endKeyword);
 	}
 
 }
