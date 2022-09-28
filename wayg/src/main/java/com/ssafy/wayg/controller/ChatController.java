@@ -29,8 +29,8 @@ public class ChatController {
         this.analyzer = analyzer;
     }
 
-    @GetMapping
-    public ResponseEntity<Map<String,Double>> calcurate(@RequestParam String str){
+    @PostMapping
+    public ResponseEntity<Map<String,Double>> calcurate(@RequestBody String str){
         Map<String,Object> resultMap = new HashMap<>();
         HttpStatus httpStatus = HttpStatus.ACCEPTED;
         Map<String,Integer> split = analyzer.analyseText(str); // 형태소 분리한 결과 넣은 map
