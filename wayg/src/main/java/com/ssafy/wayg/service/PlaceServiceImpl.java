@@ -41,6 +41,15 @@ public class PlaceServiceImpl implements PlaceService {
 		for (int i = 0; i < placeDtoPage.getContent().size(); i++) {
 			PlaceDto placeDto = placeDtoPage.getContent().get(i);
 			placeDto.setPlaceScrapYn(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeDto.getPlaceNo()) != null);
+			String name = placeDto.getPlaceName();
+			String new_name = "";
+			for(int j = 0; j<name.length(); j++) {
+				char c = name.charAt(j);
+				if(c == ' ' || c =='(' || c == ')') new_name += '_';
+				else new_name += c;
+			}
+			String url = "https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/" + new_name + "_1.jpg";
+			placeDto.setPlaceFile(url);
 		}
 
 		return placeDtoPage;
@@ -51,6 +60,16 @@ public class PlaceServiceImpl implements PlaceService {
 		PlaceDto placeDto = converter.toPlaceDto(placeRepository.getReferenceById(placeNo));
 
 		placeDto.setPlaceScrapYn(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeNo) != null);
+
+		String name = placeDto.getPlaceName();
+		String new_name = "";
+		for(int j = 0; j<name.length(); j++) {
+			char c = name.charAt(j);
+			if(c == ' ' || c =='(' || c == ')') new_name += '_';
+			else new_name += c;
+		}
+		String url = "https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/" + new_name + "_1.jpg";
+		placeDto.setPlaceFile(url);
 		
 		return placeDto;
 	}
