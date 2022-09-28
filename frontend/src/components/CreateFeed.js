@@ -5,27 +5,42 @@ import {useState, useRef } from "react"
 import styles from "./CreateFeed.module.css"
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
+import { connect } from "react-redux";
 
-function CreateFeed(props) {
+function CreateFeed({counter}) {
   const [imageSrc, setImageSrc] = useState('');
   const [feedTitle, setFeedTitle] = useState('');
   const [feedContent, setFeedContent] = useState('');
   const [feedNickname, setFeedNickname] = useState('');
-  const [makeFeed, setMakeFeed] = useState({feedTitle:"", feedContent:"", feedNickname:"", userNo: ""});
-  const encodeFileToBase64 = (fileBlob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setImageSrc(reader.result)
-        resolve()
-      }
+  const [makeFeed, setMakeFeed] = useState({feedTitle:"", feedContent:"", feedNickname:"", userNo: "", feedFile:""});
+  const [image, setImage] = useState('');
+  const [url, setUrl] = useState('');
+
+
+  const uploadImage = async () => {
+    const data = new FormData()
+    console.log(image)
+    data.append('file', image)
+    data.append('upload_preset','rkh4a8n0')
+    data.append('cloud_name', 'dcd6ufnba')
+    await fetch("https://api.cloudinary.com/v1_1/dcd6ufnba/image/upload", {
+      method:"post",
+      body:data
     })
-  };
-  // const onChangeImg = (event) => {
-  //   setImageSrc(event.target.value)
-  // }
-  console.log(imageSrc)
+    .then(resp => resp.json())
+    .then(data => {
+     setUrl(data.url)
+    })
+    .catch(err => console.log(err))
+    console.log(url)
+  }
+
+  const onChange = async (e) => {
+     await setImage(e.target.files[0])
+     console.log(image)
+     await uploadImage
+  }
+
   const onChangeTitle = (event) => {
     console.log(event.target.value)
     setFeedTitle(event.target.value)
@@ -41,6 +56,7 @@ function CreateFeed(props) {
   }
 
   const onSubmit = async (event) => {
+    event.preventDefault();
     const CreateFeed = async () => {
       try {
         const response = await axios.post(
@@ -48,7 +64,9 @@ function CreateFeed(props) {
           {feedTitle:feedTitle,
            feedContent:feedContent, 
            feedNickname:feedNickname, 
-           userNo: '1'}
+           userNo: counter.userNo,
+           feedFile:url
+          }
         );
         console.log(response)
 
@@ -61,11 +79,12 @@ function CreateFeed(props) {
     
     <main className="container">
       <Card style={{width:"100%", height:"100%"}} className={styles.Card}>
-          <input id= "imgFile" type="file" style={{display: "none"}} onChange={(e) => {encodeFileToBase64(e.target.files[0]);}} />
+          <input id= "imgFile" type="file" style={{display: "none"}} onChange={onChange} />
+          {/* <input id="imgFile" tyle="file" style={{display: "none"}} onChange={(e) => {}} /> */}
           <label className={styles.picture} htmlFor="imgFile">사진을 선택해 주세요</label>
-      <div style={{width:"100%", height:"100%"}} className={styles.selectLabel}>
-        {imageSrc && <img src={imageSrc} className={styles.previewImg} width="100%" height="100%" art="preview-img" />
-        }
+          {/* <button onClick={uploadImage}>업로드</button> */}
+      <div style={{width:"100%", height:"100%"}}>
+        <img width="100%" height="100%" src={url} alt="" />
       </div>
       <Card.Body>
       <form  onSubmit={onSubmit}>
@@ -87,4 +106,11 @@ function CreateFeed(props) {
   )
 }
 
-export default CreateFeed;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+
+export default connect(
+  mapStateToProps,
+)(CreateFeed);
