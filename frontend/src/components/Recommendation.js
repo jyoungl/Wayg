@@ -7,7 +7,8 @@ import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg
 import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
-// import { counter } from '@fortawesome/fontawesome-svg-core';
+import { Container, Grid } from '@material-ui/core';
+import React from 'react';
 
 import { connect } from "react-redux";
 
@@ -124,7 +125,17 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
         
       )
       await console.log(response.data.place)
-      await setDetailContent(response.data.place.placeInfo)
+      var placeInfo = await response.data.place.placeInfo
+      // var res = placeInfo
+      // var res = await placeInfo.replace(/<br>/g, ' ');
+
+      var res = await placeInfo.replace(/<br\s*[\/]?>/gi, " ")
+      
+
+
+
+
+      await setDetailContent(res)
       await setHandle(true)
     } catch (e) {
       console.log(e)
@@ -152,31 +163,29 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
       </div>
     </div>
     {/* 모달 */}
-    <Modal show={handle} onHide={handleClose}>
-        <div className={styles.recommendation}>
+    <Modal show={handle} size="xl" onHide={handleClose}>
+    <Container style={{maxHeight:'650px'}} className={styles.Container}>
+      <Grid container style={{maxHeight:'650px'}}>
+        {/* 사진용 왼쪽 컴포넌트 */}
+        <Grid style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
+            <img style={{}} className={styles.detail_img} src={recommendation.placeFiles} alt='img' />
+        </Grid>
+        {/* 글용 오른쪽 컴포넌트 */}
+        <Grid style={{maxHeight:'650px'}} className={styles.info} item xs={12} md={6}>
           <div>
-            <img className={styles.recommendation_img} src={recommendation.placeFiles} alt='img' />
-            <div>
-              <div className={styles.recommendation_box}>
-                <div>
-                    {recommendation.placeScrapYn ? 
-                      <FontAwesomeIcon onClick={deleteScrap} className={styles.likeY} icon={solidMark} /> 
-                      : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />} 
-                    <span> </span>
-                    <FontAwesomeIcon icon={faPaperPlane} />
-                </div>
-              </div>
-              <p className={styles.recommendation_writer}>{recommendation.placeName}</p>
-              <div className={styles.recommendation_box}>
-                <div>{detailContent}</div>
-                <p className={styles.recommendation_title}>{recommendation.placeNo} {recommendation.placeAddress}</p>
-              </div>
-              <p>{recommendation.placeScrap}</p>
-              <p>{recommendation.placeScrapYn}</p>
-            </div>
+            {recommendation.placeScrapYn ? 
+            <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
+            : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
+             &nbsp;&nbsp;
+            <FontAwesomeIcon icon={faPaperPlane} />
           </div>
-        </div>
-      </Modal>
+          <p className={styles.detail_title}>{recommendation.placeName}</p>
+          <p className={styles.detail_address}>{recommendation.placeAddress}</p>
+          <p style={{overflow:'auto'}}>{detailContent}</p>
+          </Grid>
+      </Grid>
+    </Container>
+    </Modal>
     </>
     
 

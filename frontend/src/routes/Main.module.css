@@ -1,16 +1,23 @@
 .main{
     font-family: 'Jalnan';
-    display: flex;
+    display: grid;
+    grid-template-columns: 390px auto;
     width: "100vw";
-    height: "100vh"
+    height: "100vh";
+    grid-gap: 10px;
 }
 
 .ChatBot {
-    position: fixed;
+    /* position: fixed; */
 }
 
 .detail {
-    margin-left: 450px;
+    padding: 10px;
+}
+
+.popular {
+    display: grid;
+    grid-template-columns: 1fr;
 }
 
 .logout_button {

@@ -78,8 +78,7 @@ function Main() {
       <div className={styles.detail}>
         {loadingScreen ? 
           // <Loading />
-        <div className="d-flex-row justify-content-center">
-
+        <div className={styles.popular}>
           <br />
           <Feeds/>
           <br />
