@@ -13,11 +13,15 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-function Feeds() {
+import { connect } from "react-redux";
+
+function Feeds({counter}) {
 
   const [feeds, setFeeds] = useState([])
   
   useEffect(()=> {
+
+    // console.log(counter)
 
     const fetchFeeds = async () => {
       try {
@@ -26,7 +30,7 @@ function Feeds() {
             params: {
               page: 2,
               size: 10,
-              userNo: 1,
+              userNo: counter.userNo,
             }
           });
           console.log(response.data)
@@ -62,4 +66,11 @@ function Feeds() {
   );
 }
 
-export default Feeds;
+
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Feeds);

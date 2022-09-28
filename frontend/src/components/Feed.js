@@ -7,8 +7,11 @@ import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+// import { counter } from '@fortawesome/fontawesome-svg-core';
 
-function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, feedLike,feedLikeYn}) {
+import { connect } from "react-redux";
+
+function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, feedLike,feedLikeYn}) {
   const [feed, setFeed] = useState({
     feedNo: {feedNo}.feedNo,
     feedTitle: {feedTitle}.feedTitle,
@@ -29,7 +32,7 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
           process.env.REACT_APP_HOST+`feed/like`
           ,{
           // userNo: {userNo}.userNo,
-          userNo: 1,
+          userNo: counter.userNo,
           feedNo: {feedNo}.feedNo
         });
         console.log(response.data)
@@ -53,7 +56,7 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
           ,
           {
           params: {
-            userNo: 1,
+            userNo: counter.userNo,
             feedNo: {feedNo}.feedNo,
           }
         });
@@ -69,10 +72,56 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
       }
     };
 
-  const share = () => {
-    // shareKakaoLink()
-    console.log('share')
+  // const shareKakaoLink = () => {
+  //   window.Kakao.Share.sendCustom({
+  //     templateId: 83280,
+  //     templateArgs: {
+  //       title: '제목 영역입니다.',
+  //       description: '설명 영역입니다.',
+  //     },
+  //   });
+  // };
+
+  const shareKakaoLink = () => {
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: feed.feedTitle,
+        description: feed.feedContent,
+        imageUrl:
+          'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
+        link: {
+          mobileWebUrl: 'https://j7c202.p.ssafy.io',
+          webUrl: 'https://j7c202.p.ssafy.io',
+        },
+      },
+      itemContent: {
+        // profileText: 'Kakao',
+        // profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+      },
+      social: {
+        likeCount: feed.feedLike,
+      },
+      buttons: [
+        {
+          title: '웹으로 이동',
+          link: {
+            mobileWebUrl: 'https://j7c202.p.ssafy.io',
+            webUrl: 'https://j7c202.p.ssafy.io',
+          },
+        },
+      ],
+    });
   }
+
+  const share = async () => {
+    try {
+      console.log('share')
+      shareKakaoLink()
+      } catch (e) {
+        
+      }
+  };
   
   const onClickFeed = async () => {
     try {
@@ -99,7 +148,7 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
               <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
               : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />}
             &nbsp;&nbsp;
-            <FontAwesomeIcon onClick={share()} icon={faPaperPlane} />
+            <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
           </div>
           <div>
                 <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
@@ -159,4 +208,10 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
   )
 }
 
-export default Feed;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Feed);

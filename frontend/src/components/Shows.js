@@ -5,15 +5,24 @@ import Recommendation from "./Recommendation";
 import Feed from "./Feed"
 import styles from "./Shows.module.css"
 import axios from "axios"
+import { connect } from "react-redux";
 
-function Shows({scrapPlace ,likeFeed, myFeed}) {
+
+function Shows({scrapPlace ,likeFeed, myFeed, counter}) {
   const [items, setItems] = useState([])
+
   useEffect(() => {
     if (likeFeed) {
       const fetchLikeFeeds = async () => {
         try {
             const response = await axios.get(
-              process.env.REACT_APP_HOST+`feed/myLikeList?page=0&size=10&userNo=1`
+              process.env.REACT_APP_HOST+`feed/myLikeList`,{
+                params: {
+                  page: 0,
+                  size: 10,
+                  userNo: counter.userNo,
+                }
+              }
               
               );
             console.log(response.data)
@@ -28,7 +37,13 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
       const fetchMyFeeds = async () => {
         try {
           const response = await axios.get(
-            process.env.REACT_APP_HOST+`feed/myFeed?page=0&size=10&userNo=1`
+            process.env.REACT_APP_HOST+`feed/myFeed`,{
+              params: {
+                page: 0,
+                size: 10,
+                userNo: counter.userNo,
+              }
+            }
            
             
             );
@@ -44,7 +59,13 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
       const fetchMyPlaces = async () => {
         try {
           const response = await axios.get(
-            process.env.REACT_APP_HOST+`place/myScrapList?page=0&size=10&userNo=1`
+            process.env.REACT_APP_HOST+`place/myScrapList?`,{
+              params: {
+                page: 0,
+                size: 10,
+                userNo: counter.userNo,
+              }
+            }
             
           
           );
@@ -94,4 +115,10 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
   );
 }
 
-export default Shows;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Shows);
