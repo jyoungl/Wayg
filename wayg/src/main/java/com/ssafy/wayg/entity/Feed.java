@@ -41,6 +41,9 @@ public class Feed {
     @Column(name = "feed_placename")
     private String feedPlacename;
 
+    @Column(name = "feed_file")
+    private String feedFile;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_no", nullable = false)
