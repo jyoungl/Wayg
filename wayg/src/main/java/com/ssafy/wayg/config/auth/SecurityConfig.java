@@ -25,7 +25,7 @@ public class SecurityConfig {
 //                    .antMatchers("/oauth2/authorization/kakao/**").permitAll()
 //                    .antMatchers("/api/login/**").permitAll()
 //                    .anyRequest().authenticated() //설정값 이외의 url은 인증 완료한 사용자만이 사용가능함
-//                    .antMatchers("/feed/upload","/feed/myFeed","/feed/like","/feed/like/**","/feed/myLikeList","/place/scrap","/place/scrap/**","/place/myScrapPlace").authenticated()
+                    .antMatchers("/feed/upload","/feed/myFeed","/feed/like","/feed/like/**","/feed/myLikeList","/place/scrap","/place/scrap/**","/place/myScrapPlace").authenticated()
                     .anyRequest().permitAll()
                 .and()
                     .logout()
