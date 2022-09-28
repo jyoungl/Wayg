@@ -18,6 +18,8 @@ import { connect } from "react-redux";
 function Feeds({counter}) {
 
   const [feeds, setFeeds] = useState([])
+
+  console.log(counter)
   
   useEffect(()=> {
 
@@ -43,18 +45,31 @@ function Feeds({counter}) {
   },[])
 
   return (
-    <div className="" style={{width: "70vw", height: "40vh"}}>
+    <div className={styles.feeds}>
       <h2>사용자들이 올린 피드</h2>
       <Swiper
         // install Swiper modules
         modules={[Navigation, Pagination, Scrollbar, A11y]}
-        spaceBetween={30}
-        slidesPerView={3}
-        navigation
+        spaceBetween={8}
+        slidesPerView={4}
+        navigation = {true}
+        breakpoints={{
+          // when window width is >= 640px
+          640: {
+            slidesPerView: 1,
+          },
+          // when window width is >= 768px
+          768: {
+            slidesPerView: 2,
+          },
+          960: {
+            slidesPerView: 4,
+          }
+        }}
         // pagination={{ clickable: true }}
         // scrollbar={{ draggable: false }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
+        // onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log('slide change')}
       >
         {feeds.map((feed,idx) => (
           <SwiperSlide key={idx}>

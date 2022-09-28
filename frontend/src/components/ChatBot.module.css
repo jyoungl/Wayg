@@ -1,7 +1,8 @@
 .chatbot {
     background-color: #92b4ec; 
     height: 100vh; 
-    min-width: 390px
+    min-width: 390px;
+    position: fixed;
 }
 
 .chatbot_title {
@@ -38,18 +39,20 @@
     outline:none;
 }
 .chatting{
-    border-radius: 5px;
+    /* border-radius: 5px; */
     background-color:white;
-    position: fixed;
+    position: absolute;
     bottom:0;
     display: flex;
-    text-align: end;
+    /* text-align: end; */
+    align-items: center;
     width: inherit;
-    min-width: 390px
+    min-width: 390px;
+    height: 40px;
 }
 .chatBtn {
     border-radius: 5px;
-    position:absolute;
+    /* position:absolute; */
     right:0;
     height: 32px;
     background-color:yellow;
@@ -65,24 +68,24 @@
     padding-right:5px;
     margin-top:20px;
     background-color: yellow;
-    text-align:right;
+    /* text-align:right; */
     
 }
 .anotherFunction {
     position: absolute;
     bottom: 0;
     list-style: none;
-    margin-bottom:3%;
+    /* margin-bottom:3%; */
     min-width: 390px;
     border-radius: 10px;
     background-color:aliceblue;
     padding-top:10px;
-    animation: upmove 1s forwards;
+    animation: upmove 0.5s forwards;
 }
 
 @keyframes upmove {
     from {bottom: -20px;}
-    to {bottom: 20px;}
+    to {bottom: 0px;}
 }
 
 
