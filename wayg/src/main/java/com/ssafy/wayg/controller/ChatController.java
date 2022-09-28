@@ -5,6 +5,7 @@ import com.ssafy.wayg.dto.PlacewordDto;
 import com.ssafy.wayg.entity.Placeword;
 import com.ssafy.wayg.repository.PlacewordRepository;
 import com.ssafy.wayg.service.ChatService;
+import com.ssafy.wayg.util.MorphemeAnalyzer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,18 @@ public class ChatController {
     private static final String SUCCESS = "succeess";
     private static final String FAIL = "fail";
     private ChatService chatService;
-
+    private MorphemeAnalyzer analyzer;
     @Autowired
-    public ChatController(ChatService chatService){this.chatService = chatService;}
+    public ChatController(ChatService chatService, MorphemeAnalyzer analyzer){
+        this.chatService = chatService;
+        this.analyzer = analyzer;
+    }
 
     @PostMapping
-    public ResponseEntity<Map<String,Double>> calcurate(@RequestBody List<String> s){
+    public ResponseEntity<Map<String,Double>> calcurate(@RequestBody String str){
         Map<String,Object> resultMap = new HashMap<>();
         HttpStatus httpStatus = HttpStatus.ACCEPTED;
-        Map<String, Integer> split = new HashMap<>(); // 형태소 분리한 결과 넣은 map
+        Map<String,Integer> split = analyzer.analyseText(str); // 형태소 분리한 결과 넣은 map
         List<String> send = new ArrayList<>();
 
         //형태소 분리한 단어들을 list에 넣어줌
@@ -38,7 +42,7 @@ public class ChatController {
 
         Map<String, Double> place = new HashMap<>(); // 관광지와 tfidf 값 넣어줄 map
         try {
-            long total = chatService.totalSize(send); //전체 문서 수
+            long total = chatService.totalSize(); //전체 문서 수
 
             for(int i=0;i<send.size();i++){
                 //각 단어의 idf 구하기 * 관광지 tf
