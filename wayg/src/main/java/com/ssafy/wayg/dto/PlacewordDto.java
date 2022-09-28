@@ -16,6 +16,8 @@ import java.io.Serializable;
 @ApiModel(value = "", description = "")
 public class PlacewordDto implements Serializable {
     private Integer placewordNo;
+    private String placewordName;
     private String placewordWord;
-    private Integer placeNo;
+    private Integer placewordCount;
+//    private Integer placeNo;
 }

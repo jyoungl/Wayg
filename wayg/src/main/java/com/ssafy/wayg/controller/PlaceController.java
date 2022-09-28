@@ -104,4 +104,21 @@ public class PlaceController {
 		}
 		return new ResponseEntity<>(resultMap, httpStatus);
 	}
+
+	@ApiOperation(value = "관광지 목록 검색", notes = "초성포함 해당되는 관광지를 모두 반환한다.", response = Map.class)
+	@GetMapping("/search")
+	public ResponseEntity<Map<String,Object>> searchPlace(@ApiParam(value="검색단어") @RequestParam String keyword){
+		Map<String,Object> resultMap = new HashMap<>();
+		HttpStatus httpStatus = HttpStatus.ACCEPTED;
+
+		try {
+			resultMap.put("placeList",placeService.searchPlace(keyword));
+			resultMap.put("message",SUCCESS);
+			httpStatus = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message",FAIL);
+		}
+
+		return new ResponseEntity<>(resultMap, httpStatus);
+	}
 }

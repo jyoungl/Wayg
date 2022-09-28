@@ -2,6 +2,7 @@ package com.ssafy.wayg.service;
 
 import com.ssafy.wayg.dto.FeedDto;
 import com.ssafy.wayg.dto.FeedlikeDto;
+import com.ssafy.wayg.entity.Feed;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

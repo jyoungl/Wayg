@@ -109,4 +109,5 @@ public class DEConverter {
 	
 	public UserDto toUserDto(User user) { return modelMapper.map(user, UserDto.class); }
 	public User toUserEntity(UserDto userDto) { return modelMapper.map(userDto, User.class); }
+	public List<PlacewordDto> toPlacewordDto(List<Placeword> placeword){ return mapList(placeword, PlacewordDto.class); }
 }
