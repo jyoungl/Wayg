@@ -63,3 +63,40 @@
   .scrapY {
     color: #FFD24C;
   }
+
+  .cardImg {
+    background-color:red;
+    width:30%;
+    float:left;
+    object-fit: contain;
+    
+  }
+  .Header {
+    align:left;
+  }
+
+
+
+  .modal {
+    min-width: auto;
+    min-height:30rem;
+
+  }
+
+  .detail_img {
+    width:300px;
+    height:300px;
+    object-fit: cover;
+  }
+
+  .detail_title {
+    font-weight:bold;
+  }
+
+  .detail_address {
+    font-size: small;
+  }
+
+  .info {
+    overflow:auto;
+  }

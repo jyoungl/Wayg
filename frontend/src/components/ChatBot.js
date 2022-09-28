@@ -106,7 +106,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
     <>
     <div className={styles.chatbot}>
       <div className={styles.chatbot_title}>
-        <div>우리랑 대화</div>
+        <div>'우리'랑 대화</div>
       </div>
       
       <br />
@@ -144,7 +144,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
     
     {/* 모달 */}
     <Modal show={handle} onHide={handleClose}>
-    <CreateFeed>a</CreateFeed>
+    <CreateFeed></CreateFeed>
       </Modal>
     
 
