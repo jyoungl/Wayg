@@ -19,7 +19,7 @@ function Feeds({counter}) {
 
   const [feeds, setFeeds] = useState([])
 
-  console.log(counter)
+  // console.log(counter)
   
   useEffect(()=> {
 
