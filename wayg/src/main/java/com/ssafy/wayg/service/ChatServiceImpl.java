@@ -45,11 +45,11 @@ public class ChatServiceImpl implements ChatService {
         return total;
     }
 
-//    @Override
-//    public PlacewordDto oneSize(String str){
-//        List<Placeword> placewordDto = placewordRepository.findByplacewordWord(str);
-//
-//        //int size = place.getPlaceScrap();
-//        return size;
-//    }
+    @Override
+    public List<PlacewordDto> oneSize(String str){
+        List<Placeword> placeword = placewordRepository.findByplacewordWord(str);
+
+        //int size = place.getPlaceScrap();
+        return converter.toPlacewordDto(placeword);
+    }
 }

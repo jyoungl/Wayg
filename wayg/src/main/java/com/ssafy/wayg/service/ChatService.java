@@ -10,5 +10,5 @@ import java.util.List;
 public interface ChatService {
     public double placeword(String word, long total);
     public long totalSize(List<String> str);
-    //public List<PlacewordDto> oneSize(String str);
+    public List<PlacewordDto> oneSize(String str);
 }
