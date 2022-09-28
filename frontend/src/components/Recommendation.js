@@ -7,7 +7,7 @@ import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg
 import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
-import { Container, Grid } from '@material-ui/core';
+// import { Container, Grid } from '@material-ui/core';
 import React from 'react';
 
 import { connect } from "react-redux";
@@ -164,14 +164,14 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     </div>
     {/* 모달 */}
     <Modal show={handle} size="xl" onHide={handleClose}>
-    <Container style={{maxHeight:'650px'}} className={styles.Container}>
-      <Grid container style={{maxHeight:'650px'}}>
+    <div style={{maxHeight:'650px'}} className={styles.Container}>
+      <div container style={{maxHeight:'650px'}}>
         {/* 사진용 왼쪽 컴포넌트 */}
-        <Grid style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
+        <div style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
             <img style={{}} className={styles.detail_img} src={recommendation.placeFiles} alt='img' />
-        </Grid>
+        </div>
         {/* 글용 오른쪽 컴포넌트 */}
-        <Grid style={{maxHeight:'650px'}} className={styles.info} item xs={12} md={6}>
+        <div style={{maxHeight:'650px'}} className={styles.info} item xs={12} md={6}>
           <div>
             {recommendation.placeScrapYn ? 
             <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
@@ -182,9 +182,9 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
           <p className={styles.detail_title}>{recommendation.placeName}</p>
           <p className={styles.detail_address}>{recommendation.placeAddress}</p>
           <p style={{overflow:'auto'}}>{detailContent}</p>
-          </Grid>
-      </Grid>
-    </Container>
+          </div>
+      </div>
+    </div>
     </Modal>
     </>
     
