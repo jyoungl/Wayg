@@ -29,4 +29,5 @@ public class PlaceDto implements Serializable {
     private String placeMore;
     private boolean placeScrapYn;
     private long placeScrap;
+    private String placeFile;
 }
