@@ -19,12 +19,18 @@ public class Placeword {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer placewordNo;
 
+    @Column(name="placeword_name")
+    private String placewordName;
+
     @Column(name = "placeword_word", nullable = false, length = 45)
     private String placewordWord;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "place_no", nullable = false)
-    private Place placeNo;
+    @Column(name="placeword_count")
+    private Integer placewordCount;
+
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @JoinColumn(name = "place_no", nullable = false)
+//    private Place placeNo;
 
 }
