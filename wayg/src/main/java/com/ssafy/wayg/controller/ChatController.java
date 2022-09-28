@@ -42,7 +42,7 @@ public class ChatController {
 
         Map<String, Double> place = new HashMap<>(); // 관광지와 tfidf 값 넣어줄 map
         try {
-            long total = chatService.totalSize(send); //전체 문서 수
+            long total = chatService.totalSize(); //전체 문서 수
 
             for(int i=0;i<send.size();i++){
                 //각 단어의 idf 구하기 * 관광지 tf
