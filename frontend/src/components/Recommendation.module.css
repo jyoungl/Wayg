@@ -82,3 +82,21 @@
     min-height:30rem;
 
   }
+
+  .detail_img {
+    width:300px;
+    height:300px;
+    object-fit: cover;
+  }
+
+  .detail_title {
+    font-weight:bold;
+  }
+
+  .detail_address {
+    font-size: small;
+  }
+
+  .info {
+    overflow:auto;
+  }

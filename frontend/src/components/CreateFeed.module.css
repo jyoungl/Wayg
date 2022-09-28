@@ -27,6 +27,11 @@
   text-align: center;
   padding-top:1%;
   padding-bottom:1%;
+  font-weight: bold;
+}
+
+.picture:hover {
+  background-color: antiquewhite;
 }
 
 .Title {
@@ -35,10 +40,27 @@
   box-shadow: 5px;
 }
 
-.Content {
+.text {
+  margin-top:1rem;
+}
 
+.Content {
+  border-radius: 5px;
+  white-space: normal;
 }
 
 .Nickname {
+  border-radius: 5px;
+}
+
+.feed_btn {
+  font-weight:bold;
+  border:none;
+  background-color: white;
+  color:black;
+}
+
+.feed_btn:hover {
+  color:rgb(61, 190, 241);
 
 }

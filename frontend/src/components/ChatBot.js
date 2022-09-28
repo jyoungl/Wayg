@@ -1,6 +1,5 @@
 import styles from "./ChatBot.module.css";
 import {useState, useEffect} from "react";
-import store from "../store"
 import wayg from '../images/wayg.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -27,6 +26,9 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
   const onChange = (event) => setSend(event.target.value)
   const onSubmit = async (event) => {
     event.preventDefault();
+    // if (send ==="") {
+    //   return
+    // }
     await setSends((currentArray) => [...currentArray,send])
     await setStory(story.concat(
       <div>
@@ -45,7 +47,6 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
   useEffect(() => {
     const fetchUsers = async () => {
       console.log(sends)
-      console.log(typeof(sends))
       if (greeting ===true) {
 
       
@@ -60,9 +61,15 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
           process.env.REACT_APP_HOST_FLASK+`morph?text=${sends[sends.length-1]}`
         );
         console.log(response.data)
+        // if (response.data[0][0]==='undefined') {
+        //   return
+        //     // response.data.pop()
+        // }
         setReceive(() => setReceive(JSON.stringify(response.data)))
         setReceives((currentArray) => [...currentArray,receive])
-
+        console.log(receive)
+        console.log(receives)
+        ///
         if (response.data[0][0] !=="undefined") {
           setStory(story.concat(
             <div>
@@ -99,7 +106,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
     <>
     <div className={styles.chatbot}>
       <div className={styles.chatbot_title}>
-        <div>wayg</div>
+        <div>'우리'랑 대화</div>
       </div>
       
       <br />
@@ -136,7 +143,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
     
     {/* 모달 */}
     <Modal show={handle} onHide={handleClose}>
-    <CreateFeed>a</CreateFeed>
+    <CreateFeed></CreateFeed>
       </Modal>
     
 
