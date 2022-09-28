@@ -31,36 +31,36 @@ function Recommendations({counter}) {
     fetchFeeds();
   },[])
   
-  // const [page, setPage] = useState(1)
-  // const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
 
-  // const [ref, inView] = useInView()
+  const [ref, inView] = useInView()
 
-  // const server_url = "aa"
-  // //서버에서 아이템(추천여행지) 가지고 오는 함수
-  // const getItems = useCallback(async () => {
-  //   setLoading(true)
-  //   await axios.get(`${server_url}/page=${page}`).then((res)=>{
-  //     setItems(prevState => [...prevState, res])
-  //   })
-  //   setLoading(false)
-  // }, [page])
+  const server_url = process.env.REACT_APP_HOST+`place`
+  //서버에서 아이템(추천여행지) 가지고 오는 함수
+  const getItems = useCallback(async () => {
+    setLoading(true)
+    await axios.get(`${server_url}?page=${page}&size=10&userNo=${counter.userNo}`).then((res)=>{
+      setRecommendations(prevState => [...prevState, res.data.placeList.content])
+    })
+    setLoading(false)
+  }, [page])
 
-  // // getItems가 바뀔때마다 함수 실행
-  // useEffect(()=> {
-  //   // getItems()
-  //   console.log(items)
-  // }, [getItems])
+  // getItems가 바뀔때마다 함수 실행
+  useEffect(()=> {
+    // getItems()
+    console.log(recommendations)
+  }, [getItems])
 
-  // // 사용자가 마지막 요소를 보고있고, 로딩 중이 아니라면
-  // useEffect(()=>{
-  //   if (inView && !loading) {
-  //     setPage(prevState => prevState + 1)
-  //   }
-  // }, [inView, loading])
+  // 사용자가 마지막 요소를 보고있고, 로딩 중이 아니라면
+  useEffect(()=>{
+    if (inView && !loading) {
+      setPage(prevState => prevState + 1)
+    }
+  }, [inView, loading])
 
   return (
-    <div className="spot-list">
+    <div className={styles.recommendations}>
       <h2>WAYG가 추천해주는 여행지</h2>
       <div className={styles.recommendations_list}>
         {recommendations.map((recommendation,idx) => (

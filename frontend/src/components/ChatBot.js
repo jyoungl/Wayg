@@ -123,6 +123,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
         <li onClick={() => {goScrapPlace();}}>내가 스크랩한 관광지 보러가기</li>
         <li onClick={() => {goMyFeed();}}>내가 올린 피드보기</li>
         <li onClick={() => {createFeed(); }}>피드작성하기</li>
+        <li>대화 끝내기</li>
 
       </ul>: null}
       
