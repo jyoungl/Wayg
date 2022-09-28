@@ -17,4 +17,5 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 	@Query("Select p FROM Place p WHERE p.id IN (?1)")
 	Page<Place> findByPlaceNo(List<Integer> placeNoList, Pageable pageable);
 
+	Place findByPlaceName(String placeName);
 }
