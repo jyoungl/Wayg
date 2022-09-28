@@ -45,6 +45,7 @@ public class PlaceServiceImpl implements PlaceService {
 			String new_name = "";
 			for(int j = 0; j<name.length(); j++) {
 				char c = name.charAt(j);
+				if(j == 0 && c == '(') continue;
 				if(c == ' ' || c =='(' || c == ')') new_name += '_';
 				else new_name += c;
 			}
@@ -65,6 +66,7 @@ public class PlaceServiceImpl implements PlaceService {
 		String new_name = "";
 		for(int j = 0; j<name.length(); j++) {
 			char c = name.charAt(j);
+			if(j == 0 && c == '(') continue;
 			if(c == ' ' || c =='(' || c == ')') new_name += '_';
 			else new_name += c;
 		}
