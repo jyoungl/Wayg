@@ -2,7 +2,9 @@
     background-color: #92b4ec; 
     height: 100vh; 
     min-width: 390px;
+    max-width: 390px;
     position: fixed;
+    box-sizing: border-box;
 }
 
 .chatbot_title {
@@ -16,18 +18,42 @@
 .chatbot_wayg {
     width:50px;
     height:50px;
+}
 
+.message_woori {
+    display: flex;
+    /* height: 20px; */
+}
+
+.message_user {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .receivedMessage {
     border-radius: 5px;
     background-color:aliceblue;
-    height: auto;
+    height: 100%;
     margin-left: 5%;
     padding-left: 3%;
     padding-right: 3%;
     padding-top:1%;
     padding-bottom:1%;
+    vertical-align: middle
+}
+
+.sendMessage {
+    display:inline-block;
+    border-radius:5px;
+    padding-left:5px;
+    padding-right:5px;
+    margin-top:20px;
+    background-color: yellow;
+    margin-left: auto;
+    vertical-align: middle;
+    height: 100%;
+    /* text-align:right; */
+    
 }
 
 .sendInput {
@@ -61,16 +87,6 @@
     
 }
 
-.sendMessage {
-    display:block;
-    border-radius:5px;
-    padding-left:5px;
-    padding-right:5px;
-    margin-top:20px;
-    background-color: yellow;
-    /* text-align:right; */
-    
-}
 .anotherFunction {
     position: absolute;
     bottom: 0;
@@ -80,12 +96,17 @@
     border-radius: 10px;
     background-color:aliceblue;
     padding-top:10px;
-    animation: upmove 0.5s forwards;
+    animation: upmove 1s forwards;
 }
 
 @keyframes upmove {
-    from {bottom: -20px;}
+    from {bottom: -300px;}
     to {bottom: 0px;}
+}
+
+@keyframes downmove {
+    from {bottom: 0px;}
+    to {bottom: -500px;}
 }
 
 

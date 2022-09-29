@@ -16,8 +16,11 @@
 }
 
 .popular {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .logout_button {
