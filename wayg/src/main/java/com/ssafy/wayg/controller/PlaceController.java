@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/place")
 public class PlaceController {
-	private static final String SUCCESS = "succeess";
+	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
 	private PlaceService placeService;
