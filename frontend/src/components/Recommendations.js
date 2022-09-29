@@ -57,7 +57,7 @@ function Recommendations({counter}) {
     } else {
       console.log(res)
     }
-      setLoad(false);
+    setLoad(false);
     }, [page]);
 
   return (

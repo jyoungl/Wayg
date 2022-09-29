@@ -14,7 +14,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* 가로 스크롤 없애기? */
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 code {
@@ -39,18 +39,40 @@ code {
   justify-content: center;
 }
 
-.swiper-container {
-  width: 480px;
+.swiper {
+  width: 100%;
+  margin-left: 0 !important;
 }
 
 @media screen and (min-width: 640px) {
-  .swiper-container {
-    width: 640px;
+  .swiper {
+    /* 이때는 챗봇만 */
+    width: 278px;
+    margin-left: 0 !important;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .swiper-container {
-    width: 768px;
+  .swiper {
+    /* width: 378px; */
+    /* width: 278px; */
+    width: 502px;
+    margin-left: 0;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .swiper {
+    /* width: 602px; */
+    /* width: 502px; */
+    width: 710px;
+    margin-left: 0;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .swiper {
+    width: 918px;
+    margin-left: 0;
   }
 }

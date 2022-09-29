@@ -7,6 +7,7 @@ import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import React from 'react';
+import wayg from '../images/wayg.png'
 
 import { connect } from "react-redux";
 
@@ -25,7 +26,7 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     placeMore: {placeMore}.placeMore,
     placeScrapYn: {placeScrapYn}.placeScrapYn,
     placeScrap: {placeScrap}.placeScrap,
-    placeFiles: {placeFiles}.placeFiles,
+    placeFile: {placeFile}.placeFile,
   })
   const [scrapYn, setScrapYn] = useState(null)
   const [handle, setHandle] = useState(false);
@@ -150,7 +151,10 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     <>
     <div className={styles.recommendation}>
       <div>
-        <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFiles} alt='img' />
+        <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
+          currentTarget.onerror = null; 
+          currentTarget.src='./noPhoto.png';
+        }}/>
         <div className={styles.recommendation_description}>
           <div className={styles.recommendation_box}>
             {recommendation.placeScrapYn ? 
@@ -172,7 +176,9 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
       <div container style={{maxHeight:'650px'}}>
         {/* 사진용 왼쪽 컴포넌트 */}
         <div style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
-            <img style={{}} className={styles.detail_img} src={recommendation.placeFiles} alt='img' />
+            <img style={{}} className={styles.detail_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
+              currentTarget.onerror = null; 
+              currentTarget.src='./noPhoto.png'}} alt='img' />
         </div>
         {/* 글용 오른쪽 컴포넌트 */}
         <div style={{maxHeight:'650px'}} className={styles.info} item xs={12} md={6}>
