@@ -12,14 +12,18 @@ import javax.persistence.*;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "placeword")
+@Table(name = "placeword", indexes = {
+        @Index(name = "idx__placeword__count", columnList = "placeword_count"),
+        @Index(name = "idx__placeword__word", columnList = "placeword_word"),
+//        @Index(name = "idx__placeword__name", columnList = "placeword_name")
+})
 public class Placeword {
     @Id
     @Column(name = "placeword_no", nullable = false)
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer placewordNo;
 
-    @Column(name="placeword_name")
+    @Column(name="placeword_name" , length = 100)
     private String placewordName;
 
     @Column(name = "placeword_word", nullable = false, length = 45)
