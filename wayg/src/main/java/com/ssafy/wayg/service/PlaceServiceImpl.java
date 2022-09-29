@@ -112,7 +112,18 @@ public class PlaceServiceImpl implements PlaceService {
 
 		Page<PlaceDto> placeDtoPage = converter.toPlaceDtoList(placeRepository.findByPlaceNo(scrapList,pageable));
 		for (int i = 0; i < placeDtoPage.getContent().size(); i++) {
-			placeDtoPage.getContent().get(i).setPlaceScrapYn(true);
+			PlaceDto placeDto = placeDtoPage.getContent().get(i);
+			placeDto.setPlaceScrapYn(true);
+			String name = placeDto.getPlaceName();
+			String new_name = "";
+			for(int j = 0; j<name.length(); j++) {
+				char c = name.charAt(j);
+				if(j == 0 && c == '(') continue;
+				if(c == ' ' || c =='(' || c == ')') new_name += '_';
+				else new_name += c;
+			}
+			String url = "https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/" + new_name + "_1.jpg";
+			placeDto.setPlaceFile(url);
 		}
 
 		return placeDtoPage;
