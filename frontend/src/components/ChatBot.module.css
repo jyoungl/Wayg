@@ -80,12 +80,17 @@
     border-radius: 10px;
     background-color:aliceblue;
     padding-top:10px;
-    animation: upmove 0.5s forwards;
+    animation: upmove 1s forwards;
 }
 
 @keyframes upmove {
-    from {bottom: -20px;}
+    from {bottom: -300px;}
     to {bottom: 0px;}
+}
+
+@keyframes downmove {
+    from {bottom: 0px;}
+    to {bottom: -500px;}
 }
 
 

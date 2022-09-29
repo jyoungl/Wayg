@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 // import Card from 'react-bootstrap/Card';
 import styles from './Recommendation.module.css'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free-solid-svg-icons';
@@ -9,10 +9,11 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 // import { Container, Grid } from '@material-ui/core';
 import React from 'react';
+import wayg from '../images/wayg.png'
 
 import { connect } from "react-redux";
 
-function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFiles }) {
+function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFile }) {
   
   const [recommendation, setRecommendation] = useState({
     placeNo: {placeNo}.placeNo,
@@ -27,7 +28,7 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     placeMore: {placeMore}.placeMore,
     placeScrapYn: {placeScrapYn}.placeScrapYn,
     placeScrap: {placeScrap}.placeScrap,
-    placeFiles: {placeFiles}.placeFiles,
+    placeFile: {placeFile}.placeFile,
   })
   const [handle, setHandle] = useState(false);
   const [detailContent, setDetailContent] = useState()
@@ -146,7 +147,10 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     <>
     <div className={styles.recommendation}>
       <div>
-        <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFiles} alt='img' />
+        <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
+          currentTarget.onerror = null; 
+          currentTarget.src='http://localhost:3000/static/media/wayg.a2fc161929c862ab104f.png';
+        }}/>
         <div className={styles.recommendation_description}>
           <div className={styles.recommendation_box}>
             {recommendation.placeScrapYn ? 
@@ -168,7 +172,7 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
       <div container style={{maxHeight:'650px'}}>
         {/* 사진용 왼쪽 컴포넌트 */}
         <div style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
-            <img style={{}} className={styles.detail_img} src={recommendation.placeFiles} alt='img' />
+            <img style={{}} className={styles.detail_img} src={recommendation.placeFile} alt='img' />
         </div>
         {/* 글용 오른쪽 컴포넌트 */}
         <div style={{maxHeight:'650px'}} className={styles.info} item xs={12} md={6}>
