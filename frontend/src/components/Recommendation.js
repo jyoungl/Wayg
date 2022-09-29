@@ -1,5 +1,4 @@
 import Button from 'react-bootstrap/Button';
-// import Card from 'react-bootstrap/Card';
 import styles from './Recommendation.module.css'
 import {useEffect, useState} from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,13 +6,12 @@ import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg
 import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
-// import { Container, Grid } from '@material-ui/core';
 import React from 'react';
 import wayg from '../images/wayg.png'
 
 import { connect } from "react-redux";
 
-function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFile }) {
+function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFiles, parentFunction }) {
   
   const [recommendation, setRecommendation] = useState({
     placeNo: {placeNo}.placeNo,
@@ -30,10 +28,11 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     placeScrap: {placeScrap}.placeScrap,
     placeFile: {placeFile}.placeFile,
   })
+  const [scrapYn, setScrapYn] = useState(null)
   const [handle, setHandle] = useState(false);
   const [detailContent, setDetailContent] = useState()
   const handleClose = () => setHandle(false);
-
+// 스크랩 추가
   const plusScrap = async () => {
     try {
         const response = await axios.post(
@@ -43,38 +42,46 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
           userNo: counter.userNo,
           placeNo: {placeNo}.placeNo
         });
-        console.log(response.data)
         if (response.data.message === 'success'){
-          recommendation.placeScrapYn = true;
-          setRecommendation(recommendation)
-          console.log('aaaaa')
+          let new_recommendation = recommendation
+          new_recommendation.placeScrapYn = true;
+          new_recommendation.placeScrap +=1
+          await setRecommendation(new_recommendation)
+          await setScrapYn(true)
+          await parentFunction(scrapYn)
+          console.log('스크랩성공')
           
         }
       } catch (e) {
         
       }
   };
-  
+
+
+
+  // 스크랩 제거
   const deleteScrap = async () => {
     try {
         const response = await axios.delete(
           process.env.REACT_APP_HOST+`place/scrap/1`
-          
+
           ,{
           params: {
             userNo: counter.userNo,
             placeNo: {placeNo}.placeNo,
           }
         });
-        console.log(response.data)
         if (response.data.message === 'success'){
           let new_recommendation = recommendation
           new_recommendation.placeScrapYn = false;
-          setRecommendation(new_recommendation)
-          console.log('ww')
+          new_recommendation.placeScrap -=1
+          await setRecommendation(new_recommendation)
+          await setScrapYn(false)
+          await parentFunction(scrapYn)
+          console.log('스크랩취소')
         }
       } catch (e) {
-        
+
       }
     };
   
@@ -127,9 +134,6 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
       )
       await console.log(response.data.place)
       var placeInfo = await response.data.place.placeInfo
-      // var res = placeInfo
-      // var res = await placeInfo.replace(/<br>/g, ' ');
-
       var res = await placeInfo.replace(/<br\s*[\/]?>/gi, " ")
       
 
