@@ -68,10 +68,10 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
         });
         console.log(response.data)
         if (response.data.message === 'success'){
-          recommendation.placeScrapYn = true;
-          setRecommendation(recommendation)
+          let new_recommendation = recommendation
+          new_recommendation.placeScrapYn = false;
+          setRecommendation(new_recommendation)
           console.log('ww')
-          
         }
       } catch (e) {
         
@@ -172,7 +172,9 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
       <div container style={{maxHeight:'650px'}}>
         {/* 사진용 왼쪽 컴포넌트 */}
         <div style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
-            <img style={{}} className={styles.detail_img} src={recommendation.placeFile} alt='img' />
+            <img style={{}} className={styles.detail_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
+              currentTarget.onerror = null; 
+              currentTarget.src='./noPhoto.png'}} alt='img' />
         </div>
         {/* 글용 오른쪽 컴포넌트 */}
         <div style={{maxHeight:'650px'}} className={styles.info} item xs={12} md={6}>

@@ -1,6 +1,7 @@
 .feeds {
     width: 70vw;
     height: 40vh;
+    box-sizing: border-box;
 
   }
   

@@ -2,7 +2,9 @@
     background-color: #92b4ec; 
     height: 100vh; 
     min-width: 390px;
+    max-width: 390px;
     position: fixed;
+    box-sizing: border-box;
 }
 
 .chatbot_title {

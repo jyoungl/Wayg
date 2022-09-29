@@ -119,7 +119,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
     const res = await axios.get(process.env.REACT_APP_HOST + `/place/search?keyword=${send}`);
     if (res.data){
       console.log(res.data)
-      if (res.data.message === 'succeess') {
+      if (res.data.message === 'success') {
         await setChat((currentArray) => [...currentArray, ['woori', res.data.placeList[0]]]);
         // setStory(story.concat(
         //   <div>
@@ -167,7 +167,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
         <li onClick={() => {goScrapPlace();}}>내가 스크랩한 관광지 보러가기</li>
         <li onClick={() => {goMyFeed();}}>내가 올린 피드보기</li>
         <li onClick={() => {createFeed(); }}>피드작성하기</li>
-        <li>대화 끝내기</li>
+
 
       </ul>: null}
       
@@ -185,7 +185,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
 
       <div>
         {chat.map((chat,idx) => (
-          <div>
+          <div key={idx}>
             { chat[0] === "woori" ? 
             <div className={styles.message_woori}>
               <img className={styles.chatbot_wayg} src={woori} alt="character" />
