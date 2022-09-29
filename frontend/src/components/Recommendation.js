@@ -149,7 +149,7 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
       <div>
         <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
-          currentTarget.src='http://localhost:3000/static/media/wayg.a2fc161929c862ab104f.png';
+          currentTarget.src='./noPhoto.png';
         }}/>
         <div className={styles.recommendation_description}>
           <div className={styles.recommendation_box}>

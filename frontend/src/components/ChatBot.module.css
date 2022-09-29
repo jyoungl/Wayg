@@ -16,18 +16,42 @@
 .chatbot_wayg {
     width:50px;
     height:50px;
+}
 
+.message_woori {
+    display: flex;
+    /* height: 20px; */
+}
+
+.message_user {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .receivedMessage {
     border-radius: 5px;
     background-color:aliceblue;
-    height: auto;
+    height: 100%;
     margin-left: 5%;
     padding-left: 3%;
     padding-right: 3%;
     padding-top:1%;
     padding-bottom:1%;
+    vertical-align: middle
+}
+
+.sendMessage {
+    display:inline-block;
+    border-radius:5px;
+    padding-left:5px;
+    padding-right:5px;
+    margin-top:20px;
+    background-color: yellow;
+    margin-left: auto;
+    vertical-align: middle;
+    height: 100%;
+    /* text-align:right; */
+    
 }
 
 .sendInput {
@@ -61,16 +85,6 @@
     
 }
 
-.sendMessage {
-    display:block;
-    border-radius:5px;
-    padding-left:5px;
-    padding-right:5px;
-    margin-top:20px;
-    background-color: yellow;
-    /* text-align:right; */
-    
-}
 .anotherFunction {
     position: absolute;
     bottom: 0;
