@@ -1,0 +1,17 @@
+.feeds {
+    width: 70vw;
+    height: 40vh;
+
+  }
+  
+  /* .feeds_list {
+    display: flex;
+    flex-wrap: wrap;
+  } */
+    
+  /* @media screen and (max-width: 1090px) {
+    .feeds {
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+  } */

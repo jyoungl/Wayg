@@ -1,0 +1,105 @@
+.chatbot {
+    background-color: #92b4ec; 
+    height: 100vh; 
+    min-width: 390px;
+    position: fixed;
+}
+
+.chatbot_title {
+    height: 5vh;
+    color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatbot_wayg {
+    width:50px;
+    height:50px;
+
+}
+
+.receivedMessage {
+    border-radius: 5px;
+    background-color:aliceblue;
+    height: auto;
+    margin-left: 5%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top:1%;
+    padding-bottom:1%;
+}
+
+.sendInput {
+    font-size: 12px;
+    border: none;
+    width: 300px;
+    height: 30px;
+    vertical-align: middle;
+    outline:none;
+}
+.chatting{
+    /* border-radius: 5px; */
+    background-color:white;
+    position: absolute;
+    bottom:0;
+    display: flex;
+    /* text-align: end; */
+    align-items: center;
+    width: inherit;
+    min-width: 390px;
+    height: 40px;
+}
+.chatBtn {
+    border-radius: 5px;
+    /* position:absolute; */
+    right:0;
+    height: 32px;
+    background-color:yellow;
+    border:none;
+    
+    
+}
+
+.sendMessage {
+    display:block;
+    border-radius:5px;
+    padding-left:5px;
+    padding-right:5px;
+    margin-top:20px;
+    background-color: yellow;
+    /* text-align:right; */
+    
+}
+.anotherFunction {
+    position: absolute;
+    bottom: 0;
+    list-style: none;
+    /* margin-bottom:3%; */
+    min-width: 390px;
+    border-radius: 10px;
+    background-color:aliceblue;
+    padding-top:10px;
+    animation: upmove 0.5s forwards;
+}
+
+@keyframes upmove {
+    from {bottom: -20px;}
+    to {bottom: 0px;}
+}
+
+
+.anotherFunction li {
+    
+    margin-bottom:5px;
+    cursor: pointer;
+}
+
+.anotherFunction li:hover{
+    background-color:rgb(234, 233, 245);
+    border-radius:5px;
+}
+
+.anotherFunction {
+
+}
