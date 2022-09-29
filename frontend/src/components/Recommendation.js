@@ -11,7 +11,7 @@ import wayg from '../images/wayg.png'
 
 import { connect } from "react-redux";
 
-function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFiles, parentFunction }) {
+function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFile, parentFunction }) {
   
   const [recommendation, setRecommendation] = useState({
     placeNo: {placeNo}.placeNo,
