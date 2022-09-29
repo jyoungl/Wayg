@@ -1,18 +1,17 @@
 import Button from 'react-bootstrap/Button';
-// import Card from 'react-bootstrap/Card';
 import styles from './Recommendation.module.css'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
-// import { Container, Grid } from '@material-ui/core';
 import React from 'react';
+import wayg from '../images/wayg.png'
 
 import { connect } from "react-redux";
 
-function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFiles }) {
+function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFile, parentFunction }) {
   
   const [recommendation, setRecommendation] = useState({
     placeNo: {placeNo}.placeNo,
@@ -27,12 +26,13 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     placeMore: {placeMore}.placeMore,
     placeScrapYn: {placeScrapYn}.placeScrapYn,
     placeScrap: {placeScrap}.placeScrap,
-    placeFiles: {placeFiles}.placeFiles,
+    placeFile: {placeFile}.placeFile,
   })
+  const [scrapYn, setScrapYn] = useState(null)
   const [handle, setHandle] = useState(false);
   const [detailContent, setDetailContent] = useState()
   const handleClose = () => setHandle(false);
-
+// 스크랩 추가
   const plusScrap = async () => {
     try {
         const response = await axios.post(
@@ -42,38 +42,46 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
           userNo: counter.userNo,
           placeNo: {placeNo}.placeNo
         });
-        console.log(response.data)
         if (response.data.message === 'success'){
-          recommendation.placeScrapYn = true;
-          setRecommendation(recommendation)
-          console.log('aaaaa')
+          let new_recommendation = recommendation
+          new_recommendation.placeScrapYn = true;
+          new_recommendation.placeScrap +=1
+          await setRecommendation(new_recommendation)
+          await setScrapYn(true)
+          await parentFunction(scrapYn)
+          console.log('스크랩성공')
           
         }
       } catch (e) {
         
       }
   };
-  
+
+
+
+  // 스크랩 제거
   const deleteScrap = async () => {
     try {
         const response = await axios.delete(
           process.env.REACT_APP_HOST+`place/scrap/1`
-          
+
           ,{
           params: {
             userNo: counter.userNo,
             placeNo: {placeNo}.placeNo,
           }
         });
-        console.log(response.data)
         if (response.data.message === 'success'){
-          recommendation.placeScrapYn = true;
-          setRecommendation(recommendation)
-          console.log('ww')
-          
+          let new_recommendation = recommendation
+          new_recommendation.placeScrapYn = false;
+          new_recommendation.placeScrap -=1
+          await setRecommendation(new_recommendation)
+          await setScrapYn(false)
+          await parentFunction(scrapYn)
+          console.log('스크랩취소')
         }
       } catch (e) {
-        
+
       }
     };
   
@@ -126,9 +134,6 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
       )
       await console.log(response.data.place)
       var placeInfo = await response.data.place.placeInfo
-      // var res = placeInfo
-      // var res = await placeInfo.replace(/<br>/g, ' ');
-
       var res = await placeInfo.replace(/<br\s*[\/]?>/gi, " ")
       
 
@@ -146,7 +151,10 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     <>
     <div className={styles.recommendation}>
       <div>
-        <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFiles} alt='img' />
+        <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
+          currentTarget.onerror = null; 
+          currentTarget.src='./noPhoto.png';
+        }}/>
         <div className={styles.recommendation_description}>
           <div className={styles.recommendation_box}>
             {recommendation.placeScrapYn ? 
@@ -168,7 +176,9 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
       <div container style={{maxHeight:'650px'}}>
         {/* 사진용 왼쪽 컴포넌트 */}
         <div style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
-            <img style={{}} className={styles.detail_img} src={recommendation.placeFiles} alt='img' />
+            <img style={{}} className={styles.detail_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
+              currentTarget.onerror = null; 
+              currentTarget.src='./noPhoto.png'}} alt='img' />
         </div>
         {/* 글용 오른쪽 컴포넌트 */}
         <div style={{maxHeight:'650px'}} className={styles.info} item xs={12} md={6}>

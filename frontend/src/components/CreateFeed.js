@@ -15,11 +15,38 @@ function CreateFeed({counter}) {
   const [makeFeed, setMakeFeed] = useState({feedTitle:"", feedContent:"", feedNickname:"", userNo: "", feedFile:""});
   const [image, setImage] = useState('');
   const [url, setUrl] = useState('');
+  const [change, setChange] = useState(false);
+  const [words, setWords] = useState([]);
+  const $input = document.querySelector('input');
+  const $msg = document.querySelector(".msg");
 
+
+  const debounce = (callback, delay) =>{
+    let timerId;
+    return event =>{
+      clearTimeout(timerId);
+      timerId = setTimeout(callback, delay, event)
+    }
+  };
+
+  $input.oninput = debounce(e => {
+    $msg.textContent = e.target.value;
+  }, 300);
+
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc(reader.result)
+        resolve()
+      }
+    })
+  };
 
   const uploadImage = async () => {
     const data = new FormData()
-    console.log(image)
+    // console.log(image)
     data.append('file', image)
     data.append('upload_preset','rkh4a8n0')
     data.append('cloud_name', 'dcd6ufnba')
@@ -31,19 +58,29 @@ function CreateFeed({counter}) {
     .then(data => {
      setUrl(data.url)
     })
+    .then(alert('업로드 완료'))
     .catch(err => console.log(err))
-    console.log(url)
   }
+  console.log(url)
 
-  const onChange = async (e) => {
-     await setImage(e.target.files[0])
-     console.log(image)
-     await uploadImage
-  }
 
-  const onChangeTitle = (event) => {
+  const onChangeTitle = async (event) => {
     console.log(event.target.value)
-    setFeedTitle(event.target.value)
+    await setFeedTitle(event.target.value)
+    console.log(feedTitle)
+    const searchPlace = async () => {
+      try {
+        const response = await axios.get(
+          process.env.REACT_APP_HOST+`place/search?keyword=${encodeURIComponent(event.target.value)}`
+        )
+        console.log(response.data.placeList)
+        await setWords(response.data.placeList)
+
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    searchPlace()
   }
   const onChangeContent = (event) => {
     console.log(event.target.value)
@@ -65,8 +102,7 @@ function CreateFeed({counter}) {
            feedContent:feedContent, 
            feedNickname:feedNickname, 
            userNo: counter.userNo,
-           feedFile:url
-          }
+           feedFile:url}
         );
         console.log(response)
 
@@ -79,17 +115,22 @@ function CreateFeed({counter}) {
     
     <main className="container">
       <Card style={{width:"100%", height:"100%"}} className={styles.Card}>
-          <input id= "imgFile" type="file" style={{display: "none"}} onChange={onChange} />
-          {/* <input id="imgFile" tyle="file" style={{display: "none"}} onChange={(e) => {}} /> */}
+          <input id= "imgFile" type="file" style={{display: "none"}} onChange={(e) => {encodeFileToBase64(e.target.files[0]); setImage(e.target.files[0]); setChange(true)  }} />
           <label className={styles.picture} htmlFor="imgFile">사진을 선택해 주세요</label>
-          {/* <button onClick={uploadImage}>업로드</button> */}
-      <div style={{width:"100%", height:"100%"}}>
-        <img width="100%" height="100%" src={url} alt="" />
+      <div style={{width:"100%", height:"100%"}} className={styles.selectLabel}>
+        {imageSrc && <img src={imageSrc} className={styles.previewImg} width="100%" height="100%" art="preview-img" />
+        }
       </div>
+      {change ? <button onClick={uploadImage}>업로드버튼</button> : null}
+      
       <Card.Body>
       <form  onSubmit={onSubmit}>
         <Card.Title>
-            <input className={styles.Title} onChange={onChangeTitle} type="text" placeholder="여행지를 작성하세요" style={{width:"100%", height:"100%"}}/>
+            <input className={styles.Title} onChange={onChangeTitle} value={feedTitle} type="text" placeholder="여행지를 작성하세요" style={{width:"100%", height:"100%"}}/>
+            <ul className={styles.autoComplete}>
+            {words ? words.map((word, index) => (<li onClick={(word) => {setFeedTitle(); setFeedTitle(word.target.textContent); console.log(word)}} className={styles.autoComplete_li} key={index}>{word}</li>)) : null}
+            
+            </ul>
         </Card.Title>
         <Card.Text className={styles.text}>
             {/* <input className={styles.Content} onChange={onChangeContent} type="text" placeholder="내용을 작성하세요" style={{width:"100%", height:"100%"}}/> */}
@@ -106,11 +147,11 @@ function CreateFeed({counter}) {
   )
 }
 
-const mapStateToProps = state => ({
-  counter: state.counterReducer.counter
-});
-
+  const mapStateToProps = state => ({
+    counter: state.counterReducer.counter
+  });
 
 export default connect(
   mapStateToProps,
 )(CreateFeed);
+

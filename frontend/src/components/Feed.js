@@ -11,20 +11,21 @@ import Modal from 'react-bootstrap/Modal';
 
 import { connect } from "react-redux";
 
-function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, feedLike,feedLikeYn}) {
+function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFile, feedLike,feedLikeYn}) {
   const [feed, setFeed] = useState({
     feedNo: {feedNo}.feedNo,
     feedTitle: {feedTitle}.feedTitle,
     feedContent: {feedContent}.feedContent,
     feedNickname: {feedNickname}.feedNickname, 
     userNo: {userNo}.userNo, 
-    feedFiles: {feedFiles}.feedFiles, 
+    feedFile: {feedFile}.feedFile === null ? './noPhoto.png' : {feedFile}.feedFile , 
     feedLike: {feedLike}.feedLike, 
     feedLikeYn: {feedLikeYn}.feedLikeYn,
   })
   const [detailContent,setDetailContent] = useState('')
   const [handle, setHandle] = useState(false);
   const handleClose = () => setHandle(false);
+  const [likeYn, setLikeYn] = useState(null)
 
   const plusLike = async () => {
     try {
@@ -35,10 +36,14 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
           userNo: counter.userNo,
           feedNo: {feedNo}.feedNo
         });
-        console.log(response.data)
+        // console.log(response.data)
         if (response.data.message === 'success'){
-          feed.feedLikeYn = true;
-          setFeed(feed)
+          let new_feed = feed
+          new_feed.feedLikeYn = true;
+          new_feed.feedLike+=1
+          
+          await setFeed(new_feed)
+          await setLikeYn(true)
           console.log('aaaaa')
           
         }
@@ -62,9 +67,14 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
         });
         console.log(response.data)
         if (response.data.message === 'success'){
-          feed.feedLikeYn = false;
-          setFeed(feed)
-          console.log('ww')
+          let new_feed = feed
+          new_feed.feedLikeYn = false;
+          new_feed.feedLike-=1
+          
+          await setFeed(new_feed)
+          await setLikeYn(false)
+
+
           
         }
       } catch (e) {
@@ -141,7 +151,10 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
     <>
     <div className={styles.feed}>
       <div className={styles.feed_div}>
-        <img onClick={onClickFeed} className={styles.feed_img} src={feed.feedFiles} alt='img' />
+        <img onClick={onClickFeed} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
+          currentTarget.onerror = null; 
+          currentTarget.src='./noPhoto.png';
+        }} alt='img' />
         <div>
           <div className={styles.feed_box}>
             {feed.feedLikeYn ? 
@@ -154,7 +167,7 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
                 <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
           </div>
           <div className={styles.feed_box}> 
-          <div className={styles.feed_writer}>{feed.feedNickname}</div>
+            <div className={styles.feed_writer}>{feed.feedNickname} {feed.feedNo}</div>
           </div>
           <div className={styles.feed_title}>{feed.feedTitle}</div>
         </div>
@@ -164,7 +177,7 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
     <Modal className={styles.modal} size="lg" show={handle} onHide={handleClose}>
     <Card>
       <Card.Header as="h5">
-        <img className={styles.cardImg} src={feed.feedFiles} alt='img' />
+        <img className={styles.cardImg} src={feed.feedFile} alt='img' />
       </Card.Header>
       <Card.Body>
         {feed.feedLikeYn ? 
