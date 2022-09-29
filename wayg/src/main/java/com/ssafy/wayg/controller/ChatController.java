@@ -19,7 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/chat")
 public class ChatController {
-    private static final String SUCCESS = "succeess";
+    private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
     private ChatService chatService;
     private MorphemeAnalyzer analyzer;
