@@ -101,7 +101,9 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
         imageUrl:
           'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
         link: {
-          mobileWebUrl: 'https://j7c202.p.ssafy.io',
+          mobileWebUrl: 'https://naver.com',
+          // mobileWebUrl: 'https://j7c202.p.ssafy.io',
+          // webUrl: 'https://naver.com',
           webUrl: 'https://j7c202.p.ssafy.io',
         },
       },

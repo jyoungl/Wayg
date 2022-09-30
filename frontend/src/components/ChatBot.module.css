@@ -87,8 +87,12 @@
     border:none;
 }
 
+.chat_result {
+    margin: 5px;
+}
+
 .chat_img {
-    width: 30px;
+    width: 80px;
     height: auto;
 }
 
@@ -115,13 +119,12 @@
 }
 
 
-.anotherFunction li {
-    
+.anotherFunction .menu {
     margin-bottom:5px;
     cursor: pointer;
 }
 
-.anotherFunction li:hover{
+.anotherFunction .menu:hover{
     background-color:rgb(234, 233, 245);
     border-radius:5px;
 }

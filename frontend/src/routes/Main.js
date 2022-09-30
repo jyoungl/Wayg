@@ -21,9 +21,21 @@ function Main() {
   // }, [])
   
   // 기본 화면(로딩화면?)으로 돌아가기
-  const [loadingScreen, setLoadingScreen] = useState(true)
-  const goLoadingScreen = () => {
-    setLoadingScreen((current)=> true)
+  const [search, setSearch] = useState(true)
+  const goSearch = () => {
+    setSearch((current)=> true)
+    setPopular(false)
+    setLikeFeed(false)
+    setMyFeed(false)
+    setAddFeed(false)
+    setScrapPlace(false)
+  }
+
+  //인기 항목
+  const [popular, setPopular] = useState(false)
+  const goPopular = () => {
+    setPopular((current)=> true)
+    setSearch(false)
     setLikeFeed(false)
     setMyFeed(false)
     setAddFeed(false)
@@ -36,8 +48,9 @@ function Main() {
     setAddFeed((current)=> true)
     setLikeFeed(false)
     setMyFeed(false)
-    setLoadingScreen(false)
+    setPopular(false)
     setScrapPlace(false)
+    setSearch(false)
   }
 
   // 좋아요 누른 피드 보러가기
@@ -46,8 +59,9 @@ function Main() {
     setLikeFeed((current)=> true)
     setAddFeed(false)
     setMyFeed(false)
-    setLoadingScreen(false)
+    setPopular(false)
     setScrapPlace(false)
+    setSearch(false)
   }
   //내가 작성한 피드 보러가기
   const [myFeed, setMyFeed] = useState(false)
@@ -55,8 +69,9 @@ function Main() {
     setMyFeed((current) => true)
     setLikeFeed(false)
     setAddFeed(false)
-    setLoadingScreen(false)
+    setPopular(false)
     setScrapPlace(false)
+    setSearch(false)
   }
 
   //내가 스크랩한 여행지 보러가기
@@ -66,17 +81,24 @@ function Main() {
     setMyFeed(false)
     setLikeFeed(false)
     setAddFeed(false)
-    setLoadingScreen(false)
+    setPopular(false)
+    setSearch(false)
   }
 
   return (
 
     <div className={styles.main}>
       <div className={styles.ChatBot}>
-        <ChatBot addFeed={addFeed} parentFunction={parentFunction} goLikeFeed={goLikeFeed} goLoadingScreen={goLoadingScreen} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
+        <ChatBot addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
       </div>
       <div className={styles.detail}>
-        {loadingScreen ? 
+        {search ?
+        <div>
+          <Shows search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+        </div> 
+        : null }
+
+        {popular ? 
           // <Loading />
         <div className={styles.popular}>
           <br />
@@ -89,15 +111,15 @@ function Main() {
         {/* {addFeed ?  <CreateFeed/>: null } */}
         {likeFeed ? 
         <div>
-          <Shows scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+          <Shows search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
         </div> : null}
         {myFeed ?
-        <div><Shows scrapPlace={scrapPlace} myFeed={myFeed} likeFeed={likeFeed} />
+        <div><Shows search={search} crapPlace={scrapPlace} myFeed={myFeed} likeFeed={likeFeed} />
         </div> : null 
         }
         {scrapPlace ? 
         <div>
-          <Shows scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+          <Shows search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
         </div> : null}
       </div>
 

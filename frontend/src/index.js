@@ -11,26 +11,27 @@ import { combineReducers, legacy_createStore as createStore } from "redux";
 import { persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
+import { counter } from '@fortawesome/fontawesome-svg-core';
 
 const SAVE = "SAVE";
-export const save = (token, userNo) => {
-    return { type: SAVE, token, userNo }
+export const save = (token, userNo, results) => {
+    return { type: SAVE, token, userNo, results }
 };
 
 const init = () => ({
-    counter: {token: "", userNo: 268 }
+    counter: {token: "", userNo: 268, results: [] }
   });
 
 const counterReducer = (state = init(), action) => {
     switch (action.type) {
         case SAVE: {
             console.log(action)
-            console.log(action.type)
             return {
                 ...state,
                 counter: {
                     token: action.token,
                     userNo: action.userNo,
+                    results: action.results,
                 }
             };
         }
