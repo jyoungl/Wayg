@@ -8,7 +8,10 @@ import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
 import CreateFeed from './CreateFeed'
 
-function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed, goScrapPlace}) {
+import { connect } from "react-redux";
+import { save } from "../index";
+
+function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, goPopular, goMyFeed, goScrapPlace}) {
   // 데이터전송 axios를 위한 useState()
   const [receives, setReceives] = useState([]);
   const [receive, setReceive] = useState('');
@@ -26,7 +29,7 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
   // 결과값 저장
   const [results, setResults] = useState({})
   // 채팅으로 보여줄 결과값
-  const [chatResults, setChatResults] = useState([])
+  // const [chatResults, setChatResults] = useState([])
 
   const createFeed = () => setHandle(true)
   const handleClose = () => setHandle(false);
@@ -35,6 +38,8 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
   useEffect( () => {
     // console.log("penguin")
     // setGreeting((current) => !current)
+    
+    save(counter.token, counter.userNo, [])
     setChat((currentArray) => [...currentArray, ['woori', "안녕? 추천받고 싶은 여행지가 있니?"]]);
     
     setStory(story.concat(
@@ -127,40 +132,81 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
     
     if (res.data){
       if (res.data.message === 'success') {
-        let place_results = res.data.content
-        // 결과값 점수 합쳐주기, 정렬
-        const combineResult = async () => {
-          for (let result in place_results) {
-            if(place_results.hasOwnProperty(result)) {
-              // if (result)
-              await setChatResults((currentArray) => [...currentArray, [result]])
+        // 검색결과가 없는 경우 -> "다시 질문"
+        const isEmptyObj = (obj) => {
+          if(obj.constructor === Object
+             && Object.keys(obj).length === 0)  {
+            return true;
+          }
+          return false;
+        }
+        console.log(res.data.content)
+        if (isEmptyObj(res.data.content)){
+          setChat((currentArray) => [...currentArray, ['woori', '흠.. 다시 한 번 말해줄래?']]);
+        }
+        // 검색결과가 있는 경우
+        else {
+          let place_results = res.data.content
+          let new_results = results
+          console.log(place_results)
+          // 결과값 점수 합쳐주기, 정렬
+          const combineResult = async () => {
+            for (let result in place_results) {
+              if(place_results.hasOwnProperty(result)) {
+                if (new_results.hasOwnProperty(result)){
+                  new_results[result] += place_results[result]
+                }
+                else {
+                  new_results[result] = place_results[result]
+                }
+                await setResults(new_results)
+              }
             }
           }
+          await combineResult()
+          await console.log('합한 결과', results)
+          let sorted_results = Object.keys(results).sort(function(a, b){return results[b]-results[a]});
+          // await console.log(sorted_results)
+          console.log(sorted_results)
+          // await setChatResults(sorted_results)
+          // await console.log('정렬한 배열값', chatResults)
+          await setChat((currentArray) => 
+            [...currentArray, ['woori2', [{placename: sorted_results[0], img_src: makeImgSrc(sorted_results[0])}, 
+            {placename: sorted_results[1], img_src: makeImgSrc(sorted_results[1])}, 
+            {placename: sorted_results[2], img_src: makeImgSrc(sorted_results[2])} ]]]);
+          // redux에 결과값 저장
+          save(counter.token, counter.userNo, sorted_results)
+          // setStory(story.concat(
+          //   <div>
+          //     <div className={styles.receivedMessage}>{res.data.placeList[0]}</div>
+          //   </div>
+          // ))
         }
-        await combineResult()
-        await console.log(chatResults)
-        // setStory(story.concat(
-        //   <div>
-        //     <div className={styles.receivedMessage}>{res.data.placeList[0]}</div>
-        //   </div>
-        // ))
       }
     } else {
       console.log(res)
     }
-    await setChat((currentArray) => [...currentArray, ['woori2', [chatResults[0], chatResults[1], chatResults[2]]]]);
+    
     await setSend("")
     // await setReturnMessage((event) => (!event))
   }
-
-
-
 
   const upAnotherFunction = () => {
     setUpFunc(current => !current)
   }
     
-
+  const makeImgSrc = (src) => {
+    let new_src = src
+    if (new_src[0] === '(') {
+      new_src = new_src.replace('(', '')
+    }
+    new_src = new_src.replace(/ /g, '_');
+    new_src = new_src.replace(')', '_');
+    new_src = new_src.replace('(', '_');
+    new_src = 'https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/' + new_src +'_1.jpg'
+    // console.log(new_src)
+    return new_src
+  }
 
 
 
@@ -180,14 +226,14 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
         </div> ) : null} */}
       
         {upfunc ? <ul className={styles.anotherFunction}>
-        <li>대화 새로 시작하기</li>
-        <li onClick={() => {goLoadingScreen()}}>이번달 인기피드 보러가기</li>
-        <li onClick={() => {goLikeFeed();}}>내가 좋아요 누른 피드 보러가기</li>
-        <li onClick={() => {goScrapPlace();}}>내가 스크랩한 관광지 보러가기</li>
-        <li onClick={() => {goMyFeed();}}>내가 올린 피드보기</li>
-        <li onClick={() => {createFeed(); }}>피드작성하기</li>
-
-
+        <li className={styles.menu} >대화 새로 시작하기</li>
+        <li className={styles.menu} onClick={() => {goSearch();}}>검색 결과 보기</li>
+        <li className={styles.menu} onClick={() => {goPopular();}}>이번달 인기피드 보러가기</li>
+        <li className={styles.menu} onClick={() => {goLikeFeed();}}>내가 좋아요 누른 피드 보러가기</li>
+        <li className={styles.menu} onClick={() => {goScrapPlace();}}>내가 스크랩한 관광지 보러가기</li>
+        <li className={styles.menu} onClick={() => {goMyFeed();}}>내가 올린 피드보기</li>
+        <li className={styles.menu} onClick={() => {createFeed(); }}>피드작성하기</li>
+        <li style={{color: "aliceblue"}}>빈값</li>
       </ul>: null}
       
       <div className={styles.chatting}> 
@@ -217,14 +263,18 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
             <div className={styles.message_woori}>
               <img className={styles.chatbot_wayg} src={woori} alt="character" />
               <div className={styles.receivedMessage}>
-                {chat[1][0]} {chat[1][1]} {chat[1][2]}
+                {/* {chat[1][0]} {chat[1][1]} {chat[1][2]} */}
 
-              {/* {results.map((result,idx) => (
-                <div key={idx}>
-                  <img className={styles.chat_img} src="https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/150년_수령_느티나무_1.jpg" alt="" />
-                  {result}
+              {chat[1].map((place,idx) => (
+                <div key={idx} className={styles.chat_result}>
+                  <img className={styles.chat_img} src={place.img_src} onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; 
+                    currentTarget.src='./noPhoto.png';
+                    }} alt="" />
+                  <br />
+                  {place.placename}
                 </div>
-              ))} */}
+              ))}
               </div>
             </div> 
             : null }
@@ -246,4 +296,13 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
   );
 }
 
-export default ChatBot;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+const mapDispatchToProps = dispatch => ({
+  save: (token, userNo, results) => dispatch(save(token, userNo, results))
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChatBot);

@@ -2,13 +2,15 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useInView } from "react-intersection-observer"
 import Show from "./Show";
 import Recommendation from "./Recommendation";
+import Result from "./Result"
 import Feed from "./Feed"
 import styles from "./Shows.module.css"
 import axios from "axios"
 import { connect } from "react-redux";
+import woori2 from '../images/wayg.png'
 
 
-function Shows({scrapPlace ,likeFeed, myFeed, counter}) {
+function Shows({search, scrapPlace ,likeFeed, myFeed, counter}) {
   const [items, setItems] = useState([])
 
   useEffect(() => {
@@ -77,6 +79,10 @@ function Shows({scrapPlace ,likeFeed, myFeed, counter}) {
       }
       fetchMyPlaces()
     }
+    else if (search) {
+      console.log(counter.results)
+      // setItems(counter.results)
+    }
   },[])
 
   return (
@@ -108,6 +114,17 @@ function Shows({scrapPlace ,likeFeed, myFeed, counter}) {
             ))}
           </div>
         </> : null}
+      {search ? 
+      <>
+        <h2>검색 결과</h2>
+        <div className={styles.shows_list}>
+          {counter.results.map((result,idx) => (
+            <Result placeName={result} key={idx} />
+          ))}
+        </div>
+        <img style={{width: "125px", height: "125px"}} src={woori2} alt="woori"/>
+        
+      </> : null}
     
     </div>
     
