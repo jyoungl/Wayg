@@ -46,7 +46,7 @@ function CreateFeed({counter}) {
     .then(data => {
      setUrl(data.url)
     })
-    // .then(alert('업로드 완료'))
+    .then(alert('사진선택완료'))
     .catch(err => console.log(err))
   }
   console.log(url)
@@ -90,6 +90,7 @@ function CreateFeed({counter}) {
           {feedTitle:feedTitle,
            feedContent:feedContent, 
            feedNickname:feedNickname, 
+           feedPlacename: feedTitle,
            userNo: counter.userNo,
            feedFile:url}
         );
@@ -99,24 +100,40 @@ function CreateFeed({counter}) {
       }
     }
     await CreateFeed()
+    await window.location.replace("/main")
   }
-  const clickConfirm = () => {
-    console.log('a')
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure to do this.',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => alert('Click Yes')
-        },
-        {
-          label: 'No',
-          onClick: () => alert('Click No')
-        }
-      ]
-    })
-  }
+  // //////////////////////////////////////
+//   const useConfirm = (message = null, onConfirm, onCancel) => {
+//     if (!onConfirm || typeof onConfirm !== "function") {
+//       return;
+//     }
+//     if (onCancel && typeof onCancel !== "function") {
+//       return;
+//     }
+  
+//     const confirmAction = () => {
+//       if (window.confirm(message)) {
+//         onConfirm();
+//       } else {
+//         onCancel();
+//       }
+//     };
+  
+//     return confirmAction;
+//   };
+
+//   const deleteConfirm = () => uploadImage();
+//   const cancelConfirm = () => {console.log("취소했습니다."); setImage('')};
+//   const confirmDelete = useConfirm(
+//   "사진을 선택하시겠습니까?",
+//   deleteConfirm,
+//   cancelConfirm
+// );
+//   const clickConfirm = async() => {
+//     console.log('a')
+//     await confirmDelete()
+
+//   }
 
   return (
     <>
@@ -124,12 +141,13 @@ function CreateFeed({counter}) {
       <Card style={{width:"100%", height:"100%"}} className={styles.Card}>
           <input id= "imgFile" type="file" style={{display: "none"}} onChange={async (e) => {await encodeFileToBase64(e.target.files[0]); await setImage(e.target.files[0]); await setChange(true)}} />
           <label className={styles.picture} htmlFor="imgFile">사진을 선택해 주세요</label>
-      <div style={{width:"100%", height:"100%"}} className={styles.selectLabel}>
-        {imageSrc && <img src={imageSrc}  className={styles.previewImg} width="100%" height="100%" art="preview-img" />
-        }
-      </div>
-      {/* {change ? <div onChange={clickConfirm()}></div>:null} */}
-      {change ? <button onClick={uploadImage}>업로드버튼</button> : null}
+        <div style={{width:"100%", height:"100%"}} className={styles.selectLabel}>
+          {imageSrc && <img src={imageSrc} className={styles.previewImg} width="100%" height="100%" art="preview-img" />
+          }
+        </div>
+          {change ? <div><label>이 사진이 맞으신가요?</label><button onClick={uploadImage}>네 맞아요</button> <label className={styles.picture} htmlFor="imgFile">아뇨 다시 고를게요</label></div> : null
+            }
+        {/* // {change ? <button onClick={uploadImage}>확인</button> : null} */}
       
       <Card.Body>
       <form  onSubmit={onSubmit}>
@@ -137,8 +155,8 @@ function CreateFeed({counter}) {
         <Card.Title>
             <input className={styles.Title} onChange={onChangeTitle} value={feedTitle} type="text" placeholder="여행지를 작성하세요" style={{width:"100%", height:"100%"}}/>
             <ul className={styles.autoComplete}>
-            {words ? words.map((word, index) => (<li onClick={(word) => {setFeedTitle(); setFeedTitle(word.target.textContent); console.log(word)}} className={styles.autoComplete_li} key={index}>{word}</li>)) : null}
-            
+            {/* {words ? words.map((word, index) => (<li onClick={(word) => {setFeedTitle(); setFeedTitle(word.target.textContent); }} className={styles.autoComplete_li} key={index}>{word}</li>)) : null} */}
+            {words ? words.map((word, index) => (<li onClick={async (word) => {await setFeedTitle(word.target.innerText); console.log(word); console.log(feedTitle) }} className={styles.autoComplete_li} key={index}>{word}</li>)) : null}
             </ul>
         </Card.Title>
         <Card.Text className={styles.text}>
