@@ -1,4 +1,3 @@
-import FeedShare from './FeedShare';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import styles from './Feed.module.css';
@@ -12,7 +11,7 @@ import Modal from 'react-bootstrap/Modal';
 
 import { connect } from "react-redux";
 
-function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFile, feedLike,feedLikeYn}) {
+function FeedShare({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFile, feedLike,feedLikeYn}) {
   const [feed, setFeed] = useState({
     feedNo: {feedNo}.feedNo,
     feedTitle: {feedTitle}.feedTitle,
@@ -23,10 +22,9 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
     feedLike: {feedLike}.feedLike, 
     feedLikeYn: {feedLikeYn}.feedLikeYn,
   })
-  
   const [detailContent,setDetailContent] = useState('')
   const [handle, setHandle] = useState(false);
-  const handleClose = () => setHandle(false);
+
   const [likeYn, setLikeYn] = useState(null)
 
   const plusLike = async () => {
@@ -91,10 +89,10 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
         title: feed.feedTitle,
         description: feed.feedContent,
         imageUrl:
-          'feedFile',
+          'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
         link: {
-          mobileWebUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}`,
-          webUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}`,
+          mobileWebUrl: 'https://j7c202.p.ssafy.io',
+          webUrl: 'https://j7c202.p.ssafy.io',
         },
       },
       itemContent: {
@@ -108,8 +106,8 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
         {
           title: '웹으로 이동',
           link: {
-            mobileWebUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}`,
-            webUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}`,
+            mobileWebUrl: 'https://j7c202.p.ssafy.io',
+            webUrl: 'https://j7c202.p.ssafy.io',
           },
         },
       ],
@@ -141,32 +139,6 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
   return (
     // for map 사용
     <>
-    <div className={styles.feed}>
-      <div className={styles.feed_div}>
-        <img onClick={onClickFeed} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
-          currentTarget.onerror = null; 
-          currentTarget.src='./noPhoto.png';
-        }} alt='img' />
-        <div>
-          <div className={styles.feed_box}>
-            {feed.feedLikeYn ? 
-              <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
-              : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />}
-            &nbsp;&nbsp;
-            <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
-          </div>
-          <div>
-                <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
-          </div>
-          <div className={styles.feed_box}> 
-            <div className={styles.feed_writer}>{feed.feedNickname} {feed.feedNo}</div>
-          </div>
-          <div className={styles.feed_title}>{feed.feedTitle}</div>
-        </div>
-        </div>
-    </div>
-    {/* 모달 */}
-    <Modal className={styles.modal} size="lg" show={handle} onHide={handleClose}>
     <Card>
       <Card.Header as="h5">
         <img className={styles.cardImg} src={feed.feedFile} alt='img' />
@@ -185,8 +157,7 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
         </Card.Text>
       </Card.Body>
     </Card>
-      </Modal>
-      {/* <FeedShare style={{display: "none"}}/> */}
+
     </>
   )
 }
@@ -197,4 +168,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-)(Feed);
+)(FeedShare);
