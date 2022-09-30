@@ -6,6 +6,8 @@ import styles from "./CreateFeed.module.css"
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
 import { connect } from "react-redux";
+import Modal from 'react-bootstrap/Modal';
+import { confirmAlert } from 'react-confirm-alert';
 
 function CreateFeed({counter}) {
   const [imageSrc, setImageSrc] = useState('');
@@ -17,23 +19,9 @@ function CreateFeed({counter}) {
   const [url, setUrl] = useState('');
   const [change, setChange] = useState(false);
   const [words, setWords] = useState([]);
-  const $input = document.querySelector('input');
-  const $msg = document.querySelector(".msg");
-
-
-  const debounce = (callback, delay) =>{
-    let timerId;
-    return event =>{
-      clearTimeout(timerId);
-      timerId = setTimeout(callback, delay, event)
-    }
-  };
-
-  $input.oninput = debounce(e => {
-    $msg.textContent = e.target.value;
-  }, 300);
 
   const encodeFileToBase64 = (fileBlob) => {
+    console.log('encode')
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
@@ -58,7 +46,7 @@ function CreateFeed({counter}) {
     .then(data => {
      setUrl(data.url)
     })
-    .then(alert('업로드 완료'))
+    // .then(alert('업로드 완료'))
     .catch(err => console.log(err))
   }
   console.log(url)
@@ -92,6 +80,7 @@ function CreateFeed({counter}) {
     setFeedNickname(event.target.value)
   }
 
+
   const onSubmit = async (event) => {
     event.preventDefault();
     const CreateFeed = async () => {
@@ -111,20 +100,40 @@ function CreateFeed({counter}) {
     }
     await CreateFeed()
   }
+  const clickConfirm = () => {
+    console.log('a')
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => alert('Click Yes')
+        },
+        {
+          label: 'No',
+          onClick: () => alert('Click No')
+        }
+      ]
+    })
+  }
+
   return (
-    
+    <>
     <main className="container">
       <Card style={{width:"100%", height:"100%"}} className={styles.Card}>
-          <input id= "imgFile" type="file" style={{display: "none"}} onChange={(e) => {encodeFileToBase64(e.target.files[0]); setImage(e.target.files[0]); setChange(true)  }} />
+          <input id= "imgFile" type="file" style={{display: "none"}} onChange={async (e) => {await encodeFileToBase64(e.target.files[0]); await setImage(e.target.files[0]); await setChange(true)}} />
           <label className={styles.picture} htmlFor="imgFile">사진을 선택해 주세요</label>
       <div style={{width:"100%", height:"100%"}} className={styles.selectLabel}>
-        {imageSrc && <img src={imageSrc} className={styles.previewImg} width="100%" height="100%" art="preview-img" />
+        {imageSrc && <img src={imageSrc}  className={styles.previewImg} width="100%" height="100%" art="preview-img" />
         }
       </div>
+      {/* {change ? <div onChange={clickConfirm()}></div>:null} */}
       {change ? <button onClick={uploadImage}>업로드버튼</button> : null}
       
       <Card.Body>
       <form  onSubmit={onSubmit}>
+
         <Card.Title>
             <input className={styles.Title} onChange={onChangeTitle} value={feedTitle} type="text" placeholder="여행지를 작성하세요" style={{width:"100%", height:"100%"}}/>
             <ul className={styles.autoComplete}>
@@ -144,6 +153,8 @@ function CreateFeed({counter}) {
       </Card.Body>
     </Card>
     </main>
+
+    </>
   )
 }
 

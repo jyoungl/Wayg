@@ -43,6 +43,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public List<PlacewordDto> oneSize(String str){
         List<Placeword> placeword = placewordRepository.findByplacewordWord(str);
+        //kakao chatbot api connection
 
         //int size = place.getPlaceScrap();
         return converter.toPlacewordDto(placeword);
