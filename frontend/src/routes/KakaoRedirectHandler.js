@@ -38,7 +38,7 @@ const KakaoRedirectHandler = ({counter, save}) => {
 
     setTimeout(() => {
       window.location.href = '/main';
-    }, 2000)
+    }, 3000)
 
   }, [])
 
@@ -72,12 +72,11 @@ const KakaoRedirectHandler = ({counter, save}) => {
     <div className={styles.container}>
       <div className={styles.box}>
         <div className={styles.login_woori}>
-          <img style={{width: "125px", height: "125px"}} src={woori} alt="woori"/>
+          <img style={{width: "250px", height: "250px"}} src={woori} alt="woori"/>
         </div>
-        <div className={styles.login_bus}>
+        {/* <div className={styles.login_bus}>
           <img style={{width: "250px", height: "250px"}} src={bus} alt="bus"/>
-        </div>
-        
+        </div> */}
       </div>
     </div>
   );
