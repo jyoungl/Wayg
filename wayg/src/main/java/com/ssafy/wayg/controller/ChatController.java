@@ -47,8 +47,8 @@ public class ChatController {
             for(int i=0;i<send.size();i++){
                 //각 단어의 idf 구하기 * 관광지 tf
                 List<PlacewordDto> placewordDtos = chatService.oneSize(send.get(i));
+                double idf = chatService.placeword(send.get(i), total);
                 for(int j=0;j<placewordDtos.size();j++){
-                    double idf = chatService.placeword(send.get(i), total);
                     place.put(placewordDtos.get(j).getPlacewordName(), idf * placewordDtos.get(j).getPlacewordCount());
                 }
                 //place.put(placeDto.getPlaceAddress(), chatService.placeword(send.get(i), total) * (double)placeDto.getPlaceScrap());
