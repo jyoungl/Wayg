@@ -54,14 +54,14 @@ pipeline {
           }
         }
       }
-      stage('Backend-Flask Build') {
-        steps {
-          dir('./backend_flask'){
-            echo "here is backend dir"
-            sh 'docker build -t backend_flask .'
-            sh 'docker run -d --name be_f -p 5000:5000 backend_flask'
-          }
-        }
-      }
+      // stage('Backend-Flask Build') {
+      //   steps {
+      //     dir('./backend_flask'){
+      //       echo "here is backend dir"
+      //       sh 'docker build -t backend_flask .'
+      //       sh 'docker run -d --name be_f -p 5000:5000 backend_flask'
+      //     }
+      //   }
+      // }
     }
 }
