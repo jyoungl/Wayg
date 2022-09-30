@@ -1,5 +1,6 @@
 package com.ssafy.wayg.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.wayg.dto.PlaceDto;
 import com.ssafy.wayg.dto.PlacewordDto;
 import com.ssafy.wayg.entity.Placeword;
@@ -11,13 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
 @RequestMapping("/chat")
+@RestController
 public class ChatController {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
@@ -49,7 +52,7 @@ public class ChatController {
                 List<PlacewordDto> placewordDtos = chatService.oneSize(send.get(i));
                 double idf = chatService.placeword(send.get(i), total);
                 for(int j=0;j<placewordDtos.size();j++){
-                    place.put(placewordDtos.get(j).getPlacewordName(), idf * placewordDtos.get(j).getPlacewordCount());
+                    //place.put(placewordDtos.get(j).getPlacewordName(), idf * placewordDtos.get(j).getPlacewordCount());
                 }
                 //place.put(placeDto.getPlaceAddress(), chatService.placeword(send.get(i), total) * (double)placeDto.getPlaceScrap());
             }
@@ -62,5 +65,48 @@ public class ChatController {
             //resultMap.put("message",FAIL);
         }
         return new ResponseEntity<>(resultMap, httpStatus);
+    }
+
+    //@RequestMapping(value = "/kchat/v1" , method= {RequestMethod.POST , RequestMethod.GET },headers = {"Accept=application/json"})
+    @PostMapping("/kchat/v1")
+    public HashMap<String, Object> callAPI(@RequestBody Map<String, Object> params, HttpServletRequest request, HttpServletResponse response){
+        HashMap<String, Object> resultMap = new HashMap<>();
+
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonInString = mapper.writeValueAsString(params);
+            System.out.println(jsonInString);
+
+            HashMap<String, Object> userRequest = (HashMap<String, Object>)params.get("userRequest");
+            String utter = userRequest.get("utterance").toString().replace("\n", "");
+
+            String rtnStr = ""; //대답 저장할 문자열
+            switch (utter){
+                //발화 처리 로직
+                case "되나":
+                    rtnStr = "된다~";
+                default:
+                    rtnStr = "개빡쳐";
+            }
+
+            List<HashMap<String, Object>> output = new ArrayList<>();
+            HashMap<String, Object> template = new HashMap<>();
+            HashMap<String, Object> simpleText = new HashMap<>();
+            HashMap<String, Object> text = new HashMap<>();
+
+            text.put("text", rtnStr);
+            simpleText.put("simpleText", text);
+            output.add(simpleText);
+
+            template.put("output", output);
+
+            resultMap.put("version","2.0");
+            resultMap.put("template", template);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return resultMap;
     }
 }
