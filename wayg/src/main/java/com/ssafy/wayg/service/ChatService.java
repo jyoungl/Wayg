@@ -8,7 +8,8 @@ import com.ssafy.wayg.entity.Placeword;
 import java.util.List;
 
 public interface ChatService {
-    public double placeword(String word, long total);
-    public long totalSize();
-    public List<PlacewordDto> oneSize(String str);
+    double placeword(String word, long total);
+    long totalSize();
+    List<PlacewordDto> oneSize(String str);
+    List<String> findPlaces(List<String> nouns);
 }
