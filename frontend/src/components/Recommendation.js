@@ -8,7 +8,7 @@ import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import React from 'react';
 import wayg from '../images/wayg.png'
-
+import {useParams} from "react-router-dom"
 import { connect } from "react-redux";
 
 function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFile, parentFunction }) {
@@ -32,6 +32,7 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
   const [handle, setHandle] = useState(false);
   const [detailContent, setDetailContent] = useState()
   const handleClose = () => setHandle(false);
+
 // 스크랩 추가
   const plusScrap = async () => {
     try {
@@ -94,8 +95,8 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
         imageUrl:
           'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
         link: {
-          mobileWebUrl: 'https://j7c202.p.ssafy.io',
-          webUrl: 'https://j7c202.p.ssafy.io',
+          mobileWebUrl: 'https://j7c202.p.ssafy.io/main/detail/:placeNo',
+          webUrl: `https://j7c202.p.ssafy.io/main/detail/:${recommendation.placeNo}`,
         },
       },
       itemContent: {
