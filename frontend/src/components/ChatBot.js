@@ -12,16 +12,21 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
   // 데이터전송 axios를 위한 useState()
   const [receives, setReceives] = useState([]);
   const [receive, setReceive] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [greeting,setGreeting] = useState(false)
-  const [send, setSend] = useState("")
   const [sends, setSends] = useState([])
-  const [upfunc, setUpFunc] = useState(false)
-  const [story, setStory] = useState([])
   const [returnMessage, setReturnMessage] = useState(false)
+  const [loading, setLoading] = useState(false);
+
   const [handle, setHandle] = useState(false);
   const [chat, setChat] = useState([])
+  const [upfunc, setUpFunc] = useState(false)
+  const [story, setStory] = useState([])
+  const [send, setSend] = useState("")
+  // 결과값 저장
+  const [results, setResults] = useState({})
+  // 채팅으로 보여줄 결과값
+  const [chatResults, setChatResults] = useState([])
 
   const createFeed = () => setHandle(true)
   const handleClose = () => setHandle(false);
@@ -116,11 +121,24 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
     //   </div>
     // ))
     // await search()
-    const res = await axios.get(process.env.REACT_APP_HOST + `/place/search?keyword=${send}`);
+    const res = await axios.post(process.env.REACT_APP_HOST + `chat`,{
+      str: send
+    });
+    
     if (res.data){
-      console.log(res.data)
       if (res.data.message === 'success') {
-        await setChat((currentArray) => [...currentArray, ['woori', res.data.placeList[0]]]);
+        let place_results = res.data.content
+        // 결과값 점수 합쳐주기, 정렬
+        const combineResult = async () => {
+          for (let result in place_results) {
+            if(place_results.hasOwnProperty(result)) {
+              // if (result)
+              await setChatResults((currentArray) => [...currentArray, [result]])
+            }
+          }
+        }
+        await combineResult()
+        await console.log(chatResults)
         // setStory(story.concat(
         //   <div>
         //     <div className={styles.receivedMessage}>{res.data.placeList[0]}</div>
@@ -130,7 +148,8 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
     } else {
       console.log(res)
     }
-    setSend("")
+    await setChat((currentArray) => [...currentArray, ['woori2', [chatResults[0], chatResults[1], chatResults[2]]]]);
+    await setSend("")
     // await setReturnMessage((event) => (!event))
   }
 
@@ -189,13 +208,30 @@ function ChatBot({parentFunction, addFeed, goLikeFeed, goLoadingScreen, goMyFeed
             { chat[0] === "woori" ? 
             <div className={styles.message_woori}>
               <img className={styles.chatbot_wayg} src={woori} alt="character" />
-              <span className={styles.receivedMessage}>{chat[1]}</span>
+              <div className={styles.receivedMessage}>
+                {chat[1]}
+              </div>
+            </div> 
+            : null }
+            { chat[0] === "woori2" ? 
+            <div className={styles.message_woori}>
+              <img className={styles.chatbot_wayg} src={woori} alt="character" />
+              <div className={styles.receivedMessage}>
+                {chat[1][0]} {chat[1][1]} {chat[1][2]}
+
+              {/* {results.map((result,idx) => (
+                <div key={idx}>
+                  <img className={styles.chat_img} src="https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/150년_수령_느티나무_1.jpg" alt="" />
+                  {result}
+                </div>
+              ))} */}
+              </div>
             </div> 
             : null }
             { chat[0] === "user" ? 
             <div className={styles.message_user}>
               <span className={styles.sendMessage}>{chat[1]}</span>
-              <img className={styles.chatbot_wayg} src={woori2} alt="character" />
+              {/* <img className={styles.chatbot_wayg} src={woori2} alt="character" /> */}
             </div> 
             : null }
           </div>

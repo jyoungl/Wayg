@@ -58,7 +58,7 @@ function Feeds({counter}) {
         className="feed_swiper"
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={8}
-        slidesPerView="auto"
+        slidesPerView={3}
         navigation = {true}
         // breakpoints={{
         //   // when window width is >= 640px
@@ -74,7 +74,7 @@ function Feeds({counter}) {
         //   }
         // }}
         // pagination={{ clickable: true }}
-        scrollbar={{ draggable: true }}
+        // scrollbar={{ draggable: true }}
         // onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log('slide change')}
       >
