@@ -14,7 +14,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* 가로 스크롤 없애기? */
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 }
 
 code {
