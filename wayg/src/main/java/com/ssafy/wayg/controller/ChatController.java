@@ -30,7 +30,7 @@ public class ChatController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String,Double>> calcurate(@RequestBody String str){
+    public ResponseEntity<Map<String,Object>> calcurate(@RequestBody String str){
         Map<String,Object> resultMap = new HashMap<>();
         HttpStatus httpStatus = HttpStatus.ACCEPTED;
         Map<String,Integer> split = analyzer.analyseText(str); // 형태소 분리한 결과 넣은 map
@@ -54,12 +54,13 @@ public class ChatController {
                 //place.put(placeDto.getPlaceAddress(), chatService.placeword(send.get(i), total) * (double)placeDto.getPlaceScrap());
             }
             
-            //resultMap.put("message",SUCCESS);
+            resultMap.put("message",SUCCESS);
+            resultMap.put("content",place);
             httpStatus = HttpStatus.OK;
         } catch (Exception e) {
-            place.put("fail", 0.0);
+            resultMap.put("message", FAIL);
             //resultMap.put("message",FAIL);
         }
-        return new ResponseEntity<>(place, httpStatus);
+        return new ResponseEntity<>(resultMap, httpStatus);
     }
 }
