@@ -17,7 +17,6 @@ import java.util.Map;
 @Component
 public class MorphemeAnalyzer {
 	public List<KoreanPhraseExtractor.KoreanPhrase> analyseText(String text){
-		Map<String,Integer> result = new HashMap<>();
 		CharSequence normalized = OpenKoreanTextProcessorJava.normalize(text);    //정규화
 		Seq<KoreanTokenizer.KoreanToken> tokens = OpenKoreanTextProcessorJava.tokenize(normalized);        //토큰화
 		return OpenKoreanTextProcessorJava.extractPhrases(tokens, true, false);
@@ -29,14 +28,15 @@ public class MorphemeAnalyzer {
 
 		for (KoreanPhraseExtractor.KoreanPhrase phrase : phrases) {
 			Iterator<KoreanTokenizer.KoreanToken> iter = phrase.tokens().iterator();
+			StringBuilder val = new StringBuilder();
 			while (iter.hasNext()) {
 				KoreanTokenizer.KoreanToken token = iter.next();
 				if (token.pos() == KoreanPos.Noun() || token.pos() == KoreanPos.Adjective() || token.pos() == KoreanPos.Verb()) {
-					String val = token.text().trim();
-					if (val.length() < 2) continue;
-					result.put(val, result.getOrDefault(val,0)+1);
+//					if (token.text().length() < 2) continue;
+					val.append(token.text().trim());
 				}
 			}
+			if(val.length() > 0) result.put(val.toString(), result.getOrDefault(val.toString(),0)+1);
 		}
 		return result;
 	}
@@ -47,13 +47,14 @@ public class MorphemeAnalyzer {
 
 		for (KoreanPhraseExtractor.KoreanPhrase phrase : phrases) {
 			Iterator<KoreanTokenizer.KoreanToken> iter = phrase.tokens().iterator();
+			StringBuilder val = new StringBuilder();
 			while (iter.hasNext()) {
 				KoreanTokenizer.KoreanToken token = iter.next();
 				if (token.pos() == KoreanPos.Noun()) {
-					String val = token.text().trim();
-					result.add(val);
+					val.append(token.text().trim());
 				}
 			}
+			if(val.length() > 0) result.add(val.toString());
 		}
 		return result;
 	}
