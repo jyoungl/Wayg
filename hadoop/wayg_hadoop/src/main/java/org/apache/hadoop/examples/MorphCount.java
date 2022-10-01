@@ -20,6 +20,7 @@ import scala.collection.Seq;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 public class MorphCount {
@@ -70,15 +71,16 @@ public class MorphCount {
 				List<KoreanPhraseExtractor.KoreanPhrase> phrases = OpenKoreanTextProcessorJava.extractPhrases(tokens, true, false);
 				for (KoreanPhraseExtractor.KoreanPhrase phrase : phrases) {
 					Iterator<KoreanTokenizer.KoreanToken> iter = phrase.tokens().iterator();
+					StringBuilder val = new StringBuilder();
 					while (iter.hasNext()) {
 						KoreanTokenizer.KoreanToken token = iter.next();
 						if(token.pos() == KoreanPos.Noun()|| token.pos() == KoreanPos.Adjective() || token.pos() == KoreanPos.Verb()){
-							String val = token.text().trim();
-							if (val.length() < 2) continue;
-							word.set(name + "," + val + ",");
-							context.write(word, one);
+							if (val.length() > 0) val.append(' ');
+							val.append(token.text().trim());
 						}
 					}
+					word.set(name + "," + val + ",");
+					context.write(word, one);
 				}
 			}
 
