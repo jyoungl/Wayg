@@ -22,6 +22,17 @@ function FeedShare({counter, feedNo, feedTitle, feedContent, feedNickname, userN
     feedLike: {feedLike}.feedLike, 
     feedLikeYn: {feedLikeYn}.feedLikeYn,
   })
+  // const detailList = [
+  //   {id: feedNo}
+  // ]
+  console.log(feedNo)
+  console.log(feedTitle)
+  console.log(feedContent)
+  console.log(feedNickname)
+
+
+  // let { placeNo } =useParams(); 
+  // let { feedNo } =useParams();
   const [detailContent,setDetailContent] = useState('')
   const [handle, setHandle] = useState(false);
 
