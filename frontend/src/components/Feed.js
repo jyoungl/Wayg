@@ -159,16 +159,19 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
                 <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
           </div>
           <div className={styles.feed_box}> 
-            <div className={styles.feed_writer}>{feed.feedNickname} {feed.feedNo}</div>
+            <div className={styles.feed_writer}>{feed.feedNickname}</div>
           </div>
           <div className={styles.feed_title}>{feed.feedTitle}</div>
         </div>
         </div>
     </div>
     {/* 모달 */}
-    <Modal className={styles.modal} size="lg" show={handle} onHide={handleClose}>
-    <Card>
-      <Card.Header as="h5">
+    <Modal className={styles.modal} size="md" show={handle} onHide={handleClose}>
+    <Card style={{weight:"496px", height:"635px"}}>
+      <Card.Header style={{height:"500px", width:"496px", paddingBottom: "0px",
+    paddingRight: "0px",
+    paddingLeft: "0px",
+    paddingTop: "0px"}} as="h5">
         <img className={styles.cardImg} src={feed.feedFile} alt='img' />
       </Card.Header>
       <Card.Body>
