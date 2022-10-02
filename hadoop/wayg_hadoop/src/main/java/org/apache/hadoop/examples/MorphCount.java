@@ -65,21 +65,27 @@ public class MorphCount {
 				name = itr.nextToken().trim();
 				if (name.equals(top)) return;
 			}
+
 			while (itr.hasMoreTokens()) {
 				CharSequence normalized = OpenKoreanTextProcessorJava.normalize(itr.nextToken());
 				Seq<KoreanTokenizer.KoreanToken> tokens = OpenKoreanTextProcessorJava.tokenize(normalized);
 				List<KoreanPhraseExtractor.KoreanPhrase> phrases = OpenKoreanTextProcessorJava.extractPhrases(tokens, true, false);
+
 				for (KoreanPhraseExtractor.KoreanPhrase phrase : phrases) {
 					Iterator<KoreanTokenizer.KoreanToken> iter = phrase.tokens().iterator();
+					int cnt = 0;
 					StringBuilder val = new StringBuilder();
-					while (iter.hasNext()) {
+
+					while (iter.hasNext() && cnt < 2) {
 						KoreanTokenizer.KoreanToken token = iter.next();
 						if(token.pos() == KoreanPos.Noun()|| token.pos() == KoreanPos.Adjective() || token.pos() == KoreanPos.Verb()){
-							if (val.length() > 0) val.append(' ');
-							val.append(token.text().trim());
+							val.append(token.text().trim()).append(' ');
 						}
+						cnt++;
 					}
-					word.set(name + "," + val + ",");
+
+					if(val.length() == 0) continue;
+					word.set(new StringBuilder().append(name).append(',').append(val.deleteCharAt(val.length()-1)).append(',').toString());
 					context.write(word, one);
 				}
 			}
