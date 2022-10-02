@@ -16,7 +16,8 @@ function Result({placeName}) {
 
     useEffect(()=>{
         const placeImg = makeImgSrc(placeName);
-        setPlaceImg(placeImg)
+        setPlaceImg(placeImg);
+        urlExistCheck(placeImg);
     },[])
 
   const shareKakaoLink = () => {
@@ -71,6 +72,27 @@ function Result({placeName}) {
     new_src = 'https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/' + new_src +'_1.jpg'
     // console.log(new_src)
     return new_src
+  }
+
+  const checkStatus = async (req, status) => {
+    //console.log('responseURL', req.responseURL);
+      if(status == 200) {
+          // URL 존재
+      }
+      else {
+        // 에러 or 존재하지 않는 URL
+          setPlaceImg('./noPhoto.png')
+          console.clear()
+      }
+  }
+  const urlExistCheck = (url) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if(this.readyState == 4)
+          checkStatus(this, this.status);
+      }
+      xhr.open("HEAD", url);
+      xhr.send();
   }
 
   

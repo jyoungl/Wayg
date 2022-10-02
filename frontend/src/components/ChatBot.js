@@ -74,6 +74,7 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
         console.log(res)
       }
       setIsPlace(false)
+      setChat((currentArray) => [...currentArray, ['woori', "원하는 여행지를 알려줘!"]]);
     }
     else {
       const res = await axios.post(process.env.REACT_APP_HOST + `chat`,{
