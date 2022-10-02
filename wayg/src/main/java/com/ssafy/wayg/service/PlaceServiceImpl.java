@@ -53,6 +53,14 @@ public class PlaceServiceImpl implements PlaceService {
 				else new_name += c;
 			}
 			String url = "https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/" + new_name + "_1.jpg";
+
+			URL url_check = new URL(url);
+			URLConnection con = url_check.openConnection();
+			HttpURLConnection exitCode = (HttpURLConnection)con;
+			if(exitCode.getResponseCode() == 404) {
+				url = "";
+			}
+
 			placeDto.setPlaceFile(url);
 		}
 
@@ -74,6 +82,14 @@ public class PlaceServiceImpl implements PlaceService {
 			else new_name += c;
 		}
 		String url = "https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/" + new_name + "_1.jpg";
+
+		URL url_check = new URL(url);
+		URLConnection con = url_check.openConnection();
+		HttpURLConnection exitCode = (HttpURLConnection)con;
+		if(exitCode.getResponseCode() == 404) {
+			url = "";
+		}
+
 		placeDto.setPlaceFile(url);
 		
 		return placeDto;
