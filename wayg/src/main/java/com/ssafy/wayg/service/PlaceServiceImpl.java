@@ -13,6 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 @Service
@@ -123,6 +126,14 @@ public class PlaceServiceImpl implements PlaceService {
 				else new_name += c;
 			}
 			String url = "https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/" + new_name + "_1.jpg";
+
+			URL url_check = new URL(url);
+			URLConnection con = url_check.openConnection();
+			HttpURLConnection exitCode = (HttpURLConnection)con;
+			if(exitCode.getResponseCode() == 404) {
+				url = "";
+			}
+
 			placeDto.setPlaceFile(url);
 		}
 
