@@ -36,6 +36,11 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
   const createFeed = () => setHandle(true)
   const handleClose = () => setHandle(false);
   const onChange = (event) => setSend(event.target.value)
+
+  // 더 많은 기능 사용하기에 필요한 카카오 로그인
+  const REST_API_KEY = "bbe27fdfd6962e9fa7c41c8b3c99fb13"
+  const REDIRECT_URI = process.env.REACT_APP_HOST+ "login"
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   
   useEffect(() => {
     // console.log("penguin")
@@ -211,18 +216,18 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
       <ul className={styles.anotherFunction}>
         <li className={styles.menu} onClick={() => {startNew(); clickMenuBar();}} >대화 새로 시작하기</li>
         <li className={styles.menu} onClick={() => {goSearch(); clickMenuBar();}}>검색 결과 보기</li>
+        {Boolean(counter.userNo) ?
+        <>
         <li className={styles.menu} onClick={() => {goPopular(); clickMenuBar();}}>이번달 인기피드 보러가기</li>
         <li className={styles.menu} onClick={() => {goLikeFeed(); clickMenuBar();}}>내가 좋아요 누른 피드 보러가기</li>
         <li className={styles.menu} onClick={() => {goScrapPlace(); clickMenuBar();}}>내가 스크랩한 관광지 보러가기</li>
         <li className={styles.menu} onClick={() => {goMyFeed(); clickMenuBar();}}>내가 올린 피드보기</li>
         <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}>피드작성하기</li>
         <li style={{color: "aliceblue"}}>빈값</li>
+        </> : <div><a style={{textDecoration:"none", color:"black"}} href={KAKAO_AUTH_URL}><li className={styles.menu}>더 많은 기능 사용하기</li></a><li style={{color: "aliceblue"}}>빈값</li></div>
+        
+      }
       </ul>: null}
-      
-      {/* 여기는 채팅 내용 ui */}
-      {/* <ul>
-        {story}
-      </ul> */}
 
       <div>
         {chat.map((chat,idx) => (

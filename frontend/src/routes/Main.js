@@ -7,9 +7,10 @@ import Shows from "../components/Shows";
 import LikeShows from "../components/LikeShows";
 import Loading from "../components/Loading";
 import styles from "./Main.module.css";
+import { connect } from "react-redux";
 
 
-function Main() {
+function Main({counter}) {
 
   // useEffect(()=> {
   //   let params = new URL(document.location.toString()).searchParams;
@@ -45,45 +46,61 @@ function Main() {
   // 피드 작성하기
   const [addFeed, setAddFeed] = useState(false)
   const parentFunction = () => {
+    if (counter.userNo !==0) {
     setAddFeed((current)=> true)
     setLikeFeed(false)
     setMyFeed(false)
     setPopular(false)
     setScrapPlace(false)
     setSearch(false)
+  } else {
+    alert('로그인 후 이용해주세요')
   }
+}
 
   // 좋아요 누른 피드 보러가기
   const [likeFeed, setLikeFeed] = useState(false)
   const goLikeFeed = () => {
+    if (counter.userNo !==0) {
     setLikeFeed((current)=> true)
     setAddFeed(false)
     setMyFeed(false)
     setPopular(false)
     setScrapPlace(false)
     setSearch(false)
+  } else {
+    alert('로그인 후 이용해주세요')
   }
+}
   //내가 작성한 피드 보러가기
   const [myFeed, setMyFeed] = useState(false)
   const goMyFeed = () => {
+  if (counter.userNo !==0) {
     setMyFeed((current) => true)
     setLikeFeed(false)
     setAddFeed(false)
     setPopular(false)
     setScrapPlace(false)
     setSearch(false)
+  } else {
+    alert('로그인 후 이용해주세요')
   }
+}
 
   //내가 스크랩한 여행지 보러가기
   const [scrapPlace, setScrapPlace] = useState(false)
   const goScrapPlace = () => {
+    if (counter.userNo !==0) {
     setScrapPlace((current) => true)
     setMyFeed(false)
     setLikeFeed(false)
     setAddFeed(false)
     setPopular(false)
     setSearch(false)
+  } else {
+    alert('로그인 후 이용해주세요')
   }
+}
 
   return (
 
@@ -127,4 +144,9 @@ function Main() {
   );
 }
 
-export default Main;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+export default connect(
+  mapStateToProps,
+)(Main);

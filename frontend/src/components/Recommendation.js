@@ -35,10 +35,12 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
 
 // 스크랩 추가
   const plusScrap = async () => {
+    if (counter.userNo === 0) {
+      alert('로그인 후 이용해주세요')
+    } else {
     try {
         const response = await axios.post(
           process.env.REACT_APP_HOST+`place/scrap`
-          
           ,{
           userNo: counter.userNo,
           placeNo: {placeNo}.placeNo
@@ -55,11 +57,8 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
         }
       } catch (e) {
         
-      }
+      }}
   };
-
-
-
   // 스크랩 제거
   const deleteScrap = async () => {
     try {
@@ -153,7 +152,7 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     <div className={styles.recommendation}>
       <div>
         <div className={styles.headImg} style={{height:"160px"}}>
-        <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
+        <img onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
           currentTarget.src='./noPhoto.png';
         }}/>
@@ -167,8 +166,8 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
             &nbsp;&nbsp;
             <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
           </div>
-          <p className={styles.recommendation_title}>{recommendation.placeName}</p>
-          <p className={styles.recommendation_writer}>{recommendation.placeNo} {recommendation.placeAddress}</p>
+          <p onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_title}>{recommendation.placeName}</p>
+          <p onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_writer}>{recommendation.placeNo} {recommendation.placeAddress}</p>
           <p>{recommendation.placeScrapYn}</p>
         </div>
       </div>

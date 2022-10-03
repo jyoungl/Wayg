@@ -29,28 +29,26 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
   const [likeYn, setLikeYn] = useState(null)
 
   const plusLike = async () => {
+    if (counter.userNo === 0) {
+      alert("로그인 후 이용해주세요")
+    } else {
+
     try {
         const response = await axios.post(
           process.env.REACT_APP_HOST+`feed/like`
           ,{
-          // userNo: {userNo}.userNo,
           userNo: counter.userNo,
           feedNo: {feedNo}.feedNo
         });
-        // console.log(response.data)
         if (response.data.message === 'success'){
           let new_feed = feed
           new_feed.feedLikeYn = true;
           new_feed.feedLike+=1
-          
           await setFeed(new_feed)
           await setLikeYn(true)
-          console.log('aaaaa')
-          
         }
       } catch (e) {
-        
-      }
+      }}
   };
   
 
@@ -95,7 +93,7 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
           // mobileWebUrl: 'https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0',
           // webUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
           mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
-          webUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}/0`,
+          webUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
         },
       },
       itemContent: {
@@ -109,10 +107,10 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
         {
           title: '웹으로 이동',
           link: {
-            // mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
-            // webUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
-            mobileWebUrl: `http://localhost:3000/main/detail/FeedShare/${feed.feedNo}/0`,
-            webUrl: `http://localhost:3000/main/detail/FeedShare/${feed.feedNo}/0`,
+            mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+            webUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+            // mobileWebUrl: `http://localhost:3000/main/detail/FeedShare/${feed.feedNo}/0`,
+            // webUrl: `http://localhost:3000/main/detail/FeedShare/${feed.feedNo}/0`,
           },
         },
       ],
@@ -146,7 +144,7 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
     <>
     <div className={styles.feed}>
       <div className={styles.feed_div}>
-        <img onClick={onClickFeed} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
+        <img onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
           currentTarget.src='./noPhoto.png';
         }} alt='img' />
@@ -162,9 +160,9 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
                 <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
           </div>
           <div className={styles.feed_box}> 
-            <div className={styles.feed_writer}>{feed.feedNickname}</div>
+            <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_writer}>{feed.feedNickname}</div>
           </div>
-          <div className={styles.feed_title}>{feed.feedTitle}</div>
+          <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_title}>{feed.feedTitle}</div>
         </div>
         </div>
     </div>
