@@ -170,7 +170,7 @@ public class ChatController {
 //
             template.put("outputs", outputs);
 //
-            resultMap.put("version","1.0");
+//            resultMap.put("version","1.0");
             resultMap.put("template", template);
 
 
