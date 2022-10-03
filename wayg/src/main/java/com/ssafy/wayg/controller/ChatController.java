@@ -109,7 +109,7 @@ public class ChatController {
             HashMap<String, Object> userRequest = (HashMap<String, Object>)params.get("userRequest");
             String utter = userRequest.get("utterance").toString().replace("\n",    " ");
 
-            Map<String,Integer> split = analyzer.pickMorpheme(utter); // 형태소 분리한 결과 넣은 map
+            Map<String,Integer> split = analyzer.analyseText(utter); // 형태소 분리한 결과 넣은 map
             List<String> send = new ArrayList<>();
 
             //형태소 분리한 단어들을 list에 넣어줌
