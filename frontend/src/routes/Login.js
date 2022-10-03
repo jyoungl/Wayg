@@ -6,8 +6,6 @@ import styles from "./Login.module.css";
 
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { actionCreators } from '../store';
 import axios from 'axios';
 
 function Login({toDos, addToDo}) {
@@ -22,7 +20,7 @@ function Login({toDos, addToDo}) {
   return (
     <div className={styles.login}>
       <div className={styles.login_items}>
-        <h1 className={styles.pjt_name}>우리 어디가?</h1>
+        <h1 className={styles.pjt_name}>우리! 어디가?</h1>
         <div className={styles.container}>
           <div className={styles.box}>
           <div className={styles.login_woori}>
@@ -48,21 +46,12 @@ function Login({toDos, addToDo}) {
                 >
             </div>
           </a> */}
-          <p onClick={() => navigate('/main')} className={styles.sub_button}>로그인 없이 사용하기</p>
+          <p onClick={() => navigate('/guestLogin')} className={styles.sub_button}>로그인 없이 사용하기</p>
         </div>
       </div>
     </div>
   );
 }
 
-function mapStateToProps(state){
-  return { toDos: state}
-}
 
-function mapDispatchToProps(dispatch){
-  return {
-    addToDo: (text) => dispatch(actionCreators.addToDo(text))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps) (Login);
+export default Login;

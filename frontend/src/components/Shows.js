@@ -2,18 +2,29 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useInView } from "react-intersection-observer"
 import Show from "./Show";
 import Recommendation from "./Recommendation";
+import Result from "./Result"
 import Feed from "./Feed"
 import styles from "./Shows.module.css"
 import axios from "axios"
+import { connect } from "react-redux";
+import woori2 from '../images/wayg.png'
 
-function Shows({scrapPlace ,likeFeed, myFeed}) {
+
+function Shows({search, scrapPlace ,likeFeed, myFeed, counter}) {
   const [items, setItems] = useState([])
+
   useEffect(() => {
     if (likeFeed) {
       const fetchLikeFeeds = async () => {
         try {
             const response = await axios.get(
-              process.env.REACT_APP_HOST+`feed/myLikeList?page=0&size=10&userNo=1`
+              process.env.REACT_APP_HOST+`feed/myLikeList`,{
+                params: {
+                  page: 0,
+                  size: 10,
+                  userNo: counter.userNo,
+                }
+              }
               
               );
             console.log(response.data)
@@ -28,7 +39,13 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
       const fetchMyFeeds = async () => {
         try {
           const response = await axios.get(
-            process.env.REACT_APP_HOST+`feed/myFeed?page=0&size=10&userNo=1`
+            process.env.REACT_APP_HOST+`feed/myFeed`,{
+              params: {
+                page: 0,
+                size: 10,
+                userNo: counter.userNo,
+              }
+            }
            
             
             );
@@ -44,7 +61,13 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
       const fetchMyPlaces = async () => {
         try {
           const response = await axios.get(
-            process.env.REACT_APP_HOST+`place/myScrapList?page=0&size=10&userNo=1`
+            process.env.REACT_APP_HOST+`place/myScrapList?`,{
+              params: {
+                page: 0,
+                size: 10,
+                userNo: counter.userNo,
+              }
+            }
             
           
           );
@@ -56,7 +79,19 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
       }
       fetchMyPlaces()
     }
+    else if (search) {
+      console.log(counter.results)
+      // setItems(counter.results)
+    }
   },[])
+
+  const isEmptyObj = (obj) => {
+    if(obj.constructor === Object
+       && Object.keys(obj).length === 0)  {
+      return true;
+    }
+    return false;
+  }
 
   return (
     <div className="">
@@ -87,6 +122,17 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
             ))}
           </div>
         </> : null}
+      {search ? 
+      <>
+        <h2>검색 결과</h2>
+        <div className={styles.shows_list}>
+          {counter.results.map((result,idx) => (
+            <Result placeName={result} key={idx} />
+          ))}
+        </div>
+        <img style={{width: "125px", height: "125px"}} src={woori2} alt="woori"/>
+        
+      </> : null}
     
     </div>
     
@@ -94,4 +140,10 @@ function Shows({scrapPlace ,likeFeed, myFeed}) {
   );
 }
 
-export default Shows;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Shows);

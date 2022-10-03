@@ -1,3 +1,4 @@
+import FeedShare from './FeedShare';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import styles from './Feed.module.css';
@@ -7,21 +8,25 @@ import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+// import { counter } from '@fortawesome/fontawesome-svg-core';
 
-function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, feedLike,feedLikeYn}) {
+import { connect } from "react-redux";
+
+function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFile, feedLike,feedLikeYn}) {
   const [feed, setFeed] = useState({
     feedNo: {feedNo}.feedNo,
     feedTitle: {feedTitle}.feedTitle,
     feedContent: {feedContent}.feedContent,
     feedNickname: {feedNickname}.feedNickname, 
     userNo: {userNo}.userNo, 
-    feedFiles: {feedFiles}.feedFiles, 
+    feedFile: {feedFile}.feedFile === null ? './noPhoto.png' : {feedFile}.feedFile , 
     feedLike: {feedLike}.feedLike, 
     feedLikeYn: {feedLikeYn}.feedLikeYn,
   })
   const [detailContent,setDetailContent] = useState('')
   const [handle, setHandle] = useState(false);
   const handleClose = () => setHandle(false);
+  const [likeYn, setLikeYn] = useState(null)
 
   const plusLike = async () => {
     try {
@@ -29,13 +34,17 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
           process.env.REACT_APP_HOST+`feed/like`
           ,{
           // userNo: {userNo}.userNo,
-          userNo: 1,
+          userNo: counter.userNo,
           feedNo: {feedNo}.feedNo
         });
-        console.log(response.data)
+        // console.log(response.data)
         if (response.data.message === 'success'){
-          feed.feedLikeYn = true;
-          setFeed(feed)
+          let new_feed = feed
+          new_feed.feedLikeYn = true;
+          new_feed.feedLike+=1
+          
+          await setFeed(new_feed)
+          await setLikeYn(true)
           console.log('aaaaa')
           
         }
@@ -53,15 +62,20 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
           ,
           {
           params: {
-            userNo: 1,
+            userNo: counter.userNo,
             feedNo: {feedNo}.feedNo,
           }
         });
         console.log(response.data)
         if (response.data.message === 'success'){
-          feed.feedLikeYn = false;
-          setFeed(feed)
-          console.log('ww')
+          let new_feed = feed
+          new_feed.feedLikeYn = false;
+          new_feed.feedLike-=1
+          
+          await setFeed(new_feed)
+          await setLikeYn(false)
+
+
           
         }
       } catch (e) {
@@ -69,52 +83,50 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
       }
     };
 
-  // const shareKakaoLink = () => {
-  //   window.Kakao.Share.sendCustom({
-  //     templateId: 83280,
-  //     templateArgs: {
-  //       title: '제목 영역입니다.',
-  //       description: '설명 영역입니다.',
-  //     },
-  //   });
-  // };
-
-  // const shareKakaoLink = () => {
-  //   window.Kakao.Share.sendDefault({
-  //     objectType: 'feed',
-  //     content: {
-  //       title: '여행지 이름',
-  //       description: '여행지 설명',
-  //       imageUrl:
-  //         'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
-  //       link: {
-  //         mobileWebUrl: 'https://developers.kakao.com',
-  //         webUrl: 'https://developers.kakao.com',
-  //       },
-  //     },
-  //     itemContent: {
-  //       // profileText: 'Kakao',
-  //       // profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-  //     },
-  //     social: {
-  //       likeCount: 10,
-  //     },
-  //     // buttons: [
-  //       // {
-  //       //   title: '웹으로 이동',
-  //       //   link: {
-  //       //     mobileWebUrl: 'https://developers.kakao.com',
-  //       //     webUrl: 'https://developers.kakao.com',
-  //       //   },
-  //       // },
-  //     // ],
-  //   });
-  // }
-
-  const share = () => {
-    // shareKakaoLink()
-    console.log('share')
+  const shareKakaoLink = () => {
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: feed.feedTitle,
+        description: feed.feedContent,
+        imageUrl:
+          'feedFile',
+        link: {
+          // mobileWebUrl: 'https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0',
+          // webUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+          mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+          webUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}/0`,
+        },
+      },
+      itemContent: {
+        // profileText: 'Kakao',
+        // profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+      },
+      social: {
+        likeCount: feed.feedLike,
+      },
+      buttons: [
+        {
+          title: '웹으로 이동',
+          link: {
+            // mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+            // webUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+            mobileWebUrl: `http://localhost:3000/main/detail/FeedShare/${feed.feedNo}/0`,
+            webUrl: `http://localhost:3000/main/detail/FeedShare/${feed.feedNo}/0`,
+          },
+        },
+      ],
+    });
   }
+
+  const share = async () => {
+    try {
+      console.log('share')
+      shareKakaoLink()
+      } catch (e) {
+        
+      }
+  };
   
   const onClickFeed = async () => {
     try {
@@ -133,52 +145,62 @@ function Feed({feedNo, feedTitle, feedContent, feedNickname, userNo, feedFiles, 
     // for map 사용
     <>
     <div className={styles.feed}>
-      <div>
-        <img onClick={onClickFeed} className={styles.feed_img} src={feed.feedFiles} alt='img' />
+      <div className={styles.feed_div}>
+        <img onClick={onClickFeed} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
+          currentTarget.onerror = null; 
+          currentTarget.src='./noPhoto.png';
+        }} alt='img' />
         <div>
           <div className={styles.feed_box}>
             {feed.feedLikeYn ? 
               <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
-              : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />} 
-            &nbsp;<small>{feed.feedLike}</small>
+              : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />}
             &nbsp;&nbsp;
-            <FontAwesomeIcon onClick={share()} icon={faPaperPlane} />
+            <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
+          </div>
+          <div>
+                <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
           </div>
           <div className={styles.feed_box}> 
-          <p className={styles.feed_writer}>{feed.feedNickname}</p>&nbsp;&nbsp;
-          <p className={styles.feed_title}>{feed.feedTitle}</p>
+            <div className={styles.feed_writer}>{feed.feedNickname}</div>
           </div>
+          <div className={styles.feed_title}>{feed.feedTitle}</div>
         </div>
-      </div>
+        </div>
     </div>
     {/* 모달 */}
-    <Modal show={handle} onHide={handleClose}>
-    <div className={styles.show}>
-      <div>{feedFiles}
-        <img className={styles.show_img} src={feedFiles} alt='img' />
-        <div>
-          <div className={styles.show_box}>
-            <div>
-                <FontAwesomeIcon icon={faHeart} />
-                <span> </span>
-                <FontAwesomeIcon icon={faPaperPlane} />
-            </div>
-            <FontAwesomeIcon icon={faBookmark} />
-          </div>
+    <Modal className={styles.modal} size="md" show={handle} onHide={handleClose}>
+    <Card style={{weight:"496px", height:"635px"}}>
+      <Card.Header style={{height:"500px", width:"496px", paddingBottom: "0px",
+    paddingRight: "0px",
+    paddingLeft: "0px",
+    paddingTop: "0px"}} as="h5">
+        <img className={styles.cardImg} src={feed.feedFile} alt='img' />
+      </Card.Header>
+      <Card.Body>
+        {feed.feedLikeYn ? 
+          <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
+        : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />}
+        &nbsp;&nbsp;
+        <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
+        <Card.Text>
+          <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
           <p className={styles.show_writer}>작성자</p>
-          <div className={styles.show_box}>
-            <p>{feedNickname}</p>
-            <p className={styles.show_title}>{feedTitle}</p>
-            <p className={styles.show_content}>{detailContent}</p>
-            <p>{feedLike}</p>
-            <p>{feedNo}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          <div style={{fontSize:"15px", fontWeight:"bold"}}>{feedNickname}</div>
+          <div style={{fontSize:'12px'}}>{feedContent}</div>
+        </Card.Text>
+      </Card.Body>
+    </Card>
       </Modal>
+
     </>
   )
 }
 
-export default Feed;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Feed);

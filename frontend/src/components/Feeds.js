@@ -2,21 +2,18 @@ import Feed from "./Feed";
 import axios from "axios";
 import styles from "./Feeds.module.css"
 import React, {useEffect, useState} from 'react'
-// import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-function Feeds() {
+import { connect } from "react-redux";
+
+function Feeds({counter}) {
 
   const [feeds, setFeeds] = useState([])
-  
   useEffect(()=> {
 
     const fetchFeeds = async () => {
@@ -24,9 +21,9 @@ function Feeds() {
           const response = await axios.get(process.env.REACT_APP_HOST+'feed'
           ,{
             params: {
-              page: 2,
-              size: 10,
-              userNo: 1,
+              page: 0,
+              size: 100,
+              userNo: counter.userNo,
             }
           });
           console.log(response.data)
@@ -39,17 +36,15 @@ function Feeds() {
   },[])
 
   return (
-    <div className="" style={{width: "70vw", height: "40vh"}}>
+    <div className={styles.feeds}>
       <h2>사용자들이 올린 피드</h2>
       <Swiper
         // install Swiper modules
+        className="feed_swiper"
         modules={[Navigation, Pagination, Scrollbar, A11y]}
-        spaceBetween={30}
+        spaceBetween={8}
         slidesPerView={3}
-        navigation
-        // pagination={{ clickable: true }}
-        // scrollbar={{ draggable: false }}
-        onSwiper={(swiper) => console.log(swiper)}
+        navigation = {true}
         onSlideChange={() => console.log('slide change')}
       >
         {feeds.map((feed,idx) => (
@@ -62,4 +57,11 @@ function Feeds() {
   );
 }
 
-export default Feeds;
+
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Feeds);

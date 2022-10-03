@@ -1,7 +1,17 @@
 .chatbot {
     background-color: #92b4ec; 
     height: 100vh; 
-    min-width: 390px
+    min-width: 390px;
+    max-width: 390px;
+    position: fixed;
+    box-sizing: border-box;
+    scroll-margin-top: scrollHeight;
+    overflow: scroll;
+    -ms-overflow-style: none;
+}
+
+.chatbot::-webkit-scrollbar{
+    display: none;
 }
 
 .chatbot_title {
@@ -15,18 +25,45 @@
 .chatbot_wayg {
     width:50px;
     height:50px;
+}
 
+.message_woori {
+    display: flex;
+    /* height: 20px; */
+}
+
+.message_user {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .receivedMessage {
+    display: flex;
+    justify-content: center;
     border-radius: 5px;
     background-color:aliceblue;
-    height: auto;
+    margin: 20px 10px 40px 10px;
+    height: 100%;
     margin-left: 5%;
     padding-left: 3%;
     padding-right: 3%;
     padding-top:1%;
     padding-bottom:1%;
+    vertical-align: middle
+}
+
+.sendMessage {
+    display:inline-block;
+    border-radius:5px;
+    padding-left:5px;
+    padding-right:5px;
+    margin-top:20px;
+    background-color: yellow;
+    margin-left: auto;
+    vertical-align: middle;
+    height: 100%;
+    /* text-align:right; */
+    
 }
 
 .sendInput {
@@ -38,41 +75,41 @@
     outline:none;
 }
 .chatting{
-    border-radius: 5px;
+    /* border-radius: 5px; */
     background-color:white;
     position: fixed;
+    bottom: 0;
     bottom:0;
     display: flex;
-    text-align: end;
+    /* text-align: end; */
+    align-items: center;
     width: inherit;
-    min-width: 390px
+    min-width: 390px;
+    height: 40px;
 }
 .chatBtn {
     border-radius: 5px;
-    position:absolute;
+    /* position:absolute; */
     right:0;
     height: 32px;
     background-color:yellow;
     border:none;
-    
-    
 }
 
-.sendMessage {
-    display:block;
-    border-radius:5px;
-    padding-left:5px;
-    padding-right:5px;
-    margin-top:20px;
-    background-color: yellow;
-    text-align:right;
-    
+.chat_result {
+    margin: 5px;
 }
+
+.chat_img {
+    width: 80px;
+    height: auto;
+}
+
 .anotherFunction {
     position: absolute;
     bottom: 0;
     list-style: none;
-    margin-bottom:3%;
+    /* margin-bottom:3%; */
     min-width: 390px;
     border-radius: 10px;
     background-color:aliceblue;
@@ -81,18 +118,22 @@
 }
 
 @keyframes upmove {
-    from {bottom: -20px;}
-    to {bottom: 20px;}
+    from {bottom: -300px;}
+    to {bottom: 0px;}
+}
+
+@keyframes downmove {
+    from {bottom: 0px;}
+    to {bottom: -500px;}
 }
 
 
-.anotherFunction li {
-    
+.anotherFunction .menu {
     margin-bottom:5px;
     cursor: pointer;
 }
 
-.anotherFunction li:hover{
+.anotherFunction .menu:hover{
     background-color:rgb(234, 233, 245);
     border-radius:5px;
 }
