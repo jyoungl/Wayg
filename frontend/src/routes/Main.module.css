@@ -11,8 +11,12 @@
     /* position: fixed; */
 }
 
+.right {
+    padding: 5%;
+}
+
 .detail {
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .popular {

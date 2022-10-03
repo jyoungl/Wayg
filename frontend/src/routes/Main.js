@@ -91,6 +91,7 @@ function Main() {
       <div className={styles.ChatBot}>
         <ChatBot addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
       </div>
+      <div className={styles.right}>
       <div className={styles.detail}>
         {search ?
         <div>
@@ -121,6 +122,7 @@ function Main() {
         <div>
           <Shows search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
         </div> : null}
+        </div>
       </div>
 
     </div>
