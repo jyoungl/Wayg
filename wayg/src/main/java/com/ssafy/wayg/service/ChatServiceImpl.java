@@ -76,12 +76,12 @@ public class ChatServiceImpl implements ChatService {
 
         new_name.append("_1.jpg");
 
-        URL url_check = new URL(new_name.toString());
-        URLConnection con = url_check.openConnection();
-        HttpURLConnection exitCode = (HttpURLConnection)con;
-        if(exitCode.getResponseCode() == 404) {
-            return "https://j7c202.p.ssafy.io/noPhoto.png";//우리 url
-        }
+//        URL url_check = new URL(new_name.toString());
+//        URLConnection con = url_check.openConnection();
+//        HttpURLConnection exitCode = (HttpURLConnection)con;
+//        if(exitCode.getResponseCode() == 404) {
+//            return "https://j7c202.p.ssafy.io/noPhoto.png";//우리 url
+//        }
 
         return new_name.toString();
     }
