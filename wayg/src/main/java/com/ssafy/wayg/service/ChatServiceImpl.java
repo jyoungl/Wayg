@@ -52,12 +52,6 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public PlaceDto searchName(String name){
-        Place place = placeRepository.findByPlaceName(name);
-        return converter.toPlaceDto(place);
-    }
-
-    @Override
     public List<String> findPlaces(List<String> nouns){
         Set<String> nounSet = new HashSet<>();
         for(String noun : nouns){

@@ -64,22 +64,6 @@ public class ChatController {
         return new ResponseEntity<>(resultMap, httpStatus);
     }
 
-    @PostMapping("/search")
-    public ResponseEntity<Map<String, Object>> searchName(@RequestBody String name){
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus httpStatus = HttpStatus.ACCEPTED;
-
-        try{
-            PlaceDto placeDto = chatService.searchName(name);
-            resultMap.put("message", SUCCESS);
-            resultMap.put("place", placeDto);
-            httpStatus = HttpStatus.OK;
-        } catch (Exception e){
-            resultMap.put("message", FAIL);
-        }
-        return new ResponseEntity<>(resultMap, httpStatus);
-    }
-
     @PostMapping("/place")
     public ResponseEntity<Map<String,Object>> findPlaces(@RequestBody String str){
         Map<String,Object> resultMap = new HashMap<>();
