@@ -12,6 +12,7 @@ import { confirmAlert } from 'react-confirm-alert';
 function CreateFeed({counter}) {
   const [imageSrc, setImageSrc] = useState('');
   const [feedTitle, setFeedTitle] = useState('');
+  const [feedPlaceName, setFeedPlaceName] = useState('');
   const [feedContent, setFeedContent] = useState('');
   const [feedNickname, setFeedNickname] = useState('');
   const [makeFeed, setMakeFeed] = useState({feedTitle:"", feedContent:"", feedNickname:"", userNo: "", feedFile:""});
@@ -49,8 +50,8 @@ function CreateFeed({counter}) {
   }
 
 
-  const onChangeTitle = async (event) => {
-    await setFeedTitle(event.target.value)
+  const onChangePlaceName = async (event) => {
+    await setFeedPlaceName(event.target.value)
     const searchPlace = async () => {
       try {
         const response = await axios.get(
@@ -72,6 +73,10 @@ function CreateFeed({counter}) {
     setFeedNickname(event.target.value)
   }
 
+  const onChangeTitle = (event) => {
+    setFeedTitle(event.target.value)
+  }
+
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -82,7 +87,7 @@ function CreateFeed({counter}) {
           {feedTitle:feedTitle,
            feedContent:feedContent, 
            feedNickname:feedNickname, 
-           feedPlacename: feedTitle,
+           feedPlacename: feedPlaceName,
            userNo: counter.userNo,
            feedFile:url}
         );
@@ -112,13 +117,15 @@ function CreateFeed({counter}) {
       <form  onSubmit={onSubmit}>
 
         <Card.Title>
-            <input className={styles.Title} onChange={onChangeTitle} value={feedTitle} type="text" placeholder="여행지를 작성하세요" style={{width:"100%", height:"100%"}}/>
+            <input className={styles.Title} onChange={onChangeTitle} value={feedTitle} type="text" placeholder="제목을 작성하세요" style={{width:"100%", height:"100%"}}/>
+            
+            <input className={styles.Title} onChange={onChangePlaceName} value={feedPlaceName} type="text" placeholder="여행지를 작성하세요" style={{width:"100%", height:"100%"}}/>
             {/* <ul className={styles.autoComplete}>
             {words ? words.map((word, index) => (<div onClick={async (word) => {await setFeedTitle(word.target.innerText); console.log(word); console.log(feedTitle) }} className={styles.autoComplete_li} key={index}>{word}</div>)) : null}
             </ul> */}
 
             { words ? <ul className={styles.autoComplete}>
-             {words.map((word, index) => (<div onClick={async (word) => {await setFeedTitle(word.target.innerText); }} className={styles.autoComplete_li} key={index}>{word}</div>))}
+             {words.map((word, index) => (<div onClick={async (word) => {await setFeedPlaceName(word.target.innerText); }} className={styles.autoComplete_li} key={index}>{word}</div>))}
             </ul>:null}
 
 

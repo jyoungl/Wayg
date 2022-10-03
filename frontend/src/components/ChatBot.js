@@ -54,16 +54,27 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
   },[])
 
   useEffect(()=> {
-    window.onload=function(){  
-      let chatScreen = document.getElementById("chatScreen"); 
-      chatScreen.scrollTop = chatScreen.scrollHeight; 
-      };
+    let chatScreen = document.getElementById("chatScreen"); 
+    chatScreen.scrollTop = chatScreen.scrollHeight; 
+
+    let chatInput = document.getElementById('chatInput');
+    chatInput.value = '';
   },[chat]) 
+
+  // useEffect(() => {
+  //   if (loading) {
+  //     setChat((currentArray) => [...currentArray, ['woori', "좀만 기다려봐..."]]);
+  //   }
+  //   else {
+  //     let new_array = chat;
+  //     new_array = new_array.slice(0, -1);
+  //     setChat(new_array);
+  //   }
+  // },[loading])
 
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    document.getElementsByTagName('input').val = '';
     
     await setSends((currentArray) => [...currentArray,send]);
     await setChat((currentArray) => [...currentArray, ['user', send]]);
@@ -76,18 +87,30 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
       if (res.data){
         if (res.data.message === 'success') {
           console.log(res.data.placeList)
-          setPlaceList(res.data.placeList)
+          if (isEmptyArr(res.data.placeList)){
+            setChat((currentArray) => [...currentArray, ['woori', "휴.. 가고 싶은 지역이 있냐고?"]]);
+          }
+          else{
+            setPlaceList(res.data.placeList)
+            setIsPlace(false)
+            setChat((currentArray) => [...currentArray, ['woori', "원하는 여행지를 알려줘!"]]);
+          }
         }
       } else {
         console.log(res)
       }
-      setIsPlace(false)
-      setChat((currentArray) => [...currentArray, ['woori', "원하는 여행지를 알려줘!"]]);
     }
     else {
+      // 검색시작
+      // setLoading(true);
+      setLoading(true)
+
       const res = await axios.post(process.env.REACT_APP_HOST + `chat`,{
         str: send
       });
+
+      //검색 끝
+      setLoading(false);
       
       if (res.data){
         if (res.data.message === 'success') {
@@ -186,27 +209,69 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
     if(Array.isArray(arr) && arr.length === 0)  {
       return true;
     }
-    
     return false;
   }
 
+  const closeMenuBar = () => {
+    setMenuBar(false);
+  }
 
+  const shareKakaoLink = () => {
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '우리! 어디가? 추천 여행지',
+        description: `추천하는 여행지 3개`,
+        imageUrl: ``,
+        link: {
+          // mobileWebUrl: 'https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0',
+          // webUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+          mobileWebUrl: `https://j7c202.p.ssafy.io/`,
+          webUrl: `https://j7c202.p.ssafy.io/`
+        },
+      },
+      itemContent: {
+        // profileText: 'Kakao',
+        // profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+      },
+      social: {
+        likeCount: 0,
+      },
+      buttons: [
+        {
+          title: '웹으로 이동',
+          link: {
+            // mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+            // webUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+            mobileWebUrl: `https://j7c202.p.ssafy.io/`,
+            webUrl: `https://j7c202.p.ssafy.io/`
+          },
+        },
+      ],
+    });
+  }
 
-  if (loading) return <div>로딩중..</div>
-  // if (error) return <div>에러가 발생 하였습니다.</div>
+  const share = async () => {
+    try {
+      console.log('share')
+      shareKakaoLink()
+      } catch (e) {
+        
+      }
+  };
+
   return (
       <div id="chatScreen" className={styles.chatbot}>
         <div className={styles.chatbot_title}>
           <div>'우리'랑 대화</div>
         </div>
-        
-        <br />
         {/* {greeting ? (
         <div>
           <img className={styles.chatbot_woori} src={woori} alt="character" />
           <span className={styles.receivedMessage}>안녕? 추천받고 싶은 여행지가 있니?</span>
         </div> ) : null} */}
       
+
       {menuBar ? 
       <ul className={styles.anotherFunction}>
         <li className={styles.menu} onClick={() => {startNew(); clickMenuBar();}} >대화 새로 시작하기</li>
@@ -240,17 +305,20 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
               <img className={styles.chatbot_wayg} src={woori} alt="character" />
               <div className={styles.receivedMessage}>
                 {/* {chat[1][0]} {chat[1][1]} {chat[1][2]} */}
-
-              {chat[1].map((place,idx) => (
-                <div key={idx} className={styles.chat_result}>
-                  <img className={styles.chat_img} src={place.img_src} onError={({ currentTarget }) => {
-                    currentTarget.onerror = null; 
-                    currentTarget.src='./noPhoto.png';
-                    }} alt="" />
-                  <br />
-                  {place.placename}
+                <div className={styles.chat_results}>
+                {chat[1].map((place,idx) => (
+                  <div key={idx} className={styles.chat_result}>
+                    <img className={styles.chat_img} src={place.img_src} onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; 
+                      currentTarget.src='./noPhoto.png';
+                      }} alt="" />
+                    <div className={styles.chat_text}>{place.placename}</div>
+                  </div>
+                ))}
                 </div>
-              ))}
+
+                <input className={styles.chat_shareBtn} type="button" onClick={share} value={'공유하기'} />
+                {/* <input className={styles.chat_shareBtn} type="button" value={'공유하기'} /> */}
               </div>
             </div> 
             : null }
@@ -263,16 +331,32 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
           </div>
         ))}
       </div>
-      <div className={styles.chatting}> 
+
+      {/* 로딩 중 */}
+      { loading ? 
+      <div className={styles.message_woori}>
+        <img className={styles.chatbot_wayg} src={woori} alt="character" />
+        <div className={styles.receivedMessage}>
+          <div className={styles.container}>
+            <div className={`${styles.progress2} ${styles.progress_moved}`}>
+              <div className={styles.progress_bar2}></div>
+              {/* <div className={styles.loader}></div> */}
+            </div>
+          </div>
+        </div>
+      </div> 
+      : null }
+
+      <div className={styles.reply}> 
         <FontAwesomeIcon className="additionalBtn fa-2xl" onClick={clickMenuBar} icon={faBars} />
         <form onSubmit={onSubmit}>
-          <input className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
-          <button className={styles.chatBtn}>보내기</button>
+          <input id="chatInput" className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
+          <button className={styles.chatBtn} onClick={() => {goSearch(); clickMenuBar(); closeMenuBar();}}>보내기</button>
         </form>
       </div>
       
-    {/* 모달 */}
-    <Modal show={handle} onHide={handleClose}>
+      {/* 모달 */}
+      <Modal show={handle} onHide={handleClose}>
         <CreateFeed></CreateFeed>
       </Modal>
     </div>
