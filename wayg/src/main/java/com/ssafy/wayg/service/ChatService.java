@@ -12,4 +12,5 @@ public interface ChatService {
     long totalSize();
     List<PlacewordDto> oneSize(String str);
     List<String> findPlaces(List<String> nouns);
+    PlaceDto searchName(String name);
 }
