@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequestMapping("/chat")
 @RestController
@@ -52,7 +49,7 @@ public class ChatController {
                 List<PlacewordDto> placewordDtos = chatService.oneSize(send.get(i));
                 double idf = chatService.placeword(send.get(i), total);
                 for(int j=0;j<placewordDtos.size();j++){
-                    //place.put(placewordDtos.get(j).getPlacewordName(), idf * placewordDtos.get(j).getPlacewordCount());
+                    place.put(placewordDtos.get(j).getPlacewordName(), idf * placewordDtos.get(j).getPlacewordCount());
                 }
                 //place.put(placeDto.getPlaceAddress(), chatService.placeword(send.get(i), total) * (double)placeDto.getPlaceScrap());
             }
@@ -78,16 +75,55 @@ public class ChatController {
             System.out.println(jsonInString);
 
             HashMap<String, Object> userRequest = (HashMap<String, Object>)params.get("userRequest");
-            String utter = userRequest.get("utterance").toString().replace("\n", "");
+            String utter = userRequest.get("utterance").toString().replace("\n",    " ");
+
+            Map<String,Integer> split = analyzer.analyseText(utter); // 형태소 분리한 결과 넣은 map
+            List<String> send = new ArrayList<>();
+
+            //형태소 분리한 단어들을 list에 넣어줌
+            for(Map.Entry<String, Integer> entry : split.entrySet())
+                send.add(entry.getKey());
+
+            Map<String, Double> place = new HashMap<>(); // 관광지와 tfidf 값 넣어줄 map
+            try {
+                long total = chatService.totalSize(); //전체 문서 수
+
+                for(int i=0;i<send.size();i++){
+                    //각 단어의 idf 구하기 * 관광지 tf
+                    List<PlacewordDto> placewordDtos = chatService.oneSize(send.get(i));
+                    double idf = chatService.placeword(send.get(i), total);
+                    for(int j=0;j<placewordDtos.size();j++){
+                        place.put(placewordDtos.get(j).getPlacewordName(), idf * placewordDtos.get(j).getPlacewordCount());
+                    }
+                    //place.put(placeDto.getPlaceAddress(), chatService.placeword(send.get(i), total) * (double)placeDto.getPlaceScrap());
+                }
+
+            } catch (Exception e) {
+                System.out.println("오류남!");
+            }
+
+            //place 맵 value값 따라 정렬
+            List<Map.Entry<String,Double>> entries = new ArrayList<>(place.entrySet());
+            entries.sort(Map.Entry.comparingByValue());
+            Map<String, Double> res = new LinkedHashMap<>(); // 정렬된 map
+            int i = 0; //3개만 넣어볼게
 
             String rtnStr = ""; //대답 저장할 문자열
-            switch (utter){
-                //발화 처리 로직
-                case "되나":
-                    rtnStr = "된다~";
-                default:
-                    rtnStr = "개빡쳐";
+            for(Map.Entry<String, Double> e : entries) {
+                if(i++<3) {
+                    res.put(e.getKey(), e.getValue());
+                    rtnStr += e.getKey();
+                    rtnStr += "\n";
+                }
             }
+
+//            switch (utter){
+//                //발화 처리 로직
+//                case "되나":
+//                    rtnStr = "";
+//                default:
+//                    rtnStr = "머선 말인지 모르겠어요~";
+//            }
 
             List<HashMap<String, Object>> output = new ArrayList<>();
             HashMap<String, Object> template = new HashMap<>();
