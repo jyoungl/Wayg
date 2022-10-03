@@ -53,9 +53,17 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
     
   },[])
 
+  useEffect(()=> {
+    window.onload=function(){  
+      let chatScreen = document.getElementById("chatScreen"); 
+      chatScreen.scrollTop = chatScreen.scrollHeight; 
+      };
+  },[chat]) 
+
+
   const onSubmit = async (event) => {
     event.preventDefault();
-    document.getElementsByTagName('input').val = ''
+    document.getElementsByTagName('input').val = '';
     
     await setSends((currentArray) => [...currentArray,send]);
     await setChat((currentArray) => [...currentArray, ['user', send]]);
@@ -187,7 +195,7 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
   if (loading) return <div>로딩중..</div>
   // if (error) return <div>에러가 발생 하였습니다.</div>
   return (
-      <div className={styles.chatbot}>
+      <div id="chatScreen" className={styles.chatbot}>
         <div className={styles.chatbot_title}>
           <div>'우리'랑 대화</div>
         </div>
@@ -211,13 +219,6 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
         <li style={{color: "aliceblue"}}>빈값</li>
       </ul>: null}
       
-      <div className={styles.chatting}> 
-        <FontAwesomeIcon className="additionalBtn fa-2xl" onClick={clickMenuBar} icon={faBars} />
-        <form onSubmit={onSubmit}>
-          <input className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
-          <button className={styles.chatBtn}>보내기</button>
-        </form>
-      </div>
       {/* 여기는 채팅 내용 ui */}
       {/* <ul>
         {story}
@@ -262,12 +263,20 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
           </div>
         ))}
       </div>
-
-      {/* 모달 */}
-      <Modal show={handle} onHide={handleClose}>
+      <div className={styles.chatting}> 
+        <FontAwesomeIcon className="additionalBtn fa-2xl" onClick={clickMenuBar} icon={faBars} />
+        <form onSubmit={onSubmit}>
+          <input className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
+          <button className={styles.chatBtn}>보내기</button>
+        </form>
+      </div>
+      
+    {/* 모달 */}
+    <Modal show={handle} onHide={handleClose}>
         <CreateFeed></CreateFeed>
       </Modal>
     </div>
+    
   );
 }
 

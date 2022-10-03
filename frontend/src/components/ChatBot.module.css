@@ -5,6 +5,13 @@
     max-width: 390px;
     position: fixed;
     box-sizing: border-box;
+    scroll-margin-top: scrollHeight;
+    overflow: scroll;
+    -ms-overflow-style: none;
+}
+
+.chatbot::-webkit-scrollbar{
+    display: none;
 }
 
 .chatbot_title {
@@ -35,6 +42,7 @@
     justify-content: center;
     border-radius: 5px;
     background-color:aliceblue;
+    margin: 20px 10px 40px 10px;
     height: 100%;
     margin-left: 5%;
     padding-left: 3%;
@@ -69,7 +77,8 @@
 .chatting{
     /* border-radius: 5px; */
     background-color:white;
-    position: absolute;
+    position: fixed;
+    bottom: 0;
     bottom:0;
     display: flex;
     /* text-align: end; */
