@@ -29,28 +29,26 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
   const [likeYn, setLikeYn] = useState(null)
 
   const plusLike = async () => {
+    if (counter.userNo === 0) {
+      alert("로그인 후 이용해주세요")
+    } else {
+
     try {
         const response = await axios.post(
           process.env.REACT_APP_HOST+`feed/like`
           ,{
-          // userNo: {userNo}.userNo,
           userNo: counter.userNo,
           feedNo: {feedNo}.feedNo
         });
-        // console.log(response.data)
         if (response.data.message === 'success'){
           let new_feed = feed
           new_feed.feedLikeYn = true;
           new_feed.feedLike+=1
-          
           await setFeed(new_feed)
           await setLikeYn(true)
-          console.log('aaaaa')
-          
         }
       } catch (e) {
-        
-      }
+      }}
   };
   
 
@@ -146,11 +144,12 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
     <>
     <div className={styles.feed}>
       <div className={styles.feed_div}>
-        <img onClick={onClickFeed} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
+        <img onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
           currentTarget.src='./noPhoto.png';
         }} alt='img' />
-        <div>
+        <div className={styles.feed_description}>
+        <span className={styles.feed_title}>{feed.feedTitle}</span>
           <div className={styles.feed_box}>
             {feed.feedLikeYn ? 
               <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
@@ -158,13 +157,13 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
             &nbsp;&nbsp;
             <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
           </div>
-          <div>
-                <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
+          <div className={styles.feed_like}>
+            {feed.feedLike}명이 이 피드를 좋아합니다!
           </div>
           <div className={styles.feed_box}> 
-            <div className={styles.feed_writer}>{feed.feedNickname}</div>
+            <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_writer}>{feed.feedNickname}</div>
           </div>
-          <div className={styles.feed_title}>{feed.feedTitle}</div>
+          <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_title}>{feed.feedTitle}</div>
         </div>
         </div>
     </div>

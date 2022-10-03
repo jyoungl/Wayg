@@ -11,8 +11,12 @@
     /* position: fixed; */
 }
 
+.right {
+    padding: 5%;
+}
+
 .detail {
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .popular {
@@ -35,9 +39,4 @@
 
 .font-apply{
     font-family: 'Jalnan';
-}
-
-.right {
-    width: 100vh;
-    height: 100vh;
 }

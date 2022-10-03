@@ -11,8 +11,10 @@ import woori2 from '../images/wayg.png'
 
 
 function Shows({search, scrapPlace ,likeFeed, myFeed, counter}) {
+  
+  // //////////////////////////////////////////////
   const [items, setItems] = useState([])
-
+  
   useEffect(() => {
     if (likeFeed) {
       const fetchLikeFeeds = async () => {
@@ -85,6 +87,7 @@ function Shows({search, scrapPlace ,likeFeed, myFeed, counter}) {
     }
   },[])
 
+
   const isEmptyObj = (obj) => {
     if(obj.constructor === Object
        && Object.keys(obj).length === 0)  {
@@ -92,6 +95,24 @@ function Shows({search, scrapPlace ,likeFeed, myFeed, counter}) {
     }
     return false;
   }
+
+  // sorted_results === counter.results //여기서부터 시작!
+  
+
+  useEffect(() => {
+    
+    const division = (resultsList, n) => {
+      const length = resultsList.length;
+      const divide = Math.floor(length / n) + (Math.floor( length % n ) > 0 ? 1 : 0);
+      for (let i = 0; i <=divide; i++) {
+        newArray.push(resultsList.splice(0,n))
+      }
+      console.log(newArray)
+    }
+    const newArray = [];
+    const resultsList = counter.results
+    division(resultsList,10)
+  },[])
 
   return (
     <div className="">
