@@ -47,13 +47,6 @@ function RecommendationShare() {
         </div>
         {/* 글용 오른쪽 컴포넌트 */}
         <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
-          {/* <div>
-            {shareRecommendation.placeScrapYn ? 
-            <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
-            : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
-             &nbsp;&nbsp;
-            <FontAwesomeIcon icon={faPaperPlane} />
-          </div> */}
           <p className={styles.detail_title}>{shareRecommendation.placeName}</p>
           <p className={styles.detail_address}>{shareRecommendation.placeAddress}</p>
           <p>{shareRecommendation.placeInfo}</p>
