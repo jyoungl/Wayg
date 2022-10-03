@@ -68,7 +68,7 @@ function Recommendations({counter}) {
           <Recommendation parentFunction={parentFunction} {...recommendation} key={idx}/>
           ))}
           </div>
-      <div ref={obsRef}>observer</div>
+      <div ref={obsRef}>...</div>
     </div>
   );
 }

@@ -22,7 +22,7 @@ function Feeds({counter}) {
           ,{
             params: {
               page: 0,
-              size: 100,
+              size: 150,
               userNo: counter.userNo,
             }
           });
