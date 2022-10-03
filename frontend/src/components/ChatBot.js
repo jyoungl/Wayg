@@ -281,9 +281,9 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
       <ul className={styles.anotherFunction}>
         <li className={styles.menu} onClick={() => {startNew(); clickMenuBar();}} >대화 새로 시작하기</li>
         <li className={styles.menu} onClick={() => {goSearch(); clickMenuBar();}}>검색 결과 보기</li>
+        <li className={styles.menu} onClick={() => {goPopular(); clickMenuBar();}}>이번달 인기피드 보러가기</li>
         {Boolean(counter.userNo) ?
         <>
-        <li className={styles.menu} onClick={() => {goPopular(); clickMenuBar();}}>이번달 인기피드 보러가기</li>
         <li className={styles.menu} onClick={() => {goLikeFeed(); clickMenuBar();}}>내가 좋아요 누른 피드 보러가기</li>
         <li className={styles.menu} onClick={() => {goScrapPlace(); clickMenuBar();}}>내가 스크랩한 관광지 보러가기</li>
         <li className={styles.menu} onClick={() => {goMyFeed(); clickMenuBar();}}>내가 올린 피드보기</li>
