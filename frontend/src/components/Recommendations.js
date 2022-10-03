@@ -63,17 +63,6 @@ function Recommendations({counter}) {
   return (
     <div className={styles.recommendations}>
       <h2>WAYG가 추천해주는 여행지</h2>
-      {/* {recommendationLoading||Boolean(recommendations)? 
-      <div className={styles.recommendations_list}>
-        {recommendations.map((recommendation,idx) => (
-          <Recommendation parentFunction={parentFunction} {...recommendation} key={idx}/>
-          ))}
-      </div> : <div className={styles.recommendations_list}>
-        {recommendations.map((recommendation,idx) => (
-          <Recommendation parentFunction={parentFunction} {...recommendation} key={idx}/>
-          ))}
-      </div>
-        } */}
         <div className={styles.recommendations_list}>
         {recommendations.map((recommendation,idx) => (
           <Recommendation parentFunction={parentFunction} {...recommendation} key={idx}/>

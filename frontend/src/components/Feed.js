@@ -23,7 +23,6 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
     feedLike: {feedLike}.feedLike, 
     feedLikeYn: {feedLikeYn}.feedLikeYn,
   })
-  
   const [detailContent,setDetailContent] = useState('')
   const [handle, setHandle] = useState(false);
   const handleClose = () => setHandle(false);
@@ -93,8 +92,10 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
         imageUrl:
           'feedFile',
         link: {
-          mobileWebUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}`,
-          webUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}`,
+          // mobileWebUrl: 'https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0',
+          // webUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+          mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+          webUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}/0`,
         },
       },
       itemContent: {
@@ -108,8 +109,10 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
         {
           title: '웹으로 이동',
           link: {
-            mobileWebUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}`,
-            webUrl: `https://j7c202.p.ssafy.io/api/main/detail/FeedShare/${feed.feedNo}`,
+            // mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+            // webUrl: `https://j7c202.p.ssafy.io/main/detail/FeedShare/${feed.feedNo}/0`,
+            mobileWebUrl: `http://localhost:3000/main/detail/FeedShare/${feed.feedNo}/0`,
+            webUrl: `http://localhost:3000/main/detail/FeedShare/${feed.feedNo}/0`,
           },
         },
       ],
@@ -189,7 +192,7 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
       </Card.Body>
     </Card>
       </Modal>
-      {/* <FeedShare style={{display: "none"}}/> */}
+
     </>
   )
 }
