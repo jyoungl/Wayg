@@ -11,4 +11,5 @@ public interface ChatService {
     public double placeword(String word, long total);
     public long totalSize();
     public List<PlacewordDto> oneSize(String str);
+    public PlaceDto searchName(String name);
 }

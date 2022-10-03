@@ -48,4 +48,10 @@ public class ChatServiceImpl implements ChatService {
         //int size = place.getPlaceScrap();
         return converter.toPlacewordDto(placeword);
     }
+
+    @Override
+    public PlaceDto searchName(String name){
+        Place place = placeRepository.findByPlaceName(name);
+        return converter.toPlaceDto(place);
+    }
 }

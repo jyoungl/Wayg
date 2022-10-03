@@ -64,6 +64,23 @@ public class ChatController {
         return new ResponseEntity<>(resultMap, httpStatus);
     }
 
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> searchName(@RequestBody String name){
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus httpStatus = HttpStatus.ACCEPTED;
+
+        try{
+            PlaceDto placeDto = chatService.searchName(name);
+            resultMap.put("message", SUCCESS);
+            resultMap.put("place", placeDto);
+            httpStatus = HttpStatus.OK;
+        } catch (Exception e){
+            resultMap.put("message", FAIL);
+        }
+
+        return new ResponseEntity<>(resultMap, httpStatus);
+    }
+
     //@RequestMapping(value = "/kchat/v1" , method= {RequestMethod.POST , RequestMethod.GET },headers = {"Accept=application/json"})
     @PostMapping("/kchat/v1")
     public HashMap<String, Object> callAPI(@RequestBody Map<String, Object> params, HttpServletRequest request, HttpServletResponse response){
