@@ -118,7 +118,7 @@ public class ChatController {
             }
 
             if(rtnStr.equals(""))
-                rtnStr = "무슨 말인지 몰루궸는데~";
+                rtnStr = "무슨 말인지 모르겠어!";
 //            switch (utter){
 //                //발화 처리 로직
 //                case "되나":
