@@ -1,6 +1,8 @@
 package com.ssafy.wayg.service;
 
+import com.ssafy.wayg.dto.PlaceDto;
 import com.ssafy.wayg.dto.PlacewordDto;
+import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.entity.Placeword;
 import com.ssafy.wayg.repository.PlaceRepository;
 import com.ssafy.wayg.repository.PlacewordRepository;
