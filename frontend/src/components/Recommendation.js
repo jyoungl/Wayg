@@ -152,7 +152,7 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     <>
     <div className={styles.recommendation}>
       <div>
-        <div className={styles.headImg} style={{height:"160px"}}>
+        <div className={styles.headImg}>
         <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
           currentTarget.src='./noPhoto.png';
