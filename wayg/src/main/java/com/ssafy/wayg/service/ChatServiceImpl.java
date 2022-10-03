@@ -1,8 +1,6 @@
 package com.ssafy.wayg.service;
 
-import com.ssafy.wayg.dto.PlaceDto;
 import com.ssafy.wayg.dto.PlacewordDto;
-import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.entity.Placeword;
 import com.ssafy.wayg.repository.PlaceRepository;
 import com.ssafy.wayg.repository.PlacewordRepository;
@@ -10,7 +8,9 @@ import com.ssafy.wayg.util.DEConverter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -53,5 +53,14 @@ public class ChatServiceImpl implements ChatService {
     public PlaceDto searchName(String name){
         Place place = placeRepository.findByPlaceName(name);
         return converter.toPlaceDto(place);
+    }
+
+    @Override
+    public List<String> findPlaces(List<String> nouns){
+        Set<String> nounSet = new HashSet<>();
+        for(String noun : nouns){
+            nounSet.addAll(placeRepository.findByPlaceAddressContains(noun));
+        }
+        return new ArrayList<>(nounSet);
     }
 }
