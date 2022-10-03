@@ -25,8 +25,8 @@
 }
 
 .chatbot_wayg {
-    width:75px;
-    height:75px;
+    width:50px;
+    height:50px;
 }
 
 .message_woori {
@@ -110,15 +110,18 @@
     font-size: 12px;
 }
 
+.chat_share{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .chat_shareBtn{
-    background-color: yellow;
-    padding: 3px 10px;
-    width: 80px;
-    border-radius: 10px;
-    height: 100%;
-    margin-left: auto;
-    margin-right: 10px;
+    background-color: #f5f5f5;
+    padding: 5px;
+    border-radius: 8px;
+    width: auto;
     border: none;
+    cursor: pointer;
 }
 
 .anotherFunction {
@@ -232,3 +235,64 @@
       --p: 100;
     }
   }
+
+  /* 말풍선 속 로딩 스피너 */
+  .dot,
+.dot:before,
+.dot:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.dot {
+  color: #ffffff;
+  font-size: 3px;
+  /* margin: 80px auto; */
+  /* position: relative; */
+  margin-left: 40px;
+  margin-top: 15px;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.dot:before,
+.dot:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.dot:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.dot:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}

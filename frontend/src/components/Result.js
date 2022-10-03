@@ -18,7 +18,7 @@ function Result({placeName}) {
         const placeImg = makeImgSrc(placeName);
         setPlaceImg(placeImg);
         //콘솔 없애기용
-        // urlExistCheck(placeImg);
+        urlExistCheck(placeImg);
     },[])
 
   const shareKakaoLink = () => {
