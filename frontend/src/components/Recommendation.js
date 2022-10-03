@@ -95,8 +95,8 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
         imageUrl:
           'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
         link: {
-          mobileWebUrl: 'https://j7c202.p.ssafy.io/main/detail/:placeNo',
-          webUrl: `https://j7c202.p.ssafy.io/main/detail/:${recommendation.placeNo}`,
+          mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationShare/${recommendation.placeNo}/0`,
+          webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationShare/${recommendation.placeNo}/0`,
         },
       },
       itemContent: {
@@ -110,8 +110,8 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
         {
           title: '웹으로 이동',
           link: {
-            mobileWebUrl: 'https://j7c202.p.ssafy.io',
-            webUrl: 'https://j7c202.p.ssafy.io',
+            mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationShare/${recommendation.placeNo}/0`,
+            webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationShare/${recommendation.placeNo}/0`,
           },
         },
       ],

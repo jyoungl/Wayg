@@ -117,3 +117,9 @@
     object-fit: contain;
     height: auto;
   }
+
+
+  .Container {
+    display:grid;
+    
+  }
