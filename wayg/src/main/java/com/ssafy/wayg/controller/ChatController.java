@@ -136,7 +136,7 @@ public class ChatController {
             simpleText.put("simpleText", text);
             output.add(simpleText);
 
-            template.put("output", output);
+            template.put("outputs", output);
 
             resultMap.put("version","1.0");
             resultMap.put("template", template);
