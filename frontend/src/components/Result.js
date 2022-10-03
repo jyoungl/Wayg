@@ -17,7 +17,8 @@ function Result({placeName}) {
     useEffect(()=>{
         const placeImg = makeImgSrc(placeName);
         setPlaceImg(placeImg);
-        urlExistCheck(placeImg);
+        //콘솔 없애기용
+        // urlExistCheck(placeImg);
     },[])
 
   const shareKakaoLink = () => {
@@ -106,7 +107,7 @@ function Result({placeName}) {
                 }}/>
                 <div className={styles.recommendation_description}>
                 <div className={styles.recommendation_box}>
-                    <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
+                    <FontAwesomeIcon style={{cursor: "pointer"}} onClick={share} icon={faPaperPlane} />
                 </div>
                 <p className={styles.recommendation_title}>{placeName}</p>
                 </div>
