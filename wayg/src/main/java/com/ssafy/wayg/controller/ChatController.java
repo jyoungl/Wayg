@@ -142,19 +142,38 @@ public class ChatController {
 //                    rtnStr = "머선 말인지 모르겠어요~";
 //            }
 
-            List<HashMap<String, Object>> output = new ArrayList<>();
+//            List<HashMap<String, Object>> output = new ArrayList<>();
+//            HashMap<String, Object> template = new HashMap<>();
+//            HashMap<String, Object> simpleText = new HashMap<>();
+//            HashMap<String, Object> text = new HashMap<>();
+//
+//            text.put("text", rtnStr);
+//            simpleText.put("simpleText", text);
+//            output.add(simpleText);
+//
+//            template.put("outputs", output);
+//
+//            resultMap.put("version","1.0");
+//            resultMap.put("template", template);
+
+
             HashMap<String, Object> template = new HashMap<>();
+            List<HashMap<String, Object>> outputs = new ArrayList<>();
+            HashMap<String,Object> output = new HashMap<>();
             HashMap<String, Object> simpleText = new HashMap<>();
-            HashMap<String, Object> text = new HashMap<>();
+////            HashMap<String, Object> text = new HashMap<>();
+////            text.put("text", rtnStr);
 
-            text.put("text", rtnStr);
-            simpleText.put("simpleText", text);
-            output.add(simpleText);
-
-            template.put("outputs", output);
-
+            simpleText.put("text", rtnStr);
+            output.put("simpleText",simpleText);
+//            simpleText.put("simpleText", text);
+            outputs.add(output);
+//
+            template.put("outputs", outputs);
+//
             resultMap.put("version","1.0");
             resultMap.put("template", template);
+
 
         } catch (Exception e) {
             throw new RuntimeException(e);
