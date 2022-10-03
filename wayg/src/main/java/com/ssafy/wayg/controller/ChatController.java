@@ -3,15 +3,13 @@ package com.ssafy.wayg.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.wayg.dto.PlaceDto;
 import com.ssafy.wayg.dto.PlacewordDto;
-import com.ssafy.wayg.entity.Placeword;
-import com.ssafy.wayg.repository.PlacewordRepository;
 import com.ssafy.wayg.service.ChatService;
-import com.ssafy.wayg.service.PlaceService;
 import com.ssafy.wayg.util.MorphemeAnalyzer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -30,10 +28,10 @@ public class ChatController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String,Object>> calculate(@RequestBody String str){
+    public ResponseEntity<Map<String,Object>> calcurate(@RequestBody String str){
         Map<String,Object> resultMap = new HashMap<>();
         HttpStatus httpStatus = HttpStatus.ACCEPTED;
-        Map<String,Integer> split = analyzer.pickMorpheme(str); // 형태소 분리한 결과 넣은 map - noun, verb, adjective
+        Map<String,Integer> split = analyzer.pickMorpheme(str); // 형태소 분리한 결과 넣은 map
         List<String> send = new ArrayList<>();
 
         //형태소 분리한 단어들을 list에 넣어줌
@@ -53,7 +51,7 @@ public class ChatController {
                 }
                 //place.put(placeDto.getPlaceAddress(), chatService.placeword(send.get(i), total) * (double)placeDto.getPlaceScrap());
             }
-            
+
             resultMap.put("message",SUCCESS);
             resultMap.put("content",place);
             httpStatus = HttpStatus.OK;
@@ -64,7 +62,7 @@ public class ChatController {
         return new ResponseEntity<>(resultMap, httpStatus);
     }
 
-    @PostMapping("/search")
+    @PostMapping
     public ResponseEntity<Map<String, Object>> searchName(@RequestBody String name){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus httpStatus = HttpStatus.ACCEPTED;
@@ -77,22 +75,7 @@ public class ChatController {
         } catch (Exception e){
             resultMap.put("message", FAIL);
         }
-        return new ResponseEntity<>(resultMap, httpStatus);
-    }
 
-    @PostMapping("/place")
-    public ResponseEntity<Map<String,Object>> findPlaces(@RequestBody String str){
-        Map<String,Object> resultMap = new HashMap<>();
-        HttpStatus httpStatus = HttpStatus.ACCEPTED;
-
-        try {
-            List<String> nouns = analyzer.pickNouns(str); // 형태소 분리한 결과 넣은 list - noun
-            resultMap.put("placeList", chatService.findPlaces(nouns));
-            resultMap.put("message",SUCCESS);
-            httpStatus = HttpStatus.OK;
-        } catch(Exception e){
-            resultMap.put("message", FAIL);
-        }
         return new ResponseEntity<>(resultMap, httpStatus);
     }
 
@@ -159,23 +142,19 @@ public class ChatController {
 //                    rtnStr = "머선 말인지 모르겠어요~";
 //            }
 
+            List<HashMap<String, Object>> output = new ArrayList<>();
             HashMap<String, Object> template = new HashMap<>();
-            List<HashMap<String, Object>> outputs = new ArrayList<>();
-            HashMap<String,Object> output = new HashMap<>();
             HashMap<String, Object> simpleText = new HashMap<>();
-////            HashMap<String, Object> text = new HashMap<>();
-////            text.put("text", rtnStr);
+            HashMap<String, Object> text = new HashMap<>();
 
-            simpleText.put("text", rtnStr);
-            output.put("simpleText",simpleText);
-//            simpleText.put("simpleText", text);
-            outputs.add(output);
-//
+            text.put("text", rtnStr);
+            simpleText.put("simpleText", text);
+            output.add(simpleText);
+
             template.put("outputs", output);
-//
+
             resultMap.put("version","1.0");
             resultMap.put("template", template);
-
 
         } catch (Exception e) {
             throw new RuntimeException(e);
