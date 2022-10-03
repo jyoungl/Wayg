@@ -86,7 +86,7 @@ public class ChatController {
 
     //@RequestMapping(value = "/kchat/v1" , method= {RequestMethod.POST , RequestMethod.GET },headers = {"Accept=application/json"})
     @PostMapping("/kchat/v1")
-    public HashMap<String, Object> callAPI(@RequestBody Map<String, Object> params, HttpServletRequest request, HttpServletResponse response){
+    public HashMap<String, Object> callAPI(@RequestBody Map<String, Object> params){
         HashMap<String, Object> resultMap = new HashMap<>();
 
         try{
@@ -161,33 +161,32 @@ public class ChatController {
             }
 
             carousel.put("items",items);
+            HashMap<String,Object> output = new HashMap<>();
 
             //만약 답없으면(items길이찾기) simpleText
-//            if(items.size() == 0) {
-//                HashMap<String,Object> output = new HashMap<>();
-//                HashMap<String, Object> simpleText = new HashMap<>();
-//                switch((int)(Math.random()*100)%3){
-//                    case 0:
-//                        simpleText.put("text", "무슨 말인지 모르겠어!");
-//                        break;
-//                    case 1:
-//                        simpleText.put("text", "우리는 5살이라 그런 거 몰라!");
-//                        break;
-//                    case 2:
-//                        simpleText.put("text", "우리는 그런 거 못해( ˘︹˘ )");
-//                        break;
-//                }
-//                output.put("simpleText",simpleText);
-//                outputs.add(output);
-//            }else {
+            if(items.size() == 0) {
+                HashMap<String, Object> simpleText = new HashMap<>();
+                switch((int)(Math.random()*100)%3){
+                    case 0:
+                        simpleText.put("text", "무슨 말인지 모르겠어!");
+                        break;
+                    case 1:
+                        simpleText.put("text", "우리는 5살이라 그런 거 몰라!");
+                        break;
+                    case 2:
+                        simpleText.put("text", "우리는 그런 거 못해( ˘︹˘ )");
+                        break;
+                }
+                output.put("simpleText",simpleText);
+            }else {
                 //답 있을때
-                outputs.add(carousel);
-//            }
+                output.put("carousel",carousel);
+            }
 
+            outputs.add(output);
             template.put("outputs", outputs);
             resultMap.put("version","2.0");
             resultMap.put("template", template);
-
 
         } catch (Exception e) {
             throw new RuntimeException(e);
