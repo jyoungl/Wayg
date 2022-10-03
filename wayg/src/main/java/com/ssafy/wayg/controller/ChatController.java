@@ -138,7 +138,7 @@ public class ChatController {
 
             template.put("output", output);
 
-            resultMap.put("version","2.0");
+            resultMap.put("version","1.0");
             resultMap.put("template", template);
 
         } catch (Exception e) {
