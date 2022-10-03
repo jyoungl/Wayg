@@ -181,4 +181,9 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeRepository.searchByPlaceName(keyword,endKeyword);
 	}
 
+	@Override
+	public PlaceDto searchName(String name){
+		Place place = placeRepository.findByPlaceName(name);
+		return converter.toPlaceDto(place);
+	}
 }

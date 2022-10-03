@@ -21,6 +21,8 @@ public interface PlaceService {
 
 	List<String> searchPlace(String keyword) throws Exception;
 
+	PlaceDto searchName(String name);
+
 //	long getTotalCount() throws Exception;
 
 }

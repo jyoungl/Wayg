@@ -5,6 +5,8 @@ import com.ssafy.wayg.dto.PlacewordDto;
 import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.entity.Placeword;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 public interface ChatService {
@@ -12,5 +14,6 @@ public interface ChatService {
     long totalSize();
     List<PlacewordDto> oneSize(String str);
     List<String> findPlaces(List<String> nouns);
-    PlaceDto searchName(String name);
+
+	String setUrl(String title) throws IOException;
 }

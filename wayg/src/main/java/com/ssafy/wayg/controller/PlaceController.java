@@ -123,4 +123,21 @@ public class PlaceController {
 
 		return new ResponseEntity<>(resultMap, httpStatus);
 	}
+
+	@ApiOperation(value = "관광지 목록 검색", notes = "초성포함 해당되는 관광지를 모두 반환한다.", response = Map.class)
+	@PostMapping("/search")
+	public ResponseEntity<Map<String, Object>> searchName(@RequestBody String name){
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus httpStatus = HttpStatus.ACCEPTED;
+
+		try{
+			PlaceDto placeDto = placeService.searchName(name);
+			resultMap.put("message", SUCCESS);
+			resultMap.put("place", placeDto);
+			httpStatus = HttpStatus.OK;
+		} catch (Exception e){
+			resultMap.put("message", FAIL);
+		}
+		return new ResponseEntity<>(resultMap, httpStatus);
+	}
 }
