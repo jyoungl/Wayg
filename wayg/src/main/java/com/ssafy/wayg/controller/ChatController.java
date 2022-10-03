@@ -118,7 +118,7 @@ public class ChatController {
 
             //place 맵 value값 따라 정렬
             List<Map.Entry<String,Double>> entries = new ArrayList<>(place.entrySet());
-            entries.sort(Map.Entry.comparingByValue());
+            entries.sort(Map.Entry.comparingByValue(Collections.reverseOrder()));
             Map<String, Double> res = new LinkedHashMap<>(); // 정렬된 map
             int i = 0; //3개만 넣어볼게
 
@@ -141,38 +141,17 @@ public class ChatController {
 //                    rtnStr = "머선 말인지 모르겠어요~";
 //            }
 
-//            List<HashMap<String, Object>> output = new ArrayList<>();
-//            HashMap<String, Object> template = new HashMap<>();
-//            HashMap<String, Object> simpleText = new HashMap<>();
-//            HashMap<String, Object> text = new HashMap<>();
-//
-//            text.put("text", rtnStr);
-//            simpleText.put("simpleText", text);
-//            output.add(simpleText);
-//
-//            template.put("outputs", output);
-//
-//            resultMap.put("version","1.0");
-//            resultMap.put("template", template);
-
-
             HashMap<String, Object> template = new HashMap<>();
             List<HashMap<String, Object>> outputs = new ArrayList<>();
             HashMap<String,Object> output = new HashMap<>();
             HashMap<String, Object> simpleText = new HashMap<>();
-////            HashMap<String, Object> text = new HashMap<>();
-////            text.put("text", rtnStr);
 
             simpleText.put("text", rtnStr);
             output.put("simpleText",simpleText);
-//            simpleText.put("simpleText", text);
             outputs.add(output);
-//
             template.put("outputs", outputs);
-//
             resultMap.put("version","2.0");
             resultMap.put("template", template);
-
 
         } catch (Exception e) {
             throw new RuntimeException(e);
