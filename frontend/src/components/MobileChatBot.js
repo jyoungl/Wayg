@@ -1,4 +1,4 @@
-import styles from "./ChatBot.module.css";
+import styles from "./MobileChatBot.module.css";
 import {useState, useEffect} from "react";
 import woori from '../images/wayg.png'
 import woori2 from '../images/wayg2.png'
@@ -12,7 +12,11 @@ import CreateFeed from './CreateFeed'
 import { connect } from "react-redux";
 import { save } from "../index";
 
-function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSearch ,goLikeFeed, goPopular, goMyFeed, goScrapPlace}) {
+import { useNavigate } from 'react-router-dom';
+
+function MobileChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSearch ,goLikeFeed, goPopular, goMyFeed, goScrapPlace}) {
+  const navigate = useNavigate();
+  
   // 데이터전송 axios를 위한 useState()
   const [receives, setReceives] = useState([]);
   const [receive, setReceive] = useState('');
@@ -305,9 +309,14 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
 
       {menuBar ? 
       <ul className={styles.anotherFunction}>
-        <li className={styles.menu} onClick={() => {startNew(); clickMenuBar();}} ><span>&#x1F601;</span> 대화 새로 시작하기</li>
+        <li className={styles.menu} onClick={() => {startNew(); clickMenuBar();}} ><span>&#x1F601;</span> &nbsp;대화 새로 시작하기</li>
         {/* <li className={styles.menu} onClick={() => {goSearch(); clickMenuBar();}}><span>&#x1F50D;</span>검색 결과 보기</li> */}
-        <li className={styles.menu} onClick={() => {goPopular(); clickMenuBar();}}><span>&#x2728;</span>이번달 인기피드 보러가기</li>
+        <li className={styles.menu} onClick={() => navigate('/mobile', {popular: true}) }><span>&#x2728;</span> &nbsp;이번달 인기피드 보러가기</li>
+        {/* <li className={styles.menu} onClick={() => {goPopular(); clickMenuBar();}}><span>&#x2728;</span> &nbsp;이번달 인기피드 보러가기</li> */}
+        <li className={styles.menu} onClick={() => {goLikeFeed(); clickMenuBar();}}><span>&#x1F49B;</span> &nbsp;내가 좋아요 누른 피드 보러가기</li>
+        <li className={styles.menu} onClick={() => {goScrapPlace(); clickMenuBar();}}><span>&#x1F4CC;</span> &nbsp;내가 스크랩한 관광지 보러가기</li>
+        <li className={styles.menu} onClick={() => {goMyFeed(); clickMenuBar();}}><span>&#x1F4DA;</span> &nbsp;내가 올린 피드보기</li>
+        <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}><span>&#x1F4DD;</span> &nbsp;피드작성하기</li>
         {Boolean(counter.userNo) ?
         <>
         <li className={styles.menu} onClick={() => {goLikeFeed(); clickMenuBar();}}><span>&#x1F49B;</span>내가 좋아요 누른 피드 보러가기</li>
@@ -315,12 +324,12 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
         <li className={styles.menu} onClick={() => {goMyFeed(); clickMenuBar();}}><span>&#x1F4DA;</span>내가 올린 피드보기</li>
         <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}><span>&#x1F4DD;</span>피드작성하기</li>
         <li style={{color: "aliceblue"}}>빈값</li>
-        </> : <div><a style={{textDecoration:"none", color:"black"}} href={KAKAO_AUTH_URL}><li className={styles.menu}><span>&#x1F511;</span>더 많은 기능 사용하기</li></a><li style={{color: "aliceblue"}}>빈값</li></div>
+        </> : <div><a style={{textDecoration:"none", color:"black"}} href={KAKAO_AUTH_URL}><li className={styles.menu}><span>&#x1F511;</span> &nbsp;더 많은 기능 사용하기</li></a><li style={{color: "aliceblue"}}>빈값</li></div>
         
       }
       </ul>: null}
 
-      <div style={{padding: '5px'}}>
+      <div className={styles.chatbot_main}>
         {chat.map((chat,idx) => (
           <div key={idx}>
             { chat[0] === "woori" ? 
@@ -346,11 +355,12 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
                     <div className={styles.chat_text}>{place.placename}</div>
                   </div>
                 ))}
+                  <div className={styles.chat_more}>더보기</div>
                 </div>
               </div>
               <div className={styles.chat_share}>
-                <div className={styles.chat_shareBtn}>
-                  <FontAwesomeIcon onClick={share} icon={faArrowUpFromBracket} />
+                <div className={styles.chat_shareBtn} onClick={share}>
+                  <FontAwesomeIcon icon={faArrowUpFromBracket} />
                 </div>
               </div>
             </div> 
@@ -363,22 +373,22 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
             : null }
           </div>
         ))}
+
+        {/* 로딩 중 */}
+        { loading ? 
+        <div className={styles.message_woori}>
+          <img className={styles.chatbot_wayg} src={woori} alt="character" />
+          <div className={styles.dot}>Loading...</div>
+        </div>  
+        : null }
+
       </div>
 
-      {/* 로딩 중 */}
-      { loading ? 
-      <div className={styles.message_woori}>
-        <img className={styles.chatbot_wayg} src={woori} alt="character" />
-        <div className={styles.dot}>Loading...</div>
-      </div>  
-      : null }
-
-
       <div className={styles.reply}> 
-        <FontAwesomeIcon style={{cursor: 'pointer'}} className='fa-2xl' onClick={clickMenuBar} icon={faBars} />
+        <FontAwesomeIcon style={{padding: '2px', cursor: 'pointer'}} className='fa-2xl' onClick={clickMenuBar} icon={faBars} />
         <form onSubmit={onSubmit}>
-          <input id="chatInput" className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
-          <button className={styles.chatBtn} onClick={() => {goSearch(); clickMenuBar(); closeMenuBar();}}>보내기</button>
+            <input id="chatInput" className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
+            <button className={styles.chatBtn} onClick={() => {goSearch(); clickMenuBar(); closeMenuBar();}}>보내기</button>
         </form>
       </div>
       
@@ -400,4 +410,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ChatBot);
+)(MobileChatBot);
