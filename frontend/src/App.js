@@ -12,6 +12,7 @@ import KakaoRedirectHandler from "./routes/KakaoRedirectHandler";
 import GuestLogin from "./routes/GuestLogin";
 import RecommendationShare from "./components/RecommendationShare"
 import FeedShare from "./components/FeedShare"
+import RecommendationNameShare from "./components/RecommendationNameShare"
 import { connect } from "react-redux";
 import { save } from ".";
 
@@ -26,6 +27,7 @@ function App({counter, save}) {
       <Route path="/guestLogin" element={<GuestLogin />} />
       <Route path="/main/detail/RecommendationShare/:placeNum/0" element={<RecommendationShare />} />
       <Route path="/main/detail/FeedShare/:feedNum/0" element={<FeedShare />}/>
+      <Route path="/main/detail/RecommendationNameShare/:placeName/0" element={<RecommendationNameShare />} />
     </Routes>
   </Router>
   );
