@@ -220,8 +220,8 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	public List<Map<String, Object>> wordCloud(String placeName) {
-		List<Map<String,Object>> result = placewordRepository.findWordCountFindByplacewordName(placeName);
+	public List<List<Object>> wordCloud(String placeName) {
+		List<List<Object>> result = placewordRepository.findWordCountFindByplacewordName(placeName);
 		return result;
 	}
 }

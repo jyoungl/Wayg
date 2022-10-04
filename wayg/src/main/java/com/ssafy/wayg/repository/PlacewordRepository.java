@@ -15,5 +15,5 @@ public interface PlacewordRepository extends JpaRepository<Placeword, Integer> {
     List<Placeword> findByplacewordWord(String placewordWord);
 
     @Query(value = "select placeword_word as text, placeword_count as `value` from placeword where placeword_name = ?1 order by placeword_count desc limit 100", nativeQuery = true)
-    List<Map<String,Object>> findWordCountFindByplacewordName(String placeName);
+    List<List<Object>> findWordCountFindByplacewordName(String placeName);
 }
