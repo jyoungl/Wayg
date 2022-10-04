@@ -104,22 +104,18 @@ public class ChatController {
             for(Map.Entry<String, Integer> entry : split.entrySet())
                 send.add(entry.getKey());
 
-            Map<String, Double> place = new HashMap<>(); // 관광지와 tfidf 값 넣어줄 map
+            Map<String, Integer> place = new HashMap<>();
             try {
-                long total = chatService.totalSize(); //전체 문서 수
 
                 for(int i=0;i<send.size();i++){
-                    //각 단어의 idf 구하기 * 관광지 tf
-                    List<PlacewordDto> placewordDtos = chatService.oneSize(send.get(i));
-                    double idf = chatService.placeword(send.get(i), total);
+                    List<PlacewordDto> placewordDtos = chatService.search(send.get(i));
                     for(int j=0;j<placewordDtos.size();j++){
-                        place.put(placewordDtos.get(j).getPlacewordName(), idf * placewordDtos.get(j).getPlacewordCount());
+                        place.put(placewordDtos.get(j).getPlacewordName(), placewordDtos.get(j).getPlacewordCount());
                     }
-                    //place.put(placeDto.getPlaceAddress(), chatService.placeword(send.get(i), total) * (double)placeDto.getPlaceScrap());
                 }
 
             } catch (Exception e) {
-                logger.debug("tfidf 계산쪽");
+                logger.debug("118줄 단어 search 쿼리 오류");
                 logger.debug(e.getMessage());
             }
 
@@ -140,12 +136,12 @@ public class ChatController {
 
 
             //place 맵 value값 따라 정렬
-            List<Map.Entry<String,Double>> entries = new ArrayList<>(place.entrySet());
+            List<Map.Entry<String,Integer>> entries = new ArrayList<>(place.entrySet());
             entries.sort(Map.Entry.comparingByValue(Collections.reverseOrder()));
-            Map<String, Double> res = new LinkedHashMap<>(); // 정렬된 map
+            Map<String, Integer> res = new LinkedHashMap<>(); // 정렬된 map
             int i = 0;
 
-            for(Map.Entry<String, Double> e : entries) {
+            for(Map.Entry<String, Integer> e : entries) {
                 if(i++<3) {
                     res.put(e.getKey(), e.getValue());
                     //e.getKey() 가지고 title 넣고 url 만들어야함
