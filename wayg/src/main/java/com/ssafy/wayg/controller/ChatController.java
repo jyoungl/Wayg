@@ -92,25 +92,21 @@ public class ChatController {
         try{
             ObjectMapper mapper = new ObjectMapper();
             String jsonInString = mapper.writeValueAsString(params);
-            System.out.println(jsonInString);
+//            System.out.println(jsonInString);
 
             HashMap<String, Object> userRequest = (HashMap<String, Object>)params.get("userRequest");
             String utter = userRequest.get("utterance").toString().replace("\n",    " ");
 
             Map<String,Integer> split = analyzer.pickMorpheme(utter); // 형태소 분리한 결과 넣은 map
-            List<String> send = new ArrayList<>();
-
-            //형태소 분리한 단어들을 list에 넣어줌
-            for(Map.Entry<String, Integer> entry : split.entrySet())
-                send.add(entry.getKey());
+            List<String> send = new ArrayList<>(split.keySet());       //형태소 분리한 단어들을 list에 넣어줌
 
             Map<String, Integer> place = new HashMap<>();
             try {
 
-                for(int i=0;i<send.size();i++){
-                    List<PlacewordDto> placewordDtos = chatService.search(send.get(i));
-                    for(int j=0;j<placewordDtos.size();j++){
-                        place.put(placewordDtos.get(j).getPlacewordName(), placewordDtos.get(j).getPlacewordCount());
+                for (String morph : send) {
+                    List<PlacewordDto> placewordDtos = chatService.search(morph);
+                    for (PlacewordDto placewordDto : placewordDtos) {
+                        place.put(placewordDto.getPlacewordName(), placewordDto.getPlacewordCount());
                     }
                 }
 
