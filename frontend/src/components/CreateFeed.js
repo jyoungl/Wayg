@@ -35,9 +35,9 @@ function CreateFeed({counter}) {
   const uploadImage = async () => {
     const data = new FormData()
     data.append('file', image)
-    data.append('upload_preset','rkh4a8n0')
-    data.append('cloud_name', 'dcd6ufnba')
-    await fetch("https://api.cloudinary.com/v1_1/dcd6ufnba/image/upload", {
+    data.append('upload_preset','gk6lmuxc')
+    data.append('cloud_name', 'da8po50b1')
+    await fetch("https://api.cloudinary.com/v1_1/da8po50b1/image/upload", {
       method:"post",
       body:data
     })

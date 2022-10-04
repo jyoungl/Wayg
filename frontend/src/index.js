@@ -25,7 +25,6 @@ const init = () => ({
 const counterReducer = (state = init(), action) => {
     switch (action.type) {
         case SAVE: {
-            console.log(action)
             return {
                 ...state,
                 counter: {

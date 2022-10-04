@@ -17,6 +17,18 @@ function Result({placeName}) {
     useEffect(()=>{
         const placeImg = makeImgSrc(placeName);
         setPlaceImg(placeImg);
+        const fetchInfo = async () => {
+          try {
+            const response = await axios.post(
+              process.env.REACT_APP_HOST+`place/search`, {"placeName":placeName}
+            )
+            console.log(response)
+          } catch (e) {
+            console.log(e)
+          }
+        }
+        fetchInfo()
+
         //콘솔 없애기용
         // urlExistCheck(placeImg);
     },[])
@@ -30,8 +42,8 @@ function Result({placeName}) {
         imageUrl:
           'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
         link: {
-          mobileWebUrl: 'https://j7c202.p.ssafy.io',
-          webUrl: 'https://j7c202.p.ssafy.io',
+          mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+          webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
         },
       },
       itemContent: {
@@ -45,8 +57,10 @@ function Result({placeName}) {
         {
           title: '웹으로 이동',
           link: {
-            mobileWebUrl: 'https://j7c202.p.ssafy.io',
-            webUrl: 'https://j7c202.p.ssafy.io',
+            // mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+            // webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+            mobileWebUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
+            webUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
           },
         },
       ],
@@ -102,7 +116,7 @@ function Result({placeName}) {
         <div className={styles.recommendation}>
             <div>
                 <img className={styles.recommendation_img} src={placeImg} onError={({ currentTarget }) => {
-                currentTarget.onerror = null; 
+                currentTarget.onerror = ''; 
                 currentTarget.src='./noPhoto.png';
                 }}/>
                 <div className={styles.recommendation_description}>

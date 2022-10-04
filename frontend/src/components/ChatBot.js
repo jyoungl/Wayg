@@ -289,7 +289,7 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
         <li className={styles.menu} onClick={() => {goMyFeed(); clickMenuBar();}}>내가 올린 피드보기</li>
         <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}>피드작성하기</li>
         <li style={{color: "aliceblue"}}>빈값</li>
-        </> : <div><a style={{textDecoration:"none", color:"black"}} href={KAKAO_AUTH_URL}><li className={styles.menu}>더 많은 기능 사용하기</li></a><li style={{color: "aliceblue"}}>빈값</li></div>
+        </> : <div><a style={{textDecoration:"none", color:"black"}} href={KAKAO_AUTH_URL}><li className={styles.menu}>더 많은 기능 사용하기</li></a><li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}>피드작성하기</li><li style={{color: "aliceblue"}}>빈값</li></div>
         
       }
       </ul>: null}
