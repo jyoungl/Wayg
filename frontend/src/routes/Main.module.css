@@ -11,6 +11,11 @@
     /* position: fixed; */
 }
 
+.Mobile_ChatBot {
+    font-family: 'Jalnan';
+    width: 100vw;
+}
+
 .right {
     padding: 5%;
 }
