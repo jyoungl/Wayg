@@ -1,14 +1,17 @@
 package com.ssafy.wayg.service;
 
-import com.ssafy.wayg.dto.PlaceDto;
 import com.ssafy.wayg.dto.PlacewordDto;
-import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.entity.Placeword;
 import com.ssafy.wayg.repository.PlaceRepository;
 import com.ssafy.wayg.repository.PlacewordRepository;
 import com.ssafy.wayg.util.DEConverter;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -52,17 +55,34 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public PlaceDto searchName(String name){
-        Place place = placeRepository.findByPlaceName(name);
-        return converter.toPlaceDto(place);
-    }
-
-    @Override
     public List<String> findPlaces(List<String> nouns){
         Set<String> nounSet = new HashSet<>();
         for(String noun : nouns){
             nounSet.addAll(placeRepository.findByPlaceAddressContains(noun));
         }
         return new ArrayList<>(nounSet);
+    }
+
+    @Override
+    public String setUrl(String title) throws IOException {
+        StringBuilder new_name = new StringBuilder();
+        new_name.append("https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/");
+        for(int j = 0; j<title.length(); j++) {
+            char c = title.charAt(j);
+            if(j == 0 && c == '(') continue;
+            if(c == ' ' || c =='(' || c == ')') new_name.append('_');
+            else new_name.append(c);
+        }
+
+        new_name.append("_1.jpg");
+
+//        URL url_check = new URL(new_name.toString());
+//        URLConnection con = url_check.openConnection();
+//        HttpURLConnection exitCode = (HttpURLConnection)con;
+//        if(exitCode.getResponseCode() == 404) {
+//            return "https://j7c202.p.ssafy.io/noPhoto.png";//우리 url
+//        }
+
+        return new_name.toString();
     }
 }

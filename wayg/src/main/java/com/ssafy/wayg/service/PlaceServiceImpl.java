@@ -5,6 +5,7 @@ import com.ssafy.wayg.dto.PlacescrapDto;
 import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.repository.PlaceRepository;
 import com.ssafy.wayg.repository.PlacescrapRepository;
+import com.ssafy.wayg.repository.PlacewordRepository;
 import com.ssafy.wayg.repository.UserRepository;
 import com.ssafy.wayg.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PlaceServiceImpl implements PlaceService {
 
 	private PlaceRepository placeRepository;
 	private PlacescrapRepository scrapRepository;
+	private PlacewordRepository placewordRepository;
 	private UserRepository userRepository;
 	private DEConverter converter;
 
@@ -30,9 +34,12 @@ public class PlaceServiceImpl implements PlaceService {
 	private final char[] jamoArr = {'ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'};
 
 	@Autowired
-	public PlaceServiceImpl(PlaceRepository placeRepository, PlacescrapRepository scrapRepository, UserRepository userRepository, DEConverter converter) {
+	public PlaceServiceImpl(PlaceRepository placeRepository, PlacescrapRepository scrapRepository,
+							UserRepository userRepository, PlacewordRepository placewordRepository,
+							DEConverter converter) {
 		this.placeRepository = placeRepository;
 		this.scrapRepository = scrapRepository;
+		this.placewordRepository = placewordRepository;
 		this.userRepository = userRepository;
 		this.converter = converter;
 	}
@@ -52,7 +59,7 @@ public class PlaceServiceImpl implements PlaceService {
 				if(c == ' ' || c =='(' || c == ')') new_name += '_';
 				else new_name += c;
 			}
-			String url = "https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/" + new_name + "_1.jpg";
+			String url = "https://res.cloudinary.com/da8po50b1/image/upload/v1664854566/place/" + new_name + "_1.jpg";
 
 			URL url_check = new URL(url);
 			URLConnection con = url_check.openConnection();
@@ -81,7 +88,7 @@ public class PlaceServiceImpl implements PlaceService {
 			if(c == ' ' || c =='(' || c == ')') new_name += '_';
 			else new_name += c;
 		}
-		String url = "https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/" + new_name + "_1.jpg";
+		String url = "https://res.cloudinary.com/da8po50b1/image/upload/v1664854566/place/" + new_name + "_1.jpg";
 
 		URL url_check = new URL(url);
 		URLConnection con = url_check.openConnection();
@@ -141,7 +148,7 @@ public class PlaceServiceImpl implements PlaceService {
 				if(c == ' ' || c =='(' || c == ')') new_name += '_';
 				else new_name += c;
 			}
-			String url = "https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/" + new_name + "_1.jpg";
+			String url = "https://res.cloudinary.com/da8po50b1/image/upload/v1664854566/place/" + new_name + "_1.jpg";
 
 			URL url_check = new URL(url);
 			URLConnection con = url_check.openConnection();
@@ -181,4 +188,40 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeRepository.searchByPlaceName(keyword,endKeyword);
 	}
 
+	@Override
+	public PlaceDto searchName(int userNo, String name) throws Exception{
+		PlaceDto placeDto = converter.toPlaceDto(placeRepository.findByPlaceName(name));
+
+		placeDto.setPlaceScrapYn(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeDto.getPlaceNo()) != null);
+
+		String new_name = "";
+		for(int j = 0; j<name.length(); j++) {
+			char c = name.charAt(j);
+			if(j == 0 && c == '(') continue;
+			if(c == ' ' || c =='(' || c == ')') new_name += '_';
+			else new_name += c;
+		}
+		String url = "https://res.cloudinary.com/da8po50b1/image/upload/v1664293859/place/" + new_name + "_1.jpg";
+
+		URL url_check = new URL(url);
+		URLConnection con = url_check.openConnection();
+		HttpURLConnection exitCode = (HttpURLConnection)con;
+		if(exitCode.getResponseCode() == 404) {
+			url = "";
+		}
+
+		placeDto.setPlaceFile(url);
+
+		return placeDto;
+	}
+
+	public PlaceDto searchName(String name) throws Exception{
+		return converter.toPlaceDto(placeRepository.findByPlaceName(name));
+	}
+
+	@Override
+	public List<Map<String, Object>> wordCloud(String placeName) {
+		List<Map<String,Object>> result = placewordRepository.findWordCountFindByplacewordName(placeName);
+		return result;
+	}
 }
