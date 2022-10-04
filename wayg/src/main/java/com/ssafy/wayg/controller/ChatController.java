@@ -155,7 +155,7 @@ public class ChatController {
             HashMap<String,Object> output = new HashMap<>();
 
             //만약 답없으면(items길이찾기) simpleText
-            if(items.size() == 0) {
+            if(items.size() < 3) {
                 HashMap<String, Object> simpleText = new HashMap<>();
                 switch((int)(Math.random()*100)%3){
                     case 0:

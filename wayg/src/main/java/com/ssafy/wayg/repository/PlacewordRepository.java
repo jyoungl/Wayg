@@ -13,6 +13,6 @@ import java.util.List;
 public interface PlacewordRepository extends JpaRepository<Placeword, Integer> {
     Long countByplacewordWord(String placewordWord);
     List<Placeword> findByplacewordWord(String placewordWord);
-    @Query(nativeQuery = true, value = "SELECT * FROM Placeword as p WHERE p.placeword_word IN (:words) ORDER BY p.placeword_count DESC LIMIT 3")
+    @Query(nativeQuery = true, value = "SELECT * FROM placeword as p WHERE p.placeword_word IN (:words) ORDER BY p.placeword_count DESC LIMIT 3")
     List<Placeword> findTop3ByplacewordWordInOrderByplacewordCountDesc(@Param("words") List<String> placewordWords);
 }
