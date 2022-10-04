@@ -19,4 +19,5 @@ public class FeedwordDto implements Serializable {
     private String feedwordWord;
     private Integer feedwordCount;
     private Integer feedNo;
+    private String feedwordName;
 }
