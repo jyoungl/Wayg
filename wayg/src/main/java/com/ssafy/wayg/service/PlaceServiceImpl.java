@@ -81,7 +81,7 @@ public class PlaceServiceImpl implements PlaceService {
 			if(c == ' ' || c =='(' || c == ')') new_name += '_';
 			else new_name += c;
 		}
-		String url = "https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/" + new_name + "_1.jpg";
+		String url = "https://res.cloudinary.com/da8po50b1/image/upload/v1664854566/place/" + new_name + "_1.jpg";
 
 		URL url_check = new URL(url);
 		URLConnection con = url_check.openConnection();
