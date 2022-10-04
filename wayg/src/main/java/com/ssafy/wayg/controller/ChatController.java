@@ -2,6 +2,7 @@ package com.ssafy.wayg.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.wayg.dto.PlacewordDto;
+import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.service.ChatService;
 import com.ssafy.wayg.service.PlaceService;
 import com.ssafy.wayg.util.MorphemeAnalyzer;
@@ -103,11 +104,9 @@ public class ChatController {
             Map<String, Integer> place = new HashMap<>();
             try {
 
-                for (String morph : send) {
-                    List<PlacewordDto> placewordDtos = chatService.search(morph);
-                    for (PlacewordDto placewordDto : placewordDtos) {
-                        place.put(placewordDto.getPlacewordName(), placewordDto.getPlacewordCount());
-                    }
+                List<PlacewordDto> placewordDtos = chatService.search(send);
+                for(PlacewordDto placewordDto : placewordDtos){
+                    place.put(placewordDto.getPlacewordName(), placewordDto.getPlacewordCount());
                 }
 
             } catch (Exception e) {

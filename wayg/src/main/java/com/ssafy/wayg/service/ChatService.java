@@ -17,5 +17,5 @@ public interface ChatService {
 
 	String setUrl(String title) throws IOException;
 
-    List<PlacewordDto> search(String word);
+    List<PlacewordDto> search(List<String> word);
 }

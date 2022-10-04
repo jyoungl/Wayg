@@ -83,8 +83,9 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<PlacewordDto> search(String word){
-        List<Placeword> placewords = placewordRepository.findTop3ByplacewordWordOrderByplacewordCountDesc(word);
+    public List<PlacewordDto> search(List<String> word){
+        List<Placeword> placewords = placewordRepository.findTop3ByplacewordWordInOrderByplacewordCountDesc(word);
         return converter.toPlacewordDto(placewords);
     }
+
 }
