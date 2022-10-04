@@ -14,11 +14,11 @@ import sunguri from '../images/sunguri.png'
 function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   
 
-  // const [items, setItems] = useState([])
-  // const [page,setPage] = useState(null)
-  // const [length,setLength] = useState(null)
-  // const [divide,setDivide] = useState(null)
-  // const [newArray2, setNewArray] = useState([])
+  const [items, setItems] = useState([])
+  const [page,setPage] = useState(null)
+  const [length,setLength] = useState(null)
+  const [divide,setDivide] = useState(null)
+  const [newArray2, setNewArray] = useState([])
     // 무한 스크롤
   
 
@@ -41,7 +41,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
 
   return (
     <div className="">
-      {/* {myFeed ? 
+      {myFeed ? 
         <>
           <h2>내가 작성한 피드</h2>
           <div className={styles.shows_list}>
@@ -67,7 +67,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
               <Recommendation {...item} key={idx}/>
             ))}
           </div>
-        </> : null} */}
+        </> : null}
       {search ? 
       <>
         <div className={styles.search_title}>
