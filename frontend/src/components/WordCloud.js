@@ -33,6 +33,8 @@ function WordCloud({placeName}) {
   }
 
   useEffect(()=>{
+    makeCloud();
+    
     Wordcloud(canvasRef.current, {
       // list: words,
       list: clouds,
