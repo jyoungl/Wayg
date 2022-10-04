@@ -102,7 +102,7 @@ function CreateFeed({counter}) {
     <>
     <main className="container">
       <Card style={{width:"100%", height:"100%"}} className={styles.Card}>
-          <input id= "imgFile" type="file" style={{display: "none"}} onChange={async (e) => {await encodeFileToBase64(e.target.files[0]); await setImage(e.target.files[0]); await setChange(true)}} />
+          <input id= "imgFile" type="file" style={{display: "none"}} onChange={async (e) => {await encodeFileToBase64(e.target.files[0]); await setImage(e.target.files[0]); await setChange(true)}} required/>
           {change ? <label className={styles.labelPlace}>내 피드에 올라갈 사진</label> : <label className={styles.picture} htmlFor="imgFile">사진을 선택해 주세요</label>}
           {/* <label className={styles.picture} htmlFor="imgFile">사진을 선택해 주세요</label> */}
         <div style={{width:"100%", height:"100%"}} className={styles.selectLabel}>
@@ -117,15 +117,15 @@ function CreateFeed({counter}) {
       <form  onSubmit={onSubmit}>
 
         <Card.Title>
-            <input className={styles.Title} onChange={onChangeTitle} value={feedTitle} type="text" placeholder="제목을 작성하세요" style={{width:"100%", height:"100%"}}/>
+            <input className={styles.Title} onChange={onChangeTitle} value={feedTitle} type="text" placeholder="제목을 작성하세요" style={{width:"100%", height:"100%"}} required/>
             
-            <input className={styles.Title} onChange={onChangePlaceName} value={feedPlaceName} type="text" placeholder="여행지를 작성하세요" style={{width:"100%", height:"100%"}}/>
+            <input className={styles.Title} onChange={onChangePlaceName} value={feedPlaceName} type="text" placeholder="여행지를 작성하세요" style={{width:"100%", height:"100%"}} required/>
             {/* <ul className={styles.autoComplete}>
             {words ? words.map((word, index) => (<div onClick={async (word) => {await setFeedTitle(word.target.innerText); console.log(word); console.log(feedTitle) }} className={styles.autoComplete_li} key={index}>{word}</div>)) : null}
             </ul> */}
 
             { words ? <ul className={styles.autoComplete}>
-             {words.map((word, index) => (<div onClick={async (word) => {await setFeedPlaceName(word.target.innerText); }} className={styles.autoComplete_li} key={index}>{word}</div>))}
+             {words.map((word, index) => (<div onClick={async (word) => {await setFeedPlaceName(word.target.innerText); await  setWords('null')}} className={styles.autoComplete_li} key={index}>{word}</div>))}
             </ul>:null}
 
 
@@ -133,11 +133,11 @@ function CreateFeed({counter}) {
         </Card.Title>
         <Card.Text className={styles.text}>
             {/* <input className={styles.Content} onChange={onChangeContent} type="text" placeholder="내용을 작성하세요" style={{width:"100%", height:"100%"}}/> */}
-            <textarea className={styles.Content} onChange={onChangeContent} type="text" placeholder="내용을 작성하세요" style={{width:"100%", height:"100%"}} cols="30" rows="10"></textarea>
+            <textarea className={styles.Content} onChange={onChangeContent} type="text" placeholder="내용을 작성하세요" style={{width:"100%", height:"100%"}} cols="30" rows="10" required></textarea>
             <br/>
-            <input className={styles.Nickname} onChange={onChangeNickname} type="text" placeholder="기제할 닉네임을 작성하세요" style={{width:"100%", height:"100%"}} maxLength="8"/>
+            <input className={styles.Nickname} onChange={onChangeNickname} type="text" placeholder="기제할 닉네임을 작성하세요" style={{width:"100%", height:"100%"}} maxLength="8" required/>
         </Card.Text>
-          <button className={styles.feed_btn}>피드박제</button>
+          <button className={styles.feed_btn}>게시물 생성</button>
 
       </form>
       </Card.Body>

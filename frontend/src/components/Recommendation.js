@@ -130,10 +130,9 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
   const onClickRecommendation = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_HOST+`place/view?userNo=1&placeNo=${placeNo}`
+        process.env.REACT_APP_HOST+`place/view?userNo=${counter.userNo}&placeNo=${placeNo}`
         
       )
-      await console.log(response.data.place)
       var placeInfo = await response.data.place.placeInfo
       var res = await placeInfo.replace(/<br\s*[\/]?>/gi, " ")
       

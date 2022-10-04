@@ -43,9 +43,6 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
 
   return (
     <div className="">
-
-      {/* <WordCloud></WordCloud> */}
-
       {myFeed ? 
         <>
           <h2>내가 작성한 피드</h2>
