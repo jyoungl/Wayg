@@ -19,7 +19,7 @@ export const save = (token, userNo, results) => {
 };
 
 const init = () => ({
-    counter: {token: "", userNo: 268, results: [] }
+    counter: {token: "", userNo: 0, results: [] }
   });
 
 const counterReducer = (state = init(), action) => {

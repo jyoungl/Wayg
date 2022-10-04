@@ -8,7 +8,9 @@ import LikeShows from "../components/LikeShows";
 import Loading from "../components/Loading";
 import styles from "./Main.module.css";
 import { connect } from "react-redux";
-
+// 모바일 뷰
+import {BrowserView, MobileView} from 'react-device-detect'; 
+import MobileChatBot from '../components/MobileChatBot';
 
 function Main({counter}) {
 
@@ -106,46 +108,54 @@ function Main({counter}) {
 }
 
   return (
+    <>
+      <BrowserView>
+        <div className={styles.main}>
+          <div className={styles.ChatBot}>
+            <ChatBot changeLoad={changeLoad} load={load} addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
+          </div>
+          <div className={styles.right}>
+          <div className={styles.detail}>
+            {search ?
+            <div>
+              <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+            </div> 
+            : null }
 
-    <div className={styles.main}>
-      <div className={styles.ChatBot}>
-        <ChatBot changeLoad={changeLoad} load={load} addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
-      </div>
-      <div className={styles.right}>
-      <div className={styles.detail}>
-        {search ?
-        <div>
-          <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
-        </div> 
-        : null }
+            {popular ? 
+              // <Loading />
+            <div className={styles.popular}>
+              <br />
+              <Feeds/>
+              <br />
+              <Recommendations/>
+            </div>
+              : null}
 
-        {popular ? 
-          // <Loading />
-        <div className={styles.popular}>
-          <br />
-          <Feeds/>
-          <br />
-          <Recommendations/>
+            {/* {addFeed ?  <CreateFeed/>: null } */}
+            {likeFeed ? 
+            <div>
+              <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+            </div> : null}
+            {myFeed ?
+            <div><Shows load={load} search={search} crapPlace={scrapPlace} myFeed={myFeed} likeFeed={likeFeed} />
+            </div> : null 
+            }
+            {scrapPlace ? 
+            <div>
+              <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+            </div> : null}
+            </div>
+          </div>
+
         </div>
-           : null}
-
-        {/* {addFeed ?  <CreateFeed/>: null } */}
-        {likeFeed ? 
-        <div>
-          <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
-        </div> : null}
-        {myFeed ?
-        <div><Shows load={load} search={search} crapPlace={scrapPlace} myFeed={myFeed} likeFeed={likeFeed} />
-        </div> : null 
-        }
-        {scrapPlace ? 
-        <div>
-          <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
-        </div> : null}
+      </BrowserView>
+      <MobileView>
+        <div className={styles.Mobile_ChatBot}>
+          <MobileChatBot changeLoad={changeLoad} load={load} addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}></MobileChatBot>
         </div>
-      </div>
-
-    </div>
+      </MobileView>
+    </>
   );
 }
 
