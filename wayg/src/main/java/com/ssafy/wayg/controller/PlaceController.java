@@ -127,13 +127,14 @@ public class PlaceController {
 	@ApiOperation(value = "관광지 목록 검색", notes = "이름에 맞는 관광지를 반환한다.", response = Map.class)
 	@PostMapping("/search")
 	public ResponseEntity<Map<String, Object>> searchName(@RequestBody Map<String, String> params){
+		int userNo = Integer.parseInt(params.get("userNo"));
 		String name = params.get("placeName");
 
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus httpStatus = HttpStatus.ACCEPTED;
 
 		try{
-			PlaceDto placeDto = placeService.searchName(name);
+			PlaceDto placeDto = placeService.searchName(userNo, name);
 			resultMap.put("message", SUCCESS);
 			resultMap.put("place", placeDto);
 			httpStatus = HttpStatus.OK;
