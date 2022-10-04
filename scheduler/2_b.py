@@ -10,9 +10,9 @@ forders = os.listdir('data')
 df_all = pd.DataFrame()
 for i in range(0,len(forders)):
     if forders[i].split('.')[1] == 'csv':
-        file = 'data/'+forders[i]
+        file = '/home/ubuntu/scheduler/data/'+forders[i]
         df= pd.read_csv(file,encoding='utf-8') 
         df_all = pd.concat([df_all, df])
         
 df_all
-df_all.to_csv("total.csv", index=False) 
+df_all.to_csv("/home/ubuntu/scheduler/pre/total.csv", index=False) 

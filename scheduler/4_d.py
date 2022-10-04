@@ -3,7 +3,7 @@
 import pandas as pd
 # 250000 으로 자름
 # df = pd.read_csv('eunji_001 - 복사본.csv', sep=',', encoding='utf-8')
-df = pd.read_csv('total2.csv', sep=',', encoding='utf-8')
+df = pd.read_csv('/home/ubuntu/scheduler/pre/total2.csv', sep=',', encoding='utf-8')
 
 # df
 # df = df.astype({'place_no':'int'})
@@ -46,4 +46,4 @@ df.head()
 
 
 # df.tail(10)
-df.to_csv('total3.csv', sep=',',index=False)
+df.to_csv('/home/ubuntu/scheduler/pre/total3.csv', sep=',',index=False)

@@ -1,7 +1,7 @@
 # 데이터 전처리
 import pandas as pd
 
-df = pd.read_csv('total.csv', sep=',', encoding='utf-8')
+df = pd.read_csv('/home/ubuntu/scheduler/pre/total.csv', sep=',', encoding='utf-8')
 
 df = df.replace(',', ' ', regex=True)
 # df = df.replace('.', ' ', regex=True)
@@ -21,4 +21,4 @@ df = df.drop('링크', axis=1)
 
 # df
 # df.tail(10)
-df.to_csv('total2.csv', sep=',',index=False)
+df.to_csv('/home/ubuntu/scheduler/pre/total2.csv', sep=',',index=False)

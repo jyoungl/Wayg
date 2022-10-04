@@ -23,7 +23,7 @@ def travel(word) :
 
 
     quote = word  #검색어
-    display_num = "1"     #최대갯수
+    display_num = "4"     #최대갯수
 
     encText = urllib.parse.quote(quote)
     url = "https://openapi.naver.com/v1/search/blog?query=" + encText +"&display=" + display_num  +"&sort=date" # json 결과
@@ -96,7 +96,10 @@ def travel(word) :
     # driver = webdriver.Chrome(ChromeDriverManager().install())
     # driver.implicitly_wait(3)
 
-    driver = webdriver.Chrome() 
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome('/usr/bin/chromedriver', chrome_options=options) 
     driver.implicitly_wait(3)
 
 
@@ -133,7 +136,7 @@ def travel(word) :
     df = pd.DataFrame({'관광지':quote, '제목':titles, '링크':blog_links,'내용':contents})
 
     #df 저장
-    df.to_csv('data/{}_블로그.csv'.format(quote),encoding='utf-8-sig',index=False)
+    df.to_csv('/home/ubuntu/scheduler/data/{}_블로그.csv'.format(quote),encoding='utf-8-sig',index=False)
     # print("<< 저장완료 >>")
 
     # print("time :", time.time() - start)
