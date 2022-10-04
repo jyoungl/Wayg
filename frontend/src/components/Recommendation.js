@@ -154,7 +154,8 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
         <div className={styles.headImg}>
         <img onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
-          currentTarget.src='./noPhoto.png';
+          // currentTarget.src='./noPhoto.png';
+          currentTarget.src=`https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png`;
         }}/>
         </div>
         <div className={styles.recommendation_description}>

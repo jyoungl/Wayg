@@ -147,7 +147,7 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
       <div className={styles.feed_div}>
         <img onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
-          currentTarget.src='./noPhoto.png';
+          currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png';
         }} alt='img' />
         <div className={styles.feed_description}>
           <div className={styles.feed_box}> 
