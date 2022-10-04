@@ -11,7 +11,7 @@ const GuestLogin = ({counter, save}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    save('', 0, [])
+    save('', 0, [], [])
     setTimeout(() => {
       window.location.href = '/main';
     }, 3000)
@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
   counter: state.counterReducer.counter
 });
 const mapDispatchToProps = dispatch => ({
-  save: (token, userNo, results) => dispatch(save(token, userNo, results))
+  save: (token, userNo, results, results2) => dispatch(save(token, userNo, results, results2))
 });
 export default connect(
   mapStateToProps,

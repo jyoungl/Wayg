@@ -45,6 +45,10 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
   const REDIRECT_URI = process.env.REACT_APP_HOST+ "login"
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   
+  const helloChat = ['안녕 내 이름은 우리라고 해!', '안녕 나는 우리야!', "안녕? 난 우리야 여행지를 추천해줄게!"];
+  const whereChat = ['어느곳으로 놀러가고 싶어?', '가고 싶은 지역이 있어?']
+  const questionChat = ["오늘은 어떤 여행을 하고 싶어? 우리에게 알려줘!", "원하는 여행지를 알려줄래?", '가고 싶은 곳이 있어? 우리한테 얘기해 봐! 들어줄 수도 있어', '원하는 테마가 있어? 말해봐', '오늘은 어디로 갈 거야? 말해주면 추천해줄 수도 있고 안해줄수도 있지 ㅇㅅㅇ'  ]
+  
   useEffect(() => {
     // console.log("penguin")
     // setGreeting((current) => !current)
@@ -54,11 +58,15 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
     save(counter.token, counter.userNo, [])
     
     setTimeout(() => {
-      setChat((currentArray) => [...currentArray, ['woori', "안녕? 난 우리야 여행지를 추천해줄게!"]]);
+      let randomNum = Math.floor(Math.random() * 3);
+      // console.log(randomNum)
+      setChat((currentArray) => [...currentArray, ['woori', helloChat[randomNum]]]);
     }, 500)
     
     setTimeout(() => {
-      setChat((currentArray) => [...currentArray, ['woori', "가고 싶은 지역이 있니?"]]);
+      let randomNum = Math.floor(Math.random() * 2);
+      // console.log(randomNum)
+      setChat((currentArray) => [...currentArray, ['woori', whereChat[randomNum]]]);
     }, 1500)
     
   },[])
@@ -96,7 +104,6 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
 
       const res = await axios.post(process.env.REACT_APP_HOST + `chat/place`,{
         str: send,
-        // placeList: placeList
       });
       console.log(res)
 
@@ -108,12 +115,14 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
         if (res.data.message === 'success') {
           // console.log(res.data.placeList)
           if (isEmptyArr(res.data.placeList)){
-            setChat((currentArray) => [...currentArray, ['woori', "휴.. 가고 싶은 지역이 있냐고?"]]);
+            setChat((currentArray) => [...currentArray, ['woori', "응? 미안 무슨 말인지 모르겠어 ㅠㅅㅠ.. \n 어디로 가고 싶다고?"]]);
           }
           else{
             setPlaceList(res.data.placeList)
             setIsPlace(false)
-            setChat((currentArray) => [...currentArray, ['woori', "원하는 여행지를 알려줘!"]]);
+            let randomNum = Math.floor(Math.random() * 5);
+            // console.log(randomNum);
+            setChat((currentArray) => [...currentArray, ['woori', questionChat[randomNum]]]);
           }
         }
       } else {
@@ -135,7 +144,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
         str:send,
         placeList:placeList
       })
-      console.log(resFeed)
+      console.log(resFeed.data)
 
       //검색 끝
       setLoading(false);
@@ -153,7 +162,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
           }
           console.log(res.data.content)
           if (isEmptyObj(res.data.content)){
-            setChat((currentArray) => [...currentArray, ['woori', '흠.. 다시 한 번 말해줄래?']]);
+            setChat((currentArray) => [...currentArray, ['woori', '다시 한 번 말해줄래?']]);
           }
           // 검색결과가 있는 경우
           else {
@@ -181,14 +190,14 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
               for (let feedResult in feed_results) {
                 // console.log(feedResult)
                 if(feed_results.hasOwnProperty(feedResult) && placeList.includes(feedResult)) {
-                  if (new_feed_results.hasOwnProperty(feedResults)){
+                  if (new_feed_results.hasOwnProperty(feedResult)){
                     new_feed_results[feedResult] += feed_results[feedResult]
                   }
                   else {
                     new_feed_results[feedResult] = feed_results[feedResult]
-                    await setFeedResults(new_feed_results)
-                    console.log(feedResults)
                   }
+                  await setFeedResults(new_feed_results)
+                  console.log(new_feed_results)
                 }
               }
             }
@@ -196,7 +205,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
             await console.log('합한 결과', results)
             await console.log('feed합한 결과', feedResults)
             let sorted_results = Object.keys(results).sort(function(a, b){return results[b]-results[a]});
-            let sorted_feed_results = Object.keys(feedResults).sort(function(a,b){return feedResults[b]-feedResults[a]})
+            let sorted_feed_results = Object.keys(feedResults).sort(function(a,b){return feedResults[b]-feedResults[a]});
             // await console.log(sorted_results)
             console.log(sorted_results)
             console.log(sorted_feed_results)
@@ -209,7 +218,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
                 {placename: sorted_results[1], img_src: makeImgSrc(sorted_results[1])}, 
                 {placename: sorted_results[2], img_src: makeImgSrc(sorted_results[2])} ]]]);
               // redux에 결과값 저장
-              save(counter.token, counter.userNo, sorted_results)
+              save(counter.token, counter.userNo, sorted_results, sorted_feed_results)
               // 카카오 공유할 3개 여행지 저장
               setShareList([{placename: sorted_results[0], img_src: makeImgSrc(sorted_results[0])}, 
               {placename: sorted_results[1], img_src: makeImgSrc(sorted_results[1])}, 
@@ -251,7 +260,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
     await setChat([]);
     await setPlaceList([]);
     await setIsPlace(true);
-    await save(counter.token, counter.userNo, []);
+    await save(counter.token, counter.userNo, [], []);
     await window.location.replace("/main")
 
     setTimeout(() => {
@@ -436,7 +445,7 @@ const mapStateToProps = state => ({
   counter: state.counterReducer.counter
 });
 const mapDispatchToProps = dispatch => ({
-  save: (token, userNo, results) => dispatch(save(token, userNo, results))
+  save: (token, userNo, results, results2) => dispatch(save(token, userNo, results, results2))
 });
 export default connect(
   mapStateToProps,

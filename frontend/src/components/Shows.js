@@ -135,6 +135,11 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
           <h2>검색 결과</h2>
         </div>
         <div className={styles.shows_list}>
+          {counter.results2.map((result2,idx) => (
+            <Result placeName={result2} key={idx} />
+          ))}
+        </div>
+        <div className={styles.shows_list}>
           {counter.results.map((result,idx) => (
             <Result placeName={result} key={idx} />
           ))}
@@ -142,11 +147,17 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
         { load ? 
         // 두리가 움직임ㅋㅋ
           <Doori/>
-          : <div className={styles.shows_list}>
+          : <>
+          <div className={styles.shows_list}>
+          {counter.results2.map((result2,idx) => (
+            <Result placeName={result2} key={idx} />
+          ))}
+          </div>
+          <div className={styles.shows_list}>
               {counter.results.map((result,idx) => (
                 <Result placeName={result} key={idx} />
               ))}
-            </div> }
+            </div></> }
         
       </> : null}
     </div>

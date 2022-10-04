@@ -20,7 +20,7 @@ const KakaoRedirectHandler = ({counter, save}) => {
     console.log(access_token)
     console.log(user_no)
 
-    save(access_token, user_no, [])
+    save(access_token, user_no, [], [])
 
     const param_token = searchParams.get('access_token')
     console.log(param_token)
@@ -86,7 +86,7 @@ const mapStateToProps = state => ({
   counter: state.counterReducer.counter
 });
 const mapDispatchToProps = dispatch => ({
-  save: (token, userNo, results) => dispatch(save(token, userNo, results))
+  save: (token, userNo, results, results2) => dispatch(save(token, userNo, results, results2))
 });
 export default connect(
   mapStateToProps,
