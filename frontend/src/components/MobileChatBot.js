@@ -317,7 +317,7 @@ function MobileChatBot({navigation, parentFunction, addFeed, load, changeLoad, c
         <li className={styles.menu} onClick={() => navigate('/mobile', {state:{like: true}}) }><span>&#x1F49B;</span> &nbsp;내가 좋아요 누른 피드 보러가기</li>
         <li className={styles.menu} onClick={() => navigate('/mobile', {state:{scrap: true}}) }><span>&#x1F4CC;</span> &nbsp;내가 스크랩한 관광지 보러가기</li>
         <li className={styles.menu} onClick={() => navigate('/mobile', {state:{my: true}}) }><span>&#x1F4DA;</span> &nbsp;내가 올린 피드보기</li>
-        <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}><span>&#x1F4DD;</span>피드작성하기</li>
+        <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}><span>&#x1F4DD;</span> &nbsp;피드작성하기</li>
         <li style={{color: "aliceblue"}}>빈값</li>
         </> : <div><a style={{textDecoration:"none", color:"black"}} href={KAKAO_AUTH_URL}><li className={styles.menu}><span>&#x1F511;</span> &nbsp;더 많은 기능 사용하기</li></a><li style={{color: "aliceblue"}}>빈값</li></div>
         
