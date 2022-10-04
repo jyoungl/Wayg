@@ -1,7 +1,7 @@
-import FeedShare from './FeedShare';
+// import FeedShare from './FeedShare';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import styles from './Feed.module.css';
+import styles from './MobileFeed.module.css';
 import { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
@@ -12,7 +12,7 @@ import Modal from 'react-bootstrap/Modal';
 
 import { connect } from "react-redux";
 
-function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFile, feedLike,feedLikeYn, feedPlacename}) {
+function MobileFeed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFile, feedLike,feedLikeYn}) {
   const [feed, setFeed] = useState({
     feedNo: {feedNo}.feedNo,
     feedTitle: {feedTitle}.feedTitle,
@@ -21,8 +21,7 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
     userNo: {userNo}.userNo, 
     feedFile: {feedFile}.feedFile === null ? './noPhoto.png' : {feedFile}.feedFile , 
     feedLike: {feedLike}.feedLike, 
-    feedLikeYn: { feedLikeYn }.feedLikeYn,
-    feedPlacename: {feedPlacename}.feedPlacename,
+    feedLikeYn: {feedLikeYn}.feedLikeYn,
   })
   const [detailContent,setDetailContent] = useState('')
   const [handle, setHandle] = useState(false);
@@ -147,7 +146,7 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
       <div className={styles.feed_div}>
         <img onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
-          currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png';
+          currentTarget.src='./noPhoto.png';
         }} alt='img' />
         <div className={styles.feed_description}>
           <div className={styles.feed_box}> 
@@ -169,33 +168,28 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
     </div>
     {/* 모달 */}
     <Modal className={styles.modal} size="md" show={handle} onHide={handleClose}>
-      <Card className={styles.card}>
-        <Card.Header style={{height:"75%", width:"100%", paddingBottom: "0px",
-      paddingRight: "0px",
-      paddingLeft: "0px",
-      paddingTop: "0px"}} as="h5">
-          <img className={styles.cardImg} src={feed.feedFile} alt='img' />
-        </Card.Header>
-        <Card.Body>
-          {feed.feedLikeYn ? 
-            <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
-          : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />}
-          &nbsp;<span style={{ fontSize: "0.9rem", fontWeight: "bold" }}>{feed.feedLike}</span>&nbsp;
-              <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
-              <Card.Text>
-              {/* <div style={{ fontSize: "0.5rem"}}>&nbsp;&nbsp;</div> */}
-                <div className={styles.feed_detail}>
-                <span style={{ fontSize: "0.9rem", fontWeight: "bold" }}>{feedTitle}</span>
-                  <span style={{ fontSize: "0.9rem", fontWeight: "bold" }}>@{feedNickname}</span>
-                  </div>
-                <div style={{ fontSize: '0.7rem', fontWeight: "normal"}}>{feedContent}</div>
-                <div>&nbsp;</div>
-                &nbsp;
-              <div style={{ fontSize: "0.7rem", color: "gray"}}>#{feedPlacename}</div>
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    </Modal>
+    <Card style={{weight:"496px", height:"635px"}}>
+      <Card.Header style={{height:"500px", width:"496px", paddingBottom: "0px",
+    paddingRight: "0px",
+    paddingLeft: "0px",
+    paddingTop: "0px"}} as="h5">
+        <img className={styles.cardImg} src={feed.feedFile} alt='img' />
+      </Card.Header>
+      <Card.Body>
+        {feed.feedLikeYn ? 
+          <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
+        : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />}
+        &nbsp;&nbsp;
+        <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
+        <Card.Text>
+          <small>{feed.feedLike}명이 좋아요를 눌렀습니다.</small>
+          <p className={styles.show_writer}>작성자</p>
+          <div style={{fontSize:"15px", fontWeight:"bold"}}>{feedNickname}</div>
+          <div style={{fontSize:'12px'}}>{feedContent}</div>
+        </Card.Text>
+      </Card.Body>
+    </Card>
+      </Modal>
 
     </>
   )
@@ -207,4 +201,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-)(Feed);
+)(MobileFeed);

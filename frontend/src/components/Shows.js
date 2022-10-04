@@ -10,35 +10,14 @@ import { connect } from "react-redux";
 import woori2 from '../images/wayg.png'
 import sunguri from '../images/sunguri.png'
 import Loading from './Loading'
+import LoadingPink from '../images/LoadingPink.png';
+import Doori from './LoadingPink'
 
 function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   
 
   const [items, setItems] = useState([])
-  const [page,setPage] = useState(null)
-  const [length,setLength] = useState(null)
-  const [divide,setDivide] = useState(null)
-  const [newArray2, setNewArray] = useState([])
-    // 무한 스크롤
-  
 
-  // 전체 리스트 array로 나누어주는 코드
-  // useEffect(() => {
-    
-  //   const division = async(resultsList, n) => {
-  //     const length = resultsList.length;
-  //     const divide = Math.floor(length / n) + (Math.floor( length % n ) > 0 ? 1 : 0);
-  //     for (let i = 0; i <=divide; i++) {
-  //       newArray.push(resultsList.splice(0,n))
-  //     }
-  //     console.log(newArray)
-  //     await setPage(newArray.legnth)
-  //   }
-  //   const newArray = [];
-  //   const resultsList = counter.results
-  //   division(resultsList,10)
-  // },[page])
-    //////////////////////////////////////////////////////
     useEffect(() => {
       if (likeFeed) {
         const fetchLikeFeeds = async () => {
@@ -65,60 +44,81 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
         const fetchMyFeeds = async () => {
           try {
             const response = await axios.get(
-              process.env.REACT_APP_HOST+`feed/myFeed`,{
+              process.env.REACT_APP_HOST+`feed/myLikeList`,{
                 params: {
                   page: 0,
                   size: 10,
                   userNo: counter.userNo,
                 }
               }
-             
               
               );
             console.log(response.data)
-            setItems(response.data.myFeedList.content)
+            setItems(response.data.myLikeList.content)
           } catch (e) {
-    
+            
           }
-        }
-        fetchMyFeeds()
-      }
-      else if (scrapPlace) {
-        const fetchMyPlaces = async () => {
-          try {
-            const response = await axios.get(
-              process.env.REACT_APP_HOST+`place/myScrapList?`,{
-                params: {
-                  page: 0,
-                  size: 10,
-                  userNo: counter.userNo,
-                }
-              }
-              
-            );
-            console.log(response.data)
-            setItems(response.data.myScrapList.content)
-          } catch (e) {
-    
-          }
-        }
-        fetchMyPlaces()
-      }
-      else if (search) {
-        console.log(counter.results)
-        // setItems(counter.results)
-      }
-    },[])
-  
-    const isEmptyObj = (obj) => {
-      if(obj.constructor === Object
-         && Object.keys(obj).length === 0)  {
-        return true;
-      }
-      return false;
+        };
+      fetchLikeFeeds();
     }
+    else if (myFeed) {
+      const fetchMyFeeds = async () => {
+        try {
+          const response = await axios.get(
+            process.env.REACT_APP_HOST+`feed/myFeed`,{
+              params: {
+                page: 0,
+                size: 10,
+                userNo: counter.userNo,
+              }
+            }
+            
+            
+            );
+          console.log(response.data)
+          setItems(response.data.myFeedList.content)
+        } catch (e) {
   
+        }
+      }
+      fetchMyFeeds()
+    }
+    else if (scrapPlace) {
+      const fetchMyPlaces = async () => {
+        try {
+          const response = await axios.get(
+            process.env.REACT_APP_HOST+`place/myScrapList?`,{
+              params: {
+                page: 0,
+                size: 10,
+                userNo: counter.userNo,
+              }
+            }
+            
+          );
+          console.log(response.data)
+          setItems(response.data.myScrapList.content)
+        } catch (e) {
   
+        }
+      }
+      fetchMyPlaces()
+    }
+    else if (search) {
+      console.log(counter.results)
+      // setItems(counter.results)
+    }
+  },[])
+
+  const isEmptyObj = (obj) => {
+    if(obj.constructor === Object
+        && Object.keys(obj).length === 0)  {
+      return true;
+    }
+    return false;
+  }
+
+
 
   return (
     <div className="">
@@ -161,7 +161,8 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
           ))}
         </div>
         { load ? 
-          <Loading />
+        // 두리가 움직임ㅋㅋ
+          <Doori/>
           : <div className={styles.shows_list}>
               {counter.results.map((result,idx) => (
                 <Result placeName={result} key={idx} />

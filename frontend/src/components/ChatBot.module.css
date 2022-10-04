@@ -132,6 +132,7 @@
     position: fixed;
     bottom: 0;
     list-style: none;
+    padding-left: 0px;
     /* margin-bottom:3%; */
     min-width: 400px;
     border-radius: 10px;

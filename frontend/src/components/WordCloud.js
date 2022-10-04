@@ -33,16 +33,32 @@ function WordCloud({placeName}) {
   }
 
   useEffect(()=>{
+    makeCloud();
+    
     Wordcloud(canvasRef.current, {
       // list: words,
       list: clouds,
       shape: "circle",
-      minRotation: 0,
-      maxRotation: 0,
+      minRotation: 10,
+      maxRotation: 90,
       shrinkToFit: true,
+      // shrinkToFit: false,
       minSize: 2
     })
-  })
+  }, [])
+
+  useEffect(()=>{
+    Wordcloud(canvasRef.current, {
+      // list: words,
+      list: clouds,
+      shape: "circle",
+      minRotation: 10,
+      maxRotation: 90,
+      shrinkToFit: true,
+      // shrinkToFit: false,
+      minSize: 2
+    })
+  },[clouds])
 
   return (
     <div id='my_canvas' className={styles.cloud} >

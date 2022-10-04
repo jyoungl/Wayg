@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import styles from './Recommendation.module.css'
+import styles from './MobileResult.module.css'
 import {useEffect, useState} from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
@@ -10,7 +10,7 @@ import React from 'react';
 
 import { connect } from "react-redux";
 
-function Result({placeName, counter}) {
+function MobileResult({placeName, counter}) {
     const [placeImg, setPlaceImg] = useState("");
     const [searchResult, setSearchResult] = useState({})
     const [scrapYn, setScrapYn] = useState(null)
@@ -41,8 +41,8 @@ function Result({placeName, counter}) {
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: searchResult.placeName,
-        description: searchResult.placeInfo,
+        title: '제목',
+        description: '내용',
         imageUrl:
           'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
         link: {
@@ -61,10 +61,10 @@ function Result({placeName, counter}) {
         {
           title: '웹으로 이동',
           link: {
-            mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
-            webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
-            // mobileWebUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
-            // webUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
+            // mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+            // webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+            mobileWebUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
+            webUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
           },
         },
       ],
@@ -204,5 +204,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-)(Result);
+)(MobileResult);
 

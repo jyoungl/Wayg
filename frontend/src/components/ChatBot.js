@@ -29,6 +29,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
   const [send, setSend] = useState("")
   // 결과값 저장
   const [results, setResults] = useState({})
+  const [feedResults, setFeedResults] = useState({})
   // 채팅으로 보여줄 결과값
   // const [chatResults, setChatResults] = useState([])
   const [isPlace, setIsPlace] = useState(true)
@@ -90,9 +91,10 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
     
     if (isPlace) {
       const res = await axios.post(process.env.REACT_APP_HOST + `chat/place`,{
-        str: send
+        str: send,
+        // placeList: placeList
       });
-      
+      console.log(res)
       if (res.data){
         if (res.data.message === 'success') {
           // console.log(res.data.placeList)
@@ -116,8 +118,16 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
       changeLoad();
 
       const res = await axios.post(process.env.REACT_APP_HOST + `chat`,{
-        str: send
+        str: send,
+        placeList:placeList
       });
+      
+      // 피드검색 시작
+      const resFeed = await axios.post(process.env.REACT_APP_HOST + `feed`, {
+        str:send,
+        placeList:placeList
+      })
+      console.log(resFeed)
 
       //검색 끝
       setLoading(false);
@@ -139,9 +149,14 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
           }
           // 검색결과가 있는 경우
           else {
+            //관광지
             let place_results = res.data.content
             let new_results = results
             console.log(place_results)
+            //피드
+            let feed_results = resFeed.data.content
+            let new_feed_results = feedResults
+            console.log(feed_results)
             // 결과값 점수 합쳐주기, 정렬
             const combineResult = async () => {
               for (let result in place_results) {
@@ -155,14 +170,31 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
                   await setResults(new_results)
                 }
               }
+              for (let feedResult in feed_results) {
+                // console.log(feedResult)
+                if(feed_results.hasOwnProperty(feedResult) && placeList.includes(feedResult)) {
+                  if (new_feed_results.hasOwnProperty(feedResults)){
+                    new_feed_results[feedResult] += feed_results[feedResult]
+                  }
+                  else {
+                    new_feed_results[feedResult] = feed_results[feedResult]
+                    await setFeedResults(new_feed_results)
+                    console.log(feedResults)
+                  }
+                }
+              }
             }
             await combineResult()
             await console.log('합한 결과', results)
+            await console.log('feed합한 결과', feedResults)
             let sorted_results = Object.keys(results).sort(function(a, b){return results[b]-results[a]});
+            let sorted_feed_results = Object.keys(feedResults).sort(function(a,b){return feedResults[b]-feedResults[a]})
             // await console.log(sorted_results)
             console.log(sorted_results)
+            console.log(sorted_feed_results)
             // await setChatResults(sorted_results)
             // await console.log('정렬한 배열값', chatResults)
+            //////////////////////////////////////////여기까지 진행했음 save쪽이므로 따로 건들지 않음/////////////////
             if (!isEmptyArr(sorted_results)){
               await setChat((currentArray) => 
                 [...currentArray, ['woori2', [{placename: sorted_results[0], img_src: makeImgSrc(sorted_results[0])}, 
