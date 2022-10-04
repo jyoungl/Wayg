@@ -2,16 +2,14 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useInView } from "react-intersection-observer"
 import Show from "./Show";
 import Recommendation from "./Recommendation";
-import Result from "./Result";
-import Feed from "./Feed";
-import styles from "./Shows.module.css";
-import axios from "axios";
+import Result from "./Result"
+import Feed from "./Feed"
+import styles from "./Shows.module.css"
+import axios from "axios"
 import { connect } from "react-redux";
-import woori2 from '../images/wayg.png';
-import sunguri from '../images/sunguri.png';
-
-import WordCloud from "./WordCloud";
-
+import woori2 from '../images/wayg.png'
+import sunguri from '../images/sunguri.png'
+import Loading from './Loading'
 
 function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   
@@ -40,6 +38,87 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   //   const resultsList = counter.results
   //   division(resultsList,10)
   // },[page])
+    //////////////////////////////////////////////////////
+    useEffect(() => {
+      if (likeFeed) {
+        const fetchLikeFeeds = async () => {
+          try {
+              const response = await axios.get(
+                process.env.REACT_APP_HOST+`feed/myLikeList`,{
+                  params: {
+                    page: 0,
+                    size: 10,
+                    userNo: counter.userNo,
+                  }
+                }
+                
+                );
+              console.log(response.data)
+              setItems(response.data.myLikeList.content)
+            } catch (e) {
+              
+            }
+          };
+        fetchLikeFeeds();
+      }
+      else if (myFeed) {
+        const fetchMyFeeds = async () => {
+          try {
+            const response = await axios.get(
+              process.env.REACT_APP_HOST+`feed/myFeed`,{
+                params: {
+                  page: 0,
+                  size: 10,
+                  userNo: counter.userNo,
+                }
+              }
+             
+              
+              );
+            console.log(response.data)
+            setItems(response.data.myFeedList.content)
+          } catch (e) {
+    
+          }
+        }
+        fetchMyFeeds()
+      }
+      else if (scrapPlace) {
+        const fetchMyPlaces = async () => {
+          try {
+            const response = await axios.get(
+              process.env.REACT_APP_HOST+`place/myScrapList?`,{
+                params: {
+                  page: 0,
+                  size: 10,
+                  userNo: counter.userNo,
+                }
+              }
+              
+            );
+            console.log(response.data)
+            setItems(response.data.myScrapList.content)
+          } catch (e) {
+    
+          }
+        }
+        fetchMyPlaces()
+      }
+      else if (search) {
+        console.log(counter.results)
+        // setItems(counter.results)
+      }
+    },[])
+  
+    const isEmptyObj = (obj) => {
+      if(obj.constructor === Object
+         && Object.keys(obj).length === 0)  {
+        return true;
+      }
+      return false;
+    }
+  
+  
 
   return (
     <div className="">
@@ -82,12 +161,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
           ))}
         </div>
         { load ? 
-          <div className={styles.container}>
-            <img style={{width: "125px", height: "125px"}} className={styles.icon} src={woori2} alt="woori"/>
-            <div className={`${styles.progress2} ${styles.progress_moved}`}>
-              <div className={styles.progress_bar2}></div>
-            </div>
-          </div>
+          <Loading />
           : <div className={styles.shows_list}>
               {counter.results.map((result,idx) => (
                 <Result placeName={result} key={idx} />
@@ -95,10 +169,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
             </div> }
         
       </> : null}
-
     </div>
-    
-      
   );
 }
 

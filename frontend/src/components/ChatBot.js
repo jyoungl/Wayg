@@ -308,12 +308,12 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
         <li className={styles.menu} onClick={() => {startNew(); clickMenuBar();}} ><span>&#x1F601;</span> 대화 새로 시작하기</li>
         {/* <li className={styles.menu} onClick={() => {goSearch(); clickMenuBar();}}><span>&#x1F50D;</span>검색 결과 보기</li> */}
         <li className={styles.menu} onClick={() => {goPopular(); clickMenuBar();}}><span>&#x2728;</span>이번달 인기피드 보러가기</li>
+        <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}><span>&#x1F4DD;</span>피드작성하기</li>
         {Boolean(counter.userNo) ?
         <>
         <li className={styles.menu} onClick={() => {goLikeFeed(); clickMenuBar();}}><span>&#x1F49B;</span>내가 좋아요 누른 피드 보러가기</li>
         <li className={styles.menu} onClick={() => {goScrapPlace(); clickMenuBar();}}><span>&#x1F4CC;</span>내가 스크랩한 관광지 보러가기</li>
         <li className={styles.menu} onClick={() => {goMyFeed(); clickMenuBar();}}><span>&#x1F4DA;</span>내가 올린 피드보기</li>
-        <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}><span>&#x1F4DD;</span>피드작성하기</li>
         <li style={{color: "aliceblue"}}>빈값</li>
         </> : <div><a style={{textDecoration:"none", color:"black"}} href={KAKAO_AUTH_URL}><li className={styles.menu}><span>&#x1F511;</span>더 많은 기능 사용하기</li></a><li style={{color: "aliceblue"}}>빈값</li></div>
         
@@ -375,7 +375,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
 
 
       <div className={styles.reply}> 
-        <FontAwesomeIcon style={{cursor: 'pointer'}} className='fa-2xl' onClick={clickMenuBar} icon={faBars} />
+        <FontAwesomeIcon style={{cursor: 'pointer', padding:"2%"}} className='fa-2xl' onClick={clickMenuBar} icon={faBars} />
         <form onSubmit={onSubmit}>
           <input id="chatInput" className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
           <button className={styles.chatBtn} onClick={() => {goSearch(); clickMenuBar(); closeMenuBar();}}>보내기</button>
