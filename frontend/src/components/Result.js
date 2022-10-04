@@ -17,6 +17,19 @@ function Result({placeName}) {
     useEffect(()=>{
         const placeImg = makeImgSrc(placeName);
         setPlaceImg(placeImg);
+        const fetchInfo = async () => {
+          try {
+            const response = await axios.post(
+              process.env.REACT_APP_HOST+`place/search`, {"placeName":placeName}
+            )
+            console.log(response)
+          } catch (e) {
+            console.log(e)
+          }
+        }
+        fetchInfo()
+
+        //콘솔 없애기용
         urlExistCheck(placeImg);
     },[])
 
@@ -29,8 +42,8 @@ function Result({placeName}) {
         imageUrl:
           'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
         link: {
-          mobileWebUrl: 'https://j7c202.p.ssafy.io',
-          webUrl: 'https://j7c202.p.ssafy.io',
+          mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+          webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
         },
       },
       itemContent: {
@@ -44,8 +57,10 @@ function Result({placeName}) {
         {
           title: '웹으로 이동',
           link: {
-            mobileWebUrl: 'https://j7c202.p.ssafy.io',
-            webUrl: 'https://j7c202.p.ssafy.io',
+            mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+            webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+            // mobileWebUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
+            // webUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
           },
         },
       ],
@@ -69,7 +84,7 @@ function Result({placeName}) {
     new_src = new_src.replace(/ /g, '_');
     new_src = new_src.replace(')', '_');
     new_src = new_src.replace('(', '_');
-    new_src = 'https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/' + new_src +'_1.jpg'
+    new_src = 'https://res.cloudinary.com/da8po50b1/image/upload/v1664854566/place/' + new_src +'_1.jpg'
     // console.log(new_src)
     return new_src
   }
@@ -101,12 +116,12 @@ function Result({placeName}) {
         <div className={styles.recommendation}>
             <div>
                 <img className={styles.recommendation_img} src={placeImg} onError={({ currentTarget }) => {
-                currentTarget.onerror = null; 
+                currentTarget.onerror = ''; 
                 currentTarget.src='./noPhoto.png';
                 }}/>
                 <div className={styles.recommendation_description}>
                 <div className={styles.recommendation_box}>
-                    <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
+                    <FontAwesomeIcon style={{cursor: "pointer"}} onClick={share} icon={faPaperPlane} />
                 </div>
                 <p className={styles.recommendation_title}>{placeName}</p>
                 </div>

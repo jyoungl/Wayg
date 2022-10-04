@@ -12,6 +12,7 @@ function Recommendations({counter}) {
   const [page, setPage] = useState(0);
   const [load, setLoad] = useState(1);
   const preventRef = useRef(true);
+  
   const [recommendationLoading, setRecommendationLoading] = useState(null)
   const parentFunction = (x) => {
     setRecommendationLoading(true)
@@ -68,7 +69,7 @@ function Recommendations({counter}) {
           <Recommendation parentFunction={parentFunction} {...recommendation} key={idx}/>
           ))}
           </div>
-      <div ref={obsRef}>observer</div>
+      <div ref={obsRef}>...</div>
     </div>
   );
 }

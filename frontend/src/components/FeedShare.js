@@ -22,7 +22,7 @@ function FeedShare() {
         const response = await axios.get(
           process.env.REACT_APP_HOST+`feed/view?userNo=0&feedNo=${feedNum}`
         )
-        console.log(response.data.feed)
+        // console.log(response.data.feed)
         await setShareFeed(response.data.feed)
         
       } catch (e) {

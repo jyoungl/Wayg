@@ -22,7 +22,7 @@ function Feeds({counter}) {
           ,{
             params: {
               page: 0,
-              size: 100,
+              size: 150,
               userNo: counter.userNo,
             }
           });
@@ -43,9 +43,25 @@ function Feeds({counter}) {
         className="feed_swiper"
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={8}
-        slidesPerView={3}
+        slidesPerView={1}
         navigation = {true}
         onSlideChange={() => console.log('slide change')}
+        breakpoints={{
+          800: {
+            slidesPerView: 2,
+            // spaceBetween: 20
+          },
+          // when window width is >= 480px
+          1200: {
+            slidesPerView: 3,
+            // spaceBetween: 30
+          },
+          1600: {
+            slidesPerView: 4,
+            // spaceBetween: 40
+          },
+          // when window width is >= 640px
+        }}
       >
         {feeds.map((feed,idx) => (
           <SwiperSlide key={idx}>

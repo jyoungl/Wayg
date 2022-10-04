@@ -7,9 +7,10 @@ import Shows from "../components/Shows";
 import LikeShows from "../components/LikeShows";
 import Loading from "../components/Loading";
 import styles from "./Main.module.css";
+import { connect } from "react-redux";
 
 
-function Main() {
+function Main({counter}) {
 
   // useEffect(()=> {
   //   let params = new URL(document.location.toString()).searchParams;
@@ -19,7 +20,10 @@ function Main() {
   //   console.log(user_no)
 
   // }, [])
-  
+  const [load, setLoad] = useState(false)
+  const changeLoad = () => {
+    setLoad((current) => !current)
+  }
   // 기본 화면(로딩화면?)으로 돌아가기
   const [search, setSearch] = useState(true)
   const goSearch = () => {
@@ -45,56 +49,73 @@ function Main() {
   // 피드 작성하기
   const [addFeed, setAddFeed] = useState(false)
   const parentFunction = () => {
+    if (counter.userNo !==0) {
     setAddFeed((current)=> true)
     setLikeFeed(false)
     setMyFeed(false)
     setPopular(false)
     setScrapPlace(false)
     setSearch(false)
+  } else {
+    alert('로그인 후 이용해주세요')
   }
+}
 
   // 좋아요 누른 피드 보러가기
   const [likeFeed, setLikeFeed] = useState(false)
   const goLikeFeed = () => {
+    if (counter.userNo !==0) {
     setLikeFeed((current)=> true)
     setAddFeed(false)
     setMyFeed(false)
     setPopular(false)
     setScrapPlace(false)
     setSearch(false)
+  } else {
+    alert('로그인 후 이용해주세요')
   }
+}
   //내가 작성한 피드 보러가기
   const [myFeed, setMyFeed] = useState(false)
   const goMyFeed = () => {
+  if (counter.userNo !==0) {
     setMyFeed((current) => true)
     setLikeFeed(false)
     setAddFeed(false)
     setPopular(false)
     setScrapPlace(false)
     setSearch(false)
+  } else {
+    alert('로그인 후 이용해주세요')
   }
+}
 
   //내가 스크랩한 여행지 보러가기
   const [scrapPlace, setScrapPlace] = useState(false)
   const goScrapPlace = () => {
+    if (counter.userNo !==0) {
     setScrapPlace((current) => true)
     setMyFeed(false)
     setLikeFeed(false)
     setAddFeed(false)
     setPopular(false)
     setSearch(false)
+  } else {
+    alert('로그인 후 이용해주세요')
   }
+}
 
   return (
 
     <div className={styles.main}>
       <div className={styles.ChatBot}>
-        <ChatBot addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
+        <ChatBot changeLoad={changeLoad} load={load} addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
       </div>
+      <div className={styles.right}>
       <div className={styles.detail}>
         {search ?
         <div>
-          <Shows search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+          <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
         </div> 
         : null }
 
@@ -111,20 +132,26 @@ function Main() {
         {/* {addFeed ?  <CreateFeed/>: null } */}
         {likeFeed ? 
         <div>
-          <Shows search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+          <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
         </div> : null}
         {myFeed ?
-        <div><Shows search={search} crapPlace={scrapPlace} myFeed={myFeed} likeFeed={likeFeed} />
+        <div><Shows load={load} search={search} crapPlace={scrapPlace} myFeed={myFeed} likeFeed={likeFeed} />
         </div> : null 
         }
         {scrapPlace ? 
         <div>
-          <Shows search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+          <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
         </div> : null}
+        </div>
       </div>
 
     </div>
   );
 }
 
-export default Main;
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+export default connect(
+  mapStateToProps,
+)(Main);

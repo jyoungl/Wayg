@@ -11,8 +11,17 @@
     /* position: fixed; */
 }
 
+.right {
+    padding: 5%;
+}
+
+.right::-webkit-scrollbar {
+    display:none;
+  }
+
+
 .detail {
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .popular {
@@ -35,9 +44,4 @@
 
 .font-apply{
     font-family: 'Jalnan';
-}
-
-.right {
-    width: 100vh;
-    height: 100vh;
 }
