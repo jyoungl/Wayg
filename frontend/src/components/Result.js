@@ -30,7 +30,7 @@ function Result({placeName}) {
         fetchInfo()
 
         //콘솔 없애기용
-        // urlExistCheck(placeImg);
+        urlExistCheck(placeImg);
     },[])
 
   const shareKakaoLink = () => {

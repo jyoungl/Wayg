@@ -8,10 +8,10 @@ import styles from "./Shows.module.css"
 import axios from "axios"
 import { connect } from "react-redux";
 import woori2 from '../images/wayg.png'
-import InfiniteScroll from 'react-infinite-scroller';
+import sunguri from '../images/sunguri.png'
 
 
-function Shows({search, scrapPlace ,likeFeed, myFeed, counter}) {
+function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   
 
   // const [items, setItems] = useState([])
@@ -70,13 +70,27 @@ function Shows({search, scrapPlace ,likeFeed, myFeed, counter}) {
         </> : null} */}
       {search ? 
       <>
-        <h2>검색 결과</h2>
+        <div className={styles.search_title}>
+          <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
+          <h2>검색 결과</h2>
+        </div>
         <div className={styles.shows_list}>
           {counter.results.map((result,idx) => (
             <Result placeName={result} key={idx} />
           ))}
         </div>
-        <img style={{width: "125px", height: "125px"}} src={woori2} alt="woori"/>
+        { load ? 
+          <div className={styles.container}>
+            <img style={{width: "125px", height: "125px"}} className={styles.icon} src={woori2} alt="woori"/>
+            <div className={`${styles.progress2} ${styles.progress_moved}`}>
+              <div className={styles.progress_bar2}></div>
+            </div>
+          </div>
+          : <div className={styles.shows_list}>
+              {counter.results.map((result,idx) => (
+                <Result placeName={result} key={idx} />
+              ))}
+            </div> }
         
       </> : null}
 

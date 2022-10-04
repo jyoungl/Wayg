@@ -20,7 +20,10 @@ function Main({counter}) {
   //   console.log(user_no)
 
   // }, [])
-  
+  const [load, setLoad] = useState(false)
+  const changeLoad = () => {
+    setLoad((current) => !current)
+  }
   // 기본 화면(로딩화면?)으로 돌아가기
   const [search, setSearch] = useState(true)
   const goSearch = () => {
@@ -106,13 +109,13 @@ function Main({counter}) {
 
     <div className={styles.main}>
       <div className={styles.ChatBot}>
-        <ChatBot addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
+        <ChatBot changeLoad={changeLoad} load={load} addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
       </div>
       <div className={styles.right}>
       <div className={styles.detail}>
         {search ?
         <div>
-          <Shows search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+          <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
         </div> 
         : null }
 
@@ -129,15 +132,15 @@ function Main({counter}) {
         {/* {addFeed ?  <CreateFeed/>: null } */}
         {likeFeed ? 
         <div>
-          <Shows search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+          <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
         </div> : null}
         {myFeed ?
-        <div><Shows search={search} crapPlace={scrapPlace} myFeed={myFeed} likeFeed={likeFeed} />
+        <div><Shows load={load} search={search} crapPlace={scrapPlace} myFeed={myFeed} likeFeed={likeFeed} />
         </div> : null 
         }
         {scrapPlace ? 
         <div>
-          <Shows search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+          <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
         </div> : null}
         </div>
       </div>
