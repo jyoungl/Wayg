@@ -192,7 +192,7 @@ function ChatBot({parentFunction, addFeed, counter, save, goSearch ,goLikeFeed, 
     new_src = new_src.replace(/ /g, '_');
     new_src = new_src.replace(')', '_');
     new_src = new_src.replace('(', '_');
-    new_src = 'https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/' + new_src +'_1.jpg'
+    new_src = 'https://res.cloudinary.com/da8po50b1/image/upload/v1664854566/place/' + new_src +'_1.jpg'
     // console.log(new_src)
     return new_src
   }
