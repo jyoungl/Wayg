@@ -1,17 +1,21 @@
 .previewImg {
   background-position: center;
+  background-color:rgb(240, 241, 252);
+  object-fit: contain;
 }
 
 .container {
-  text-align: center;
+  /* text-align: center; */
   align-items: 80%;
+  font-family: 'Jalnan';
 }
 
 .Card {
   position:relative;
   width: 50%;
-  width: 70%;
-  height:70%;
+  width: 100%;
+  height:100%;
+  /* style={{width:"100%", height:"100%"}} */
   
 }
 .selectLabel {
@@ -26,6 +30,7 @@
   border-radius:5px;
   cursor: pointer;
   text-align: center;
+
   padding-top:1%;
   padding-bottom:1%;
   height:10%;
@@ -39,9 +44,18 @@
 .Title {
   border-radius:5px;
   border-color:rgb(171, 175, 198);
-  box-shadow: 5px;
+  margin-right:10%;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  /* border-color:none; */
 }
-
+.place {
+  /* display:inline-block; */
+  margin-left: 12px;
+  border-radius:5px;
+  border-color:rgb(171, 175, 198);
+  
+}
 .text {
   margin-top:1rem;
 }
@@ -55,6 +69,8 @@
 .Nickname {
   border-radius: 5px;
   font-weight:bold;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .feed_btn {
@@ -62,16 +78,18 @@
   border:none;
   background-color: white;
   color:black;
+  margin-left: 75%;
 }
 
 .feed_btn:hover {
-  color:rgb(131, 135, 164);
-
+  color:rgb(78, 88, 157);
 }
 
 .autoComplete {
+  width:93%;
+  margin-left: 12px;
   border-radius:5px;
-  height:120px;
+  height:132px;
   overflow:auto;
   background-color: whitesmoke;
   font-weight: bold;
@@ -81,6 +99,7 @@
 .autoComplete_li {
   cursor:pointer;
   border-radius: 5px;
+  overflow:auto;
   /* font-size:10px; */
   padding-left: 0px;
   font-weight: bold;
@@ -97,7 +116,7 @@
   padding-bottom:1%;
   height:10%;
   font-weight: bold;
-  font-size:10px;
+  font-size:15px;
 
 }
 

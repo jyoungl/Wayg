@@ -67,7 +67,7 @@
 }
 
 .sendInput {
-    font-size: 12px;
+    font-size: 15px;
     border: none;
     width: 300px;
     height: 30px;
@@ -84,14 +84,18 @@
     align-items: center;
     width: 400px;
     box-sizing: border-box;
+    border-radius:5px;
 }
 .chatBtn {
-    border-radius: 5px;
-    /* position:absolute; */
+    top:0;
     right:0;
-    height: 32px;
+    border-radius: 5px;
+    position:absolute;
+    width:80px;
     background-color:yellow;
     border:none;
+    padding-bottom: 7px;
+    padding-top: 7px;
 }
 .chat_results {
     display: flex;
