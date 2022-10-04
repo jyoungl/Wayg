@@ -9,16 +9,16 @@ import axios from "axios"
 import { connect } from "react-redux";
 import woori2 from '../images/wayg.png'
 import sunguri from '../images/sunguri.png'
-
+import Loading from './Loading'
 
 function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   
 
-  // const [items, setItems] = useState([])
-  // const [page,setPage] = useState(null)
-  // const [length,setLength] = useState(null)
-  // const [divide,setDivide] = useState(null)
-  // const [newArray2, setNewArray] = useState([])
+  const [items, setItems] = useState([])
+  const [page,setPage] = useState(null)
+  const [length,setLength] = useState(null)
+  const [divide,setDivide] = useState(null)
+  const [newArray2, setNewArray] = useState([])
     // 무한 스크롤
   
 
@@ -38,10 +38,91 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   //   const resultsList = counter.results
   //   division(resultsList,10)
   // },[page])
+    //////////////////////////////////////////////////////
+    useEffect(() => {
+      if (likeFeed) {
+        const fetchLikeFeeds = async () => {
+          try {
+              const response = await axios.get(
+                process.env.REACT_APP_HOST+`feed/myLikeList`,{
+                  params: {
+                    page: 0,
+                    size: 10,
+                    userNo: counter.userNo,
+                  }
+                }
+                
+                );
+              console.log(response.data)
+              setItems(response.data.myLikeList.content)
+            } catch (e) {
+              
+            }
+          };
+        fetchLikeFeeds();
+      }
+      else if (myFeed) {
+        const fetchMyFeeds = async () => {
+          try {
+            const response = await axios.get(
+              process.env.REACT_APP_HOST+`feed/myFeed`,{
+                params: {
+                  page: 0,
+                  size: 10,
+                  userNo: counter.userNo,
+                }
+              }
+             
+              
+              );
+            console.log(response.data)
+            setItems(response.data.myFeedList.content)
+          } catch (e) {
+    
+          }
+        }
+        fetchMyFeeds()
+      }
+      else if (scrapPlace) {
+        const fetchMyPlaces = async () => {
+          try {
+            const response = await axios.get(
+              process.env.REACT_APP_HOST+`place/myScrapList?`,{
+                params: {
+                  page: 0,
+                  size: 10,
+                  userNo: counter.userNo,
+                }
+              }
+              
+            );
+            console.log(response.data)
+            setItems(response.data.myScrapList.content)
+          } catch (e) {
+    
+          }
+        }
+        fetchMyPlaces()
+      }
+      else if (search) {
+        console.log(counter.results)
+        // setItems(counter.results)
+      }
+    },[])
+  
+    const isEmptyObj = (obj) => {
+      if(obj.constructor === Object
+         && Object.keys(obj).length === 0)  {
+        return true;
+      }
+      return false;
+    }
+  
+  
 
   return (
     <div className="">
-      {/* {myFeed ? 
+      {myFeed ? 
         <>
           <h2>내가 작성한 피드</h2>
           <div className={styles.shows_list}>
@@ -67,7 +148,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
               <Recommendation {...item} key={idx}/>
             ))}
           </div>
-        </> : null} */}
+        </> : null}
       {search ? 
       <>
         <div className={styles.search_title}>
@@ -80,12 +161,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
           ))}
         </div>
         { load ? 
-          <div className={styles.container}>
-            <img style={{width: "125px", height: "125px"}} className={styles.icon} src={woori2} alt="woori"/>
-            <div className={`${styles.progress2} ${styles.progress_moved}`}>
-              <div className={styles.progress_bar2}></div>
-            </div>
-          </div>
+          <Loading />
           : <div className={styles.shows_list}>
               {counter.results.map((result,idx) => (
                 <Result placeName={result} key={idx} />
@@ -93,10 +169,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
             </div> }
         
       </> : null}
-
     </div>
-    
-      
   );
 }
 
