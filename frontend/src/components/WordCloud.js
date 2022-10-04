@@ -3,18 +3,18 @@ import axios from 'axios';
 import styles from './WordCloud.module.css'
 import Wordcloud from "wordcloud"
 
-const words = [
-  ["told", 64],
-  ["mistake", 11],
-  ["thought", 16],
-  ["bad", 17],
-  ["correct", 10],
-  ["day", 54],
-  ["prescription", 12],
-  ["time", 77],
-  ["thing", 45],
-  ["left", 19],
-]
+// const words = [
+//   ["told", 64],
+//   ["mistake", 11],
+//   ["thought", 16],
+//   ["bad", 17],
+//   ["correct", 10],
+//   ["day", 54],
+//   ["prescription", 12],
+//   ["time", 77],
+//   ["thing", 45],
+//   ["left", 19],
+// ]
 
 function WordCloud({placeName}) {
   const canvasRef = useRef(null);

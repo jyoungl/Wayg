@@ -124,7 +124,19 @@
   }
 
 
-  .Container {
+  /* .Container {
     display:grid;
-    
+    grid-template-columns:50% 50%;
   }
+
+  .cloud {
+    padding-top: 10%;
+  }
+
+  .placeContent {
+    padding-top: 30%;
+  }
+
+  .cloud div .modal-content {
+    width: fit-content;
+  } */
