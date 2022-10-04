@@ -26,7 +26,7 @@ public interface PlaceService {
 
 	PlaceDto searchName(String name) throws Exception;
 
-	List<Map<String,Object>> wordCloud(String placeName);
+	List<List<Object>> wordCloud(String placeName);
 
 //	long getTotalCount() throws Exception;
 
