@@ -18,31 +18,10 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
 
   const [items, setItems] = useState([])
 
-    useEffect(() => {
-      if (likeFeed) {
-        const fetchLikeFeeds = async () => {
-          try {
-              const response = await axios.get(
-                process.env.REACT_APP_HOST+`feed/myLikeList`,{
-                  params: {
-                    page: 0,
-                    size: 10,
-                    userNo: counter.userNo,
-                  }
-                }
-                
-                );
-              console.log(response.data)
-              setItems(response.data.myLikeList.content)
-            } catch (e) {
-              
-            }
-          };
-        fetchLikeFeeds();
-      }
-      else if (myFeed) {
-        const fetchMyFeeds = async () => {
-          try {
+  useEffect(() => {
+    if (likeFeed) {
+      const fetchLikeFeeds = async () => {
+        try {
             const response = await axios.get(
               process.env.REACT_APP_HOST+`feed/myLikeList`,{
                 params: {
@@ -59,7 +38,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
             
           }
         };
-      fetchMyFeeds();
+      fetchLikeFeeds();
     }
     else if (myFeed) {
       const fetchMyFeeds = async () => {
@@ -72,7 +51,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
                 userNo: counter.userNo,
               }
             }
-            
+           
             
             );
           console.log(response.data)
@@ -105,7 +84,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
       fetchMyPlaces()
     }
     else if (search) {
-      console.log(counter.results)
+      console.log('search')
       // setItems(counter.results)
     }
   },[])
