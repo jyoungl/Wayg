@@ -2,6 +2,7 @@ package com.ssafy.wayg.service;
 
 import com.ssafy.wayg.dto.FeedDto;
 import com.ssafy.wayg.dto.FeedlikeDto;
+import com.ssafy.wayg.dto.FeedwordDto;
 import com.ssafy.wayg.entity.Feed;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,12 @@ public interface FeedService {
 	void deleteLike(int userNo, int feedNo) throws Exception;
 
 	Page<FeedDto> retrieveLikeList(int userNo, Pageable pageable) throws Exception;
+
+	long totalSize();
+
+	List<FeedwordDto> oneSize(String str);
+
+	double feedword(String word, long total);
 
 //	long getTotalCount() throws Exception;
 

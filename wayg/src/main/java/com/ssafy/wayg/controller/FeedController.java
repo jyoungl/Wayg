@@ -1,8 +1,10 @@
 package com.ssafy.wayg.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+import com.ssafy.wayg.dto.FeedwordDto;
+import com.ssafy.wayg.dto.PlacewordDto;
+import com.ssafy.wayg.util.MorphemeAnalyzer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +27,12 @@ public class FeedController {
 	private static final String FAIL = "fail";
 	
 	private FeedService feedService;
+	private MorphemeAnalyzer analyzer;
 	
 	@Autowired
-	public FeedController(FeedService feedService) {
+	public FeedController(FeedService feedService, MorphemeAnalyzer analyzer) {
 		this.feedService = feedService;
+		this.analyzer = analyzer;
 	}
 	
 	@ApiOperation(value = "피드 목록", notes = "성공여부와 해당 페이지의 피드 정보를 반환한다. ", response = Map.class)
@@ -46,6 +50,40 @@ public class FeedController {
 			httpStatus = HttpStatus.OK;
 		} catch (Exception e) {
 			resultMap.put("message",FAIL);
+		}
+		return new ResponseEntity<>(resultMap, httpStatus);
+	}
+
+	@ApiOperation(value = "피드 목록(tf-idf)", notes = "성공여부와 해당 페이지의 피드 정보를 입력받은 텍스트와 관련된 순으로 반환한다. ", response = Map.class)
+	@PostMapping
+	public ResponseEntity<Map<String,Object>> retrieveFeed(@RequestBody Map<String,Object> params){
+		Map<String,Object> resultMap = new HashMap<>();
+		HttpStatus httpStatus = HttpStatus.ACCEPTED;
+		Map<String,Integer> split = analyzer.pickMorpheme((String) params.get("str")); // 형태소 분리한 결과 넣은 map
+		List<String> send = new ArrayList<>(split.keySet());	//형태소 분리한 단어들을 list에 넣어줌
+
+		ArrayList<String> placeList = (ArrayList<String>) params.get("placeList");
+		if(placeList != null) Collections.sort(placeList);
+
+		Map<String, Double> feeds = new HashMap<>(); // 피드와 tfidf 값 넣어줄 map
+		try {
+			long total = feedService.totalSize(); //전체 문서 수
+
+			for (String s : send) {
+				//각 단어의 idf 구하기 * 피드 tf
+				List<FeedwordDto> feedwordDtoList = feedService.oneSize(s);
+				double idf = feedService.feedword(s, total);
+				for (FeedwordDto feedwordDto : feedwordDtoList) {
+					if(placeList != null && Collections.binarySearch(placeList,feedwordDto.getFeedwordName()) >= 0){
+						feeds.put(feedwordDto.getFeedwordName(), idf * feedwordDto.getFeedwordCount());
+					}
+				}
+			}
+			resultMap.put("content",feeds);
+			resultMap.put("message",SUCCESS);
+			httpStatus = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message", FAIL);
 		}
 		return new ResponseEntity<>(resultMap, httpStatus);
 	}

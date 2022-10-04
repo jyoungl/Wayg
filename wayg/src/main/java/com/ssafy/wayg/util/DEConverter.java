@@ -109,5 +109,8 @@ public class DEConverter {
 	
 	public UserDto toUserDto(User user) { return modelMapper.map(user, UserDto.class); }
 	public User toUserEntity(UserDto userDto) { return modelMapper.map(userDto, User.class); }
+
+	/* word 변환 */
 	public List<PlacewordDto> toPlacewordDto(List<Placeword> placeword){ return mapList(placeword, PlacewordDto.class); }
+	public List<FeedwordDto> toFeedwordDto(List<Feedword> feedword){return mapList(feedword,FeedwordDto.class);}
 }
