@@ -10,6 +10,7 @@ import React from 'react';
 import wayg from '../images/wayg.png'
 import {useParams} from "react-router-dom"
 import { connect } from "react-redux";
+import WordCloud from "./WordCloud";
 
 function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFile, parentFunction }) {
   
@@ -174,27 +175,28 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     </div>
     {/* 모달 */}
     <Modal show={handle} size="xl" onHide={handleClose}>
-    <div style={{maxHeight:'650px'}} className={styles.Container}>
-        {/* 사진용 왼쪽 컴포넌트 */}
-        <div style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
-            <img style={{}} className={styles.detail_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
-              currentTarget.onerror = null; 
-              currentTarget.src='./noPhoto.png'}} alt='img' />
-        </div>
-        {/* 글용 오른쪽 컴포넌트 */}
-        <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
-          <div>
-            {recommendation.placeScrapYn ? 
-            <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
-            : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
-             &nbsp;&nbsp;
-            <FontAwesomeIcon icon={faPaperPlane} />
+      <div style={{maxHeight:'650px'}} className={styles.Container}>
+          {/* 사진용 왼쪽 컴포넌트 */}
+          <div style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
+              <img style={{}} className={styles.detail_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
+                currentTarget.onerror = null; 
+                currentTarget.src='./noPhoto.png'}} alt='img' />
           </div>
-          <p className={styles.detail_title}>{recommendation.placeName}</p>
-          <p className={styles.detail_address}>{recommendation.placeAddress}</p>
-          <p>{detailContent}</p>
-          </div>
-    </div>
+          {/* 글용 오른쪽 컴포넌트 */}
+          <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
+            <div>
+              {recommendation.placeScrapYn ? 
+              <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
+              : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
+              &nbsp;&nbsp;
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </div>
+            <p className={styles.detail_title}>{recommendation.placeName}</p>
+            <p className={styles.detail_address}>{recommendation.placeAddress}</p>
+            <p>{detailContent}</p>
+            </div>
+      </div>
+      <WordCloud placeName={recommendation.placeName}></WordCloud>
     </Modal>
     </>
     
