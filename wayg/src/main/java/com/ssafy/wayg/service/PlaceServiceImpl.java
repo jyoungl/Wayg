@@ -5,6 +5,7 @@ import com.ssafy.wayg.dto.PlacescrapDto;
 import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.repository.PlaceRepository;
 import com.ssafy.wayg.repository.PlacescrapRepository;
+import com.ssafy.wayg.repository.PlacewordRepository;
 import com.ssafy.wayg.repository.UserRepository;
 import com.ssafy.wayg.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PlaceServiceImpl implements PlaceService {
 
 	private PlaceRepository placeRepository;
 	private PlacescrapRepository scrapRepository;
+	private PlacewordRepository placewordRepository;
 	private UserRepository userRepository;
 	private DEConverter converter;
 
@@ -30,9 +34,12 @@ public class PlaceServiceImpl implements PlaceService {
 	private final char[] jamoArr = {'ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'};
 
 	@Autowired
-	public PlaceServiceImpl(PlaceRepository placeRepository, PlacescrapRepository scrapRepository, UserRepository userRepository, DEConverter converter) {
+	public PlaceServiceImpl(PlaceRepository placeRepository, PlacescrapRepository scrapRepository,
+							UserRepository userRepository, PlacewordRepository placewordRepository,
+							DEConverter converter) {
 		this.placeRepository = placeRepository;
 		this.scrapRepository = scrapRepository;
+		this.placewordRepository = placewordRepository;
 		this.userRepository = userRepository;
 		this.converter = converter;
 	}
@@ -185,5 +192,11 @@ public class PlaceServiceImpl implements PlaceService {
 	public PlaceDto searchName(String name){
 		Place place = placeRepository.findByPlaceName(name);
 		return converter.toPlaceDto(place);
+	}
+
+	@Override
+	public List<Map<String, Object>> wordCloud(String placeName) {
+		List<Map<String,Object>> result = placewordRepository.findWordCountFindByplacewordName(placeName);
+		return result;
 	}
 }

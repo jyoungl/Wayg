@@ -124,9 +124,11 @@ public class PlaceController {
 		return new ResponseEntity<>(resultMap, httpStatus);
 	}
 
-	@ApiOperation(value = "관광지 목록 검색", notes = "초성포함 해당되는 관광지를 모두 반환한다.", response = Map.class)
+	@ApiOperation(value = "관광지 목록 검색", notes = "이름에 맞는 관광지를 반환한다.", response = Map.class)
 	@PostMapping("/search")
-	public ResponseEntity<Map<String, Object>> searchName(@RequestBody String name){
+	public ResponseEntity<Map<String, Object>> searchName(@RequestBody Map<String, String> params){
+		String name = params.get("placeName");
+
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus httpStatus = HttpStatus.ACCEPTED;
 
@@ -138,6 +140,22 @@ public class PlaceController {
 		} catch (Exception e){
 			resultMap.put("message", FAIL);
 		}
+		return new ResponseEntity<>(resultMap, httpStatus);
+	}
+
+	@GetMapping("/wordcloud")
+	public ResponseEntity<Map<String,Object>> wordCloud(@RequestParam String placeName){
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus httpStatus = HttpStatus.ACCEPTED;
+
+		try{
+			resultMap.put("words", placeService.wordCloud(placeName));
+			resultMap.put("message", SUCCESS);
+			httpStatus = HttpStatus.OK;
+		} catch (Exception e){
+			resultMap.put("message", FAIL);
+		}
+
 		return new ResponseEntity<>(resultMap, httpStatus);
 	}
 }

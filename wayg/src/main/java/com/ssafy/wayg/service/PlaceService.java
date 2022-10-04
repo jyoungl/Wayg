@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PlaceService {
 
@@ -22,6 +23,8 @@ public interface PlaceService {
 	List<String> searchPlace(String keyword) throws Exception;
 
 	PlaceDto searchName(String name);
+
+	List<Map<String,Object>> wordCloud(String placeName);
 
 //	long getTotalCount() throws Exception;
 
