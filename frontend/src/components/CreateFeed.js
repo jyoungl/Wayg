@@ -35,9 +35,9 @@ function CreateFeed({counter}) {
   const uploadImage = async () => {
     const data = new FormData()
     data.append('file', image)
-    data.append('upload_preset','rkh4a8n0')
-    data.append('cloud_name', 'dcd6ufnba')
-    await fetch("https://api.cloudinary.com/v1_1/dcd6ufnba/image/upload", {
+    data.append('upload_preset','gk6lmuxc')
+    data.append('cloud_name', 'da8po50b1')
+    await fetch("https://api.cloudinary.com/v1_1/da8po50b1/image/upload", {
       method:"post",
       body:data
     })
@@ -135,7 +135,7 @@ function CreateFeed({counter}) {
             {/* <input className={styles.Content} onChange={onChangeContent} type="text" placeholder="내용을 작성하세요" style={{width:"100%", height:"100%"}}/> */}
             <textarea className={styles.Content} onChange={onChangeContent} type="text" placeholder="내용을 작성하세요" style={{width:"100%", height:"100%"}} cols="30" rows="10"></textarea>
             <br/>
-            <input className={styles.Nickname} onChange={onChangeNickname} type="text" placeholder="기제할 닉네임을 작성하세요" style={{width:"100%", height:"100%"}} maxLength="10"/>
+            <input className={styles.Nickname} onChange={onChangeNickname} type="text" placeholder="기제할 닉네임을 작성하세요" style={{width:"100%", height:"100%"}} maxLength="8"/>
         </Card.Text>
           <button className={styles.feed_btn}>피드박제</button>
 
