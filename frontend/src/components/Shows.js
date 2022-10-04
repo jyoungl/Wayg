@@ -17,14 +17,32 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   
 
   const [items, setItems] = useState([])
-  const [page,setPage] = useState(null)
-  const [length,setLength] = useState(null)
-  const [divide,setDivide] = useState(null)
-  const [newArray2, setNewArray] = useState([])
-  useEffect(() => {
-    if (likeFeed) {
-      const fetchLikeFeeds = async () => {
-        try {
+
+    useEffect(() => {
+      if (likeFeed) {
+        const fetchLikeFeeds = async () => {
+          try {
+              const response = await axios.get(
+                process.env.REACT_APP_HOST+`feed/myLikeList`,{
+                  params: {
+                    page: 0,
+                    size: 10,
+                    userNo: counter.userNo,
+                  }
+                }
+                
+                );
+              console.log(response.data)
+              setItems(response.data.myLikeList.content)
+            } catch (e) {
+              
+            }
+          };
+        fetchLikeFeeds();
+      }
+      else if (myFeed) {
+        const fetchMyFeeds = async () => {
+          try {
             const response = await axios.get(
               process.env.REACT_APP_HOST+`feed/myLikeList`,{
                 params: {
