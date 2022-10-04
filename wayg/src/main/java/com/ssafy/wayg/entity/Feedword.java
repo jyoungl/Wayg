@@ -42,10 +42,11 @@ public class Feedword {
     @Column(name="feedword_name", nullable = false, length = 45)
     private String feedwordName;
 
-    public Feedword(String word, Integer count, Feed feed){
+    public Feedword(String word, Integer count, Feed feed, String placename){
         this.feedwordWord = word;
         this.feedwordCount = count;
         this.feedNo = feed;
+        this.feedwordName = placename;
     }
 
 }
