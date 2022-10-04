@@ -76,7 +76,7 @@ public class FeedServiceImpl implements FeedService {
 		//피드 형태소 분리해서 feedword에 저장하기
 		Map<String,Integer> morphemes = analyzer.pickMorpheme(savedFeed.getFeedContent()+", "+savedFeed.getFeedTitle());
 		for(Map.Entry<String,Integer> entry:morphemes.entrySet()){
-			feedwordRepository.save(new Feedword(entry.getKey(), entry.getValue(), savedFeed));
+			feedwordRepository.save(new Feedword(entry.getKey(), entry.getValue(), savedFeed, savedFeed.getFeedPlacename()));
 		}
 
 		//저장된 피드 반환하기
