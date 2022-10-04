@@ -57,10 +57,10 @@ function Result({placeName}) {
         {
           title: '웹으로 이동',
           link: {
-            // mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
-            // webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
-            mobileWebUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
-            webUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
+            mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+            webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+            // mobileWebUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
+            // webUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
           },
         },
       ],
