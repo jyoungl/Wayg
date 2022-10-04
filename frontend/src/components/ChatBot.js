@@ -337,17 +337,18 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
 
       {menuBar ? 
       <ul className={styles.anotherFunction}>
-        <li className={styles.menu} onClick={() => {startNew(); clickMenuBar();}} ><span>&#x1F601;</span> 대화 새로 시작하기</li>
+        <li className={styles.menu} onClick={() => {startNew(); clickMenuBar();}} > <span>&#x1F601;</span> &nbsp;대화 새로 시작하기</li>
         {/* <li className={styles.menu} onClick={() => {goSearch(); clickMenuBar();}}><span>&#x1F50D;</span>검색 결과 보기</li> */}
-        <li className={styles.menu} onClick={() => {goPopular(); clickMenuBar();}}><span>&#x2728;</span>이번달 인기피드 보러가기</li>
-        <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}><span>&#x1F4DD;</span>피드작성하기</li>
+        <li className={styles.menu} onClick={() => {goPopular(); clickMenuBar();}}> <span>&#x2728;</span> &nbsp;이번달 인기피드 보러가기</li>
+        
         {Boolean(counter.userNo) ?
         <>
-        <li className={styles.menu} onClick={() => {goLikeFeed(); clickMenuBar();}}><span>&#x1F49B;</span>내가 좋아요 누른 피드 보러가기</li>
-        <li className={styles.menu} onClick={() => {goScrapPlace(); clickMenuBar();}}><span>&#x1F4CC;</span>내가 스크랩한 관광지 보러가기</li>
-        <li className={styles.menu} onClick={() => {goMyFeed(); clickMenuBar();}}><span>&#x1F4DA;</span>내가 올린 피드보기</li>
+        <li className={styles.menu} onClick={() => {goLikeFeed(); clickMenuBar();}}> <span>&#x1F49B;</span> &nbsp;내가 좋아요 누른 피드 보러가기</li>
+        <li className={styles.menu} onClick={() => {goScrapPlace(); clickMenuBar();}}> <span>&#x1F4CC;</span> &nbsp;내가 스크랩한 관광지 보러가기</li>
+        <li className={styles.menu} onClick={() => {goMyFeed(); clickMenuBar();}}> <span>&#x1F4DA;</span> &nbsp;내가 올린 피드보기</li>
+        <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}> <span>&#x1F4DD;</span> &nbsp;피드작성하기</li>
         <li style={{color: "aliceblue"}}>빈값</li>
-        </> : <div><a style={{textDecoration:"none", color:"black"}} href={KAKAO_AUTH_URL}><li className={styles.menu}><span>&#x1F511;</span>더 많은 기능 사용하기</li></a><li style={{color: "aliceblue"}}>빈값</li></div>
+        </> : <div><a style={{textDecoration:"none", color:"black"}} href={KAKAO_AUTH_URL}><li className={styles.menu}> <span>&#x1F511;</span> &nbsp;더 많은 기능 사용하기</li></a><li style={{color: "aliceblue"}}>빈값</li></div>
         
       }
       </ul>: null}
