@@ -116,7 +116,8 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
       changeLoad();
 
       const res = await axios.post(process.env.REACT_APP_HOST + `chat`,{
-        str: send
+        str: send,
+        placeList : placeList,
       });
 
       //검색 끝
