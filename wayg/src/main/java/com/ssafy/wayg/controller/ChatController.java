@@ -136,13 +136,13 @@ public class ChatController {
 
 
             //place 맵 value값 따라 정렬
-            List<Map.Entry<String,Integer>> entries = new ArrayList<>(place.entrySet());
-            entries.sort(Map.Entry.comparingByValue(Collections.reverseOrder()));
+//            List<Map.Entry<String,Integer>> entries = new ArrayList<>(place.entrySet());
+//            entries.sort(Map.Entry.comparingByValue(Collections.reverseOrder()));
             Map<String, Integer> res = new LinkedHashMap<>(); // 정렬된 map
-            int i = 0;
+//            int i = 0;
 
-            for(Map.Entry<String, Integer> e : entries) {
-                if(i++<3) {
+            for(Map.Entry<String, Integer> e : place.entrySet()) {
+//                if(i++<3) {
                     res.put(e.getKey(), e.getValue());
                     //e.getKey() 가지고 title 넣고 url 만들어야함
                     HashMap<String, Object> item = new HashMap<>();
@@ -153,7 +153,7 @@ public class ChatController {
                     item.put("thumbnail",thumbnail);
                     item.put("buttons",buttons);
                     items.add(item);
-                }
+//                }
             }
 
             carousel.put("items",items);

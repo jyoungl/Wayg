@@ -11,4 +11,5 @@ import java.util.List;
 public interface PlacewordRepository extends JpaRepository<Placeword, Integer> {
     Long countByplacewordWord(String placewordWord);
     List<Placeword> findByplacewordWord(String placewordWord);
+    List<Placeword> findTop3ByplacewordWordOrderByplacewordCountDesc(String placewordWord);
 }
