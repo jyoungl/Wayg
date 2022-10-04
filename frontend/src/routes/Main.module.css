@@ -15,6 +15,11 @@
     padding: 5%;
 }
 
+.right::-webkit-scrollbar {
+    display:none;
+  }
+
+
 .detail {
     /* padding: 10px; */
 }

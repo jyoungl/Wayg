@@ -9,6 +9,11 @@
   .shows_list {
     display: flex;
     flex-wrap: wrap;
+    /* height:100vh; */
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
   }
     
   @media screen and (max-width: 1090px) {

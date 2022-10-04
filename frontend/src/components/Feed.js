@@ -149,7 +149,10 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
           currentTarget.src='./noPhoto.png';
         }} alt='img' />
         <div className={styles.feed_description}>
-        <span className={styles.feed_title}>{feed.feedTitle}</span>
+          <div className={styles.feed_box}> 
+            {/* <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_writer}>{feed.feedNickname}</div> */}
+            <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_title}>{feed.feedTitle}</div>
+          </div>
           <div className={styles.feed_box}>
             {feed.feedLikeYn ? 
               <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
@@ -160,10 +163,6 @@ function Feed({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, fe
           <div className={styles.feed_like}>
             {feed.feedLike}명이 이 피드를 좋아합니다!
           </div>
-          <div className={styles.feed_box}> 
-            <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_writer}>{feed.feedNickname}</div>
-          </div>
-          <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_title}>{feed.feedTitle}</div>
         </div>
         </div>
     </div>
