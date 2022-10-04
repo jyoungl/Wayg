@@ -41,8 +41,8 @@ function Result({placeName, counter}) {
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: '제목',
-        description: '내용',
+        title: searchResult.placeName,
+        description: searchResult.placeInfo,
         imageUrl:
           'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
         link: {
@@ -61,10 +61,10 @@ function Result({placeName, counter}) {
         {
           title: '웹으로 이동',
           link: {
-            // mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
-            // webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
-            mobileWebUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
-            webUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
+            mobileWebUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+            webUrl: `https://j7c202.p.ssafy.io/main/detail/RecommendationNameShare/${placeName}/0`,
+            // mobileWebUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
+            // webUrl: `http://localhost:3000/main/detail/RecommendationNameShare/${placeName}/0`,
           },
         },
       ],
