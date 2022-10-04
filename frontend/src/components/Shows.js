@@ -59,7 +59,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
             
           }
         };
-      fetchLikeFeeds();
+      fetchMyFeeds();
     }
     else if (myFeed) {
       const fetchMyFeeds = async () => {
