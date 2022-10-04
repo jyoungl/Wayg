@@ -25,6 +25,9 @@ public class ChatController {
     private PlaceService placeService;
     private MorphemeAnalyzer analyzer;
 
+    private String[] exclude;
+    private Map<String,String> pair;
+
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 
     @Autowired
@@ -32,6 +35,25 @@ public class ChatController {
         this.chatService = chatService;
         this.placeService = placeService;
         this.analyzer = analyzer;
+        init();
+    }
+
+    private void init(){
+        exclude = new String[]{"광역시","남도","북도"};
+        pair = new HashMap<>();
+        pair.put("충남", "충청남도");
+        pair.put("충북", "충청북도");
+        pair.put("경남", "경상남도");
+        pair.put("경북", "경상북도");
+        pair.put("전남", "전라남도");
+        pair.put("전북", "전라북도");
+
+        pair.put("충청남도", "충남");
+        pair.put("충청북도", "충북");
+        pair.put("경상남도", "경남");
+        pair.put("경상북도", "경북");
+        pair.put("전라남도", "전남");
+        pair.put("전라북도", "전북");
     }
 
     @PostMapping
@@ -76,6 +98,20 @@ public class ChatController {
 
         try {
             List<String> nouns = analyzer.pickNouns(str); // 형태소 분리한 결과 넣은 list - noun
+            Collections.sort(nouns);
+
+            int idx;
+            for(String ex:exclude) {
+                //제외단어
+                if((idx = Collections.binarySearch(nouns,ex))>=0) nouns.remove(idx);
+            }
+            for(Map.Entry<String,String> entry:pair.entrySet()){
+                //페어단어
+                if(Collections.binarySearch(nouns,entry.getKey())>=0) {
+                    nouns.add(entry.getValue());
+                }
+            }
+
             resultMap.put("placeList", chatService.findPlaces(nouns));
             resultMap.put("message",SUCCESS);
             httpStatus = HttpStatus.OK;
