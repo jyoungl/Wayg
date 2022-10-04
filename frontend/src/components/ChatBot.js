@@ -90,11 +90,20 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
     await setChat((currentArray) => [...currentArray, ['user', send]]);
     
     if (isPlace) {
+      // 검색시작
+      setLoading(true);
+      changeLoad();
+
       const res = await axios.post(process.env.REACT_APP_HOST + `chat/place`,{
         str: send,
         // placeList: placeList
       });
       console.log(res)
+
+      //검색 끝
+      setLoading(false);
+      changeLoad();
+
       if (res.data){
         if (res.data.message === 'success') {
           // console.log(res.data.placeList)
@@ -113,7 +122,6 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
     }
     else {
       // 검색시작
-      // setLoading(true);
       setLoading(true);
       changeLoad();
 
