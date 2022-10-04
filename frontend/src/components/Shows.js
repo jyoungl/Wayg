@@ -15,30 +15,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   
 
   const [items, setItems] = useState([])
-  const [page,setPage] = useState(null)
-  const [length,setLength] = useState(null)
-  const [divide,setDivide] = useState(null)
-  const [newArray2, setNewArray] = useState([])
-    // 무한 스크롤
-  
 
-  // 전체 리스트 array로 나누어주는 코드
-  // useEffect(() => {
-    
-  //   const division = async(resultsList, n) => {
-  //     const length = resultsList.length;
-  //     const divide = Math.floor(length / n) + (Math.floor( length % n ) > 0 ? 1 : 0);
-  //     for (let i = 0; i <=divide; i++) {
-  //       newArray.push(resultsList.splice(0,n))
-  //     }
-  //     console.log(newArray)
-  //     await setPage(newArray.legnth)
-  //   }
-  //   const newArray = [];
-  //   const resultsList = counter.results
-  //   division(resultsList,10)
-  // },[page])
-    //////////////////////////////////////////////////////
     useEffect(() => {
       if (likeFeed) {
         const fetchLikeFeeds = async () => {

@@ -1,75 +1,141 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useInView } from "react-intersection-observer"
 import Recommendation from "../components/Recommendation";
-import Result from "../components/Result";
-import Feed from "../components/Feed";
+import MobileResult from "../components/Mobile/MobileResult";
+import MobileFeeds from "../components/Mobile/MobileFeeds";
+import MobileRecommendations from "../components/Mobile/MobileRecommendations";
+import MobileFeed from "../components/Mobile/MobileFeed";
+import MobileRecommendation from "../components/Mobile/MobileRecommendation";
 import styles from "./MobileMenu.module.css";
 import axios from "axios";
 import { connect } from "react-redux";
 import woori2 from '../images/wayg.png';
 import sunguri from '../images/sunguri.png';
 import WordCloud from "../components/WordCloud";
+import { useLocation } from 'react-router-dom';
 
-function MobileMenu({load, search, scrapPlace ,likeFeed, myFeed, counter, route}) {
-// function MobileMenu({counter, route}) {
-  
-  const { popular } = route.params;
+function MobileMenu({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
+  const location = useLocation();
   const [items, setItems] = useState([])
-  const [page,setPage] = useState(null)
-  const [length,setLength] = useState(null)
-  const [divide,setDivide] = useState(null)
-  const [newArray2, setNewArray] = useState([])
-    // 무한 스크롤
-  
 
-  // 전체 리스트 array로 나누어주는 코드
+  const popular = location.state.popular;
+  const more = location.state.more;
+  const like = location.state.like;
+  const scrap = location.state.scrap;
+  const my = location.state.my;
+
   useEffect(() => {
-    console.log(popular)
-    
-    const division = async(resultsList, n) => {
-      const length = resultsList.length;
-      const divide = Math.floor(length / n) + (Math.floor( length % n ) > 0 ? 1 : 0);
-      for (let i = 0; i <=divide; i++) {
-        newArray.push(resultsList.splice(0,n))
-      }
-      console.log(newArray)
-      await setPage(newArray.legnth)
+    if (like) {
+      const fetchLikeFeeds = async () => {
+        try {
+            const response = await axios.get(
+              process.env.REACT_APP_HOST+`feed/myLikeList`,{
+                params: {
+                  page: 0,
+                  size: 10,
+                  userNo: counter.userNo,
+                }
+              }
+              
+              );
+            console.log(response.data)
+            setItems(response.data.myLikeList.content)
+          } catch (e) {
+            
+          }
+        };
+      fetchLikeFeeds();
     }
-    const newArray = [];
-    const resultsList = counter.results
-    division(resultsList,10)
-  },[page])
+    else if (my) {
+      const fetchMyFeeds = async () => {
+        try {
+          const response = await axios.get(
+            process.env.REACT_APP_HOST+`feed/myFeed`,{
+              params: {
+                page: 0,
+                size: 10,
+                userNo: counter.userNo,
+              }
+            }
+           
+            
+            );
+          console.log(response.data)
+          setItems(response.data.myFeedList.content)
+        } catch (e) {
+  
+        }
+      }
+      fetchMyFeeds()
+    }
+    else if (scrap) {
+      const fetchMyPlaces = async () => {
+        try {
+          const response = await axios.get(
+            process.env.REACT_APP_HOST+`place/myScrapList?`,{
+              params: {
+                page: 0,
+                size: 10,
+                userNo: counter.userNo,
+              }
+            }
+            
+          );
+          console.log(response.data)
+          setItems(response.data.myScrapList.content)
+        } catch (e) {
+  
+        }
+      }
+      fetchMyPlaces()
+    }
+    else if (more) {
+      console.log('more')
+      // setItems(counter.results)
+    }
+  },[])
+
+
 
   return (
     <div className="">
-      {myFeed ? 
+      <h1>우리! 어디가?</h1>
+      {popular ? 
         <>
-          <h2>내가 작성한 피드</h2>
-          <div className={styles.shows_list}>
-            {items.map((item,idx) => (
-              <Feed {...item} key={idx}/>
-            ))}
-          </div>
-        </> : null}
-      {likeFeed ? 
+          <MobileFeeds/>
+          <br />
+          <MobileRecommendations/>
+        </> 
+        : null}
+      {like ? 
         <>
           <h2>내가 좋아요 누른 피드</h2>
           <div className={styles.shows_list}>
             {items.map((item,idx) => (
-              <Feed {...item} key={idx}/>
+              <MobileFeed {...item} key={idx}/>
+            ))}
+          </div>
+        </> 
+        : null}
+      {my ? 
+        <>
+          <h2>내가 작성한 피드</h2>
+          <div className={styles.shows_list}>
+            {items.map((item,idx) => (
+              <MobileFeed {...item} key={idx}/>
             ))}
           </div>
         </> : null}
-      {scrapPlace ? 
+      {scrap ? 
         <>
           <h2>내가 스크랩한 관광지</h2>
           <div className={styles.shows_list}>
             {items.map((item,idx) => (
-              <Recommendation {...item} key={idx}/>
+              <MobileRecommendation {...item} key={idx}/>
             ))}
           </div>
         </> : null}
-      {search ? 
+      {more ? 
       <>
         <div className={styles.search_title}>
           <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
@@ -77,21 +143,9 @@ function MobileMenu({load, search, scrapPlace ,likeFeed, myFeed, counter, route}
         </div>
         <div className={styles.shows_list}>
           {counter.results.map((result,idx) => (
-            <Result placeName={result} key={idx} />
+            <MobileResult placeName={result} key={idx} />
           ))}
         </div>
-        { load ? 
-          <div className={styles.container}>
-            <img style={{width: "125px", height: "125px"}} className={styles.icon} src={woori2} alt="woori"/>
-            <div className={`${styles.progress2} ${styles.progress_moved}`}>
-              <div className={styles.progress_bar2}></div>
-            </div>
-          </div>
-          : <div className={styles.shows_list}>
-              {counter.results.map((result,idx) => (
-                <Result placeName={result} key={idx} />
-              ))}
-            </div> }
         
       </> : null}
 
