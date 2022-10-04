@@ -7,10 +7,10 @@ import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import React from 'react';
-import wayg from '../images/wayg.png'
+// import wayg from '@/src/images/wayg.png'
 import {useParams} from "react-router-dom"
 import { connect } from "react-redux";
-import WordCloud from "./WordCloud";
+import WordCloud from "../WordCloud";
 
 function MobileRecommendation({counter, placeNo,placeName,placeAddress,placeInfo,placeHoliday,placeExperience,placeTime,placePark,placeAnimal,placeMore,placeScrapYn,placeScrap,placeFile, parentFunction }) {
   
