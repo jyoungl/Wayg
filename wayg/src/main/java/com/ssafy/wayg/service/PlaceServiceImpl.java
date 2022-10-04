@@ -189,9 +189,34 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	public PlaceDto searchName(String name){
-		Place place = placeRepository.findByPlaceName(name);
-		return converter.toPlaceDto(place);
+	public PlaceDto searchName(int userNo, String name) throws Exception{
+		PlaceDto placeDto = converter.toPlaceDto(placeRepository.findByPlaceName(name));
+
+		placeDto.setPlaceScrapYn(scrapRepository.findByUserNoUserNoAndPlaceNoPlaceNo(userNo, placeDto.getPlaceNo()) != null);
+
+		String new_name = "";
+		for(int j = 0; j<name.length(); j++) {
+			char c = name.charAt(j);
+			if(j == 0 && c == '(') continue;
+			if(c == ' ' || c =='(' || c == ')') new_name += '_';
+			else new_name += c;
+		}
+		String url = "https://res.cloudinary.com/da8po50b1/image/upload/v1664293859/place/" + new_name + "_1.jpg";
+
+		URL url_check = new URL(url);
+		URLConnection con = url_check.openConnection();
+		HttpURLConnection exitCode = (HttpURLConnection)con;
+		if(exitCode.getResponseCode() == 404) {
+			url = "";
+		}
+
+		placeDto.setPlaceFile(url);
+
+		return placeDto;
+	}
+
+	public PlaceDto searchName(String name) throws Exception{
+		return converter.toPlaceDto(placeRepository.findByPlaceName(name));
 	}
 
 	@Override

@@ -22,7 +22,9 @@ public interface PlaceService {
 
 	List<String> searchPlace(String keyword) throws Exception;
 
-	PlaceDto searchName(String name);
+	PlaceDto searchName(int userNo, String name) throws Exception;
+
+	PlaceDto searchName(String name) throws Exception;
 
 	List<Map<String,Object>> wordCloud(String placeName);
 
