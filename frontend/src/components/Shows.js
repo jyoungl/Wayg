@@ -12,14 +12,15 @@ import woori2 from '../images/wayg.png'
 import sunguri from '../images/sunguri.png'
 import Loading from './Loading'
 import LoadingPink from '../images/LoadingPink.png';
+import hinguri from '../images/hinguri.png'
 import Doori from './LoadingPink'
 
 function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   
-
   const [items, setItems] = useState([])
 
   useEffect(() => {
+
     if (likeFeed) {
       const fetchLikeFeeds = async () => {
         try {
@@ -105,8 +106,6 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
     return false;
   }
 
-
-
   return (
     <div className="">
       {myFeed ? 
@@ -136,8 +135,10 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
             ))}
           </div>
         </> : null}
-      {search ? 
-      <>
+      
+      <div>
+        {search ? 
+        <>
         <div className={styles.search_title}>
           <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
           <h2>검색 결과 피드</h2>
@@ -170,6 +171,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
             </div></> }
         
       </> : null}
+      </div>
     </div>
   );
 }
