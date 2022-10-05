@@ -206,16 +206,16 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
               }
             }
             await combineResult()
-            await console.log('합한 결과', results)
-            await console.log('feed합한 결과', feedResults)
+            // await console.log('합한 결과', results)
+            // await console.log('feed합한 결과', feedResults)
             let sorted_results = Object.keys(results).sort(function(a, b){return results[b]-results[a]});
             let sorted_feed_results = Object.keys(feedResults).sort(function(a,b){return feedResults[b]-feedResults[a]});
             // await console.log(sorted_results)
-            console.log(sorted_results)
-            console.log(sorted_feed_results)
+            // console.log(sorted_results)
+            // console.log(sorted_feed_results)
             // await setChatResults(sorted_results)
             // await console.log('정렬한 배열값', chatResults)
-            setChat((currentArray) => [...currentArray, ['woori', "추천지는 마음에 들어? 더 원하는 게 있으면 말해 봐!"]]);
+            await setChat((currentArray) => [...currentArray, ['woori', "추천지는 마음에 들어? 더 원하는 게 있으면 말해 봐!"]]);
 
             //////////////////////////////////////////여기까지 진행했음 save쪽이므로 따로 건들지 않음/////////////////
             if (!isEmptyArr(sorted_results)){
