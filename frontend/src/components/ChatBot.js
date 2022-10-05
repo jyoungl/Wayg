@@ -46,8 +46,8 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   
   const helloChat = ['안녕 내 이름은 우리라고 해!', '안녕 나는 우리야!', "안녕? 난 우리야 여행지를 추천해줄게!"];
-  const whereChat = ['어느곳으로 놀러가고 싶어?', '가고 싶은 지역이 있어?']
-  const questionChat = ["오늘은 어떤 여행을 하고 싶어? 우리에게 알려줘!", "원하는 여행지를 알려줄래?", '가고 싶은 곳이 있어? 우리한테 얘기해 봐! 들어줄 수도 있어', '원하는 테마가 있어? 말해봐', '오늘은 어디로 갈 거야? 말해주면 추천해줄 수도 있고 안해줄수도 있지 ㅇㅅㅇ'  ]
+  const whereChat = ['어느 지역으로 놀러가고 싶어?', '가고 싶은 지역이 있어?']
+  const questionChat = ["오늘은 어떤 여행을 하고 싶어? 우리에게 알려 줘!", "원하는 여행 테마를 알려 줄래?", '보고 싶은 게 있어? 우리한테 얘기해 봐! 들어줄 수도 있어', '원하는 여행 테마가 있어? 말해봐', '오늘은 뭘 하고 싶어? 말해 주면 추천해 줄 수도 있고 안 해 줄 수도 있지 ㅇㅅㅇ'  ]
   
   useEffect(() => {
     // console.log("penguin")
@@ -116,7 +116,7 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
         if (res.data.message === 'success') {
           // console.log(res.data.placeList)
           if (isEmptyArr(res.data.placeList)){
-            setChat((currentArray) => [...currentArray, ['woori', "응? 미안 무슨 말인지 모르겠어 ㅠㅅㅠ.. \n 어디로 가고 싶다고?"]]);
+            setChat((currentArray) => [...currentArray, ['woori', "응? 무슨 말인지 모르겠어 ㅠㅅㅠ.. \n 어디로 가고 싶다고?"]]);
           }
           else if (res.data.placeList.length <= 3) {
             setChat((currentArray) => [...currentArray, ['woori', `미안 ! 내가 아는 곳은 여기밖에 없어 ! ${res.data.placeList[0]}`]]);
@@ -228,7 +228,9 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
               // 카카오 공유할 3개 여행지 저장
               setShareList([{placename: sorted_results[0], img_src: makeImgSrc(sorted_results[0])}, 
               {placename: sorted_results[1], img_src: makeImgSrc(sorted_results[1])}, 
-              {placename: sorted_results[2], img_src: makeImgSrc(sorted_results[2])}])
+                { placename: sorted_results[2], img_src: makeImgSrc(sorted_results[2]) }])
+              
+              setChat((currentArray) => [...currentArray, ['woori', "추천지는 마음에 들어? 더 원하는 게 있으면 말해 봐!"]]);
             }
             else {
               setChat((currentArray) => [...currentArray, ['woori', '미안.. 추천할 만한 곳이 없는걸...']]);
