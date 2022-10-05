@@ -23,7 +23,7 @@ def travel(word) :
 
 
     quote = word  #검색어
-    display_num = "4"     #최대갯수
+    display_num = "100"     #최대갯수
 
     encText = urllib.parse.quote(quote)
     url = "https://openapi.naver.com/v1/search/blog?query=" + encText +"&display=" + display_num  +"&sort=date" # json 결과
