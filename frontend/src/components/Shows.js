@@ -24,9 +24,12 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
 
 
   // useEffect(()=> {
-  //   setRelatePlace([...finalResult])
-  //   console.log(finalResult)
-  //   console.log(relatePlace)
+  //   if (isEmptyArr(finalResult) === false){
+  //     const newResults = finalResult[0, 100]
+  //     setRelatePlace([...newResults])
+  //   }
+  //   // console.log(finalResult)
+  //   // console.log(relatePlace)
   // },[finalResult])
 
   useEffect(()=> {
@@ -183,7 +186,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
           <h2>검색 결과</h2>
         </div>
         <div className={styles.shows_list}>
-          {finalResult.map((result, idx) => (
+          {relateFeed.map((result, idx) => (
             <div key={idx}>
               {checkFeed(result.feedPlacename) === true ? 
               <FeedResult {...result}>{result}</FeedResult> : null

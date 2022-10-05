@@ -74,6 +74,12 @@
     vertical-align: middle;
     outline:none;
 }
+
+.chat_main {
+  padding: 5px;
+  margin-bottom: 50px;
+}
+
 .reply{
     height: 40px;
     /* border-radius: 5px; */
