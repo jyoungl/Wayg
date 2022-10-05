@@ -336,7 +336,6 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
 
   const share = async () => {
     try {
-      console.log('share')
       shareKakaoLink()
       } catch (e) {
         

@@ -8,6 +8,7 @@ import LikeShows from "../components/LikeShows";
 import Loading from "../components/Loading";
 import styles from "./Main.module.css";
 import { connect } from "react-redux";
+import hinguri from '../images/hinguri.png'
 // 모바일 뷰
 import {BrowserView, MobileView} from 'react-device-detect'; 
 import MobileChatBot from '../components/MobileChatBot';
@@ -27,7 +28,7 @@ function Main({counter}) {
     setLoad((current) => !current)
   }
   // 기본 화면(로딩화면?)으로 돌아가기
-  const [search, setSearch] = useState(true)
+  const [search, setSearch] = useState(false)
   const goSearch = () => {
     setSearch((current)=> true)
     setPopular(false)
@@ -36,6 +37,7 @@ function Main({counter}) {
     setAddFeed(false)
     setScrapPlace(false)
   }
+  console.log(search)
 
   //인기 항목
   const [popular, setPopular] = useState(false)
@@ -115,12 +117,13 @@ function Main({counter}) {
             <ChatBot changeLoad={changeLoad} load={load} addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
           </div>
           <div className={styles.right}>
-          <div className={styles.detail}>
+          <div className={styles.detail} style={{height:"100vh"}}>
             {search ?
             <div>
               <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+              
             </div> 
-            : null }
+            : <div style={{marginLeft: "23%", marginTop: "23%"}}><img style={{width:"50%", height:"50%"}} src={hinguri} alt="" /><div style={{width:"50%", height:"50%"}}>검색해.. 아님 인기피드 보러가등가!</div></div> }
 
             {popular ? 
               // <Loading />
