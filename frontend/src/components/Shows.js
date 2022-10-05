@@ -22,7 +22,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   const [relatePlace,  setRelatePlace ] = useState([])
 
   useEffect(()=> {
-    setRelatePlace(counter.results)
+    setRelatePlace([...counter.results])
 
   },[counter.results])
 
@@ -38,7 +38,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
             }
           });
           console.log(response.data)
-          setRelateFeed(response.data.feedList.content)
+          setRelateFeed([...response.data.feedList.content])
         } catch (e) {
           
         }
@@ -176,7 +176,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
         <>
         <div className={styles.search_title}>
           <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
-          <h2>검색 결과 피드</h2>
+          <h2>피드</h2>
         </div>
         <div className={styles.shows_list}>
           {relateFeed.map((result, idx) => (
@@ -192,7 +192,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
       <>
         <div className={styles.search_title}>
           <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
-          <h2>검색 결과</h2>
+          <h2>결과</h2>
         </div>
         <div className={styles.shows_list}>
           {relatePlace.map((result,idx) => (
