@@ -4,18 +4,18 @@ import styles from './Feed.module.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBookmark, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
-import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import noPhoto from './noPhoto.png'
 import { useParams } from "react-router-dom"
 import { connect } from "react-redux";
 import { Link, Route, BrowserRouter as Router } from 'react-router-dom'
-
+import WordCloud from "./WordCloud";
 
 function RecommendationNameShare() {
   const [shareRecommendation,setShareRecommendation] = useState({})
-  let { placeName, connect } = useParams()
+  let { placeName, counter } = useParams()
   console.log(placeName)
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function RecommendationNameShare() {
     try {
       const response = await axios.post(
       process.env.REACT_APP_HOST+`place/search`, 
-      { "userNo": connect.userNo,
+      { "userNo": 0,
         "placeName":placeName
       }
     )
@@ -35,33 +35,35 @@ function RecommendationNameShare() {
 }
     fetchInfo()
   },[])
-
+  console.log(counter.userNo)
 
 
   return (
     <>
-    <div>
-      {placeName}
-    </div>
+<div className={styles.Container}>
+          {/* 사진용 컴포넌트 */}
+            <div className={styles.photo} item xs={12} md={6}>
+              <img style={{}} className={styles.detail_img} src={shareRecommendation.placeFile} onError={({ currentTarget }) => {
+                currentTarget.onerror = null; 
+                currentTarget.src = './noPhoto.png'
+              }} alt='img' />
+              <div >
+              &nbsp;&nbsp;
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </div>
+            </div>
+            {/* 워드 클라우드 컴포넌트 */ }
+          <WordCloud placeName={shareRecommendation.placeName}></WordCloud>
+          {/* 본문용 컴포넌트 */}
+          <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
+            
+            <p className={styles.detail_title}>{shareRecommendation.placeName}</p>
+            <p className={styles.detail_address}>{shareRecommendation.placeAddress}</p>
+            <p className={styles.detail_content}>{shareRecommendation.placeInfo}</p>
+            </div>
+        </div>
 
- <div style={{maxHeight:'650px'}} className={styles.Container}>
-     {/* 사진용 왼쪽 컴포넌트 */}
-     <div style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
-         {shareRecommendation.placeFile ? 
-           <img src={shareRecommendation.placeFile} alt="" />
-           : <img src={noPhoto} alt="" />
-         }
-     </div>
-     {/* 글용 오른쪽 컴포넌트 */}
-     <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
-       <p className={styles.detail_title}>{shareRecommendation.placeName}</p>
-       <p className={styles.detail_address}>{shareRecommendation.placeAddress}</p>
-       <p>{shareRecommendation.placeInfo}</p>
-       <Link to="/">
-       <button>뒤로가기</button>         
-     </Link>
-       </div>
- </div>
+
  </>
 
 
