@@ -17,7 +17,7 @@
 }
 
 .right {
-    padding: 5%;
+    padding-left: 5%;
 }
 
 .right::-webkit-scrollbar {
