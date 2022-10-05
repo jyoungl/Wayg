@@ -12,7 +12,7 @@ import Modal from 'react-bootstrap/Modal';
 
 import { connect } from "react-redux";
 
-function FeedResult({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFile, feedLike,feedLikeYn, feedPlacename, placeName}) {
+function FeedResult({counter, feedNo, feedTitle, feedContent, feedNickname, userNo, feedFile, feedLike,feedLikeYn, feedPlacename}) {
   const [feed, setFeed] = useState({
     feedNo: {feedNo}.feedNo,
     feedTitle: {feedTitle}.feedTitle,
@@ -145,14 +145,14 @@ function FeedResult({counter, feedNo, feedTitle, feedContent, feedNickname, user
     <>
     <div className={styles.feed}>
       <div className={styles.feed_div}>
-        <img onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_img} src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png' onError={({ currentTarget }) => {
+        <img onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
           currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png';
         }} alt='img' />
         <div className={styles.feed_description}>
           <div className={styles.feed_box}> 
             {/* <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_writer}>{feed.feedNickname}</div> */}
-            <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_title}>{placeName}</div>
+            <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_title}>{feed.feedTitle}</div>
           </div>
           <div className={styles.feed_box}>
             {feed.feedLikeYn ? 

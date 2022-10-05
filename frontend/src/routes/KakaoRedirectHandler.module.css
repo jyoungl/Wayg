@@ -2,7 +2,7 @@
   position: fixed;
   background-color: #92B4EC;
   height: 100vh;
-  width: 390px;
+  width: 400px;
   margin: auto;
   display: flex;
   align-items: center;
@@ -25,7 +25,7 @@
 .login_woori {
   display: flex;
   justify-content: center;
-  width: 390px;
+  width: 400px;
   margin: auto;
   position: absolute;
   animation: doodoodoongjang 3s, vibration 0.4s 5;
@@ -35,7 +35,7 @@
 .login_bus {
   display: flex;
   justify-content: center;
-  width: 390px;
+  width: 400px;
   position: absolute;
   animation: bus 2s, vibration 0.2s infinite;
   opacity: 0;

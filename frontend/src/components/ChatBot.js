@@ -117,6 +117,9 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
           if (isEmptyArr(res.data.placeList)){
             setChat((currentArray) => [...currentArray, ['woori', "응? 미안 무슨 말인지 모르겠어 ㅠㅅㅠ.. \n 어디로 가고 싶다고?"]]);
           }
+          else if (res.data.placeList.length <= 3) {
+            setChat((currentArray) => [...currentArray, ['woori', `미안 ! 내가 아는 곳은 여기밖에 없어 ! ${res.data.placeList[0]}`]]);
+          }
           else{
             setPlaceList(res.data.placeList)
             setIsPlace(false)
@@ -162,7 +165,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
           }
           console.log(res.data.content)
           if (isEmptyObj(res.data.content)){
-            setChat((currentArray) => [...currentArray, ['woori', '다시 한 번 말해줄래?']]);
+            setChat((currentArray) => [...currentArray, ['woori', '다시 한 번 말해줘']]);
           }
           // 검색결과가 있는 경우
           else {
@@ -391,7 +394,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
                   <div key={idx} className={styles.chat_result}>
                     <img className={styles.chat_img} src={place.img_src} onError={({ currentTarget }) => {
                       currentTarget.onerror = null; 
-                      currentTarget.src='./noPhoto.png';
+                      currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png';
                       }} alt="" />
                     <div className={styles.chat_text}>{place.placename}</div>
                   </div>
