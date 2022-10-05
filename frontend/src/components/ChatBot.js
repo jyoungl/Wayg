@@ -55,7 +55,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
     setChat([])
     setPlaceList([])
     setIsPlace(true)
-    save(counter.token, counter.userNo, [])
+    save(counter.token, counter.userNo, [], [])
     
     setTimeout(() => {
       let randomNum = Math.floor(Math.random() * 3);
