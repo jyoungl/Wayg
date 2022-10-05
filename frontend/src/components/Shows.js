@@ -18,6 +18,35 @@ import Doori from './LoadingPink'
 function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   
   const [items, setItems] = useState([])
+  const [relateFeed, setRelateFeed] = useState([])
+  const [relatePlace,  setRelatePlace ] = useState([])
+
+  useEffect(()=> {
+    setRelatePlace(counter.results)
+
+  },[counter.results])
+
+  useEffect(()=> {
+    const fetchFeeds = async () => {
+      try {
+          const response = await axios.get(process.env.REACT_APP_HOST+'feed'
+          ,{
+            params: {
+              page: 0,
+              size: 150,
+              userNo: counter.userNo,
+            }
+          });
+          console.log(response.data)
+          setRelateFeed(response.data.feedList.content)
+        } catch (e) {
+          
+        }
+      };
+    fetchFeeds();
+
+  },[counter.results2])
+
 
   useEffect(() => {
 
@@ -106,6 +135,12 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
     return false;
   }
 
+  const checkFeed = (str) => {
+    return counter.results2.includes(str)
+  }
+
+
+
   return (
     <div className="">
       {myFeed ? 
@@ -144,8 +179,12 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
           <h2>검색 결과 피드</h2>
         </div>
         <div className={styles.shows_list}>
-          {counter.results2.map((result, idx) => (
-            <FeedResult placeName={result} key={idx}>{result}</FeedResult>
+          {relateFeed.map((result, idx) => (
+            <div key={idx}>
+              {checkFeed(result.feedPlacename) === true ? 
+              <FeedResult {...result}>{result}</FeedResult> : null
+              }
+            </div>
           ))}
         </div>
       </> : null}
@@ -156,7 +195,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
           <h2>검색 결과</h2>
         </div>
         <div className={styles.shows_list}>
-          {counter.results.map((result,idx) => (
+          {relatePlace.map((result,idx) => (
             <Result placeName={result} key={idx} />
           ))}
         </div>
@@ -165,7 +204,7 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
           <Doori/>
           : <>
           <div className={styles.shows_list}>
-              {counter.results.map((result,idx) => (
+              {relatePlace.map((result,idx) => (
                 <Result placeName={result} key={idx} />
               ))}
             </div></> }
