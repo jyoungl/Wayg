@@ -44,7 +44,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
               userNo: counter.userNo,
             }
           });
-          console.log(response.data)
+          // console.log(response.data)
           setRelateFeed([...response.data.feedList.content])
         } catch (e) {
           
@@ -122,7 +122,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
       fetchMyPlaces()
     }
     else if (search) {
-      console.log('search')
+      // console.log('search')
       // setItems(counter.results)
     }
   },[])

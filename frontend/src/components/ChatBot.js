@@ -112,7 +112,7 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
       const res = await axios.post(process.env.REACT_APP_HOST + `chat/place`,{
         str: send,
       });
-      console.log(res)
+      // console.log(res)
 
       //검색 끝
       setLoading(false);
@@ -154,7 +154,7 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
         str:send,
         placeList:placeList
       })
-      console.log(resFeed.data)
+      // console.log(resFeed.data)
 
       //검색 끝
       setLoading(false);
@@ -170,7 +170,7 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
             }
             return false;
           }
-          console.log(res.data.content)
+          // console.log(res.data.content)
           if (isEmptyObj(res.data.content)){
             setChat((currentArray) => [...currentArray, ['woori', '다시 한 번 말해줘']]);
           }
@@ -179,11 +179,11 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
             //관광지
             let place_results = res.data.content
             let new_results = results
-            console.log(place_results)
+            // console.log(place_results)
             //피드
             let feed_results = resFeed.data.content
             let new_feed_results = feedResults
-            console.log(feed_results)
+            // console.log(feed_results)
             // 결과값 점수 합쳐주기, 정렬
             const combineResult = async () => {
               for (let result in place_results) {
@@ -207,7 +207,7 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
                     new_feed_results[feedResult] = feed_results[feedResult]
                   }
                   await setFeedResults(new_feed_results)
-                  console.log(new_feed_results)
+                  // console.log(new_feed_results)
                 }
               }
             }
