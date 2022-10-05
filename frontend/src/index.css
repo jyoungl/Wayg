@@ -27,13 +27,13 @@ code {
 
 /* 피드 swiper */
 .swiper-button-prev{
-  background: rgba(0, 0, 0, 0.5);
-  color: white !important;
+  background: rgba(0, 0, 0, 0) !important;
+  color: #f5f5f5 !important;
 }
 
 .swiper-button-next {
-  background: rgba(0, 0, 0, 0.5);
-  color: white !important;
+  background: rgba(0, 0, 0, 0) !important;
+  color: #f5f5f5 !important;
 }
 
 .swiper-slide {
