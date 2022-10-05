@@ -59,6 +59,7 @@ public class ChatServiceImpl implements ChatService {
         Set<String> nounSet = new HashSet<>();
         for(String noun : nouns){
             nounSet.addAll(placeRepository.findByPlaceAddressContains(noun));
+            nounSet.addAll(placeRepository.findByPlaceNameContains(noun));
         }
         return new ArrayList<>(nounSet);
     }
