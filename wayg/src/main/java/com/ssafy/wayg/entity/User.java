@@ -31,14 +31,6 @@ public class User {
     @Column(name = "user_email", nullable = false, length = 45)
     private String userEmail;
 
-    @Column(name = "user_gender")
-    @ColumnDefault("null")
-    private String userGender;
-
-    @Column(name = "user_age")
-    @ColumnDefault("null")
-    private String userAge;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
@@ -47,8 +39,6 @@ public class User {
     public User(String userName, String userEmail, String userGender, String userAge, Role role){
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userGender = userGender;
-        this.userAge = userAge;
         this.role = role;
     }
 
