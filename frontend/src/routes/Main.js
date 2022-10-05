@@ -27,6 +27,7 @@ function Main({counter}) {
   const changeLoad = () => {
     setLoad((current) => !current)
   }
+  const [penguin,setPenguin] = useState(true)
   // 기본 화면(로딩화면?)으로 돌아가기
   const [search, setSearch] = useState(false)
   const goSearch = () => {
@@ -36,6 +37,7 @@ function Main({counter}) {
     setMyFeed(false)
     setAddFeed(false)
     setScrapPlace(false)
+    setPenguin(false)
   }
   console.log(search)
 
@@ -48,6 +50,7 @@ function Main({counter}) {
     setMyFeed(false)
     setAddFeed(false)
     setScrapPlace(false)
+    setPenguin(false)
   }
 
   // 피드 작성하기
@@ -75,6 +78,7 @@ function Main({counter}) {
     setPopular(false)
     setScrapPlace(false)
     setSearch(false)
+    setPenguin(false)
   } else {
     alert('로그인 후 이용해주세요')
   }
@@ -89,6 +93,7 @@ function Main({counter}) {
     setPopular(false)
     setScrapPlace(false)
     setSearch(false)
+    setPenguin(false)
   } else {
     alert('로그인 후 이용해주세요')
   }
@@ -104,6 +109,7 @@ function Main({counter}) {
     setAddFeed(false)
     setPopular(false)
     setSearch(false)
+    setPenguin(false)
   } else {
     alert('로그인 후 이용해주세요')
   }
@@ -118,12 +124,13 @@ function Main({counter}) {
           </div>
           <div className={styles.right}>
           <div className={styles.detail} style={{height:"100vh"}}>
+            {penguin ? <div style={{marginLeft: "30%", marginTop: "23%"}}><img style={{width:"50%", height:"50%"}} src={hinguri} alt="" /><div style={{width:"50%", height:"50%", marginLeft:"5%" }}>검색해.. 아님 인기피드 보러가등가!</div></div> : null}
             {search ?
             <div>
               <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
               
             </div> 
-            : <div style={{marginLeft: "23%", marginTop: "23%"}}><img style={{width:"50%", height:"50%"}} src={hinguri} alt="" /><div style={{width:"50%", height:"50%"}}>검색해.. 아님 인기피드 보러가등가!</div></div> }
+            : null }
 
             {popular ? 
               // <Loading />
