@@ -49,6 +49,9 @@ public class MainController {
         if(userInfo.get("email") != null){
             httpSession.setAttribute("userId", userInfo.get("email"));
             httpSession.setAttribute("access_token", access_token);
+        } else {
+            response.sendRedirect("https://early-honeycrisp-704.notion.site/0-a0000ed62e984039841342adb53fad24");
+            return;
         }
         String url = "https://j7c202.p.ssafy.io/loginhandler";
         //        여기좀 바꿔줘 https://j7c202.p.ssafy.io/loginhandler
