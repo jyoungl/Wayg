@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 
 function Result({placeName, counter}) {
     const [placeImg, setPlaceImg] = useState("");
-    const [searchResult, setSearchResult] = useState({placeFime: 'https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png'})
+    const [searchResult, setSearchResult] = useState({placeFile: 'https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png'})
     const [scrapYn, setScrapYn] = useState(null)
     const [detailContent, setDetailContent] = useState()
     const [handle, setHandle] = useState(false);
