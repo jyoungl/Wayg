@@ -346,7 +346,7 @@ function MobileChatBot({navigation, parentFunction, addFeed, load, changeLoad, c
   return (
       <div id="chatScreen" className={styles.chatbot}>
         <div className={styles.chatbot_title}>
-          <div>'우리'랑 대화</div>
+          <div>'우리'랑 대화하기</div>
         </div>
         {/* {greeting ? (
         <div>
