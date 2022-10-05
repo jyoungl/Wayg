@@ -149,7 +149,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
     <div className="">
       {myFeed ? 
         <>
-          <h2>내가 작성한 피드</h2>
+          <h2 style={{marginTop:"1%"}}>내가 작성한 피드</h2>
           <div className={styles.shows_list}>
             {items.map((item,idx) => (
               <Feed {...item} key={idx}/>
@@ -158,7 +158,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
         </> : null}
       {likeFeed ? 
         <>
-          <h2>내가 좋아요 누른 피드</h2>
+          <h2 style={{marginTop:"1%"}}>내가 좋아요 누른 피드</h2>
           <div className={styles.shows_list}>
             {items.map((item,idx) => (
               <Feed {...item} key={idx}/>
@@ -167,7 +167,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
         </> : null}
       {scrapPlace ? 
         <>
-          <h2>내가 스크랩한 관광지</h2>
+          <h2 style={{marginTop:"1%"}}>내가 스크랩한 관광지</h2>
           <div className={styles.shows_list}>
             {items.map((item,idx) => (
               <Recommendation {...item} key={idx}/>

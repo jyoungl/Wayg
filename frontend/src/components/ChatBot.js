@@ -262,12 +262,24 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
     return new_src
   }
   const talkAbout = () => {
-    setChat((currentArray) => [...currentArray, ['woori', '안녕! 나는 여행지를 소개해 주는 우리야! 내 동생 이름은 두리!']])
-    setChat((currentArray) => [...currentArray, ['woori', "우리랑 하는 대화를 통해 가고 싶은 여행지를 찾아볼 수 있어"]])
-    setChat((currentArray) => [...currentArray, ['woori', "가고 싶은 지역을 말해 준 다음 하고 싶은 것들을 말해 주면 원하는 여행지를 찾아줄게!"]])
-    setChat((currentArray) => [...currentArray, ['woori', "혹시 조금 더 편하게 대화가 하고 싶어? 그러면 카카오톡 채널 추가에서 'wayg'를 검색해 우리를 찾아와! 기다리고 있을게!"]])
-    setChat((currentArray) => [...currentArray, ['woori', "http://pf.kakao.com/_kMMCxj"]])
+    setTimeout(() => {
+      setChat((currentArray) => [...currentArray, ['woori', '안녕! 나는 여행지를 소개해 주는 우리야! 내 동생 이름은 두리!']])
+    }, 500)
+    setTimeout(() => {
+      setChat((currentArray) => [...currentArray, ['woori', "우리랑 하는 대화를 통해 가고 싶은 여행지를 찾아볼 수 있어"]])
+    }, 1000)
+    setTimeout(() => {
+      setChat((currentArray) => [...currentArray, ['woori', "가고 싶은 지역을 말해 준 다음 하고 싶은 것들을 말해 주면 원하는 여행지를 찾아줄게!"]])
+    }, 1500)
 
+    setTimeout(() => {
+      setChat((currentArray) => [...currentArray, ['woori', "혹시 조금 더 편하게 대화가 하고 싶어? 그러면 카카오톡 채널 추가에서 'wayg'를 검색해 우리를 찾아와! 기다리고 있을게!"]])
+    }, 2000)
+
+    setTimeout(() => {
+      setChat((currentArray) => [...currentArray, ['woori', "http://pf.kakao.com/_kMMCxj"]])
+    }, 2000)
+   
   }
 
   const startNew = async () => {
@@ -371,14 +383,14 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
         <li className={styles.menu} onClick={() => {startNew(); clickMenuBar();}} > <span>&#x1F601;</span> &nbsp;대화 새로 시작하기</li>
         {/* <li className={styles.menu} onClick={() => {goSearch(); clickMenuBar();}}><span>&#x1F50D;</span>검색 결과 보기</li> */}
         <li className={styles.menu} onClick={() => {goPopular(); clickMenuBar();}}> <span>&#x2728;</span> &nbsp;이번달 인기피드 보러가기</li>
+        
+        {Boolean(counter.userNo) ?
+        <>
         <li className={styles.menu} onClick={() => {talkAbout(); clickMenuBar();}}><span>&#x2728;</span> &nbsp;우리 소개하기</li>
         <li className={styles.menu} onClick={() => {goLikeFeed(); clickMenuBar();}}> <span>&#x1F49B;</span> &nbsp;내가 좋아요 누른 피드 보러가기</li>
         <li className={styles.menu} onClick={() => {goScrapPlace(); clickMenuBar();}}> <span>&#x1F4CC;</span> &nbsp;내가 스크랩한 관광지 보러가기</li>
         <li className={styles.menu} onClick={() => {goMyFeed(); clickMenuBar();}}> <span>&#x1F4DA;</span> &nbsp;내가 올린 피드보기</li>
         <li className={styles.menu} onClick={() => {createFeed(); clickMenuBar();}}> <span>&#x1F4DD;</span> &nbsp;피드작성하기</li>
-        
-        {Boolean(counter.userNo) ?
-        <>
         <li style={{color: "aliceblue"}}>빈값</li>
         </> : <div><a style={{textDecoration:"none", color:"black"}} href={KAKAO_AUTH_URL}><li className={styles.menu}> <span>&#x1F511;</span> &nbsp;더 많은 기능 사용하기</li></a><li style={{color: "aliceblue"}}>빈값</li></div>
         
