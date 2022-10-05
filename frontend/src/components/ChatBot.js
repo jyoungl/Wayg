@@ -215,7 +215,7 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
             // console.log(sorted_feed_results)
             // await setChatResults(sorted_results)
             // await console.log('정렬한 배열값', chatResults)
-            await setChat((currentArray) => [...currentArray, ['woori', "추천지는 마음에 들어? 더 원하는 게 있으면 말해 봐!"]]);
+            
 
             //////////////////////////////////////////여기까지 진행했음 save쪽이므로 따로 건들지 않음/////////////////
             if (!isEmptyArr(sorted_results)){
@@ -235,14 +235,14 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
             else {
               setChat((currentArray) => [...currentArray, ['woori', '미안.. 추천할 만한 곳이 없는걸...']]);
             }
-            
+            setChat((currentArray) => [...currentArray, ['woori', "추천지는 마음에 들어? 더 원하는 게 있으면 말해 봐!"]]);
           }
         }
       } else {
         console.log(res)
       }
     }
-    // 여기에 넣어 
+
     await setSend("")
     // await setReturnMessage((event) => (!event))
   }
