@@ -70,7 +70,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
               }
               
               );
-            console.log(response.data)
+            // console.log(response.data)
             setItems(response.data.myLikeList.content)
           } catch (e) {
             
@@ -92,7 +92,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
            
             
             );
-          console.log(response.data)
+          // console.log(response.data)
           setItems(response.data.myFeedList.content)
         } catch (e) {
   
@@ -113,7 +113,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
             }
             
           );
-          console.log(response.data)
+          // console.log(response.data)
           setItems(response.data.myScrapList.content)
         } catch (e) {
   

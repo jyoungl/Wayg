@@ -53,7 +53,7 @@ function Recommendations({counter}) {
       }
     });
     if (res.data){
-      console.log(res.data)
+      // console.log(res.data)
       setRecommendations(prev => [...prev, ...res.data.placeList.content]);
     } else {
       console.log(res)

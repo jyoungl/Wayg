@@ -26,7 +26,7 @@ function Feeds({counter}) {
               userNo: counter.userNo,
             }
           });
-          console.log(response.data)
+          // console.log(response.data)
           setFeeds(response.data.feedList.content)
         } catch (e) {
           
