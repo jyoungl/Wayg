@@ -1,7 +1,7 @@
 import Feed from "./Feed";
 import axios from "axios";
 import styles from "./Feeds.module.css"
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -34,6 +34,9 @@ function Feeds({counter}) {
       };
     fetchFeeds();
   },[])
+
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
 
   return (
     <div className={styles.feeds}>
