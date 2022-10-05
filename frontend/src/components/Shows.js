@@ -3,6 +3,7 @@ import { useInView } from "react-intersection-observer"
 import Show from "./Show";
 import Recommendation from "./Recommendation";
 import Result from "./Result"
+import FeedResult from "./FeedResult"
 import Feed from "./Feed"
 import styles from "./Shows.module.css"
 import axios from "axios"
@@ -97,6 +98,13 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
     return false;
   }
 
+  const isEmptyArr = (arr) => {
+    if(Array.isArray(arr) && arr.length === 0)  {
+      return true;
+    }
+    return false;
+  }
+
 
 
   return (
@@ -132,12 +140,19 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
       <>
         <div className={styles.search_title}>
           <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
-          <h2>검색 결과</h2>
+          <h2>검색 결과 피드</h2>
         </div>
         <div className={styles.shows_list}>
-          {counter.results2.map((result2,idx) => (
-            <Result placeName={result2} key={idx} />
+          {counter.results2.map((result, idx) => (
+            <FeedResult placeName={result} key={idx}>{result}</FeedResult>
           ))}
+        </div>
+      </> : null}
+      {search ? 
+      <>
+        <div className={styles.search_title}>
+          <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
+          <h2>검색 결과</h2>
         </div>
         <div className={styles.shows_list}>
           {counter.results.map((result,idx) => (
@@ -148,11 +163,6 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
         // 두리가 움직임ㅋㅋ
           <Doori/>
           : <>
-          <div className={styles.shows_list}>
-          {counter.results2.map((result2,idx) => (
-            <Result placeName={result2} key={idx} />
-          ))}
-          </div>
           <div className={styles.shows_list}>
               {counter.results.map((result,idx) => (
                 <Result placeName={result} key={idx} />

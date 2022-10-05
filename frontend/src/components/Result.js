@@ -177,7 +177,7 @@ function Result({placeName, counter}) {
         <div style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
             <img style={{}} className={styles.detail_img} src={searchResult.placeFile} onError={({ currentTarget }) => {
               currentTarget.onerror = null; 
-              currentTarget.src='./noPhoto.png'}} alt='img' />
+              currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png'}} alt='img' />
         </div>
         {/* 글용 오른쪽 컴포넌트 */}
         <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
