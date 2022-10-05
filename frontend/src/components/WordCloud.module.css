@@ -1,5 +1,8 @@
-/* .cloud {
-  width: 100%;
-  height: 100%; 
-  margin: auto;
-} */
+.cloud {
+  padding: 0.5rem;
+}
+
+.cloud canvas{
+  max-width: 100%;
+  max-height: 100%;
+}

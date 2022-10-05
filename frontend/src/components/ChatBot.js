@@ -12,7 +12,7 @@ import CreateFeed from './CreateFeed'
 import { connect } from "react-redux";
 import { save } from "../index";
 
-function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSearch ,goLikeFeed, goPopular, goMyFeed, goScrapPlace}) {
+function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult, changeLoad, counter, save, goSearch ,goLikeFeed, goPopular, goMyFeed, goScrapPlace}) {
   // 데이터전송 axios를 위한 useState()
   const [receives, setReceives] = useState([]);
   const [receive, setReceive] = useState('');
@@ -52,10 +52,11 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
   useEffect(() => {
     // console.log("penguin")
     // setGreeting((current) => !current)
-    setChat([])
-    setPlaceList([])
-    setIsPlace(true)
-    save(counter.token, counter.userNo, [], [])
+    setChat([]);
+    setPlaceList([]);
+    setIsPlace(true);
+    save(counter.token, counter.userNo, [], []);
+    changeFinalResult([]);
     
     setTimeout(() => {
       let randomNum = Math.floor(Math.random() * 3);
@@ -222,6 +223,8 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
                 {placename: sorted_results[2], img_src: makeImgSrc(sorted_results[2])} ]]]);
               // redux에 결과값 저장
               save(counter.token, counter.userNo, sorted_results, sorted_feed_results)
+              changeFinalResult(sorted_results);
+              
               // 카카오 공유할 3개 여행지 저장
               setShareList([{placename: sorted_results[0], img_src: makeImgSrc(sorted_results[0])}, 
               {placename: sorted_results[1], img_src: makeImgSrc(sorted_results[1])}, 
@@ -237,7 +240,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
         console.log(res)
       }
     }
-    
+    // 여기에 넣어 
     await setSend("")
     // await setReturnMessage((event) => (!event))
   }
@@ -272,6 +275,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
     await setPlaceList([]);
     await setIsPlace(true);
     await save(counter.token, counter.userNo, [], []);
+    await changeFinalResult([]);
     await window.location.replace("/main")
 
     setTimeout(() => {
@@ -439,7 +443,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
         <FontAwesomeIcon style={{cursor: 'pointer', padding:"2%"}} className='fa-2xl' onClick={clickMenuBar} icon={faBars} />
         <form onSubmit={onSubmit}>
           <input id="chatInput" className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
-          <button className={styles.chatBtn} onClick={() => {goSearch(); clickMenuBar(); closeMenuBar();}}>보내기</button>
+          <button className={styles.chatBtn} onClick={() => {goSearch(); closeMenuBar();}}>보내기</button>
         </form>
       </div>
       

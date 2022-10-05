@@ -14,19 +14,23 @@ import Loading from './Loading'
 import LoadingPink from '../images/LoadingPink.png';
 import hinguri from '../images/hinguri.png'
 import Doori from './LoadingPink'
+import { useReducer } from "react";
 
-function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
+function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   
   const [items, setItems] = useState([])
   const [relateFeed, setRelateFeed] = useState([])
   const [relatePlace,  setRelatePlace ] = useState([])
 
-  useEffect(()=> {
-    setRelatePlace([...counter.results])
-
-  },[counter.results])
 
   useEffect(()=> {
+    setRelatePlace([...finalResult])
+    console.log(finalResult)
+    console.log(relatePlace)
+  },[finalResult])
+
+  useEffect(()=> {
+
     const fetchFeeds = async () => {
       try {
           const response = await axios.get(process.env.REACT_APP_HOST+'feed'
@@ -171,15 +175,15 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
           </div>
         </> : null}
       
-      <div>
+      
         {search ? 
         <>
         <div className={styles.search_title}>
           <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
-          <h2>피드</h2>
+          <h2>검색 결과</h2>
         </div>
         <div className={styles.shows_list}>
-          {relateFeed.map((result, idx) => (
+          {finalResult.map((result, idx) => (
             <div key={idx}>
               {checkFeed(result.feedPlacename) === true ? 
               <FeedResult {...result}>{result}</FeedResult> : null
@@ -192,25 +196,24 @@ function Shows({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
       <>
         <div className={styles.search_title}>
           <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
-          <h2>결과</h2>
+          
         </div>
         <div className={styles.shows_list}>
-          {relatePlace.map((result,idx) => (
+          {finalResult.map((result,idx) => (
             <Result placeName={result} key={idx} />
           ))}
         </div>
         { load ? 
-        // 두리가 움직임ㅋㅋ
+        // 두리가 움직임
           <Doori/>
           : <>
           <div className={styles.shows_list}>
-              {relatePlace.map((result,idx) => (
+              {finalResult.map((result,idx) => (
                 <Result placeName={result} key={idx} />
               ))}
             </div></> }
         
       </> : null}
-      </div>
     </div>
   );
 }

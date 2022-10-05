@@ -35,7 +35,7 @@ function Result({placeName, counter}) {
 
         //콘솔 없애기용
         // urlExistCheck(placeImg);
-    },[])
+    },[placeName])
 
   const shareKakaoLink = () => {
     window.Kakao.Share.sendDefault({
