@@ -23,11 +23,11 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
   const [relatePlace,  setRelatePlace ] = useState([])
 
 
-  useEffect(()=> {
-    setRelatePlace([...finalResult])
-    console.log(finalResult)
-    console.log(relatePlace)
-  },[finalResult])
+  // useEffect(()=> {
+  //   setRelatePlace([...finalResult])
+  //   console.log(finalResult)
+  //   console.log(relatePlace)
+  // },[finalResult])
 
   useEffect(()=> {
 
