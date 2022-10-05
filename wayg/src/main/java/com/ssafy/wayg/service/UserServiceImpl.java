@@ -21,8 +21,6 @@ public class UserServiceImpl implements UserService {
 
         userDto.setUserName((String) userInfo.get("nickname"));
         userDto.setUserEmail((String) userInfo.get("email"));
-        userDto.setUserAge((String)userInfo.get("age"));
-        userDto.setUserGender((String) userInfo.get("gender"));
         userDto.setRole("USER");
         return deConverter.toUserDto(userRepository.save(deConverter.toUserEntity(userDto)));
     }
