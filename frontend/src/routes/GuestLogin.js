@@ -12,7 +12,7 @@ const GuestLogin = ({counter, save}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    save('', 268, [], [])
+    save('', 0, [], [])
     setTimeout(() => {
       window.location.href = '/main';
     }, 3000)
