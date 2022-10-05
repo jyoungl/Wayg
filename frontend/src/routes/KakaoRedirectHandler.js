@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './KakaoRedirectHandler.module.css'
 import woori from '../images/wayg2.png'
-import bus from '../images/bus.png'
+import duri from '../images/pdoori.png'
+// import bus from '../images/bus.png'
 import { connect } from "react-redux";
 import { save } from "../index";
 import { useSearchParams } from 'react-router-dom';
@@ -72,7 +73,7 @@ const KakaoRedirectHandler = ({counter, save}) => {
     <div className={styles.container}>
       <div className={styles.box}>
         <div className={styles.login_woori}>
-          <img style={{width: "250px", height: "250px"}} src={woori} alt="woori"/>
+          <img style={{width: "250px", height: "250px"}} src={duri} alt="woori"/>
         </div>
         {/* <div className={styles.login_bus}>
           <img style={{width: "250px", height: "250px"}} src={bus} alt="bus"/>

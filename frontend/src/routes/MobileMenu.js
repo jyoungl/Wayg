@@ -24,6 +24,29 @@ function MobileMenu({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
   const scrap = location.state.scrap;
   const my = location.state.my;
 
+  const [relateFeed, setRelateFeed] = useState([])
+
+  useEffect(()=> {
+    const fetchFeeds = async () => {
+      try {
+          const response = await axios.get(process.env.REACT_APP_HOST+'feed'
+          ,{
+            params: {
+              page: 0,
+              size: 150,
+              userNo: counter.userNo,
+            }
+          });
+          console.log(response.data)
+          setRelateFeed(response.data.feedList.content)
+        } catch (e) {
+          
+        }
+      };
+    fetchFeeds();
+
+  },[counter.results2])
+
   useEffect(() => {
     if (like) {
       const fetchLikeFeeds = async () => {
@@ -95,11 +118,14 @@ function MobileMenu({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
     }
   },[])
 
+  const checkFeed = (str) => {
+    return counter.results2.includes(str)
+  }
+
 
 
   return (
     <div className="">
-      <h1>우리! 어디가?</h1>
       {popular ? 
         <>
           <MobileFeeds/>
@@ -139,7 +165,23 @@ function MobileMenu({load, search, scrapPlace ,likeFeed, myFeed, counter}) {
       <>
         <div className={styles.search_title}>
           <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
-          <h2>검색 결과</h2>
+          <h2>피드</h2>
+        </div>
+        <div className={styles.shows_list}>
+          {relateFeed.map((result, idx) => (
+            <div key={idx}>
+              {checkFeed(result.feedPlacename) === true ? 
+              <MobileFeed {...result}>{result}</MobileFeed> : null
+              }
+            </div>
+          ))}
+        </div>
+      </> : null}
+      {more ? 
+      <>
+        <div className={styles.search_title}>
+          <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
+          <h2>관광지</h2>
         </div>
         <div className={styles.shows_list}>
           {counter.results.map((result,idx) => (

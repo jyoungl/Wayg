@@ -8,6 +8,7 @@ import LikeShows from "../components/LikeShows";
 import Loading from "../components/Loading";
 import styles from "./Main.module.css";
 import { connect } from "react-redux";
+import hinguri from '../images/hinguri.png'
 // 모바일 뷰
 import {BrowserView, MobileView} from 'react-device-detect'; 
 import MobileChatBot from '../components/MobileChatBot';
@@ -26,8 +27,9 @@ function Main({counter}) {
   const changeLoad = () => {
     setLoad((current) => !current)
   }
+  const [penguin,setPenguin] = useState(true)
   // 기본 화면(로딩화면?)으로 돌아가기
-  const [search, setSearch] = useState(true)
+  const [search, setSearch] = useState(false)
   const goSearch = () => {
     setSearch((current)=> true)
     setPopular(false)
@@ -35,7 +37,9 @@ function Main({counter}) {
     setMyFeed(false)
     setAddFeed(false)
     setScrapPlace(false)
+    setPenguin(false)
   }
+  console.log(search)
 
   //인기 항목
   const [popular, setPopular] = useState(false)
@@ -46,6 +50,7 @@ function Main({counter}) {
     setMyFeed(false)
     setAddFeed(false)
     setScrapPlace(false)
+    setPenguin(false)
   }
 
   // 피드 작성하기
@@ -73,6 +78,7 @@ function Main({counter}) {
     setPopular(false)
     setScrapPlace(false)
     setSearch(false)
+    setPenguin(false)
   } else {
     alert('로그인 후 이용해주세요')
   }
@@ -87,6 +93,7 @@ function Main({counter}) {
     setPopular(false)
     setScrapPlace(false)
     setSearch(false)
+    setPenguin(false)
   } else {
     alert('로그인 후 이용해주세요')
   }
@@ -102,6 +109,7 @@ function Main({counter}) {
     setAddFeed(false)
     setPopular(false)
     setSearch(false)
+    setPenguin(false)
   } else {
     alert('로그인 후 이용해주세요')
   }
@@ -115,10 +123,12 @@ function Main({counter}) {
             <ChatBot changeLoad={changeLoad} load={load} addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
           </div>
           <div className={styles.right}>
-          <div className={styles.detail}>
+          <div className={styles.detail} style={{height:"100vh"}}>
+            {penguin ? <div style={{marginLeft: "30%", marginTop: "23%"}}><img style={{width:"50%", height:"50%"}} src={hinguri} alt="" /><div style={{width:"50%", height:"50%", marginLeft:"5%" }}>검색해.. 아님 인기피드 보러가등가!</div></div> : null}
             {search ?
             <div>
               <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+              
             </div> 
             : null }
 

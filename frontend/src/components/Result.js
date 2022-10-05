@@ -130,12 +130,12 @@ function Result({placeName, counter}) {
     
     const onClickRecommendation = async () => {
       try {
-        const response = await axios.get(
-          process.env.REACT_APP_HOST+`place/view?userNo=${counter.userNo}&placeNo=${searchResult.placeNo}`
+        // const response = await axios.get(
+        //   process.env.REACT_APP_HOST+`place/view?userNo=${counter.userNo}&placeNo=${searchResult.placeNo}`
           
-        )
-        var placeInfo = await response.data.place.placeInfo
-        var res = await placeInfo.replace(/<br\s*[\/]?>/gi, " ")
+        // )
+        // var placeInfo = await response.data.place.placeInfo
+        var res = await searchResult.placeInfo.replace(/<br\s*[\/]?>/gi, " ")
         await setDetailContent(res)
         await setHandle(true)
       } catch (e) {
@@ -150,7 +150,7 @@ function Result({placeName, counter}) {
         <div className={styles.headImg}>
         <img onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_img} src={searchResult.placeFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
-          currentTarget.src='./noPhoto.png';
+          currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png';
         }}/>
         </div>
         <div className={styles.recommendation_description}>

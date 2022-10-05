@@ -33,6 +33,7 @@ function MobileChatBot({navigation, parentFunction, addFeed, load, changeLoad, c
   const [send, setSend] = useState("")
   // 결과값 저장
   const [results, setResults] = useState({})
+  const [feedResults, setFeedResults] = useState({})
   // 채팅으로 보여줄 결과값
   // const [chatResults, setChatResults] = useState([])
   const [isPlace, setIsPlace] = useState(true)
@@ -48,20 +49,27 @@ function MobileChatBot({navigation, parentFunction, addFeed, load, changeLoad, c
   const REDIRECT_URI = process.env.REACT_APP_HOST+ "login"
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   
+  const helloChat = ['안녕 내 이름은 우리라고 해!', '안녕 나는 우리야!', "안녕? 난 우리야 여행지를 추천해줄게!"];
+  const whereChat = ['어느곳으로 놀러가고 싶어?', '가고 싶은 지역이 있어?']
+  const questionChat = ["오늘은 어떤 여행을 하고 싶어? 우리에게 알려줘!", "원하는 여행지를 알려줄래?", '가고 싶은 곳이 있어? 우리한테 얘기해 봐! 들어줄 수도 있어', '원하는 테마가 있어? 말해봐', '오늘은 어디로 갈 거야? 말해주면 추천해줄 수도 있고 안해줄수도 있지 ㅇㅅㅇ'  ]
+  
+
   useEffect(() => {
     // console.log("penguin")
     // setGreeting((current) => !current)
     setChat([])
     setPlaceList([])
     setIsPlace(true)
-    save(counter.token, counter.userNo, [])
+    save(counter.token, counter.userNo, [], [])
     
     setTimeout(() => {
-      setChat((currentArray) => [...currentArray, ['woori', "안녕? 난 우리야 여행지를 추천해줄게!"]]);
+      let randomNum = Math.floor(Math.random() * 3);
+      setChat((currentArray) => [...currentArray, ['woori', helloChat[randomNum]]]);
     }, 500)
     
     setTimeout(() => {
-      setChat((currentArray) => [...currentArray, ['woori', "가고 싶은 지역이 있니?"]]);
+      let randomNum = Math.floor(Math.random() * 2);
+      setChat((currentArray) => [...currentArray, ['woori', whereChat[randomNum]]]);
     }, 1500)
     
   },[])
@@ -93,20 +101,32 @@ function MobileChatBot({navigation, parentFunction, addFeed, load, changeLoad, c
     await setChat((currentArray) => [...currentArray, ['user', send]]);
     
     if (isPlace) {
+      // 검색시작
+      setLoading(true);
+      changeLoad();
+
       const res = await axios.post(process.env.REACT_APP_HOST + `chat/place`,{
         str: send
       });
+
+      //검색 끝
+      setLoading(false);
+      changeLoad();
       
       if (res.data){
         if (res.data.message === 'success') {
           // console.log(res.data.placeList)
           if (isEmptyArr(res.data.placeList)){
-            setChat((currentArray) => [...currentArray, ['woori', "휴.. 가고 싶은 지역이 있냐고?"]]);
+            setChat((currentArray) => [...currentArray, ['woori', "응? 미안 무슨 말인지 모르겠어 ㅠㅅㅠ.. 어디로 가고 싶다고?"]]);
+          }
+          else if (res.data.placeList.length <= 3) {
+            setChat((currentArray) => [...currentArray, ['woori', `미안 ! 내가 아는 곳은 여기밖에 없어 ! ${res.data.placeList[0]}`]]);
           }
           else{
             setPlaceList(res.data.placeList)
             setIsPlace(false)
-            setChat((currentArray) => [...currentArray, ['woori', "원하는 여행지를 알려줘!"]]);
+            let randomNum = Math.floor(Math.random() * 5);
+            setChat((currentArray) => [...currentArray, ['woori', questionChat[randomNum]]]);
           }
         }
       } else {
@@ -124,6 +144,13 @@ function MobileChatBot({navigation, parentFunction, addFeed, load, changeLoad, c
         placeList: placeList
       });
 
+      // 피드검색 시작
+      const resFeed = await axios.post(process.env.REACT_APP_HOST + `feed`, {
+        str:send,
+        placeList:placeList
+      })
+      console.log(resFeed.data)
+
       //검색 끝
       setLoading(false);
       changeLoad();
@@ -140,13 +167,17 @@ function MobileChatBot({navigation, parentFunction, addFeed, load, changeLoad, c
           }
           console.log(res.data.content)
           if (isEmptyObj(res.data.content)){
-            setChat((currentArray) => [...currentArray, ['woori', '흠.. 다시 한 번 말해줄래?']]);
+            setChat((currentArray) => [...currentArray, ['woori', '다시 한 번 말해줘']]);
           }
           // 검색결과가 있는 경우
           else {
             let place_results = res.data.content
             let new_results = results
             console.log(place_results)
+            //피드
+            let feed_results = resFeed.data.content
+            let new_feed_results = feedResults
+            console.log(feed_results)
             // 결과값 점수 합쳐주기, 정렬
             const combineResult = async () => {
               for (let result in place_results) {
@@ -160,12 +191,28 @@ function MobileChatBot({navigation, parentFunction, addFeed, load, changeLoad, c
                   await setResults(new_results)
                 }
               }
+              for (let feedResult in feed_results) {
+                // console.log(feedResult)
+                if(feed_results.hasOwnProperty(feedResult) && placeList.includes(feedResult)) {
+                  if (new_feed_results.hasOwnProperty(feedResult)){
+                    new_feed_results[feedResult] += feed_results[feedResult]
+                  }
+                  else {
+                    new_feed_results[feedResult] = feed_results[feedResult]
+                  }
+                  await setFeedResults(new_feed_results)
+                  console.log(new_feed_results)
+                }
+              }
             }
             await combineResult()
             await console.log('합한 결과', results)
+            await console.log('feed합한 결과', feedResults)
             let sorted_results = Object.keys(results).sort(function(a, b){return results[b]-results[a]});
+            let sorted_feed_results = Object.keys(feedResults).sort(function(a,b){return feedResults[b]-feedResults[a]});
             // await console.log(sorted_results)
             console.log(sorted_results)
+            console.log(sorted_feed_results)
             // await setChatResults(sorted_results)
             // await console.log('정렬한 배열값', chatResults)
             if (!isEmptyArr(sorted_results)){
@@ -174,7 +221,7 @@ function MobileChatBot({navigation, parentFunction, addFeed, load, changeLoad, c
                 {placename: sorted_results[1], img_src: makeImgSrc(sorted_results[1])}, 
                 {placename: sorted_results[2], img_src: makeImgSrc(sorted_results[2])} ]]]);
               // redux에 결과값 저장
-              save(counter.token, counter.userNo, sorted_results)
+              save(counter.token, counter.userNo, sorted_results, sorted_feed_results)
               // 카카오 공유할 3개 여행지 저장
               setShareList([{placename: sorted_results[0], img_src: makeImgSrc(sorted_results[0])}, 
               {placename: sorted_results[1], img_src: makeImgSrc(sorted_results[1])}, 
@@ -216,7 +263,7 @@ function MobileChatBot({navigation, parentFunction, addFeed, load, changeLoad, c
     await setChat([]);
     await setPlaceList([]);
     await setIsPlace(true);
-    await save(counter.token, counter.userNo, []);
+    await save(counter.token, counter.userNo, [], []);
     await window.location.replace("/main")
 
     setTimeout(() => {
@@ -400,7 +447,7 @@ const mapStateToProps = state => ({
   counter: state.counterReducer.counter
 });
 const mapDispatchToProps = dispatch => ({
-  save: (token, userNo, results) => dispatch(save(token, userNo, results))
+  save: (token, userNo, results, results2) => dispatch(save(token, userNo, results, results2))
 });
 export default connect(
   mapStateToProps,
