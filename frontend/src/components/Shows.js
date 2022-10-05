@@ -183,7 +183,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
           <h2>검색 결과</h2>
         </div>
         <div className={styles.shows_list}>
-          {relateFeed.map((result, idx) => (
+          {finalResult.map((result, idx) => (
             <div key={idx}>
               {checkFeed(result.feedPlacename) === true ? 
               <FeedResult {...result}>{result}</FeedResult> : null
