@@ -194,10 +194,6 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
       </> : null}
       {search ? 
       <>
-        <div className={styles.search_title}>
-          <img style={{width: "60px", height: "60px"}} src={sunguri} alt="img"/>
-          
-        </div>
         <div className={styles.shows_list}>
           {finalResult.map((result,idx) => (
             <Result placeName={result} key={idx} />

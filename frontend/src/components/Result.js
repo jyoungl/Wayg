@@ -18,6 +18,26 @@ function Result({placeName, counter}) {
     const [handle, setHandle] = useState(false);
     const handleClose = () => setHandle(false);
     useEffect(()=>{
+      const fetchInfo = async () => {
+        try {
+          const response = await axios.post(
+            process.env.REACT_APP_HOST+`place/search`,
+             {"userNo": counter.userNo,
+              "placeName":placeName
+            }
+          )
+          setSearchResult(response.data.place)
+        } catch (e) {
+          console.log(e)
+        }
+      }
+      fetchInfo()
+
+      //콘솔 없애기용
+      // urlExistCheck(placeImg);
+  },[])
+
+    useEffect(()=>{
         const fetchInfo = async () => {
           try {
             const response = await axios.post(
@@ -130,11 +150,11 @@ function Result({placeName, counter}) {
     
     const onClickRecommendation = async () => {
       try {
-        // const response = await axios.get(
-        //   process.env.REACT_APP_HOST+`place/view?userNo=${counter.userNo}&placeNo=${searchResult.placeNo}`
+        const response = await axios.get(
+          process.env.REACT_APP_HOST+`place/view?userNo=${counter.userNo}&placeNo=${searchResult.placeNo}`
           
-        // )
-        // var placeInfo = await response.data.place.placeInfo
+        )
+        var placeInfo = await response.data.place.placeInfo
         var res = await searchResult.placeInfo.replace(/<br\s*[\/]?>/gi, " ")
         await setDetailContent(res)
         await setHandle(true)
