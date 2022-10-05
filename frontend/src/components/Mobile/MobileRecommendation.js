@@ -154,7 +154,7 @@ function MobileRecommendation({counter, placeNo,placeName,placeAddress,placeInfo
         <div className={styles.headImg}>
         <img onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
-          currentTarget.src='./noPhoto.png';
+          currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png';
         }}/>
         </div>
         <div className={styles.recommendation_description}>
@@ -179,7 +179,7 @@ function MobileRecommendation({counter, placeNo,placeName,placeAddress,placeInfo
           <div style={{backgroundColor:"gray", width:"300px", height:"auto"}} item xs={12} md={6}>
               <img style={{}} className={styles.detail_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
                 currentTarget.onerror = null; 
-                currentTarget.src='./noPhoto.png'}} alt='img' />
+                currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png'}} alt='img' />
           </div>
           {/* 글용 오른쪽 컴포넌트 */}
           <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>

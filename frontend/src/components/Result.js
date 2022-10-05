@@ -185,6 +185,7 @@ function Result({placeName, counter}) {
             {searchResult.placeScrapYn ? 
             <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
             : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
+            &nbsp;<small>{searchResult.placeScrap}</small>
              &nbsp;&nbsp;
             <FontAwesomeIcon icon={faPaperPlane} />
           </div>
