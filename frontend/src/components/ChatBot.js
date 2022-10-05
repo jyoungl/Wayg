@@ -12,7 +12,7 @@ import CreateFeed from './CreateFeed'
 import { connect } from "react-redux";
 import { save } from "../index";
 
-function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSearch ,goLikeFeed, goPopular, goMyFeed, goScrapPlace}) {
+function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult, changeLoad, counter, save, goSearch ,goLikeFeed, goPopular, goMyFeed, goScrapPlace}) {
   // 데이터전송 axios를 위한 useState()
   const [receives, setReceives] = useState([]);
   const [receive, setReceive] = useState('');
@@ -52,10 +52,11 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
   useEffect(() => {
     // console.log("penguin")
     // setGreeting((current) => !current)
-    setChat([])
-    setPlaceList([])
-    setIsPlace(true)
-    save(counter.token, counter.userNo, [], [])
+    setChat([]);
+    setPlaceList([]);
+    setIsPlace(true);
+    save(counter.token, counter.userNo, [], []);
+    changeFinalResult([]);
     
     setTimeout(() => {
       let randomNum = Math.floor(Math.random() * 3);
@@ -222,6 +223,8 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
                 {placename: sorted_results[2], img_src: makeImgSrc(sorted_results[2])} ]]]);
               // redux에 결과값 저장
               save(counter.token, counter.userNo, sorted_results, sorted_feed_results)
+              changeFinalResult(sorted_results);
+              
               // 카카오 공유할 3개 여행지 저장
               setShareList([{placename: sorted_results[0], img_src: makeImgSrc(sorted_results[0])}, 
               {placename: sorted_results[1], img_src: makeImgSrc(sorted_results[1])}, 
@@ -237,7 +240,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
         console.log(res)
       }
     }
-    
+    // 여기에 넣어 
     await setSend("")
     // await setReturnMessage((event) => (!event))
   }
@@ -258,12 +261,21 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
     // console.log(new_src)
     return new_src
   }
+  const talkAbout = () => {
+    setChat((currentArray) => [...currentArray, ['woori', '안녕! 나는 여행지를 소개해 주는 우리야! 내 동생 이름은 두리!']])
+    setChat((currentArray) => [...currentArray, ['woori', "우리랑 하는 대화를 통해 가고 싶은 여행지를 찾아볼 수 있어"]])
+    setChat((currentArray) => [...currentArray, ['woori', "가고 싶은 지역을 말해 준 다음 하고 싶은 것들을 말해 주면 원하는 여행지를 찾아줄게!"]])
+    setChat((currentArray) => [...currentArray, ['woori', "혹시 조금 더 편하게 대화가 하고 싶어? 그러면 카카오톡 채널 추가에서 'wayg'를 검색해 우리를 찾아와! 기다리고 있을게!"]])
+    setChat((currentArray) => [...currentArray, ['woori', "http://pf.kakao.com/_kMMCxj"]])
+
+  }
 
   const startNew = async () => {
     await setChat([]);
     await setPlaceList([]);
     await setIsPlace(true);
     await save(counter.token, counter.userNo, [], []);
+    await changeFinalResult([]);
     await window.location.replace("/main")
 
     setTimeout(() => {
@@ -345,7 +357,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
   return (
       <div id="chatScreen" className={styles.chatbot}>
         <div className={styles.chatbot_title}>
-          <div>'우리'랑 대화</div>
+          <div>우리랑 대화하기</div>
         </div>
         {/* {greeting ? (
         <div>
@@ -359,6 +371,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
         <li className={styles.menu} onClick={() => {startNew(); clickMenuBar();}} > <span>&#x1F601;</span> &nbsp;대화 새로 시작하기</li>
         {/* <li className={styles.menu} onClick={() => {goSearch(); clickMenuBar();}}><span>&#x1F50D;</span>검색 결과 보기</li> */}
         <li className={styles.menu} onClick={() => {goPopular(); clickMenuBar();}}> <span>&#x2728;</span> &nbsp;이번달 인기피드 보러가기</li>
+        <li className={styles.menu} onClick={() => {talkAbout(); clickMenuBar();}}><span>&#x2728;</span> &nbsp;우리 소개하기</li>
         
         {Boolean(counter.userNo) ?
         <>
@@ -430,7 +443,7 @@ function ChatBot({parentFunction, addFeed, load, changeLoad, counter, save, goSe
         <FontAwesomeIcon style={{cursor: 'pointer', padding:"2%"}} className='fa-2xl' onClick={clickMenuBar} icon={faBars} />
         <form onSubmit={onSubmit}>
           <input id="chatInput" className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
-          <button className={styles.chatBtn} onClick={() => {goSearch(); clickMenuBar(); closeMenuBar();}}>보내기</button>
+          <button className={styles.chatBtn} onClick={() => {goSearch(); closeMenuBar();}}>보내기</button>
         </form>
       </div>
       

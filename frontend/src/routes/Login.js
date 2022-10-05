@@ -16,7 +16,7 @@ function Login({toDos, addToDo}) {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   // const KAKAO_AUTH_URL = `http://localhost:8080/api/oauth2/authorization/kakao`;
   const kakao_btn = () => {
-    alert("성별, 나이 공개에 동의해야 가입이 가능해요 !")
+    alert("이메일 제공 동의를 누르셔야 서비스 가입이 가능해요!")
   }
 
   return (

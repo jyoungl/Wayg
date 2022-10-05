@@ -180,12 +180,13 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
             <div className={styles.photo} item xs={12} md={6}>
               <img style={{}} className={styles.detail_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
                 currentTarget.onerror = null; 
-                currentTarget.src = './noPhoto.png'
+                currentTarget.src = 'https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png'
               }} alt='img' />
               <div >
               {recommendation.placeScrapYn ? 
               <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
               : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
+              &nbsp; <small>{recommendation.placeScrap}</small>
               &nbsp;&nbsp;
               <FontAwesomeIcon icon={faPaperPlane} />
             </div>

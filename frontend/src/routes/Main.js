@@ -14,6 +14,10 @@ import {BrowserView, MobileView} from 'react-device-detect';
 import MobileChatBot from '../components/MobileChatBot';
 
 function Main({counter}) {
+  const [finalResult, setFinalResult] = useState([]);
+  const changeFinalResult = (arr) => {
+    setFinalResult([...arr])
+  }
 
   // useEffect(()=> {
   //   let params = new URL(document.location.toString()).searchParams;
@@ -120,14 +124,14 @@ function Main({counter}) {
       <BrowserView>
         <div className={styles.main}>
           <div className={styles.ChatBot}>
-            <ChatBot changeLoad={changeLoad} load={load} addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
+            <ChatBot finalResult={finalResult} changeFinalResult={changeFinalResult} changeLoad={changeLoad} load={load} addFeed={addFeed} parentFunction={parentFunction} goSearch={goSearch} goLikeFeed={goLikeFeed} goPopular={goPopular} goMyFeed={goMyFeed} goScrapPlace={goScrapPlace}/>
           </div>
           <div className={styles.right}>
           <div className={styles.detail} style={{height:"100vh"}}>
             {penguin ? <div style={{marginLeft: "30%", marginTop: "23%"}}><img style={{width:"50%", height:"50%"}} src={hinguri} alt="" /><div style={{width:"50%", height:"50%", marginLeft:"5%" }}>검색해.. 아님 인기피드 보러가등가!</div></div> : null}
             {search ?
             <div>
-              <Shows load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
+              <Shows finalResult={finalResult} load={load} search={search} scrapPlace={scrapPlace} likeFeed={likeFeed} myFeed={myFeed}/>
               
             </div> 
             : null }
