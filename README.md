@@ -26,7 +26,7 @@
    
 - 모바일화면 [초기 / 메인 / 피드]
 
-    <img src = "https://user-images.githubusercontent.com/86655589/194229696-79776c94-018a-4bb9-b7d6-28a4c092e622.jpg" width="20%" height="20%">    <img src = "https://user-images.githubusercontent.com/86655589/194228948-9ca140fa-1f90-4b63-83be-915b9d399bcd.jpg" width="20%" height="20%">    <img src = "https://user-images.githubusercontent.com/86655589/194228952-ac3cd750-6d0a-40af-ba0b-7386ddf74cc2.jpg" width="20%" height="20%">
+    <img src = "https://user-images.githubusercontent.com/86655589/194229696-79776c94-018a-4bb9-b7d6-28a4c092e622.jpg" width="30%" height="30%">    <img src = "https://user-images.githubusercontent.com/86655589/194228948-9ca140fa-1f90-4b63-83be-915b9d399bcd.jpg" width="30%" height="30%">    <img src = "https://user-images.githubusercontent.com/86655589/194228952-ac3cd750-6d0a-40af-ba0b-7386ddf74cc2.jpg" width="30%" height="30%">
 
 
 
@@ -34,7 +34,7 @@
 
 - 카카오 챗봇
 
-    <img src = "https://user-images.githubusercontent.com/86655589/194228955-63ccf26e-125b-4d88-ba32-7c967eb2b426.jpg" width="20%" height="20%">
+    <img src = "https://user-images.githubusercontent.com/86655589/194228955-63ccf26e-125b-4d88-ba32-7c967eb2b426.jpg" width="30%" height="30%">
 
 
 - 아키텍처
@@ -68,6 +68,6 @@
 - [홍성준]([yiso22 · GitHub](https://github.com/yiso22)) 팀장 Frontend
 - [김희주]([heeejoo0518 · GitHub](https://github.com/heeejoo0518)) Backend
 - [이성찬]([seongchanleelee · GitHub](https://github.com/seongchanleelee)) Frontend
-- [이승진]([lapera00 · GitHub](https://github.com/lapera00)) Frontend
+- [이승진]([lapera00 · GitHub](https://github.com/lapera00)) Backend
 - [이주영]([jyoungl · GitHub](https://github.com/jyoungl)) Backend
 - [허은지]([hxxejx · GitHub](https://github.com/hxxejx)) Backend
