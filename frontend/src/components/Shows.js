@@ -24,9 +24,12 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
 
 
   // useEffect(()=> {
-  //   setRelatePlace([...finalResult])
-  //   console.log(finalResult)
-  //   console.log(relatePlace)
+  //   if (isEmptyArr(finalResult) === false){
+  //     const newResults = finalResult[0, 100]
+  //     setRelatePlace([...newResults])
+  //   }
+  //   // console.log(finalResult)
+  //   // console.log(relatePlace)
   // },[finalResult])
 
   useEffect(()=> {
@@ -41,7 +44,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
               userNo: counter.userNo,
             }
           });
-          console.log(response.data)
+          // console.log(response.data)
           setRelateFeed([...response.data.feedList.content])
         } catch (e) {
           
@@ -67,7 +70,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
               }
               
               );
-            console.log(response.data)
+            // console.log(response.data)
             setItems(response.data.myLikeList.content)
           } catch (e) {
             
@@ -89,7 +92,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
            
             
             );
-          console.log(response.data)
+          // console.log(response.data)
           setItems(response.data.myFeedList.content)
         } catch (e) {
   
@@ -110,7 +113,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
             }
             
           );
-          console.log(response.data)
+          // console.log(response.data)
           setItems(response.data.myScrapList.content)
         } catch (e) {
   
@@ -119,7 +122,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
       fetchMyPlaces()
     }
     else if (search) {
-      console.log('search')
+      // console.log('search')
       // setItems(counter.results)
     }
   },[])
@@ -183,7 +186,7 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
           <h2>검색 결과</h2>
         </div>
         <div className={styles.shows_list}>
-          {finalResult.map((result, idx) => (
+          {relateFeed.map((result, idx) => (
             <div key={idx}>
               {checkFeed(result.feedPlacename) === true ? 
               <FeedResult {...result}>{result}</FeedResult> : null

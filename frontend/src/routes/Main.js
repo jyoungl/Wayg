@@ -43,7 +43,7 @@ function Main({counter}) {
     setScrapPlace(false)
     setPenguin(false)
   }
-  console.log(search)
+  // console.log(search)
 
   //인기 항목
   const [popular, setPopular] = useState(false)

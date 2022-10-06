@@ -27,4 +27,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
 	@Query(value = "SELECT place_name FROM place WHERE place_address LIKE CONCAT('%',?1,'%')", nativeQuery = true)
 	List<String> findByPlaceAddressContains(String placeName);
+
+	@Query(value = "SELECT place_name FROM place WHERE place_name LIKE CONCAT('%',?1,'%')", nativeQuery = true)
+	List<String> findByPlaceNameContains(String placeName);
 }
