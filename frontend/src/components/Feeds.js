@@ -40,7 +40,7 @@ function Feeds({counter}) {
 
   return (
     <div className={styles.feeds}>
-      <h2>사용자들이 올린 피드</h2>
+      <h2>우리가 만든 피드</h2>
       <Swiper
         // install Swiper modules
         className="feed_swiper"
