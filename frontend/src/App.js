@@ -21,7 +21,7 @@ import { save } from ".";
 
 function App({counter, save}) {
   return (
-  <Router style={{cursor:'https://www.notion.so/FE-8390bd6920b94904bf871281f52db96e#4c00824d0358423ab3c6ed8780d10ab3'}}>
+  <Router >
     <Routes/>
     <Routes>
       <Route path="/" element={<Login />} />

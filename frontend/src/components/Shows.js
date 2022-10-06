@@ -97,6 +97,7 @@ function Shows({changeFinalResultPart, finalResultPart, finalResult, load, searc
         }
       };
     fetchFeeds();
+    console.log(counter.results2)
 
   },[counter.results2])
 
@@ -189,7 +190,13 @@ function Shows({changeFinalResultPart, finalResultPart, finalResult, load, searc
   }
 
   const checkFeed = (str) => {
-    return counter.results2.includes(str)
+    if (counter.results2.includes(str)) {
+      return true
+    }
+    else if (finalResult.includes(str)) {
+      return true
+    }
+    return false
   }
 
 

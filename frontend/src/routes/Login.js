@@ -7,7 +7,6 @@ import styles from "./Login.module.css";
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import cursor from '../images/cursor.png'
 
 function Login({toDos, addToDo}) {
   const navigate = useNavigate();
@@ -50,6 +49,7 @@ function Login({toDos, addToDo}) {
             </div>
           </a> */}
           <p onClick={() => navigate('/guestLogin')} className={styles.sub_button}>로그인 없이 사용하기</p>
+          <div className={styles.test}>asdfasdf</div>
         </div>
       </div>
     </div>

@@ -119,6 +119,11 @@
     align-items: center;
   }
 
+  .button:hover{
+    /* cursor: url('https://i.ibb.co/K5P0FFM/cursors.png') 20 30, auto; */
+    cursor: url('cursor.png') 20 30, auto;
+  }
+
   @keyframes btn{
     0% {
       opacity: 0;
@@ -142,13 +147,14 @@
     color: transparent; */
     width: auto;
     height: 60px;
-    cursor: url('https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F328130bf-77ba-409e-aa79-98425ab0f785%2Fcursor.png?table=block&id=4c00824d-0358-423a-b3c6-ed8780d10ab3&spaceId=313e8a53-2d4b-489d-9014-6667cc41779b&width=2000&userId=a20df0b3-112f-48ca-92e7-247622ce61a0&cache=v2') 20 30, auto !important;
-    /* cursor: url(../images/cursor.png) 20 30, url(../images/hourglass.png) 20 30, auto; */
+    /* cursor: url('https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F328130bf-77ba-409e-aa79-98425ab0f785%2Fcursor.png?table=block&id=4c00824d-0358-423a-b3c6-ed8780d10ab3&spaceId=313e8a53-2d4b-489d-9014-6667cc41779b&width=2000&userId=a20df0b3-112f-48ca-92e7-247622ce61a0&cache=v2') 20px 30px, auto !important; */
+    cursor: url('https://i.ibb.co/K5P0FFM/cursors.png') 20 30, auto;
+    /* cursor: url(../images/hat.png) 20 30, auto; */
   }
 
-  .kakao_btn:hover {
-    /* cursor: url('/images/cursor.png') 20px 30px, auto; */
-  }
+  /* .kakao_btn:hover {
+    /* cursor: url('/images/cursor.png') 20px 30px, auto;
+  } */
 
   .sub_button {
     margin-top: 3px;
@@ -157,13 +163,17 @@
     margin-top:10px;
   }
 
+  .test{
+    cursor: url('cursor.png') 20 30, auto;
+  }
+
   .sub_button:hover {
     background-color: aliceblue;
     color: black;
     padding-left: 10px;
     padding-right: 10px;
     border-radius:5px;
-    cursor: url('https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F328130bf-77ba-409e-aa79-98425ab0f785%2Fcursor.png?table=block&id=4c00824d-0358-423a-b3c6-ed8780d10ab3&spaceId=313e8a53-2d4b-489d-9014-6667cc41779b&width=2000&userId=a20df0b3-112f-48ca-92e7-247622ce61a0&cache=v2') 20px 30px, auto !important;
+    cursor: url('cursor.png') 20 30, auto;
   }
   
   .login_items {
