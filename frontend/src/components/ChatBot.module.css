@@ -126,7 +126,7 @@
 }
 
 .ham:hover{
-  cursor: url(cursors/menu.png) 16 16, auto;
+  cursor: url(cursors/cursors.png) 0 0, auto;
 }
 
 .chat_text {

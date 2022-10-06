@@ -475,7 +475,7 @@ function ChatBot({parentFunction, addFeed, load, finalResultPart, changeFinalRes
       
       {/* 모달 */}
       <Modal show={handle} onHide={handleClose}>
-        <CreateFeed></CreateFeed>
+        <CreateFeed goMyFeed={goMyFeed} handleClose={handleClose}></CreateFeed>
       </Modal>
     </div>
     

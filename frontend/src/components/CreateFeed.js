@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import Modal from 'react-bootstrap/Modal';
 import { confirmAlert } from 'react-confirm-alert';
 
-function CreateFeed({counter}) {
+function CreateFeed({counter, goMyFeed, handleClose}) {
   const [imageSrc, setImageSrc] = useState('');
   const [feedTitle, setFeedTitle] = useState('');
   const [feedPlaceName, setFeedPlaceName] = useState('');
@@ -96,7 +96,9 @@ function CreateFeed({counter}) {
       }
     }
     await CreateFeed()
-    await window.location.replace("/main")
+    await goMyFeed()
+    await handleClose()
+    // await window.location.replace("/main")
   }
   return (
     <>
