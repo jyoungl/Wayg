@@ -49,7 +49,6 @@ function Login({toDos, addToDo}) {
             </div>
           </a> */}
           <p onClick={() => navigate('/guestLogin')} className={styles.sub_button}>로그인 없이 사용하기</p>
-          <div className={styles.test}>asdfasdf</div>
         </div>
       </div>
     </div>

@@ -116,6 +116,10 @@
     height: 80px;
 }
 
+.ham:hover{
+  cursor: url(cursors/cursors.png) 8 8, auto;
+}
+
 .chat_text {
     font-size: 12px;
 }
@@ -131,7 +135,7 @@
     border-radius: 8px;
     width: auto;
     border: none;
-    cursor: pointer;
+    cursor: url(cursors/cursors.png) 8 8, auto;
 }
 
 .anotherFunction {
