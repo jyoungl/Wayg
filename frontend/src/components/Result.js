@@ -192,14 +192,14 @@ function Result({placeName, counter}) {
     </div>
     
     {/* 모달 */}
-    <Modal className={styles.placeContent} show={handle} size="xl" onHide={handleClose}>
+    {/* <Modal className={styles.placeContent} show={handle} size="xl" onHide={handleClose}>
     <div className={styles.Container}>
         {/* 사진용 왼쪽 컴포넌트 */}
-        <div className={styles.photo} item xs={12} md={6}>
+        {/* <div className={styles.photo} item xs={12} md={6}>
             <img style={{}} className={styles.detail_img} src={searchResult.placeFile} onError={({ currentTarget }) => {
               currentTarget.onerror = null; 
               currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png'}} alt='img' />
-        </div>
+        </div> */}
         {/* 글용 오른쪽 컴포넌트 */}
         {/* <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
           <div>
@@ -214,14 +214,41 @@ function Result({placeName, counter}) {
           <p className={styles.detail_address}>{searchResult.placeAddress}</p>
           <p>{detailContent}</p>
           </div> */}
-      {searchResult.placeScrapYn ? 
+      {/* {searchResult.placeScrapYn ? 
+              <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
+              : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
+              &nbsp; <small>{searchResult.placeScrap}</small>
+              &nbsp;&nbsp;
+              <FontAwesomeIcon icon={faPaperPlane} /> */}
+            {/* 워드 클라우드 컴포넌트 */ }
+          {/* <WordCloud placeName={searchResult.placeName}></WordCloud> */}
+          {/* 본문용 컴포넌트 */}
+          {/* <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
+            
+            <p className={styles.detail_title}>{searchResult.placeName}</p>
+            <p className={styles.detail_address}>{searchResult.placeAddress}</p>
+            <p className={styles.detail_content}>{detailContent}</p>
+            </div>
+
+    </div>
+    </Modal> */}
+    <Modal className={styles.placeContent} show={handle} size="xl" onHide={handleClose}>
+        <div className={styles.Container}>
+          {/* 사진용 컴포넌트 */}
+            <div className={styles.photo} item xs={12} md={6}>
+              <img style={{}} className={styles.detail_img} src={searchResult.placeFile} onError={({ currentTarget }) => {
+                currentTarget.onerror = null; 
+                currentTarget.src = 'https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png'
+              }} alt='img' />
+              <div >
+              {searchResult.placeScrapYn ? 
               <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
               : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
               &nbsp; <small>{searchResult.placeScrap}</small>
               &nbsp;&nbsp;
               <FontAwesomeIcon icon={faPaperPlane} />
-
-
+            </div>
+            </div>
             {/* 워드 클라우드 컴포넌트 */ }
           <WordCloud placeName={searchResult.placeName}></WordCloud>
           {/* 본문용 컴포넌트 */}
@@ -231,9 +258,9 @@ function Result({placeName, counter}) {
             <p className={styles.detail_address}>{searchResult.placeAddress}</p>
             <p className={styles.detail_content}>{detailContent}</p>
             </div>
-
-    </div>
-    </Modal>
+        </div>
+        
+        </Modal>
     </>
   );
 }
