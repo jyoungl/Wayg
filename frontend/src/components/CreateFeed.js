@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import Modal from 'react-bootstrap/Modal';
 import { confirmAlert } from 'react-confirm-alert';
 
-function CreateFeed({counter}) {
+function CreateFeed({counter, goMyFeed, handleClose}) {
   const [imageSrc, setImageSrc] = useState('');
   const [feedTitle, setFeedTitle] = useState('');
   const [feedPlaceName, setFeedPlaceName] = useState('');
@@ -96,48 +96,43 @@ function CreateFeed({counter}) {
       }
     }
     await CreateFeed()
-    await window.location.replace("/main")
+    await goMyFeed()
+    await handleClose()
+    // await window.location.replace("/main")
   }
   return (
     <>
-    <main className="container">
-      <Card style={{width:"100%", height:"100%"}} className={styles.Card}>
-          <input id= "imgFile" type="file" style={{display: "none"}} onChange={async (e) => {await encodeFileToBase64(e.target.files[0]); await setImage(e.target.files[0]); await setChange(true)}} />
-          {change ? <label className={styles.labelPlace}>내 피드에 올라갈 사진</label> : <label className={styles.picture} htmlFor="imgFile">사진을 선택해 주세요</label>}
-          {/* <label className={styles.picture} htmlFor="imgFile">사진을 선택해 주세요</label> */}
-        <div style={{width:"100%", height:"100%"}} className={styles.selectLabel}>
-          {imageSrc && <img src={imageSrc} className={styles.previewImg} width="100%" height="100%" art="preview-img" />
-          }
-        </div>
-          {change ? <div style={{marginTop:"2%"}}><label style={{marginTop:"5px",marginLeft:"3%", marginRight:"7%"}} className={styles.is_right_label}>위 사진이 맞으신가요?</label><div><label style={{marginRight:"3%", paddingLeft:"1%", paddingRight:"1%" }} className={styles.picture} onClick={uploadImage}>네 맞아요</label><label style={{paddingLeft:"1%", paddingRight:"1%"}} className={styles.picture} htmlFor="imgFile">아뇨 다시 고를래요</label></div></div> : null
-            }
-        {/* // {change ? <button onClick={uploadImage}>확인</button> : null} */}
+    <main className={styles.container}>
+      <Card className={styles.Card}>
+          <div style={{width:"100%", height:"320px"}}>
+          <input id= "imgFile" type="file" style={{display: "none"}} onChange={async (e) => {await encodeFileToBase64(e.target.files[0]); await setImage(e.target.files[0]); await setChange(true)}} required/>
+          {change ? <div style={{width:"100%", height:"100%"}} className={styles.selectLabel}>
+          {imageSrc && <img src={imageSrc} className={styles.previewImg} width="100%" height="100%" art="preview-img" />}
+        </div>: <label style={{width:"100%", height:"100%", lineHeight:"320px" }} className={styles.picture} htmlFor="imgFile">사진을 선택하세요</label>}
+      </div>
+          {change ? <div style={{marginTop:"2%"}}><label style={{marginTop:"5px",marginLeft:"3%", marginRight:"7%"}} className={styles.is_right_label}>위 사진이 맞으신가요?</label><div><label style={{marginRight:"3%", paddingLeft:"1%", paddingRight:"1%" }} className={styles.picture} onClick={uploadImage}>네 맞아요</label><label style={{paddingLeft:"1%", paddingRight:"1%"}} className={styles.picture} htmlFor="imgFile">아뇨 다시 고를래요</label></div></div> : null}
       
       <Card.Body>
-      <form  onSubmit={onSubmit}>
-
-        <Card.Title>
-            <input className={styles.Title} onChange={onChangeTitle} value={feedTitle} type="text" placeholder="제목을 작성하세요" style={{width:"100%", height:"100%"}}/>
-            
-            <input className={styles.Title} onChange={onChangePlaceName} value={feedPlaceName} type="text" placeholder="여행지를 작성하세요" style={{width:"100%", height:"100%"}}/>
-            {/* <ul className={styles.autoComplete}>
-            {words ? words.map((word, index) => (<div onClick={async (word) => {await setFeedTitle(word.target.innerText); console.log(word); console.log(feedTitle) }} className={styles.autoComplete_li} key={index}>{word}</div>)) : null}
-            </ul> */}
-
+        <form  onSubmit={onSubmit}>
+          <div style={{marginBottom:"3%"}}>
+            <label style={{color:"rgb(244, 108, 108)"}}>*</label>
+            &nbsp;
+            <input style={{width:"40%"}} className={styles.Title} onChange={onChangeTitle} value={feedTitle} type="text" placeholder="제목을 작성하세요"  required/>
+            <label style={{color:"rgb(244, 108, 108)"}}>*</label>
+            &nbsp;
+            <input  className={styles.Nickname} style={{width:"40%"}} onChange={onChangeNickname} type="text" placeholder="닉네임을 작성하세요"  maxLength="8" required/>
+          </div>
+            <Card.Text>
+            <input className={styles.place} onChange={onChangePlaceName} value={feedPlaceName} type="text" placeholder="여행지를 작성하세요" style={{width:"93%", height:"100%"}} required/>
             { words ? <ul className={styles.autoComplete}>
-             {words.map((word, index) => (<div onClick={async (word) => {await setFeedPlaceName(word.target.innerText); }} className={styles.autoComplete_li} key={index}>{word}</div>))}
-            </ul>:null}
-
-
-
-        </Card.Title>
+              {words.map((word, index) => (<div style={{marginBottom:"3px"}} onClick={async (word) => {await setFeedPlaceName(word.target.innerText); await setWords(null)}} className={styles.autoComplete_li} key={index}>{word}</div>))}
+              </ul>:null}
+            </Card.Text>
         <Card.Text className={styles.text}>
-            {/* <input className={styles.Content} onChange={onChangeContent} type="text" placeholder="내용을 작성하세요" style={{width:"100%", height:"100%"}}/> */}
-            <textarea className={styles.Content} onChange={onChangeContent} type="text" placeholder="내용을 작성하세요" style={{width:"100%", height:"100%"}} cols="30" rows="10"></textarea>
+            <textarea className={styles.Content} onChange={onChangeContent} type="text" placeholder="내용을 작성하세요" style={{width:"93%", height:"100%", marginLeft:"12px"}} cols="30" rows="10" required></textarea>
             <br/>
-            <input className={styles.Nickname} onChange={onChangeNickname} type="text" placeholder="기제할 닉네임을 작성하세요" style={{width:"100%", height:"100%"}} maxLength="8"/>
         </Card.Text>
-          <button className={styles.feed_btn}>피드박제</button>
+          <button  className={styles.feed_btn}>피드 업로드</button>
 
       </form>
       </Card.Body>

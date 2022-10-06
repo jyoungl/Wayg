@@ -9,12 +9,6 @@ import axios from 'axios'
 
 function Show({feedFiles, feedTitle, feedContent, feedLike, feedLikeCnt, feedNickname, feedNo, userNo}) {
   const [detailContent,setDetailContent] = useState('')
-
-
-
-
-
-
   const [handle, setHandle] = useState(false);
   const handleClose = () => setHandle(false);
   const handleShow = async () => {
@@ -36,7 +30,6 @@ function Show({feedFiles, feedTitle, feedContent, feedLike, feedLikeCnt, feedNic
       const response = await axios.delete(
         process.env.REACT_APP_HOST+`feed/${feedNo}`
         
-
       )
       console.log(response)
     }
@@ -44,8 +37,6 @@ function Show({feedFiles, feedTitle, feedContent, feedLike, feedLikeCnt, feedNic
    
   }
 }
-
-  
   return (
     <>
     <div className={styles.show}>

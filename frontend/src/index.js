@@ -14,12 +14,12 @@ import storage from "redux-persist/lib/storage";
 import { counter } from '@fortawesome/fontawesome-svg-core';
 
 const SAVE = "SAVE";
-export const save = (token, userNo, results) => {
-    return { type: SAVE, token, userNo, results }
+export const save = (token, userNo, results, results2) => {
+    return { type: SAVE, token, userNo, results, results2 }
 };
 
 const init = () => ({
-    counter: {token: "", userNo: 268, results: [] }
+    counter: {token: "", userNo: 0, results: [], results2: [] }
   });
 
 const counterReducer = (state = init(), action) => {
@@ -31,6 +31,7 @@ const counterReducer = (state = init(), action) => {
                     token: action.token,
                     userNo: action.userNo,
                     results: action.results,
+                    results2: action.results2,
                 }
             };
         }

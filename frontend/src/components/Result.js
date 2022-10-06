@@ -7,22 +7,47 @@ import { faHeart as solidHeart, faBookmark as solidMark} from '@fortawesome/free
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import React from 'react';
-import wayg from '../images/wayg.png'
+import WordCloud from "./WordCloud";
 
 import { connect } from "react-redux";
 
-function Result({placeName}) {
+function Result({placeName, counter}) {
     const [placeImg, setPlaceImg] = useState("");
+    const [searchResult, setSearchResult] = useState({placeFile: 'https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png'})
+    const [scrapYn, setScrapYn] = useState(null)
+    const [detailContent, setDetailContent] = useState()
+    const [handle, setHandle] = useState(false);
+    const handleClose = () => setHandle(false);
+    useEffect(()=>{
+      const fetchInfo = async () => {
+        try {
+          const response = await axios.post(
+            process.env.REACT_APP_HOST+`place/search`,
+             {"userNo": counter.userNo,
+              "placeName":placeName
+            }
+          )
+          setSearchResult(response.data.place)
+        } catch (e) {
+          console.log(e)
+        }
+      }
+      fetchInfo()
+
+      //콘솔 없애기용
+      // urlExistCheck(placeImg);
+  },[])
 
     useEffect(()=>{
-        const placeImg = makeImgSrc(placeName);
-        setPlaceImg(placeImg);
         const fetchInfo = async () => {
           try {
             const response = await axios.post(
-              process.env.REACT_APP_HOST+`place/search`, {"placeName":placeName}
+              process.env.REACT_APP_HOST+`place/search`,
+               {"userNo": counter.userNo,
+                "placeName":placeName
+              }
             )
-            console.log(response)
+            setSearchResult(response.data.place)
           } catch (e) {
             console.log(e)
           }
@@ -30,15 +55,15 @@ function Result({placeName}) {
         fetchInfo()
 
         //콘솔 없애기용
-        urlExistCheck(placeImg);
-    },[])
+        // urlExistCheck(placeImg);
+    },[placeName])
 
   const shareKakaoLink = () => {
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: '제목',
-        description: '내용',
+        title: searchResult.placeName,
+        description: searchResult.placeInfo,
         imageUrl:
           'https://j7c202.p.ssafy.io/static/media/wayg2.ffea7454ef416b4ccb29.png',
         link: {
@@ -76,57 +101,166 @@ function Result({placeName}) {
       }
   };
 
-  const makeImgSrc = (src) => {
-    let new_src = src
-    if (new_src[0] === '(') {
-      new_src = new_src.replace('(', '')
+  // 스크랩 추가
+  const plusScrap = async () => {
+    if (counter.userNo === 0) {
+      alert('로그인 후 이용해주세요')
+    } else {
+    try {
+        const response = await axios.post(
+          process.env.REACT_APP_HOST+`place/scrap`
+          ,{
+          userNo: counter.userNo,
+          placeNo: searchResult.placeNo
+        });
+        if (response.data.message === 'success'){
+          let new_recommendation = searchResult
+          new_recommendation.placeScrapYn = true;
+          new_recommendation.placeScrap +=1
+          await setSearchResult(new_recommendation)
+          await setScrapYn(true)
+          console.log('스크랩성공')
+          
+        }
+      } catch (e) {
+        
+      }}
+  };
+  // 스크랩 제거
+  const deleteScrap = async () => {
+    try {
+        const response = await axios.delete(
+          process.env.REACT_APP_HOST+`place/scrap/1`
+
+          ,{
+          params: {
+            userNo: counter.userNo,
+            placeNo: searchResult.placeNo,
+          }
+        });
+        if (response.data.message === 'success'){
+          let new_recommendation = searchResult
+          new_recommendation.placeScrapYn = false;
+          new_recommendation.placeScrap -=1
+          await setSearchResult(new_recommendation)
+          await setScrapYn(false)
+        }
+      } catch (e) {
+      }
+    };
+    
+    const onClickRecommendation = async () => {
+      try {
+        const response = await axios.get(
+          process.env.REACT_APP_HOST+`place/view?userNo=${counter.userNo}&placeNo=${searchResult.placeNo}`
+          
+        )
+        var placeInfo = await response.data.place.placeInfo
+        var res = await searchResult.placeInfo.replace(/<br\s*[\/]?>/gi, " ")
+        await setDetailContent(res)
+        await setHandle(true)
+      } catch (e) {
+        console.log(e)
+      }
     }
-    new_src = new_src.replace(/ /g, '_');
-    new_src = new_src.replace(')', '_');
-    new_src = new_src.replace('(', '_');
-    new_src = 'https://res.cloudinary.com/da8po50b1/image/upload/v1664854566/place/' + new_src +'_1.jpg'
-    // console.log(new_src)
-    return new_src
-  }
-
-  const checkStatus = async (req, status) => {
-    //console.log('responseURL', req.responseURL);
-      if(status == 200) {
-          // URL 존재
-      }
-      else {
-        // 에러 or 존재하지 않는 URL
-          setPlaceImg('./noPhoto.png')
-          console.clear()
-      }
-  }
-  const urlExistCheck = (url) => {
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if(this.readyState == 4)
-          checkStatus(this, this.status);
-      }
-      xhr.open("HEAD", url);
-      xhr.send();
-  }
-
-  
   return (
     <>
-        <div className={styles.recommendation}>
-            <div>
-                <img className={styles.recommendation_img} src={placeImg} onError={({ currentTarget }) => {
-                currentTarget.onerror = ''; 
-                currentTarget.src='./noPhoto.png';
-                }}/>
-                <div className={styles.recommendation_description}>
-                <div className={styles.recommendation_box}>
-                    <FontAwesomeIcon style={{cursor: "pointer"}} onClick={share} icon={faPaperPlane} />
-                </div>
-                <p className={styles.recommendation_title}>{placeName}</p>
-                </div>
+    <div className={styles.recommendation}>
+      {/* <p>{searchResult}</p> */}
+      <div>
+        <div className={styles.headImg}>
+        <img onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_img} src={searchResult.placeFile} onError={({ currentTarget }) => {
+          currentTarget.onerror = null; 
+          currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png';
+        }}/>
+        </div>
+        <div className={styles.recommendation_description}>
+          <div className={styles.recommendation_box}>
+            {searchResult.placeScrapYn ? 
+              <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
+              : <FontAwesomeIcon onClick={plusScrap} className={styles.scrapN} icon={faBookmark} />} 
+            &nbsp;<small>{searchResult.placeScrap}</small>
+            &nbsp;&nbsp;
+            <FontAwesomeIcon onClick={share} className={styles.share_btn} icon={faPaperPlane} />
+          </div>
+          <p onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_title}>{searchResult.placeName}</p>
+          <p onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_writer}>{searchResult.placeNo} {searchResult.placeAddress}</p>
+          <p>{searchResult.placeScrapYn}</p>
+          
+        </div>
+      </div>
+    </div>
+    
+    {/* 모달 */}
+    {/* <Modal className={styles.placeContent} show={handle} size="xl" onHide={handleClose}>
+    <div className={styles.Container}>
+        {/* 사진용 왼쪽 컴포넌트 */}
+        {/* <div className={styles.photo} item xs={12} md={6}>
+            <img style={{}} className={styles.detail_img} src={searchResult.placeFile} onError={({ currentTarget }) => {
+              currentTarget.onerror = null; 
+              currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png'}} alt='img' />
+        </div> */}
+        {/* 글용 오른쪽 컴포넌트 */}
+        {/* <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
+          <div>
+            {searchResult.placeScrapYn ? 
+            <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
+            : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
+            &nbsp;<small>{searchResult.placeScrap}</small>
+             &nbsp;&nbsp;
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </div>
+          <p className={styles.detail_title}>{searchResult.placeName}</p>
+          <p className={styles.detail_address}>{searchResult.placeAddress}</p>
+          <p>{detailContent}</p>
+          </div> */}
+      {/* {searchResult.placeScrapYn ? 
+              <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
+              : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
+              &nbsp; <small>{searchResult.placeScrap}</small>
+              &nbsp;&nbsp;
+              <FontAwesomeIcon icon={faPaperPlane} /> */}
+            {/* 워드 클라우드 컴포넌트 */ }
+          {/* <WordCloud placeName={searchResult.placeName}></WordCloud> */}
+          {/* 본문용 컴포넌트 */}
+          {/* <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
+            
+            <p className={styles.detail_title}>{searchResult.placeName}</p>
+            <p className={styles.detail_address}>{searchResult.placeAddress}</p>
+            <p className={styles.detail_content}>{detailContent}</p>
+            </div>
+
+    </div>
+    </Modal> */}
+    <Modal className={styles.placeContent} show={handle} size="xl" onHide={handleClose}>
+        <div className={styles.Container}>
+          {/* 사진용 컴포넌트 */}
+            <div className={styles.photo} item xs={12} md={6}>
+              <img style={{}} className={styles.detail_img} src={searchResult.placeFile} onError={({ currentTarget }) => {
+                currentTarget.onerror = null; 
+                currentTarget.src = 'https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png'
+              }} alt='img' />
+              <div >
+              {searchResult.placeScrapYn ? 
+              <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
+              : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />}
+              &nbsp; <small>{searchResult.placeScrap}</small>
+              &nbsp;&nbsp;
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </div>
+            </div>
+            {/* 워드 클라우드 컴포넌트 */ }
+          <WordCloud placeName={searchResult.placeName}></WordCloud>
+          {/* 본문용 컴포넌트 */}
+          <div style={{height:'auto%'}} className={styles.info} item xs={12} md={6}>
+            
+            <p className={styles.detail_title}>{searchResult.placeName}</p>
+            <p className={styles.detail_address}>{searchResult.placeAddress}</p>
+            <p className={styles.detail_content}>{detailContent}</p>
             </div>
         </div>
+        
+        </Modal>
     </>
   );
 }

@@ -53,7 +53,7 @@ function Recommendations({counter}) {
       }
     });
     if (res.data){
-      console.log(res.data)
+      // console.log(res.data)
       setRecommendations(prev => [...prev, ...res.data.placeList.content]);
     } else {
       console.log(res)
@@ -63,7 +63,7 @@ function Recommendations({counter}) {
 
   return (
     <div className={styles.recommendations}>
-      <h2>WAYG가 추천해주는 여행지</h2>
+      <h2>두리의 여행지 추천</h2>
         <div className={styles.recommendations_list}>
         {recommendations.map((recommendation,idx) => (
           <Recommendation parentFunction={parentFunction} {...recommendation} key={idx}/>

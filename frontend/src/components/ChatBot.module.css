@@ -67,13 +67,23 @@
 }
 
 .sendInput {
-    font-size: 12px;
+    font-size: 15px;
     border: none;
     width: 300px;
     height: 30px;
     vertical-align: middle;
     outline:none;
 }
+
+.sendInput:hover{
+  cursor: url(cursors/pencil.png) 0 0, auto;
+}
+
+.chat_main {
+  padding: 5px;
+  margin-bottom: 50px;
+}
+
 .reply{
     height: 40px;
     /* border-radius: 5px; */
@@ -84,15 +94,24 @@
     align-items: center;
     width: 400px;
     box-sizing: border-box;
+    border-radius:5px;
 }
 .chatBtn {
-    border-radius: 5px;
-    /* position:absolute; */
+    top:0;
     right:0;
-    height: 32px;
+    border-radius: 5px;
+    position:absolute;
+    width:80px;
     background-color:yellow;
     border:none;
+    padding-bottom: 7px;
+    padding-top: 7px;
 }
+
+.chatBtn:hover{
+  cursor: url(cursors/cursors.png) 0 0, auto;
+}
+
 .chat_results {
     display: flex;
 }
@@ -104,6 +123,10 @@
 .chat_img {
     width: 80px;
     height: 80px;
+}
+
+.ham:hover{
+  cursor: url(cursors/cursors.png) 0 0, auto;
 }
 
 .chat_text {
@@ -121,13 +144,14 @@
     border-radius: 8px;
     width: auto;
     border: none;
-    cursor: pointer;
+    cursor: url(cursors/share.png) 16 16, auto;
 }
 
 .anotherFunction {
     position: fixed;
     bottom: 0;
     list-style: none;
+    padding-left: 0px;
     /* margin-bottom:3%; */
     min-width: 400px;
     border-radius: 10px;
@@ -149,12 +173,12 @@
 
 .anotherFunction .menu {
     margin-bottom:5px;
-    cursor: pointer;
 }
 
 .anotherFunction .menu:hover{
     background-color:rgb(234, 233, 245);
     border-radius:5px;
+    cursor: url(cursors/cursors.png) 0 0, auto;
 }
 
 .container {

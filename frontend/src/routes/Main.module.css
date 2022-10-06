@@ -11,8 +11,13 @@
     /* position: fixed; */
 }
 
+.Mobile_ChatBot {
+    font-family: 'Jalnan';
+    width: 100vw;
+}
+
 .right {
-    padding: 5%;
+    padding-left: 5%;
 }
 
 .right::-webkit-scrollbar {

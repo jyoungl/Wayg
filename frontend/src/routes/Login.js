@@ -15,7 +15,9 @@ function Login({toDos, addToDo}) {
   const REDIRECT_URI = process.env.REACT_APP_HOST+ "login"
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   // const KAKAO_AUTH_URL = `http://localhost:8080/api/oauth2/authorization/kakao`;
-
+  const kakao_btn = () => {
+    alert("이메일 제공 동의를 누르셔야 서비스 가입이 가능해요!")
+  }
 
   return (
     <div className={styles.login}>
@@ -33,7 +35,7 @@ function Login({toDos, addToDo}) {
           </div>
         </div>
         <div className={styles.button}>
-          <a href={KAKAO_AUTH_URL}>
+          <a style={{}} onClick={kakao_btn} href={KAKAO_AUTH_URL}>
             <img
               src={kakaoBtn}
               className={styles.kakao_btn}

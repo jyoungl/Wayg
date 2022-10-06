@@ -1,7 +1,7 @@
 import Feed from "./Feed";
 import axios from "axios";
 import styles from "./Feeds.module.css"
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -26,7 +26,7 @@ function Feeds({counter}) {
               userNo: counter.userNo,
             }
           });
-          console.log(response.data)
+          // console.log(response.data)
           setFeeds(response.data.feedList.content)
         } catch (e) {
           
@@ -35,9 +35,12 @@ function Feeds({counter}) {
     fetchFeeds();
   },[])
 
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
+
   return (
     <div className={styles.feeds}>
-      <h2>사용자들이 올린 피드</h2>
+      <h2>우리의 피드 추천</h2>
       <Swiper
         // install Swiper modules
         className="feed_swiper"

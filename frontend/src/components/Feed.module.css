@@ -1,3 +1,7 @@
+body {
+  font-family: 'Jalnan';
+}
+
 .feed {
   white-space: pre-line;
 
@@ -31,6 +35,10 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .feed_img:hover{
+    cursor: url(cursors/cursors.png) 0 0, auto;
   }
 
   .feed_description {
@@ -77,6 +85,10 @@
     overflow: hidden;
   }
 
+  .feed_title{
+    cursor: url(cursors/cursors.png) 0 0, auto;
+  }
+
   .feed_content {
       margin: 0;
       font-weight: 100;
@@ -88,6 +100,14 @@
 
   .likeY {
     color: red;
+  }
+
+  .likeN:hover {
+    cursor: url(cursors/heart.png) 16 16, auto;
+  }
+
+  .share_btn:hover {
+    cursor: url(cursors/share.png) 16 16, auto;
   }
 
   .show {
@@ -146,10 +166,10 @@
 }
 
 .cardImg {
-  min-width: 496px;
-  height: 468px;
+  width: 100%;
+  height: 100%;
   
-  object-fit: contain;
+  object-fit: cover;
   
 }
 
@@ -157,4 +177,22 @@
   display:flex;
   margin: auto;
   margin-top:10vh;
+}
+
+.feed_detail {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  height: 40rem;
+  border: 0px;
+
+  border-radius: 10px;
+  overflow: hidden;
+  color: #111;
+
+  display: flex;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
 }
