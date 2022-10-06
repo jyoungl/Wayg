@@ -2,6 +2,7 @@ package com.ssafy.wayg.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.wayg.dto.PlacewordDto;
+import com.ssafy.wayg.entity.Place;
 import com.ssafy.wayg.service.ChatService;
 import com.ssafy.wayg.service.PlaceService;
 import com.ssafy.wayg.util.MorphemeAnalyzer;
@@ -129,34 +130,24 @@ public class ChatController {
         try{
             ObjectMapper mapper = new ObjectMapper();
             String jsonInString = mapper.writeValueAsString(params);
-            System.out.println(jsonInString);
+//            System.out.println(jsonInString);
 
             HashMap<String, Object> userRequest = (HashMap<String, Object>)params.get("userRequest");
             String utter = userRequest.get("utterance").toString().replace("\n",    " ");
 
             Map<String,Integer> split = analyzer.pickMorpheme(utter); // 형태소 분리한 결과 넣은 map
-            List<String> send = new ArrayList<>();
+            List<String> send = new ArrayList<>(split.keySet());       //형태소 분리한 단어들을 list에 넣어줌
 
-            //형태소 분리한 단어들을 list에 넣어줌
-            for(Map.Entry<String, Integer> entry : split.entrySet())
-                send.add(entry.getKey());
-
-            Map<String, Double> place = new HashMap<>(); // 관광지와 tfidf 값 넣어줄 map
+            Map<String, Integer> place = new HashMap<>();
             try {
-                long total = chatService.totalSize(); //전체 문서 수
 
-                for(int i=0;i<send.size();i++){
-                    //각 단어의 idf 구하기 * 관광지 tf
-                    List<PlacewordDto> placewordDtos = chatService.oneSize(send.get(i));
-                    double idf = chatService.placeword(send.get(i), total);
-                    for(int j=0;j<placewordDtos.size();j++){
-                        place.put(placewordDtos.get(j).getPlacewordName(), idf * placewordDtos.get(j).getPlacewordCount());
-                    }
-                    //place.put(placeDto.getPlaceAddress(), chatService.placeword(send.get(i), total) * (double)placeDto.getPlaceScrap());
+                List<PlacewordDto> placewordDtos = chatService.search(send);
+                for(PlacewordDto placewordDto : placewordDtos){
+                    place.put(placewordDto.getPlacewordName(), placewordDto.getPlacewordCount());
                 }
 
             } catch (Exception e) {
-                logger.debug("tfidf 계산쪽");
+                logger.debug("118줄 단어 search 쿼리 오류");
                 logger.debug(e.getMessage());
             }
 
@@ -177,13 +168,13 @@ public class ChatController {
 
 
             //place 맵 value값 따라 정렬
-            List<Map.Entry<String,Double>> entries = new ArrayList<>(place.entrySet());
-            entries.sort(Map.Entry.comparingByValue(Collections.reverseOrder()));
-            Map<String, Double> res = new LinkedHashMap<>(); // 정렬된 map
-            int i = 0;
+//            List<Map.Entry<String,Integer>> entries = new ArrayList<>(place.entrySet());
+//            entries.sort(Map.Entry.comparingByValue(Collections.reverseOrder()));
+            Map<String, Integer> res = new LinkedHashMap<>(); // 정렬된 map
+//            int i = 0;
 
-            for(Map.Entry<String, Double> e : entries) {
-                if(i++<3) {
+            for(Map.Entry<String, Integer> e : place.entrySet()) {
+//                if(i++<3) {
                     res.put(e.getKey(), e.getValue());
                     //e.getKey() 가지고 title 넣고 url 만들어야함
                     HashMap<String, Object> item = new HashMap<>();
@@ -194,14 +185,14 @@ public class ChatController {
                     item.put("thumbnail",thumbnail);
                     item.put("buttons",buttons);
                     items.add(item);
-                }
+//                }
             }
 
             carousel.put("items",items);
             HashMap<String,Object> output = new HashMap<>();
 
             //만약 답없으면(items길이찾기) simpleText
-            if(items.size() == 0) {
+            if(items.size() < 3) {
                 HashMap<String, Object> simpleText = new HashMap<>();
                 switch((int)(Math.random()*100)%3){
                     case 0:

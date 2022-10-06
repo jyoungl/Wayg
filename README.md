@@ -1,45 +1,84 @@
-# 우리! 어디가? (wayg)
+# 우리!어디가?
 
-## 프로젝트 소개
+**하둡을 이용한 여행지 추천 챗봇 서비스**
 
-간편한 챗봇 형식의 키워드를 이용한 여행지 추천 사이트
 
-## UCC
 
-## 주요 기능
+## 프로젝트 개요
 
- - 로그인 - 카카오톡 로그인
- - 크롤링 - 백만 여개의 블로그 크롤링 완료, 약 2억 개의 DB 데이터 처리
- - 챗봇 - 사용자 답변 형태소 분석 및 검색(카카오 챗봇 연동 완료)
- - 메인 - 사용자 질문에 따라 여행지 추천, 공유, 좋아요 기능
- - 피드 - 여행후기 작성 및 태그, 좋아요 기능
+### 1. 진행 기간
 
-## 주요 기술
+2022.08.29 ~ 2022.10.06 (6주)
+
+### 2. 목표
+
+- 챗봇 형식을 가진 여행지 추천 웹 서비스
+
+- 여행 관련 글을 크롤링을 모아 Hadoop MapReduce를 이용해 분석하고 Sqoop을 사용하여 RDBMS에 옮기기
+
+- 대화하는 듯한  관광지 찾기
+
+- 연속된 대화로 더 세분화된 추천기능
+
+- 모바일 반응형
+
+- 카카오 챗봇   
+
+  <br/>
+
+### 3. 주요 기술
 
 - 멀티프로세싱을 활용한 크롤링
 - MapReduce를 활용한 데이터 처리(형태소 분석)
 - Sqoop를 활용한 데이터 저장
-
-- 블로그 크롤링 
 - 사용자 질의에 따른 추천지 제공
 - 회원이 입력한 데이터를 추천 시스템에 반영하여 답변 질 향상
 - 반응형 웹으로 높은 접근성 제공
 
-## 참조 리소스
 
-## 배포 환경
 
-## 팀 소개
- - 홍성준: 팀장, 프론트엔드 개발, 와이어 프레임 구성
- - 이성찬: 프론트엔드 개발, 와이어 프레임 구성
- - 이주영: 백엔드 개발
- - 허은지: 백엔드 개발
- - 김희주: 하둡 개발, 백엔드 개발
- - 이승진: 하둡 개발, 백엔드 개발
+### 4. 화면
 
-## 프로젝트 기술 스택
+#### 초기화면
 
-### 개발 환경
+<img src = "https://user-images.githubusercontent.com/86655589/194227333-a41e9925-d39b-485c-85cb-ef3e3f10d929.png">
+
+#### 메인화면
+
+<img src = "https://user-images.githubusercontent.com/86655589/194223726-97ac0a1c-7ce7-4421-a5f2-0eedfd0cd9e5.jpg">
+
+
+
+#### 모바일화면 [초기 / 메인 / 피드]
+
+<img src = "https://user-images.githubusercontent.com/86655589/194229696-79776c94-018a-4bb9-b7d6-28a4c092e622.jpg" width="30%" height="30%">    <img src = "https://user-images.githubusercontent.com/86655589/194228948-9ca140fa-1f90-4b63-83be-915b9d399bcd.jpg" width="30%" height="30%">    <img src = "https://user-images.githubusercontent.com/86655589/194228952-ac3cd750-6d0a-40af-ba0b-7386ddf74cc2.jpg" width="30%" height="30%">
+
+
+
+#### 카카오 챗봇
+
+<img src = "https://user-images.githubusercontent.com/86655589/194228955-63ccf26e-125b-4d88-ba32-7c967eb2b426.jpg" width="30%" height="30%">
+
+## 프로젝트 구조
+
+### 1. 아키텍처
+
+<img src = "https://user-images.githubusercontent.com/86655589/194224291-ab82d65c-b039-4328-b6e1-692bef909eb8.png">
+
+### 2. 와이어 프레임
+
+<img src = "https://user-images.githubusercontent.com/86655589/194224886-d6fce603-dcfc-4c1d-99cc-89e309c2361b.png">
+
+### 3. ERD
+
+<img src = "https://user-images.githubusercontent.com/86655589/194224437-763f8b2d-0b50-463b-adf1-fc35f9c932cf.png">
+
+
+
+## 기술 스택
+
+### 1. 개발 환경
+
 - Notion
 - Jira
 - Git
@@ -51,7 +90,7 @@
 - MobaXterm
 - MySQL WorkBench 8.0 CE
 
-### 기술 스택
+### 2. 기술 스택
 
 1. FrontEnd
 
@@ -81,3 +120,15 @@
 
 - MapReduce v3.2.1
 - Sqoop v1.4.7
+
+
+
+## 팀원
+
+- [홍성준]([yiso22 · GitHub](https://github.com/yiso22)) 팀장 Frontend
+- [김희주]([heeejoo0518 · GitHub](https://github.com/heeejoo0518)) Backend
+- [이성찬]([seongchanleelee · GitHub](https://github.com/seongchanleelee)) Frontend
+- [이승진]([lapera00 · GitHub](https://github.com/lapera00)) Backend
+- [이주영]([jyoungl · GitHub](https://github.com/jyoungl)) Backend
+- [허은지]([hxxejx · GitHub](https://github.com/hxxejx)) Backend
+

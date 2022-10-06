@@ -16,4 +16,6 @@ public interface ChatService {
     List<String> findPlaces(List<String> nouns);
 
 	String setUrl(String title) throws IOException;
+
+    List<PlacewordDto> search(List<String> word);
 }

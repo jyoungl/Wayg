@@ -8,10 +8,6 @@ import com.ssafy.wayg.util.DEConverter;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -86,4 +82,11 @@ public class ChatServiceImpl implements ChatService {
 
         return new_name.toString();
     }
+
+    @Override
+    public List<PlacewordDto> search(List<String> word){
+        List<Placeword> placewords = placewordRepository.findTop3ByplacewordWordInOrderByplacewordCountDesc(word);
+        return converter.toPlacewordDto(placewords);
+    }
+
 }
