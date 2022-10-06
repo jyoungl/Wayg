@@ -17,10 +17,11 @@ import RecommendationNameShare from "./components/RecommendationNameShare"
 import MobileMenu from "./routes/MobileMenu"
 import { connect } from "react-redux";
 import { save } from ".";
+// import cursor from "./images/cursor.png;
 
 function App({counter, save}) {
   return (
-  <Router>
+  <Router style={{cursor:'https://www.notion.so/FE-8390bd6920b94904bf871281f52db96e#4c00824d0358423ab3c6ed8780d10ab3'}}>
     <Routes/>
     <Routes>
       <Route path="/" element={<Login />} />
