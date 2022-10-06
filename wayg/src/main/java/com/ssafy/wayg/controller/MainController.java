@@ -38,25 +38,32 @@ public class MainController {
 
     @GetMapping("/login")
     public void login(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
-        System.out.println("code: " + code);
+//        System.out.println("code: " + code);
 
-        String access_token = kakaoService.getAccessToken(code);
-        System.out.println("access-token : " + access_token);
+        try {
+            String access_token = kakaoService.getAccessToken(code);
+//            System.out.println("access-token : " + access_token);
 
-        HashMap<String, Object> userInfo = kakaoService.getUserInfo(access_token);
-        System.out.println("login Controller : " + userInfo);
+            HashMap<String, Object> userInfo = kakaoService.getUserInfo(access_token);
+//            System.out.println("login Controller : " + userInfo);
 
-        if(userInfo.get("email") != null){
-            httpSession.setAttribute("userId", userInfo.get("email"));
-            httpSession.setAttribute("access_token", access_token);
+            if(userInfo.get("email") != null){
+                httpSession.setAttribute("userId", userInfo.get("email"));
+                httpSession.setAttribute("access_token", access_token);
+            } else {
+
+            }
+            String url = "https://j7c202.p.ssafy.io/loginhandler";
+            //        여기좀 바꿔줘 https://j7c202.p.ssafy.io/loginhandler
+
+            User user = userRepository.findByUserEmail((String) userInfo.get("email")).get();
+            String id = String.valueOf(deConverter.toUserDto(user).getUserNo());
+
+            response.sendRedirect(url + "?access_token="+access_token+"&id="+id);
+        } catch(Exception e) {
+            response.sendRedirect("https://early-honeycrisp-704.notion.site/0-a0000ed62e984039841342adb53fad24");
         }
-        String url = "https://j7c202.p.ssafy.io/loginhandler";
-        //        여기좀 바꿔줘 https://j7c202.p.ssafy.io/loginhandler
 
-        User user = userRepository.findByUserEmail((String) userInfo.get("email")).get();
-        String id = String.valueOf(deConverter.toUserDto(user).getUserNo());
-
-        response.sendRedirect(url + "?access_token="+access_token+"&id="+id);
     }
 
 //    @GetMapping("/logout")

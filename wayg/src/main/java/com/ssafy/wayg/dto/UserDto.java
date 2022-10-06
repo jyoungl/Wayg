@@ -28,8 +28,4 @@ public class UserDto implements Serializable {
     private String Role;
     @ApiModelProperty(value = "회원 이메일")
     private String userEmail;
-    @ApiModelProperty(value = "회원 성별")
-    private String userGender;
-    @ApiModelProperty(value = "회원 나이")
-    private String userAge;
 }

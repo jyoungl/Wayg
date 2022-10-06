@@ -55,6 +55,7 @@ public class ChatServiceImpl implements ChatService {
         Set<String> nounSet = new HashSet<>();
         for(String noun : nouns){
             nounSet.addAll(placeRepository.findByPlaceAddressContains(noun));
+            nounSet.addAll(placeRepository.findByPlaceNameContains(noun));
         }
         return new ArrayList<>(nounSet);
     }
@@ -62,7 +63,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public String setUrl(String title) throws IOException {
         StringBuilder new_name = new StringBuilder();
-        new_name.append("https://res.cloudinary.com/dcd6ufnba/image/upload/v1664293859/placefile/");
+        new_name.append("https://res.cloudinary.com/da8po50b1/image/upload/v1664293859/place/");
         for(int j = 0; j<title.length(); j++) {
             char c = title.charAt(j);
             if(j == 0 && c == '(') continue;

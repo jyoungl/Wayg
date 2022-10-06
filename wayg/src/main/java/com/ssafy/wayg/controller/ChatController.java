@@ -26,6 +26,9 @@ public class ChatController {
     private PlaceService placeService;
     private MorphemeAnalyzer analyzer;
 
+    private String[] exclude;
+    private Map<String,String> pair;
+
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 
     @Autowired
@@ -33,29 +36,49 @@ public class ChatController {
         this.chatService = chatService;
         this.placeService = placeService;
         this.analyzer = analyzer;
+        init();
+    }
+
+    private void init(){
+        exclude = new String[]{"광역시","남도","북도"};
+        pair = new HashMap<>();
+        pair.put("충남", "충청남도");
+        pair.put("충북", "충청북도");
+        pair.put("경남", "경상남도");
+        pair.put("경북", "경상북도");
+        pair.put("전남", "전라남도");
+        pair.put("전북", "전라북도");
+
+        pair.put("충청남도", "충남");
+        pair.put("충청북도", "충북");
+        pair.put("경상남도", "경남");
+        pair.put("경상북도", "경북");
+        pair.put("전라남도", "전남");
+        pair.put("전라북도", "전북");
     }
 
     @PostMapping
-    public ResponseEntity<Map<String,Object>> calcurate(@RequestBody String str){
+    public ResponseEntity<Map<String,Object>> calculate(@RequestBody Map<String,Object> params){//관광지찾기
         Map<String,Object> resultMap = new HashMap<>();
         HttpStatus httpStatus = HttpStatus.ACCEPTED;
-        Map<String,Integer> split = analyzer.pickMorpheme(str); // 형태소 분리한 결과 넣은 map
-        List<String> send = new ArrayList<>();
+        Map<String,Integer> split = analyzer.pickMorpheme((String) params.get("str")); // 형태소 분리한 결과 넣은 map
+        List<String> send = new ArrayList<>(split.keySet());	//형태소 분리한 단어들을 list에 넣어줌
 
-        //형태소 분리한 단어들을 list에 넣어줌
-        for(Map.Entry<String, Integer> entry : split.entrySet())
-            send.add(entry.getKey());
+        ArrayList<String> placeList = (ArrayList<String>) params.get("placeList");
+        if(placeList != null) Collections.sort(placeList);
 
         Map<String, Double> place = new HashMap<>(); // 관광지와 tfidf 값 넣어줄 map
         try {
             long total = chatService.totalSize(); //전체 문서 수
 
-            for(int i=0;i<send.size();i++){
+            for (String s : send) {
                 //각 단어의 idf 구하기 * 관광지 tf
-                List<PlacewordDto> placewordDtos = chatService.oneSize(send.get(i));
-                double idf = chatService.placeword(send.get(i), total);
-                for(int j=0;j<placewordDtos.size();j++){
-                    place.put(placewordDtos.get(j).getPlacewordName(), idf * placewordDtos.get(j).getPlacewordCount());
+                List<PlacewordDto> placewordDtos = chatService.oneSize(s);
+                double idf = chatService.placeword(s, total);
+                for (PlacewordDto placewordDto : placewordDtos) {
+                    if(placeList != null && Collections.binarySearch(placeList,placewordDto.getPlacewordName()) >= 0) {
+                        place.put(placewordDto.getPlacewordName(), idf * placewordDto.getPlacewordCount());
+                    }
                 }
                 //place.put(placeDto.getPlaceAddress(), chatService.placeword(send.get(i), total) * (double)placeDto.getPlaceScrap());
             }
@@ -70,12 +93,26 @@ public class ChatController {
     }
 
     @PostMapping("/place")
-    public ResponseEntity<Map<String,Object>> findPlaces(@RequestBody String str){
+    public ResponseEntity<Map<String,Object>> findPlaces(@RequestBody String str){//주소찾기 -> 여기에 광역시, 줄임말넣기
         Map<String,Object> resultMap = new HashMap<>();
         HttpStatus httpStatus = HttpStatus.ACCEPTED;
 
         try {
             List<String> nouns = analyzer.pickNouns(str); // 형태소 분리한 결과 넣은 list - noun
+            Collections.sort(nouns);
+
+            int idx;
+            for(String ex:exclude) {
+                //제외단어
+                if((idx = Collections.binarySearch(nouns,ex))>=0) nouns.remove(idx);
+            }
+            for(Map.Entry<String,String> entry:pair.entrySet()){
+                //페어단어
+                if(Collections.binarySearch(nouns,entry.getKey())>=0) {
+                    nouns.add(entry.getValue());
+                }
+            }
+
             resultMap.put("placeList", chatService.findPlaces(nouns));
             resultMap.put("message",SUCCESS);
             httpStatus = HttpStatus.OK;

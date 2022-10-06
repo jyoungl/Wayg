@@ -38,7 +38,7 @@ public class Feed {
     @Column(name = "feed_regdate")
     private Instant feedRegdate;
 
-    @Column(name = "feed_placename")
+    @Column(name = "feed_placename", length = 45)
     private String feedPlacename;
 
     @Column(name = "feed_file")

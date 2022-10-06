@@ -21,12 +21,19 @@
 }
 
 .picture {
+  vertical-align:middle;
   background-color:rgb(171, 175, 198);
   border-radius:5px;
   cursor: pointer;
   text-align: center;
   padding-top:1%;
   padding-bottom:1%;
+  height:10%;
+  font-weight: bold;
+}
+
+.picture:hover {
+  background-color: antiquewhite;
 }
 
 .Title {
@@ -35,10 +42,69 @@
   box-shadow: 5px;
 }
 
-.Content {
+.text {
+  margin-top:1rem;
+}
 
+.Content {
+  border-radius: 5px;
+  white-space: normal;
+  font-weight: bold;
 }
 
 .Nickname {
+  border-radius: 5px;
+  font-weight:bold;
+}
+
+.feed_btn {
+  font-weight:bold;
+  border:none;
+  background-color: white;
+  color:black;
+}
+
+.feed_btn:hover {
+  color:rgb(131, 135, 164);
+
+}
+
+.autoComplete {
+  border-radius:5px;
+  height:120px;
+  overflow:auto;
+  background-color: whitesmoke;
+  font-weight: bold;
+  padding-left:0;
+}
+
+.autoComplete_li {
+  cursor:pointer;
+  border-radius: 5px;
+  /* font-size:10px; */
+  padding-left: 0px;
+  font-weight: bold;
+}
+.autoComplete_li:hover {
+  background-color:white;
+}
+
+.labelPlace {
+  background-color: antiquewhite;
+  border-radius:5px;
+  text-align:center;
+  padding-top:1%;
+  padding-bottom:1%;
+  height:10%;
+  font-weight: bold;
+  font-size:10px;
+
+}
+
+.is_right_label {
+
+  font-weight:bold;
+  float: left;
+  display: block;
 
 }

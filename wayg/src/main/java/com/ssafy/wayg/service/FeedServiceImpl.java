@@ -2,6 +2,7 @@ package com.ssafy.wayg.service;
 
 import com.ssafy.wayg.dto.FeedDto;
 import com.ssafy.wayg.dto.FeedlikeDto;
+import com.ssafy.wayg.dto.FeedwordDto;
 import com.ssafy.wayg.entity.Feed;
 import com.ssafy.wayg.entity.Feedword;
 import com.ssafy.wayg.entity.Place;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +76,7 @@ public class FeedServiceImpl implements FeedService {
 		//피드 형태소 분리해서 feedword에 저장하기
 		Map<String,Integer> morphemes = analyzer.pickMorpheme(savedFeed.getFeedContent()+", "+savedFeed.getFeedTitle());
 		for(Map.Entry<String,Integer> entry:morphemes.entrySet()){
-			feedwordRepository.save(new Feedword(entry.getKey(), entry.getValue(), savedFeed));
+			feedwordRepository.save(new Feedword(entry.getKey(), entry.getValue(), savedFeed, savedFeed.getFeedPlacename()));
 		}
 
 		//저장된 피드 반환하기
@@ -149,6 +151,23 @@ public class FeedServiceImpl implements FeedService {
 
 		return feedDtoPage;
 
+	}
+
+	@Override
+	public long totalSize(){
+		return feedRepository.count();
+	}
+
+	@Override
+	public List<FeedwordDto> oneSize(String str){
+		List<Feedword> feedwords = feedwordRepository.findByFeedwordWord(str);
+		return converter.toFeedwordDto(feedwords);
+	}
+
+	@Override
+	public double feedword(String word, long total) {
+		Long size = feedwordRepository.countByFeedwordWord(word);
+		return Math.log(((double)total / (double) size));
 	}
 
 }

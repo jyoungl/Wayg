@@ -1,47 +1,57 @@
 .container{
+  position: fixed;
   background-color: #92B4EC;
   height: 100vh;
+  width: 390px;
   margin: auto;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  animation: screen-move 2s;
+  /* animation-timing-function: linear; */
 }
 
 .box {
   float: left;
-  width: 250px;
+  width: 100%;
   height: 250px;
   margin: auto;
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 }
 
 .login_woori {
+  display: flex;
+  justify-content: center;
+  width: 390px;
   margin: auto;
   position: absolute;
-  animation: doodoodoongjang 0.5s;
+  animation: doodoodoongjang 3s, vibration 0.4s 5;
+  animation-timing-function: linear;
 }
 
 .login_bus {
+  display: flex;
+  justify-content: center;
+  width: 390px;
   position: absolute;
   animation: bus 2s, vibration 0.2s infinite;
   opacity: 0;
 }
 
+@keyframes screen-move {
+  0% {
+    width: 100vw;
+  }
+  100% {
+    width: 390px;
+  }
+}
+
 @keyframes bus {
   0% {
-    margin-left: 400%;
-    opacity: 1;
-    
-  }
-
-  25% {
-    margin-left: 0%;
-    opacity: 1;
-  }
-
-  50% {
     margin-left: 0%;
     opacity: 1;
   }
@@ -54,20 +64,18 @@
   100% {
     margin-left: -400%;
     opacity: 1;
-    
   }
 }
 
 @keyframes doodoodoongjang {
   0% {
-    opacity: 0;
+    left: 120%;
   }
-
-  49% {
-    opacity: 0;
+  66% {
+    left: 320px;
   }
-  50% {
-    opacity: 1;
+  100% {
+    left: 0px;
   }
 }
 

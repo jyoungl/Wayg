@@ -1,16 +1,35 @@
 .main{
     font-family: 'Jalnan';
-    display: flex;
+    display: grid;
+    grid-template-columns: 390px auto;
     width: "100vw";
-    height: "100vh"
+    height: "100vh";
+    grid-gap: 10px;
 }
 
 .ChatBot {
-    position: fixed;
+    /* position: fixed; */
 }
 
+.right {
+    padding: 5%;
+}
+
+.right::-webkit-scrollbar {
+    display:none;
+  }
+
+
 .detail {
-    margin-left: 450px;
+    /* padding: 10px; */
+}
+
+.popular {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .logout_button {
@@ -25,9 +44,4 @@
 
 .font-apply{
     font-family: 'Jalnan';
-}
-
-.right {
-    width: 100vh;
-    height: 100vh;
 }
