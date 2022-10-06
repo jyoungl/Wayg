@@ -233,7 +233,7 @@ function ChatBot({parentFunction, addFeed, load, finalResultPart, changeFinalRes
               // redux에 결과값 저장
               save(counter.token, counter.userNo, sorted_results, sorted_feed_results)
               // const new_arr = sorted_results.splice(0, 50)
-              changeFinalResult(sorted_results.slice(0,100));
+              changeFinalResult(sorted_results.slice(0,50));
               
               // 카카오 공유할 3개 여행지 저장
               setShareList([{placename: sorted_results[0], img_src: makeImgSrc(sorted_results[0])}, 
@@ -464,7 +464,9 @@ function ChatBot({parentFunction, addFeed, load, finalResultPart, changeFinalRes
       </div>
 
       <div className={styles.reply}> 
-        <FontAwesomeIcon style={{cursor: 'pointer', padding:"2%"}} className='fa-2xl' onClick={clickMenuBar} icon={faBars} />
+        <div className={styles.ham}>
+          <FontAwesomeIcon style={{padding:"2%"}} className='fa-2xl' onClick={clickMenuBar} icon={faBars}/>
+        </div>
         <form onSubmit={onSubmit}>
           <input id="chatInput" className={styles.sendInput} onChange={onChange} value={send} type="text" placeholder="내용입력" />
           <button className={styles.chatBtn} onClick={() => {goSearch(); closeMenuBar();}}>보내기</button>
