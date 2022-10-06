@@ -145,21 +145,21 @@ function FeedResult({counter, feedNo, feedTitle, feedContent, feedNickname, user
     <>
     <div className={styles.feed}>
       <div className={styles.feed_div}>
-        <img onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
+        <img onClick={onClickFeed}  className={styles.feed_img} src={feed.feedFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
           currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png';
         }} alt='img' />
         <div className={styles.feed_description}>
           <div className={styles.feed_box}> 
             {/* <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_writer}>{feed.feedNickname}</div> */}
-            <div onClick={onClickFeed} style={{cursor:"pointer"}} className={styles.feed_title}>{feed.feedTitle}</div>
+            <div onClick={onClickFeed}  className={styles.feed_title}>{feed.feedTitle}</div>
           </div>
           <div className={styles.feed_box}>
             {feed.feedLikeYn ? 
               <FontAwesomeIcon onClick={deleteLike} className={styles.likeY} icon={solidHeart} /> 
-              : <FontAwesomeIcon onClick={plusLike} icon={faHeart} />}
+              : <FontAwesomeIcon onClick={plusLike} className={styles.likeN} icon={faHeart} />}
             &nbsp;&nbsp;
-            <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
+            <FontAwesomeIcon onClick={share} className={styles.share_btn} icon={faPaperPlane} />
           </div>
           <div className={styles.feed_like}>
             {feed.feedLike}명이 이 피드를 좋아합니다!

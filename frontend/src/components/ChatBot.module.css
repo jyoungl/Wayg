@@ -75,6 +75,10 @@
     outline:none;
 }
 
+.sendInput:hover{
+  cursor: url(cursors/pencil.png) 0 0, auto;
+}
+
 .chat_main {
   padding: 5px;
   margin-bottom: 50px;
@@ -103,6 +107,11 @@
     padding-bottom: 7px;
     padding-top: 7px;
 }
+
+.chatBtn:hover{
+  cursor: url(cursors/cursors.png) 0 0, auto;
+}
+
 .chat_results {
     display: flex;
 }
@@ -117,7 +126,7 @@
 }
 
 .ham:hover{
-  cursor: url(cursors/cursors.png) 8 8, auto;
+  cursor: url(cursors/menu.png) 16 16, auto;
 }
 
 .chat_text {
@@ -135,7 +144,7 @@
     border-radius: 8px;
     width: auto;
     border: none;
-    cursor: url(cursors/cursors.png) 8 8, auto;
+    cursor: url(cursors/share.png) 16 16, auto;
 }
 
 .anotherFunction {
@@ -164,12 +173,12 @@
 
 .anotherFunction .menu {
     margin-bottom:5px;
-    cursor: pointer;
 }
 
 .anotherFunction .menu:hover{
     background-color:rgb(234, 233, 245);
     border-radius:5px;
+    cursor: url(cursors/cursors.png) 0 0, auto;
 }
 
 .container {

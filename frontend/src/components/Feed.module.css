@@ -37,6 +37,10 @@ body {
     object-fit: cover;
   }
 
+  .feed_img:hover{
+    cursor: url(cursors/cursors.png) 0 0, auto;
+  }
+
   .feed_description {
     padding: 5% 20px;
     display: flex;
@@ -81,6 +85,10 @@ body {
     overflow: hidden;
   }
 
+  .feed_title{
+    cursor: url(cursors/cursors.png) 0 0, auto;
+  }
+
   .feed_content {
       margin: 0;
       font-weight: 100;
@@ -92,6 +100,14 @@ body {
 
   .likeY {
     color: red;
+  }
+
+  .likeN:hover {
+    cursor: url(cursors/heart.png) 16 16, auto;
+  }
+
+  .share_btn:hover {
+    cursor: url(cursors/share.png) 16 16, auto;
   }
 
   .show {
