@@ -12,7 +12,7 @@ import CreateFeed from './CreateFeed'
 import { connect } from "react-redux";
 import { save } from "../index";
 
-function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult, changeLoad, counter, save, goSearch ,goLikeFeed, goPopular, goMyFeed, goScrapPlace}) {
+function ChatBot({parentFunction, addFeed, load, finalResultPart, changeFinalResultPart, finalResult, changeFinalResult, changeLoad, counter, save, goSearch ,goLikeFeed, goPopular, goMyFeed, goScrapPlace}) {
   // 데이터전송 axios를 위한 useState()
   const [receives, setReceives] = useState([]);
   const [receive, setReceive] = useState('');
@@ -47,7 +47,7 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
   
   const helloChat = ['안녕 내 이름은 우리라고 해!', '안녕 나는 우리야!', "안녕? 난 우리야 여행지를 추천해줄게!"];
   const whereChat = ['어느 지역으로 놀러가고 싶어?', '가고 싶은 지역이 있어?']
-  const questionChat = ["오늘은 어떤 여행을 하고 싶어? 우리에게 알려 줘!", "원하는 여행 테마를 알려 줄래?", '보고 싶은 게 있어? 우리한테 얘기해 봐! 들어줄 수도 있어', '원하는 여행 테마가 있어? 말해봐', '오늘은 뭘 하고 싶어? 말해 주면 추천해 줄 수도 있고 안 해 줄 수도 있지 ㅇㅅㅇ'  ]
+  const questionChat = ["오늘은 어떤 여행을 하고 싶어? 우리에게 알려 줘!", "원하는 여행 테마를 알려 줄래?", '보고 싶은 게 있어? 우리한테 얘기해 봐! 들어줄 수도 있어', '원하는 여행 테마가 있어? 말해봐', '오늘은 뭘 하고 싶어? 말해 주면 추천해 줄 수도 있고 안 해 줄 수도 있지'  ]
   
   useEffect(() => {
     // console.log("penguin")
@@ -224,19 +224,22 @@ function ChatBot({parentFunction, addFeed, load, finalResult, changeFinalResult,
             
 
             //////////////////////////////////////////여기까지 진행했음 save쪽이므로 따로 건들지 않음/////////////////
-            if (!isEmptyArr(sorted_results)){
+            if (sorted_results.length >= 3){
+              console.log(sorted_results)
               await setChat((currentArray) => 
                 [...currentArray, ['woori2', [{placename: sorted_results[0], img_src: makeImgSrc(sorted_results[0])}, 
                 {placename: sorted_results[1], img_src: makeImgSrc(sorted_results[1])}, 
                 {placename: sorted_results[2], img_src: makeImgSrc(sorted_results[2])} ]]]);
               // redux에 결과값 저장
               save(counter.token, counter.userNo, sorted_results, sorted_feed_results)
-              changeFinalResult(sorted_results);
+              // const new_arr = sorted_results.splice(0, 50)
+              changeFinalResult(sorted_results.slice(0,100));
               
               // 카카오 공유할 3개 여행지 저장
               setShareList([{placename: sorted_results[0], img_src: makeImgSrc(sorted_results[0])}, 
               {placename: sorted_results[1], img_src: makeImgSrc(sorted_results[1])}, 
                 { placename: sorted_results[2], img_src: makeImgSrc(sorted_results[2]) }])
+
             }
             else {
               setChat((currentArray) => [...currentArray, ['woori', '미안.. 추천할 만한 곳이 없는걸...']]);
