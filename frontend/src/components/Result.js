@@ -178,10 +178,10 @@ function Result({placeName, counter}) {
           <div className={styles.recommendation_box}>
             {searchResult.placeScrapYn ? 
               <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
-              : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />} 
+              : <FontAwesomeIcon onClick={plusScrap} className={styles.scrapN} icon={faBookmark} />} 
             &nbsp;<small>{searchResult.placeScrap}</small>
             &nbsp;&nbsp;
-            <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
+            <FontAwesomeIcon onClick={share} className={styles.share_btn} icon={faPaperPlane} />
           </div>
           <p onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_title}>{searchResult.placeName}</p>
           <p onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_writer}>{searchResult.placeNo} {searchResult.placeAddress}</p>

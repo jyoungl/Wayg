@@ -152,7 +152,7 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
     <div className={styles.recommendation}>
       <div>
         <div className={styles.headImg}>
-        <img onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
+        <img onClick={onClickRecommendation} className={styles.recommendation_img} src={recommendation.placeFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
           // currentTarget.src='./noPhoto.png';
           currentTarget.src=`https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png`;
@@ -161,14 +161,14 @@ function Recommendation({counter, placeNo,placeName,placeAddress,placeInfo,place
         <div className={styles.recommendation_description}>
           <div className={styles.recommendation_box}>
             {recommendation.placeScrapYn ? 
-              <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark} /> 
-              : <FontAwesomeIcon onClick={plusScrap} icon={faBookmark} />} 
+              <FontAwesomeIcon onClick={deleteScrap} className={styles.scrapY} icon={solidMark}  /> 
+              : <FontAwesomeIcon onClick={plusScrap} className={styles.scrapN} icon={faBookmark}/>} 
             &nbsp;<small>{recommendation.placeScrap}</small>
             &nbsp;&nbsp;
-            <FontAwesomeIcon onClick={share} icon={faPaperPlane} />
+            <FontAwesomeIcon onClick={share} icon={faPaperPlane} className={styles.share_btn}/>
           </div>
-          <p onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_title}>{recommendation.placeName}</p>
-          <p onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_writer}>{recommendation.placeNo} {recommendation.placeAddress}</p>
+          <p onClick={onClickRecommendation} className={styles.recommendation_title}>{recommendation.placeName}</p>
+          <p onClick={onClickRecommendation} className={styles.recommendation_writer}>{recommendation.placeNo} {recommendation.placeAddress}</p>
           <p>{recommendation.placeScrapYn}</p>
         </div>
       </div>

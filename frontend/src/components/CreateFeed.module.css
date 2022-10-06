@@ -39,6 +39,7 @@
 
 .picture:hover {
   background-color: antiquewhite;
+  cursor: url(cursors/camera.png) 16 16, auto;
 }
 
 .Title {
@@ -49,6 +50,10 @@
   padding-bottom: 3px;
   /* border-color:none; */
 }
+
+.Title:hover{
+  cursor: url(cursors/pencil.png) 0 0 , auto;
+}
 .place {
   /* display:inline-block; */
   margin-left: 12px;
@@ -58,6 +63,11 @@
   padding-bottom: 3px;
   
 }
+
+.place:hover{
+  cursor: url(cursors/pencil.png) 0 0 , auto;
+}
+
 .text {
   margin-top:1rem;
 }
@@ -68,11 +78,19 @@
   font-weight: bold;
 }
 
+.Content:hover{
+  cursor: url(cursors/pencil.png) 0 0 , auto;
+}
+
 .Nickname {
   border-radius: 5px;
   font-weight:bold;
   padding-top: 3px;
   padding-bottom: 3px;
+}
+
+.Nickname {
+  cursor: url(cursors/pencil.png) 0 0 , auto;
 }
 
 .feed_btn {
@@ -81,6 +99,10 @@
   background-color: white;
   color:black;
   margin-left: 75%;
+}
+
+.feed_btn:hover{
+  cursor: url(cursors/add.png) 0 0, auto;
 }
 
 .feed_btn:hover {

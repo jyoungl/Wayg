@@ -17,7 +17,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* 가로 스크롤 없애기? */
   overflow-x: hidden;
-  cursor: url(cursors/cursor.png) 8 8, auto;
+  cursor: url(cursors/cursor.png) 0 0, auto;
 }
 
 code {
