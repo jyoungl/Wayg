@@ -53,10 +53,12 @@
 
 ## 개발환경
 - OS: Windows10
-- Backend Framework: Spring Boot v2.7.1
-- Frontend Framework: React v18.2.0
-- JVM: openJDK (1.8.0_192)
-- DB: MySql v8.0.3
+- Spring Boot v2.7.1
+- React v18.2.0
+- Redux v4.2.0
+- node.js v16.16.0
+- Java v1.8(zulu8)
+- MySql v8.0.3
 - Docker v20.10.17
 - Jenkins v2.346.3
 - Nginx v1.18.0(Ubuntu)
