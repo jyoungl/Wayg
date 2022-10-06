@@ -2,24 +2,23 @@ package com.ssafy.wayg.service;
 
 import com.ssafy.wayg.dto.FeedDto;
 import com.ssafy.wayg.dto.FeedlikeDto;
-import com.ssafy.wayg.dto.PlaceDto;
+import com.ssafy.wayg.dto.FeedwordDto;
 import com.ssafy.wayg.entity.Feed;
-import com.ssafy.wayg.entity.Feedlike;
-import com.ssafy.wayg.entity.User;
-import com.ssafy.wayg.repository.FeedRepository;
-import com.ssafy.wayg.repository.FeedfileRepository;
-import com.ssafy.wayg.repository.FeedlikeRepository;
-import com.ssafy.wayg.repository.UserRepository;
+import com.ssafy.wayg.entity.Feedword;
+import com.ssafy.wayg.entity.Place;
+import com.ssafy.wayg.repository.*;
 import com.ssafy.wayg.util.DEConverter;
+import com.ssafy.wayg.util.MorphemeAnalyzer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class FeedServiceImpl implements FeedService {
@@ -27,16 +26,23 @@ public class FeedServiceImpl implements FeedService {
 	private FeedRepository feedRepository;
 	private FeedlikeRepository likeRepository;
 	private UserRepository userRepository;
-	private FeedfileRepository fileRepository;
+	private PlaceRepository placeRepository;
+	private FeedwordRepository feedwordRepository;
 	private DEConverter converter;
+	private MorphemeAnalyzer analyzer;
 
 	@Autowired
-	public FeedServiceImpl(FeedRepository feedRepository, FeedlikeRepository likeRepository, UserRepository userRepository, FeedfileRepository fileRepository, DEConverter converter) {
+	public FeedServiceImpl(FeedRepository feedRepository, FeedlikeRepository likeRepository,
+						   UserRepository userRepository, PlaceRepository placeRepository,
+						   FeedwordRepository feedwordRepository,
+						   DEConverter converter, MorphemeAnalyzer analyzer) {
 		this.feedRepository = feedRepository;
 		this.likeRepository = likeRepository;
 		this.userRepository = userRepository;
-		this.fileRepository = fileRepository;
+		this.placeRepository = placeRepository;
+		this.feedwordRepository = feedwordRepository;
 		this.converter = converter;
+		this.analyzer = analyzer;
 	}
 
 	@Override
@@ -54,9 +60,27 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	@Override
+	@Transactional
 	public FeedDto insertFeed(FeedDto feedDto) throws Exception {
 		feedDto.setFeedRegdate(Instant.now());
-		return converter.toFeedDto(feedRepository.save(converter.toFeedEntity(feedDto)));
+		//피드 저장하기
+		Feed savedFeed = feedRepository.save(converter.toFeedEntity(feedDto));
+
+		//관광지 있는지 찾기
+		if(placeRepository.findByPlaceName(feedDto.getFeedPlacename()) == null){
+			//없는 관광지면 place에 저장하기
+			placeRepository.save(new Place(feedDto.getFeedPlacename()));
+		}
+
+		//형태소 저장
+		//피드 형태소 분리해서 feedword에 저장하기
+		Map<String,Integer> morphemes = analyzer.pickMorpheme(savedFeed.getFeedContent()+", "+savedFeed.getFeedTitle());
+		for(Map.Entry<String,Integer> entry:morphemes.entrySet()){
+			feedwordRepository.save(new Feedword(entry.getKey(), entry.getValue(), savedFeed, savedFeed.getFeedPlacename()));
+		}
+
+		//저장된 피드 반환하기
+		return converter.toFeedDto(savedFeed);
 	}
 
 	@Override
@@ -65,8 +89,6 @@ public class FeedServiceImpl implements FeedService {
 
 		feedDto.setUserNo(feedRepository.findByFeedNo(feedNo));
 		feedDto.setFeedLikeYn(likeRepository.findByUserNoUserNoAndFeedNoFeedNo(userNo, feedNo) != null);
-
-		feedDto.setFeedFiles(converter.toFeedfileDtoList(fileRepository.findByFeedNoFeedNo(feedNo)));
 		
 		return feedDto;
 	}
@@ -129,6 +151,23 @@ public class FeedServiceImpl implements FeedService {
 
 		return feedDtoPage;
 
+	}
+
+	@Override
+	public long totalSize(){
+		return feedRepository.count();
+	}
+
+	@Override
+	public List<FeedwordDto> oneSize(String str){
+		List<Feedword> feedwords = feedwordRepository.findByFeedwordWord(str);
+		return converter.toFeedwordDto(feedwords);
+	}
+
+	@Override
+	public double feedword(String word, long total) {
+		Long size = feedwordRepository.countByFeedwordWord(word);
+		return Math.log(((double)total / (double) size));
 	}
 
 }

@@ -1,27 +1,51 @@
+body {
+  font-family: 'Jalnan';
+}
+
 .feed {
+  white-space: pre-line;
+
   margin: 10px;
-  background-color: white;
-  width: 200px;
-  height: 200px;
   margin-bottom: 70px;
+
+  background-color: white;
+
+  width: 300px;
+  height: 300px;
+
   font-weight: 300;
-  padding: 10px;
-  border-radius: 5px;
-  color: #111;
-  display: flex;
   text-decoration: none;
+
+  border-radius: 10px;
+  overflow: hidden;
+  color: #111;
+
+  display: flex;
   box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
     0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
 }
+
+.feed_div {
+  width: 100%;
+    height: 70%;
+    box-shadow: 1px 1px 5px 1px rgb(100 100 100 / 30%)
+}
   
   .feed_img {
-    top: -50px;
-    max-width: 160px;
-    min-width: 100px;
-    min-height: 100px;
     width: 100%;
-    height: auto;
-    margin-right: 30px;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .feed_img:hover{
+    cursor: url(cursors/cursors.png) 0 0, auto;
+  }
+
+  .feed_description {
+    padding: 5% 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
   }
 
   .feed_box {
@@ -29,19 +53,40 @@
     align-items: center;
   }
 
+  .feed_like {
+    margin: 0;
+    font-weight: 100;
+    text-decoration: none;
+    font-size: 12px;
+    color: gray;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
   .feed_writer {
       color: gray;
-      font-size: 6px;
+      text-align:left;
+      font-size: 12px;
       margin-bottom: 0;
   }
+
   
   .feed_title {
     margin: 0;
     font-weight: 100;
     text-decoration: none;
-    font-size: 6px;
+    font-size: 15px;
     color: #2c2c2c;
-    text-decoration: none;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .feed_title{
+    cursor: url(cursors/cursors.png) 0 0, auto;
   }
 
   .feed_content {
@@ -51,11 +96,18 @@
       margin-bottom: 5px;
       font-size: 16px;
       color: #2c2c2c;
-      text-decoration: none;
     }
 
   .likeY {
     color: red;
+  }
+
+  .likeN:hover {
+    cursor: url(cursors/heart.png) 16 16, auto;
+  }
+
+  .share_btn:hover {
+    cursor: url(cursors/share.png) 16 16, auto;
   }
 
   .show {
@@ -113,5 +165,34 @@
         text-decoration: none;
 }
 
-
+.cardImg {
+  width: 100%;
+  height: 100%;
   
+  object-fit: cover;
+  
+}
+
+.CardShare {
+  display:flex;
+  margin: auto;
+  margin-top:10vh;
+}
+
+.feed_detail {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  height: 40rem;
+  border: 0px;
+
+  border-radius: 10px;
+  overflow: hidden;
+  color: #111;
+
+  display: flex;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+}

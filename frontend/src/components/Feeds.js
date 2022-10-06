@@ -1,22 +1,19 @@
 import Feed from "./Feed";
 import axios from "axios";
 import styles from "./Feeds.module.css"
-import React, {useEffect, useState} from 'react'
-// import Swiper core and required modules
+import React, {useEffect, useState, useRef} from 'react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-function Feeds() {
+import { connect } from "react-redux";
+
+function Feeds({counter}) {
 
   const [feeds, setFeeds] = useState([])
-  
   useEffect(()=> {
 
     const fetchFeeds = async () => {
@@ -24,12 +21,12 @@ function Feeds() {
           const response = await axios.get(process.env.REACT_APP_HOST+'feed'
           ,{
             params: {
-              page: 2,
-              size: 10,
-              userNo: 1,
+              page: 0,
+              size: 150,
+              userNo: counter.userNo,
             }
           });
-          console.log(response.data)
+          // console.log(response.data)
           setFeeds(response.data.feedList.content)
         } catch (e) {
           
@@ -38,19 +35,36 @@ function Feeds() {
     fetchFeeds();
   },[])
 
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
+
   return (
-    <div className="" style={{width: "70vw", height: "40vh"}}>
-      <h2>사용자들이 올린 피드</h2>
+    <div className={styles.feeds}>
+      <h2>우리의 피드 추천</h2>
       <Swiper
         // install Swiper modules
+        className="feed_swiper"
         modules={[Navigation, Pagination, Scrollbar, A11y]}
-        spaceBetween={30}
-        slidesPerView={3}
-        navigation
-        // pagination={{ clickable: true }}
-        // scrollbar={{ draggable: false }}
-        onSwiper={(swiper) => console.log(swiper)}
+        spaceBetween={8}
+        slidesPerView={1}
+        navigation = {true}
         onSlideChange={() => console.log('slide change')}
+        breakpoints={{
+          800: {
+            slidesPerView: 2,
+            // spaceBetween: 20
+          },
+          // when window width is >= 480px
+          1200: {
+            slidesPerView: 3,
+            // spaceBetween: 30
+          },
+          1600: {
+            slidesPerView: 4,
+            // spaceBetween: 40
+          },
+          // when window width is >= 640px
+        }}
       >
         {feeds.map((feed,idx) => (
           <SwiperSlide key={idx}>
@@ -62,4 +76,11 @@ function Feeds() {
   );
 }
 
-export default Feeds;
+
+const mapStateToProps = state => ({
+  counter: state.counterReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+)(Feeds);

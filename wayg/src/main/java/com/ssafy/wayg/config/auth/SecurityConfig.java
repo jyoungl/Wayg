@@ -20,11 +20,13 @@ public class SecurityConfig {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile", "/swagger-ui/**","/swagger-ui","/feed","/feed/**","/place","/place/**").permitAll()
-                    .antMatchers("/api/v1/**").hasRole(Role.USER.name()) //USER 권한 가진 사람만 가능 -> 로그인 후 기능 url 넣어야함
-                    .antMatchers("/oauth2/authorization/kakao").authenticated()
-                    .anyRequest().authenticated() //설정값 이외의 url은 인증 완료한 사용자만이 사용가능함
-//                    .anyRequest().permitAll()
+//                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/swagger-ui/**","/swagger-ui","/feed","/feed/**","/place","/place/**").permitAll()
+//                    .antMatchers("/api/v1/**").hasRole(Role.USER.name()) //USER 권한 가진 사람만 가능 -> 로그인 후 기능 url 넣어야함
+//                    .antMatchers("/oauth2/authorization/kakao/**").permitAll()
+//                    .antMatchers("/api/login/**").permitAll()
+//                    .anyRequest().authenticated() //설정값 이외의 url은 인증 완료한 사용자만이 사용가능함
+                    .antMatchers("api/feed/upload","api/feed/myFeed","api/feed/like","api/feed/like/**","api/feed/myLikeList","api/place/scrap","api/place/scrap/**","api/place/myScrapList").authenticated()
+                    .anyRequest().permitAll()
                 .and()
                     .logout()
                     .logoutSuccessUrl("/") // 로그아웃 성공시 /로 이동

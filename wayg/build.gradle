@@ -15,6 +15,10 @@ version '1.0.4-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = 1.8
 compileJava.options.encoding = "UTF-8"
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 repositories {
     mavenCentral()
     jcenter()
@@ -37,6 +41,7 @@ dependencies {
     implementation('org.modelmapper:modelmapper:3.1.0')
     implementation('com.google.code.gson:gson:2.8.5')
     implementation('com.googlecode.json-simple:json-simple:1.1')
+    implementation('org.openkoreantext:open-korean-text:2.1.0')
     testImplementation('org.springframework.security:spring-security-test')
 }
 

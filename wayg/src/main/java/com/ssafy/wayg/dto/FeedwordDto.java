@@ -17,5 +17,7 @@ import java.io.Serializable;
 public class FeedwordDto implements Serializable {
     private Integer feedwordNo;
     private String feedwordWord;
+    private Integer feedwordCount;
     private Integer feedNo;
+    private String feedwordName;
 }

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -30,12 +31,6 @@ public class User {
     @Column(name = "user_email", nullable = false, length = 45)
     private String userEmail;
 
-    @Column(name = "user_gender")
-    private String userGender;
-
-    @Column(name = "user_age")
-    private String userAge;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
@@ -44,8 +39,6 @@ public class User {
     public User(String userName, String userEmail, String userGender, String userAge, Role role){
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userGender = userGender;
-        this.userAge = userAge;
         this.role = role;
     }
 

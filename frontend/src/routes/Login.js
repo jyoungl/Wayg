@@ -6,23 +6,23 @@ import styles from "./Login.module.css";
 
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { actionCreators } from '../store';
 import axios from 'axios';
 
 function Login({toDos, addToDo}) {
   const navigate = useNavigate();
   
   const REST_API_KEY = "bbe27fdfd6962e9fa7c41c8b3c99fb13"
-  const REDIRECT_URI = process.env.REACT_APP_HOST+ "kakaotest"
+  const REDIRECT_URI = process.env.REACT_APP_HOST+ "login"
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   // const KAKAO_AUTH_URL = `http://localhost:8080/api/oauth2/authorization/kakao`;
-
+  const kakao_btn = () => {
+    alert("이메일 제공 동의를 누르셔야 서비스 가입이 가능해요!")
+  }
 
   return (
     <div className={styles.login}>
       <div className={styles.login_items}>
-        <h1 className={styles.pjt_name}>우리 어디가?</h1>
+        <h1 className={styles.pjt_name}>우리! 어디가?</h1>
         <div className={styles.container}>
           <div className={styles.box}>
           <div className={styles.login_woori}>
@@ -35,7 +35,7 @@ function Login({toDos, addToDo}) {
           </div>
         </div>
         <div className={styles.button}>
-          <a href={KAKAO_AUTH_URL}>
+          <a style={{}} onClick={kakao_btn} href={KAKAO_AUTH_URL}>
             <img
               src={kakaoBtn}
               className={styles.kakao_btn}
@@ -48,21 +48,12 @@ function Login({toDos, addToDo}) {
                 >
             </div>
           </a> */}
-          <p onClick={() => navigate('/main')} className={styles.sub_button}>로그인 없이 사용하기</p>
+          <p onClick={() => navigate('/guestLogin')} className={styles.sub_button}>로그인 없이 사용하기</p>
         </div>
       </div>
     </div>
   );
 }
 
-function mapStateToProps(state){
-  return { toDos: state}
-}
 
-function mapDispatchToProps(dispatch){
-  return {
-    addToDo: (text) => dispatch(actionCreators.addToDo(text))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps) (Login);
+export default Login;

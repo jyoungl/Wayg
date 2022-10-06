@@ -1,8 +1,10 @@
 package com.ssafy.wayg.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+import com.ssafy.wayg.dto.FeedwordDto;
+import com.ssafy.wayg.dto.PlacewordDto;
+import com.ssafy.wayg.util.MorphemeAnalyzer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +23,16 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/feed")
 public class FeedController {
-	private static final String SUCCESS = "succeess";
+	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 	
 	private FeedService feedService;
+	private MorphemeAnalyzer analyzer;
 	
 	@Autowired
-	public FeedController(FeedService feedService) {
+	public FeedController(FeedService feedService, MorphemeAnalyzer analyzer) {
 		this.feedService = feedService;
+		this.analyzer = analyzer;
 	}
 	
 	@ApiOperation(value = "피드 목록", notes = "성공여부와 해당 페이지의 피드 정보를 반환한다. ", response = Map.class)
@@ -50,6 +54,40 @@ public class FeedController {
 		return new ResponseEntity<>(resultMap, httpStatus);
 	}
 
+	@ApiOperation(value = "피드 목록(tf-idf)", notes = "성공여부와 해당 페이지의 피드 정보를 입력받은 텍스트와 관련된 순으로 반환한다. ", response = Map.class)
+	@PostMapping
+	public ResponseEntity<Map<String,Object>> retrieveFeed(@RequestBody Map<String,Object> params){
+		Map<String,Object> resultMap = new HashMap<>();
+		HttpStatus httpStatus = HttpStatus.ACCEPTED;
+		Map<String,Integer> split = analyzer.pickMorpheme((String) params.get("str")); // 형태소 분리한 결과 넣은 map
+		List<String> send = new ArrayList<>(split.keySet());	//형태소 분리한 단어들을 list에 넣어줌
+
+		ArrayList<String> placeList = (ArrayList<String>) params.get("placeList");
+		if(placeList != null) Collections.sort(placeList);
+
+		Map<String, Double> feeds = new HashMap<>(); // 피드와 tfidf 값 넣어줄 map
+		try {
+			long total = feedService.totalSize(); //전체 문서 수
+
+			for (String s : send) {
+				//각 단어의 idf 구하기 * 피드 tf
+				List<FeedwordDto> feedwordDtoList = feedService.oneSize(s);
+				double idf = feedService.feedword(s, total);
+				for (FeedwordDto feedwordDto : feedwordDtoList) {
+					if(placeList != null && Collections.binarySearch(placeList,feedwordDto.getFeedwordName()) >= 0){
+						feeds.put(feedwordDto.getFeedwordName(), idf * feedwordDto.getFeedwordCount());
+					}
+				}
+			}
+			resultMap.put("content",feeds);
+			resultMap.put("message",SUCCESS);
+			httpStatus = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message", FAIL);
+		}
+		return new ResponseEntity<>(resultMap, httpStatus);
+	}
+
 	@ApiOperation(value = "피드 상세보기", notes = "성공여부와 피드 번호에 해당하는 피드의 정보를 반환한다.", response = Map.class)
 	@GetMapping("/view")
 	public ResponseEntity<Map<String,Object>> detailFeed(@RequestParam int userNo, @RequestParam int feedNo) {
@@ -66,7 +104,7 @@ public class FeedController {
 	}
 
 	@ApiOperation(value = "피드 등록", notes = "새로운 피드 정보를 입력한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
-	@PostMapping
+	@PostMapping("/upload")
 	public ResponseEntity<Map<String,Object>> writeFeed(@RequestBody FeedDto feed) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
@@ -80,13 +118,15 @@ public class FeedController {
 
 	@ApiOperation(value = "피드 삭제", notes = "피드 번호에 해당하는 피드의 정보를 삭제한다. 그리고 DB 삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping("/{feedNo}")
-	public ResponseEntity<String> deleteFeed(@PathVariable int feedNo) {
+	public ResponseEntity<Map<String,Object>> deleteFeed(@PathVariable int feedNo) {
+		Map<String,Object> resultMap = new HashMap<>();
 		try {
 			feedService.deleteFeed(feedNo);
-			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+			resultMap.put("message",SUCCESS);
 		} catch (Exception e) {
-			return new ResponseEntity<>(FAIL, HttpStatus.ACCEPTED);
+			resultMap.put("message",e.getMessage());
 		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "내 피드 목록", notes = "성공여부와 내 피드 정보를 반환한다. ", response = Map.class)
@@ -123,13 +163,15 @@ public class FeedController {
 	
 	@ApiOperation(value = "좋아요 삭제", notes = "피드 번호에 해당하는 피드의 좋아요 정보를 삭제한다. 그리고 DB 삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping("/like/{feedNo}")
-	public ResponseEntity<String> deleteLike(@RequestParam int userNo, @RequestParam int feedNo) {
+	public ResponseEntity<Map<String,Object>> deleteLike(@RequestParam int userNo, @RequestParam int feedNo) {
+		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			feedService.deleteLike(userNo, feedNo);
-			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+			resultMap.put("message",SUCCESS);
 		} catch (Exception e) {
-			return new ResponseEntity<>(FAIL, HttpStatus.ACCEPTED);
+			resultMap.put("message",e.getMessage());
 		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "좋아요 리스트", notes = "성공여부와 내가 좋아요 누른 피드의 정보를 반환한다. ", response = Map.class)

@@ -12,17 +12,14 @@ import javax.persistence.Table;
 import java.time.Instant;
 
 @Data
-@Getter
-@Setter
 @Entity
-@NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "feed")
 public class Feed {
     @Id
     @Column(name = "feed_no", nullable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer feedNo;
 
     @Column(name = "feed_title", nullable = false, length = 45)
@@ -40,6 +37,12 @@ public class Feed {
 
     @Column(name = "feed_regdate")
     private Instant feedRegdate;
+
+    @Column(name = "feed_placename", length = 45)
+    private String feedPlacename;
+
+    @Column(name = "feed_file")
+    private String feedFile;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

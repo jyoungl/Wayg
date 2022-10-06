@@ -1,19 +1,10 @@
 .feeds {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 50px;
-    width: 80%;
-    padding-top: 70px;
+    width: 110%;
+    height: 30%;
+    box-sizing: border-box;
+    /* margin-left:9%; */
   }
   
-  .feeds_list {
-    display: flex;
-    flex-wrap: wrap;
-  }
-    
-  @media screen and (max-width: 1090px) {
-    .feeds {
-      grid-template-columns: 1fr;
-      width: 100%;
-    }
+  .feeds swiper swiper-slide {
+    margin: 20px;
   }
