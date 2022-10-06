@@ -7,6 +7,7 @@ import styles from "./Login.module.css";
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import cursor from '../images/cursor.png'
 
 function Login({toDos, addToDo}) {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ function Login({toDos, addToDo}) {
           </div>
         </div>
         <div className={styles.button}>
-          <a onClick={kakao_btn} href={KAKAO_AUTH_URL}>
+          <a style={{}} onClick={kakao_btn} href={KAKAO_AUTH_URL}>
             <img
               src={kakaoBtn}
               className={styles.kakao_btn}

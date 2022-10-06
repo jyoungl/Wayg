@@ -15,21 +15,67 @@ import LoadingPink from '../images/LoadingPink.png';
 import hinguri from '../images/hinguri.png'
 import Doori from './LoadingPink'
 import { useReducer } from "react";
+import { createStore } from "redux";
 
-function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter}) {
-  
+function Shows({changeFinalResultPart, finalResultPart, finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter}) {
+  console.log(finalResultPart)
   const [items, setItems] = useState([])
   const [relateFeed, setRelateFeed] = useState([])
   const [relatePlace,  setRelatePlace ] = useState([])
 
+  // useEffect(() => {
+  //   if (isEmptyArr(finalResult) === false){
+  //     const new_arr = finalResult[0, 10];
+  //     setRelatePlace([...new_arr])
+  //   }
+  // }, [])
+
+  // 무한 스크롤
+  // const obsRef = useRef(null);
+  // const [page, setPage] = useState(0);
+  // const [scrollLoad, setScrollLoad] = useState(1);
+  // const preventRef = useRef(true);
+
+  // const [resultLoading, setResultLoading] = useState(null)
+  // const parentFunc = (x) => {
+  //   setResultLoading(true)
+  //   setResultLoading(false)
+  // }
+
+  // useEffect(()=>{
+  //   const observer = new IntersectionObserver(obsHandler, {threshold : 0.5});
+  //   if (obsRef.current) observer.observe(obsRef.current);
+  //   return () => {observer.disconnect();}
+  // },[])
+
+  // useEffect(()=>{
+  //   console.log('plus result!!!!')
+  // }, [page])
+
+  // const obsHandler = ((entries) => {
+  //   const target = entries[0];
+  //   if(target.isIntersecting ){
+  //     setPage(prev => prev + 1);
+  //   }
+  // })
+
 
   // useEffect(()=> {
-  //   if (isEmptyArr(finalResult) === false){
-  //     const newResults = finalResult[0, 100]
-  //     setRelatePlace([...newResults])
+  //   // 검색결과 무한스크롤
+  //   console.log(finalResult)
+  //   const division = (resultsList, n) => {
+  //     const newArray = [];
+  //     const length = resultsList.length;
+  //     const divide = Math.floor(length / n) + (Math.floor( length % n ) > 0 ? 1 : 0);
+  //     for (let i = 0; i <=divide; i++) {
+  //       newArray.push(resultsList.splice(0,n))
+  //     }
+  //     return(newArray)
   //   }
-  //   // console.log(finalResult)
-  //   // console.log(relatePlace)
+  //   const resultsList = finalResult
+  //   // changeFinalResultPart(division(resultsList,10))
+  //   console.log(finalResultPart);
+    
   // },[finalResult])
 
   useEffect(()=> {
@@ -197,20 +243,22 @@ function Shows({finalResult, load, search, scrapPlace ,likeFeed, myFeed, counter
       </> : null}
       {search ? 
       <>
-        <div className={styles.shows_list}>
+        {/* <div className={styles.shows_list}>
           {finalResult.map((result,idx) => (
             <Result placeName={result} key={idx} />
           ))}
-        </div>
+        </div> */}
         { load ? 
         // 두리가 움직임
           <Doori/>
           : <>
-          <div className={styles.shows_list}>
+            <div className={styles.shows_list}>
               {finalResult.map((result,idx) => (
                 <Result placeName={result} key={idx} />
               ))}
-            </div></> }
+            </div>
+            {/* <div ref={obsRef}>...</div> */}
+          </> }
         
       </> : null}
     </div>
