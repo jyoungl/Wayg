@@ -69,5 +69,5 @@
 - [김희주]([heeejoo0518 · GitHub](https://github.com/heeejoo0518)) Backend
 - [이성찬]([seongchanleelee · GitHub](https://github.com/seongchanleelee)) Frontend
 - [이승진]([lapera00 · GitHub](https://github.com/lapera00)) Frontend
-- [이주영]([pmis118 · GitHub](https://github.com/pmis118)) Backend
+- [이주영]([jyoungl · GitHub](https://github.com/jyoungl)) Backend
 - [허은지]([hxxejx · GitHub](https://github.com/hxxejx)) Backend
