@@ -169,7 +169,7 @@ function Result({placeName, counter}) {
       {/* <p>{searchResult}</p> */}
       <div>
         <div className={styles.headImg}>
-        <img onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_img} src={searchResult.placeFile} onError={({ currentTarget }) => {
+        <img onClick={onClickRecommendation} className={styles.recommendation_img} src={searchResult.placeFile} onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
           currentTarget.src='https://cdn.discordapp.com/attachments/1011092792438689903/1026857973819134043/noPhoto.png';
         }}/>
@@ -183,8 +183,8 @@ function Result({placeName, counter}) {
             &nbsp;&nbsp;
             <FontAwesomeIcon onClick={share} className={styles.share_btn} icon={faPaperPlane} />
           </div>
-          <p onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_title}>{searchResult.placeName}</p>
-          <p onClick={onClickRecommendation} style={{cursor:"pointer"}} className={styles.recommendation_writer}>{searchResult.placeNo} {searchResult.placeAddress}</p>
+          <p onClick={onClickRecommendation}  className={styles.recommendation_title}>{searchResult.placeName}</p>
+          <p onClick={onClickRecommendation}  className={styles.recommendation_writer}>{searchResult.placeNo} {searchResult.placeAddress}</p>
           <p>{searchResult.placeScrapYn}</p>
           
         </div>

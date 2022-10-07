@@ -293,6 +293,14 @@ function ChatBot({parentFunction, addFeed, load, finalResultPart, changeFinalRes
     setTimeout(() => {
       setChat((currentArray) => [...currentArray, ['woori', "http://pf.kakao.com/_kMMCxj"]])
     }, 2000)
+
+    setTimeout(() => {
+      setChat((currentArray) => [...currentArray, ['woori', "우리의 소개 영상을 보고 싶다면 일로 와!"]])
+    }, 2500)
+
+    setTimeout(() => {
+      setChat((currentArray) => [...currentArray, ['woori', "https://www.youtube.com/watch?v=VZCF5isKfSs"]])
+    }, 2000)
    
   }
 
