@@ -2,7 +2,13 @@
 
 **하둡을 이용한 여행지 추천 챗봇 서비스**
 
+## UCC
 
+클릭하면 영상으로 이동됩니다.
+
+<a href="https://youtu.be/VZCF5isKfSs"><img src="https://i.ibb.co/SR9gkVn/VZCF5is-Kf-Ss-sddefault.jpg" alt="UCC" border="0"></a>
+
+</br>
 
 ## 프로젝트 개요
 
@@ -10,21 +16,18 @@
 
 2022.08.29 ~ 2022.10.06 (6주)
 
+</br>
+
 ### 2. 목표
 
 - 챗봇 형식을 가진 여행지 추천 웹 서비스
-
 - 여행 관련 글을 크롤링을 모아 Hadoop MapReduce를 이용해 분석하고 Sqoop을 사용하여 RDBMS에 옮기기
-
 - 대화하는 듯한  관광지 찾기
-
 - 연속된 대화로 더 세분화된 추천기능
-
 - 모바일 반응형
-
 - 카카오 챗봇   
 
-  <br/>
+</br>
 
 ### 3. 주요 기술
 
@@ -35,7 +38,7 @@
 - 회원이 입력한 데이터를 추천 시스템에 반영하여 답변 질 향상
 - 반응형 웹으로 높은 접근성 제공
 
-
+</br>
 
 ### 4. 화면
 
@@ -59,6 +62,8 @@
 
 <img src = "https://user-images.githubusercontent.com/86655589/194228955-63ccf26e-125b-4d88-ba32-7c967eb2b426.jpg" width="30%" height="30%">
 
+</br>
+
 ## 프로젝트 구조
 
 ### 1. 아키텍처
@@ -75,6 +80,8 @@
 
 
 
+</br>
+
 ## 기술 스택
 
 ### 1. 개발 환경
@@ -89,6 +96,8 @@
 - Postman
 - MobaXterm
 - MySQL WorkBench 8.0 CE
+
+</br>
 
 ### 2. 기술 스택
 
@@ -121,7 +130,7 @@
 - MapReduce v3.2.1
 - Sqoop v1.4.7
 
-
+</br>
 
 ## 팀원
 
@@ -131,4 +140,3 @@
 - [이승진]([lapera00 · GitHub](https://github.com/lapera00)) Backend
 - [이주영]([jyoungl · GitHub](https://github.com/jyoungl)) Backend
 - [허은지]([hxxejx · GitHub](https://github.com/hxxejx)) Backend
-
